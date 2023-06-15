@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "stylelint": "stylelint \"src/**/*.scss\"",
+    "stylelint": "stylelint \"src/styles/**/*.scss\"",
     "watch": {
       "stylelint-dev": "concurrently \"stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'\" \"npm-watch\"",
       "patterns": [
