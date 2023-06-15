@@ -55,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.63.4"
+    "sass": "^1.63.4",
     "@babel/eslint-parser": "^7.22.5",
     "concurrently": "^8.2.0",
     "eslint": "^8.42.0",
@@ -71,4 +71,3 @@
     "stylelint-webpack-plugin": "^4.1.1"
   }
 }
-

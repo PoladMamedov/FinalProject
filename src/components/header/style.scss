@@ -1,0 +1,103 @@
+@import "../../styles/style.scss";
+
+.header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   background-color: $headerColor;
+   position: relative;
+
+   &__company-logo {
+      font-weight: 500;
+      font-size: 25px;
+      line-height: 30px;
+      color: $textColor;
+      padding: 11px 20px;
+   }
+
+   &__menu-btn {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      background-color: $titleColor;
+      border: none;
+
+      &--active {
+         @extend .header__menu-btn;
+      }
+   }
+
+   &__menu-lines {
+      position: absolute;
+      left: 18px;
+      width: 23px;
+      height: 2px;
+      background-color: $burgerLineColor;
+      transition: all .3s ease;
+
+      &:nth-child(1) {
+         transform: translateY(-6px);
+      }
+
+      &:nth-child(3) {
+         transform: translateY(6px);
+      }
+   }
+
+   &__nav {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      top: 82px;
+      left: -100%;
+      background-color: $bodyColor;
+      margin-bottom: 30px;
+      box-shadow: 0px 6px 10px 0px #00000040;
+      transition: left .5s ease;
+
+      &--open {
+         @extend .header__nav;
+         left: 0;
+
+      }
+   }
+
+   &__nav-list {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px 0;
+      margin-left: 9px;
+   }
+
+   &__nav-item {
+      font-size: 16px;
+      line-height: 19px;
+      color: $textColor;
+
+      &:not(:last-child)::after {
+         content: '/';
+         width: 10px;
+         height: 1px;
+         margin: 0 5px;
+      }
+
+      &--active {
+         @extend .header__nav-item;
+         font-weight: 700;
+      }
+   }
+}
+
+.header__menu-btn--active .header__menu-lines:nth-child(1) {
+   transform: rotateZ(40deg);
+}
+
+.header__menu-btn--active .header__menu-lines:nth-child(2) {
+   opacity: 0;
+}
+
+.header__menu-btn--active .header__menu-lines:nth-child(3) {
+   transform: rotateZ(-40deg);
+}
