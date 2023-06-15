@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended",
+    "stylelint-config-recommended-react"
+  ],
+  "plugins": [],
+  "rules": {
+    "order/order": ["custom-properties", "declarations"],
+    "order/properties-order": []
+  }
+}
