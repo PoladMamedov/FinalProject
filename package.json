@@ -35,9 +35,19 @@
       "browser": true,
       "mocha": true
     },
-    "extends": ["react-app", "react-app/jest", "airbnb", "airbnb/hooks"],
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks"
+    ],
     "rules": {
-      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+      "no-trailing-spaces": [
+        "error",
+        {
+          "skipBlankLines": true
+        }
+      ],
       "no-return-assign": 0,
       "eol-last": 0,
       "semi": 0,
@@ -49,18 +59,25 @@
       "react": {
         "version": "detect"
       },
-      "propWrapperFunctions": ["forbidExtraProps"]
+      "propWrapperFunctions": [
+        "forbidExtraProps"
+      ]
     }
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-<<<<<<< HEAD
     "sass": "^1.63.4",
-=======
->>>>>>> main
     "@babel/eslint-parser": "^7.22.5",
     "concurrently": "^8.2.0",
     "eslint": "^8.42.0",
