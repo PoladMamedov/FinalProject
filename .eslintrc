@@ -19,15 +19,5 @@
       "version": "detect"
     },
     "propWrapperFunctions": ["forbidExtraProps"]
-  },
-  "watch": {
-    "stylelint-dev": {
-      "patterns": ["/src/**/*.scss"],
-      "extensions": "scss"
-    },
-    "eslint": {
-      "patterns": ["/src/**/*.js"],
-      "extensions": "js"
-    }
   }
 }

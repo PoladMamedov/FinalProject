@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "npm-watch": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.0",
@@ -28,34 +27,36 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "stylelint": "stylelint \"src/styles/**/*.scss\"",
-    "watch": {
-      "stylelint-dev": "concurrently \"stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'\" \"npm-watch\"",
-      "patterns": [
-        "src/**/*.scss"
-      ],
-      "extensions": "scss"
-    }
+    "watch": "onchange \"src/styles/**/*.scss\" -- npm run stylelint"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "parser": "@babel/eslint-parser",
+    "env": {
+      "browser": true,
+      "mocha": true
+    },
+    "extends": ["react-app", "react-app/jest", "airbnb", "airbnb/hooks"],
+    "rules": {
+      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+      "no-return-assign": 0,
+      "eol-last": 0,
+      "semi": 0,
+      "camelcase": 0,
+      "object-curly-spacing": 0,
+      "comma-dangle": 0
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "propWrapperFunctions": ["forbidExtraProps"]
+    }
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "devDependencies": {
-    "sass": "^1.63.4"
     "@babel/eslint-parser": "^7.22.5",
     "concurrently": "^8.2.0",
     "eslint": "^8.42.0",
@@ -65,8 +66,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "onchange": "^7.1.0",
     "standard": "^17.1.0",
     "stylelint": "^15.7.0",
+    "stylelint-config-recommended": "^12.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-webpack-plugin": "^4.1.1"
   }
