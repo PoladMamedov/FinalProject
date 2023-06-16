@@ -1,20 +1,30 @@
 //кольори
-$headerColor: #F8F8F8;
-$bodyColor: #FFFFFF;
-$footerColor: #484543;
-$titleColor: #393D45;
-$textColor: #616467;
+// $headerColor: #f8f8f8;
+// $bodyColor: #ffffff;
+// $footerColor: #484543;
+// $titleColor: #393d45;
+// $textColor: #616467;
+// $darkButtonColor: #211f1c;
+// $tableRowColor: #f1f1f1;
+// $tableTitleColor: #000000;
+// $tableTextColor: #334756;
+// $inputColor: #f5f7fb;
+// $burgerLineColor: #f4f4f4;
+// LogIn & Register Pages
+// $loginRegisterTitleColor: #334756;
+// $loginRegisterButtonBgColor: #211f1c;
+// $loginRegisterOnHoverButtonBgColor: #334756;
+// $loginRegisterButtonTextColor: #fbfbfb;
+// $inputsBg: #f5f7fb;
 
-$darkButtonColor: #211F1C;
-
-$tableRowColor: #F1F1F1;
-$tableTitleColor: #000000;
-$tableTextColor: #334756;
-
-
-$inputColor: #F5F7FB;
-$burgerLineColor: #F4F4F4;
-
-
-
-
+//! new constants!
+$white: #ffffff;
+$primary: #393d45;
+$primaryLight: #616467;
+$primaryDark: #211f1c;
+$primaryBlue: #334756;
+/*назвал primaryBlue, не смог придумать ничего лучше без использования конкретного цыета, будут идеи велкам)*/
+$burgerLineColor: #f4f4f4;
+$secondary: #acacac;
+$secondaryLight: #f5f7fb;
+// $secondaryDark:

@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "formik": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.0",
@@ -18,7 +19,8 @@
     "sass": "^1.63.4",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-order": "^6.0.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,9 +37,19 @@
       "browser": true,
       "mocha": true
     },
-    "extends": ["react-app", "react-app/jest", "airbnb", "airbnb/hooks"],
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks"
+    ],
     "rules": {
-      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+      "no-trailing-spaces": [
+        "error",
+        {
+          "skipBlankLines": true
+        }
+      ],
       "no-return-assign": 0,
       "eol-last": 0,
       "semi": 0,
@@ -74,4 +86,3 @@
     "stylelint-webpack-plugin": "^4.1.1"
   }
 }
-
