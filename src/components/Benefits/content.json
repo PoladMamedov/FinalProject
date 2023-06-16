@@ -1,0 +1,17 @@
+[
+    {
+        "src": "img/benefit-icons/quality.png",
+        "title": "Best Quality",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+    },
+    {
+        "src": "img/benefit-icons/shipping.png",
+        "title": "Free Shipping",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+    },
+    {
+        "src": "img/benefit-icons/warranty.png",
+        "title": "Warranty",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+    }
+]
