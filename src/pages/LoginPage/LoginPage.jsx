@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 function LoginPage() {
-  const [showPass, setShowPassword] = useState(false)
+  const [showPass, setShowPass] = useState(false)
   const formik = useFormik({
     initialValues: {
       email: "",
