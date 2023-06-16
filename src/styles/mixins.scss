@@ -8,7 +8,7 @@ $grid-breakpoints: (
   lg: 1110px,
   xl: 1200px,
   xxl: 1440px,
-  xxxl: 1920px
+  xxxl: 1920px,
 );
 
 // миксин нуждается в проверке
@@ -17,8 +17,7 @@ $grid-breakpoints: (
 //   @media (#{$rule}: map-get($grid-breakpoints, $size) - 1px) {
 //     @content;
 //   }
-// } 
-
+// }
 
 @mixin breakpoint-mf($size, $rule: min-width) {
   @media (#{$rule}: map-get($grid-breakpoints, $size)) {
@@ -36,24 +35,22 @@ $grid-breakpoints: (
 }
 
 //mixin for flexbox
-@mixin flex($flex-direction, $align) {
-    display: flex;
-    flex-direction: $flex-direction;
-    justify-content: $align;
-  }
+@mixin flex($flex-direction, $justify: start, $align: flex-start) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify;
+  align-items: $align;
+}
 
 // mixin for fonts
 @mixin fonts($a, $b, $c) {
-    font-weight: $a;
-    font-size: $b;
-    line-height: $c;
-  }
-  
-//mixin for margin
-  @mixin margin($a, $b) {
-    margin-top: $a;
-    margin-bottom: $b;
-  }
-  
-  
+  font-weight: $a;
+  font-size: $b;
+  line-height: $c;
+}
 
+//mixin for margin
+@mixin margin($a, $b) {
+  margin-top: $a;
+  margin-bottom: $b;
+}
