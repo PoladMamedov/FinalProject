@@ -2,7 +2,7 @@
 
 .header {
    width: 100%;
-   background-color: $headerColor;
+   background-color: $secondaryLight;
 
    &__container {
       display: flex;
@@ -18,7 +18,7 @@
       font-weight: 500;
       font-size: 20px;
       line-height: 30px;
-      color: $textColor;
+      color: $primaryLight;
       padding-left: 20px;
       margin-top: 8px;
 
@@ -31,7 +31,7 @@
       position: relative;
       width: 52px;
       height: 52px;
-      background-color: $titleColor;
+      background-color: $primary;
       border: none;
 
       @include breakpoint-mf('md') {
@@ -66,7 +66,7 @@
       width: 100%;
       top: 53px;
       left: -100%;
-      background-color: $bodyColor;
+      background-color: $white;
       margin-bottom: 30px;
       box-shadow: 0px 6px 10px 0px #00000040;
       transition: left .5s ease;
@@ -156,7 +156,7 @@
    &__nav-link {
       font-size: 16px;
       line-height: 19px;
-      color: $textColor;
+      color: $primaryLight;
       position: relative;
       padding-bottom: 2px;
 
@@ -166,7 +166,7 @@
          bottom: 0;
          left: 0;
          width: 100%;
-         border-bottom: 2px solid $textColor;
+         border-bottom: 2px solid $primaryLight;
          transform: scaleX(0);
          transform-origin: right;
          transition: transform .4s ease;
@@ -190,7 +190,7 @@
       &--active {
          @extend .header__nav-link;
          font-weight: 700;
-         border-bottom: 2px solid $textColor;
+         border-bottom: 2px solid $primaryLight;
 
          &::after {
             display: none;
@@ -206,11 +206,11 @@
       }
 
       &--loginBtn {
-         color: $bodyColor;
+         color: $white;
          padding: 10px 32px;
-         background-color: $darkButtonColor;
+         background-color: $primaryDark;
          margin-bottom: 3px;
-         box-shadow: 3px 3px 5px $textColor;
+         box-shadow: 3px 3px 5px $primaryLight;
          border-radius: 5px;
          transition: box-shadow .5s ease;
 
@@ -234,7 +234,7 @@
          bottom: 22px;
          left: 22px;
          border-radius: 50%;
-         color: $bodyColor;
+         color: $white;
          background-color: red;
 
          @include breakpoint-mf('md') {
