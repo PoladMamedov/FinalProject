@@ -61,25 +61,14 @@
       "react": {
         "version": "detect"
       },
-      "propWrapperFunctions": [
-        "forbidExtraProps"
-      ]
+      "propWrapperFunctions": ["forbidExtraProps"]
     }
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "devDependencies": {
-    "sass": "^1.63.4",
     "@babel/eslint-parser": "^7.22.5",
     "concurrently": "^8.2.0",
     "eslint": "^8.42.0",
