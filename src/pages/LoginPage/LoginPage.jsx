@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useState } from "react";
 function LoginPage() {
+  const [showPass, setShowPassword] = useState(false)
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -15,6 +16,7 @@ function LoginPage() {
     onSubmit: (values) => {
       //! запрос на сервер и получение ответа (токена). Authorized or not
       console.log({ email: values.email, password: values.password });
+      formik.resetForm();
     },
   });
 
@@ -55,28 +57,34 @@ function LoginPage() {
         <div className="login-section__form-input-wrapper">
           <input
             className="login-section__form-input"
-            type="password"
+            type={showPass ? 'text' : 'password'}
             name="password"
             value={formik.values.password}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
           />
-          <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M16.2101 10.1172H4.44127C3.51274 10.1172 2.76001 10.8699 2.76001 11.7984V17.6829C2.76001 18.6114 3.51274 19.3641 4.44127 19.3641H16.2101C17.1386 19.3641 17.8914 18.6114 17.8914 17.6829V11.7984C17.8914 10.8699 17.1386 10.1172 16.2101 10.1172Z"
-              stroke="#878484"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M6.12256 10.1172V6.75467C6.12256 5.63992 6.56539 4.57083 7.35363 3.78259C8.14188 2.99434 9.21097 2.55151 10.3257 2.55151C11.4405 2.55151 12.5095 2.99434 13.2978 3.78259C14.086 4.57083 14.5289 5.63992 14.5289 6.75467V10.1172"
-              stroke="#878484"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          {showPass ? <svg onClick={() => setShowPass(false)} xmlns="http://www.w3.org/2000/svg" height="0.225em" viewBox="0 0 576 512" fill="#848484">
+            <path d="M352 144c0-44.2 35.8-80 80-80s80 35.8 80 80v48c0 17.7 14.3 32 32 32s32-14.3 32-32V144C576 64.5 511.5 0 432 0S288 64.5 288 144v48H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H352V144z" />
+          </svg> :
+            <svg onClick={() => setShowPass(true)} width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16.2101 10.1172H4.44127C3.51274 10.1172 2.76001 10.8699 2.76001 11.7984V17.6829C2.76001 18.6114 3.51274 19.3641 4.44127 19.3641H16.2101C17.1386 19.3641 17.8914 18.6114 17.8914 17.6829V11.7984C17.8914 10.8699 17.1386 10.1172 16.2101 10.1172Z"
+                stroke="#878484"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M6.12256 10.1172V6.75467C6.12256 5.63992 6.56539 4.57083 7.35363 3.78259C8.14188 2.99434 9.21097 2.55151 10.3257 2.55151C11.4405 2.55151 12.5095 2.99434 13.2978 3.78259C14.086 4.57083 14.5289 5.63992 14.5289 6.75467V10.1172"
+                stroke="#878484"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+
+
           {formik.errors.password && formik.touched.password ? (
             <label className="login-section__form-input-error">{formik.errors.password}</label>
           ) : null}
