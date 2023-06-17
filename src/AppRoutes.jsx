@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import Header from "./components/header";
+
 const AppRoutes = () => {
   return (
     <>

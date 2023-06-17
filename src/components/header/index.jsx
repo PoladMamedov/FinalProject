@@ -36,7 +36,7 @@ const Header = () => {
                         className={`header__nav-link${activePage === 0 ? "--active" : ""}`}
                         onClick={() => handleLinkClick( 0 )}
                         to={"/"}>Home</NavLink >
-                  </li>\jsx-eslint\eslint-plugin-react\tree\master\docs\rules\jsx-one-expression-per-line.md
+                  </li>
                   {pages.map( ( item, index ) => (
                      <li className="header__nav-item" key={index + 1}>
                         <NavLink
