@@ -35,9 +35,9 @@ jobs:
           node-version: 16.8.0
 
       - name: Install dependencies
-        working-directory: ./final_project
+        working-directory: final_project
         run: npm install
 
       - name: Run build
-        working-directory: ./final_project
+        working-directory: final_project
         run: npm run build
