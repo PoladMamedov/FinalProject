@@ -1,35 +1,23 @@
 // {
-//    "parser": "@babel/eslint-parser",
-//    "env": {
-//       "browser": true,
-//       "mocha": true
-//    },
-//    "extends": [
-//       "standard",
-//       "react-app",
-//       "airbnb",
-//       "airbnb/hooks"
-//    ],
-//    "rules": {
-//       "no-trailing-spaces": [
-//          "error",
-//          {
-//             "skipBlankLines": true
-//          }
-//       ],
-//       "no-return-assign": 0,
-//       "eol-last": 0,
-//       "semi": 0,
-//       "camelcase": 0,
-//       "object-curly-spacing": 0,
-//       "comma-dangle": 0
-//    },
-//    "settings": {
-//       "react": {
-//          "version": "detect"
-//       },
-//       "propWrapperFunctions": [
-//          "forbidExtraProps"
-//       ]
-//    }
+//   "parser": "@babel/eslint-parser",
+//   "env": {
+//     "browser": true,
+//     "mocha": true
+//   },
+//   "extends": ["standard", "react-app", "airbnb", "airbnb/hooks"],
+//   "rules": {
+//     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+//     "no-return-assign": 0,
+//     "eol-last": 0,
+//     "semi": 0,
+//     "camelcase": 0,
+//     "object-curly-spacing": 0,
+//     "comma-dangle": 0
+//   },
+//   "settings": {
+//     "react": {
+//       "version": "detect"
+//     },
+//     "propWrapperFunctions": ["forbidExtraProps"]
+//   }
 // }
