@@ -13,10 +13,12 @@
     "react-redux": "^8.1.0",
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.63.4",
+    "slick-carousel": "^1.8.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-order": "^6.0.3",
     "web-vitals": "^2.1.4",
@@ -61,12 +63,22 @@
       "react": {
         "version": "detect"
       },
-      "propWrapperFunctions": ["forbidExtraProps"]
+      "propWrapperFunctions": [
+        "forbidExtraProps"
+      ]
     }
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.5",
