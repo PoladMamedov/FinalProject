@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import "./slick.scss";
-import "slick-carousel/slick/slick-theme.css";
-import styler from "./TopItemsSlider.module.scss";
+import "./slick-theme.scss";
+import styles from "./TopItemsSlider.scss";
 
 const TopItemsSlider = () => {
   const items = [
@@ -18,15 +18,21 @@ const TopItemsSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 8000,
   };
   return (
       <Slider {...settings}>
-        {items.map((item) => (
-          <div className="top_items" key={item.id}>
-            <a href="/products">
-            <h3>{item.title}</h3>
-            <img className="topImg" src={item.image} alt={item.title} />
+        {items.map(( item ) => (
+          <div
+           className={styles.top_items}
+           key={item.id} >
+            <a href="/products" className="topItems_link">
+            <h3 className="topItems_caption">{item.title}</h3>
+            <img 
+            className="topItems_img"
+            src={item.image} 
+            alt={item.title}
+             />
             </a>
           </div>
         ))}
