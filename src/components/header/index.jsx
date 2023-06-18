@@ -1,9 +1,9 @@
-
 import { NavLink } from "react-router-dom";
 import './style.scss';
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMenu } from "../../redux/actions/burgerMenu";
+
 const Header = () => {
    const dispatch = useDispatch()
    const { isMenuOpen } = useSelector((state) => state.isMenuOpen)
@@ -15,25 +15,25 @@ const Header = () => {
    }
    const handleLinkClick = (index) => {
       setActivePage(index)
-      dispatch(toggleMenu())
+      { activePage !== 0 ? dispatch(toggleMenu()) : null }
    }
 
    return (
       <header className="header">
          <div className="header__container-top">
             <h2 className="header__container-top-title">Free shipping across Ukraine</h2>
-            <nav className={`header__nav-desktop`}>
+            <nav className={"header__nav-desktop"}>
                <ul className="header__nav-list">
                   <li className="header__nav-item" key={1}>
                      <NavLink
-                        className={`header__nav-link${activePage === 0 ? '--active' : ''}`}
+                        className={`header__nav-link${activePage === 0 ? "--active" : ""}`}
                         onClick={() => handleLinkClick(0)}
-                        to={'/'}>Home</NavLink >
+                        to={"/"}>Home</NavLink >
                   </li>
                   {pages.map((item, index) => (
                      <li className="header__nav-item" key={index + 1}>
                         <NavLink
-                           className={`header__nav-link${activePage === index + 1 ? '--active' : ''}`}
+                           className={`header__nav-link${activePage === index + 1 ? "--active" : ""}`}
                            onClick={() => handleLinkClick(index + 1)}
                            to={`/${item.toLowerCase()}`}>{item}</NavLink >
                      </li>
@@ -52,22 +52,23 @@ const Header = () => {
                  376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
             </svg>
             <NavLink
-               className='header__company-logo' to="/"
+               className="header__company-logo"
+               to="/"
                onClick={() => handleLinkClick(0)}>
                <img src="/img/main-logo.png" alt="" />
             </NavLink>
-            <nav className={`header__nav${isMenuOpen ? '--open' : ''}`}>
+            <nav className={`header__nav${isMenuOpen ? "--open" : ""}`}>
                <ul className="header__nav-list">
                   <li className="header__nav-item" key={1}>
                      <NavLink
-                        className={`header__nav-link${activePage === 0 ? '--active' : ''}`}
+                        className={`header__nav-link${activePage === 0 ? "--active" : ""}`}
                         onClick={() => handleLinkClick(0)}
                         to={'/'}>Home</NavLink >
                   </li>
                   {pages.map((item, index) => (
                      <li className="header__nav-item" key={index + 1}>
                         <NavLink
-                           className={`header__nav-link${activePage === index + 1 ? '--active' : ''}`}
+                           className={`header__nav-link${activePage === index + 1 ? "--active" : ""}`}
                            onClick={() => handleLinkClick(index + 1)}
                            to={`/${item.toLowerCase()}`}>{item}</NavLink >
                      </li>
@@ -76,7 +77,8 @@ const Header = () => {
             </nav>
 
             <div className="header__nav-btn-wrap">
-               <NavLink to={'/cart'}
+               <NavLink
+                  to={"/cart"}
                   key={4}
                   className="header__nav-link--cart"
                >
@@ -87,23 +89,27 @@ const Header = () => {
                   {/* В спан записать с редакса количество в корзине */}
 
                </NavLink>
-               <NavLink to={'/login'}
+
+
+               <NavLink
+                  to={"/login"}
                   key={5}
                   className="header__nav-link--loginBtn"
                >
+
                   <img className="header__nav-login" src="img/login.png" alt="login-img" />
                </NavLink>
             </div>
 
             <button
                onClick={() => handleBtnClick()}
-               className={`header__menu-btn${isMenuOpen ? '--active' : ''}`}>
+               className={`header__menu-btn${isMenuOpen ? "--active" : ""}`}>
                <span className="header__menu-lines"></span>
                <span className="header__menu-lines"></span>
                <span className="header__menu-lines"></span>
             </button>
          </div>
-      </header >
+      </header>
    )
 
 }
