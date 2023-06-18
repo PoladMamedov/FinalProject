@@ -12,15 +12,15 @@ function LoginPage() {
       email: Yup.string().email("You need to enter valid email").required("You need to enter your email to continue"),
       password: Yup.string().required("Password required"),
     }),
-    onSubmit: (values) => {
-      //! запрос на сервер и получение ответа (токена). Authorized or not
-      console.log({ email: values.email, password: values.password });
-    },
+    // onSubmit: (values) => {
+    //! запрос на сервер и получение ответа (токена). Authorized or not
+    // console.log({ email: values.email, password: values.password });
+    // },
   });
 
   return (
     <section className="login-section">
-      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login page image" />
+      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login-page-img" />
       <form className="login-section__form" action="login" onSubmit={formik.handleSubmit}>
         <h1 className="login-section__title">LOGIN</h1>
         <div className="login-section__form-input-wrapper">

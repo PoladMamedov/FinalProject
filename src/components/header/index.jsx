@@ -1,22 +1,19 @@
 import { NavLink } from "react-router-dom";
-import "./style.scss";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu } from "../../redux/actions/burgerMenu";
+import "./style.scss";
 
 const Header = () => {
-   const dispatch = useDispatch();
-   const { isMenuOpen } = useSelector((state) => state.isMenuOpen);
+   const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [activePage, setActivePage] = useState(0);
    const pages = ["Products", "About"];
 
    const handleBtnClick = () => {
-      dispatch(toggleMenu());
+      setIsMenuOpen(!isMenuOpen);
    };
    const handleLinkClick = (index) => {
       setActivePage(index);
       if (activePage !== 0) {
-         dispatch(toggleMenu());
+         setIsMenuOpen(!isMenuOpen);
       }
    };
 
