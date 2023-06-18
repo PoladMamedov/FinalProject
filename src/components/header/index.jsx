@@ -74,31 +74,6 @@ const Header = () => {
                      </li>
                   ))}
 
-                  <li className="header__nav-item header__nav-item--tablet" key={4}>
-                     <NavLink
-                        to={"/cart"}
-                        key={4}
-                        className="header__nav-link--cart"
-                        onClick={() => handleLinkClick(4)}
-                     >
-                        <img className="header__nav-cart" src="img/cart-logo.png" alt="cart-logo" width={29} height={32} />
-                        <span className="header__nav-cart--count">1</span>
-
-                        {/* В спан записать с редакса количество в корзине */}
-
-                     </NavLink>
-                  </li>
-                  <li className="header__nav-item--loginBtn  header__nav-item--tablet" key={5}>
-                     <NavLink
-                        to={"/login"}
-                        key={5}
-                        className="header__nav-link--loginBtn"
-                        onClick={() => handleLinkClick(4)}
-                     >
-                        Login
-                     </NavLink>
-                  </li>
-
                </ul>
             </nav>
 

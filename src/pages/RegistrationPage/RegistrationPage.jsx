@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 function RegistrationPage() {
   const formik = useFormik({
     initialValues: {
@@ -15,15 +16,15 @@ function RegistrationPage() {
         .required("Confirm our password")
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
     }),
-    onSubmit: (values) => {
-      //! запрос на сервер и получение ответа (токена). Authorized or not
-      console.log({ email: values.email, password: values.password });
-    },
+    // onSubmit: (values) => {
+    //   //! запрос на сервер и получение ответа (токена). Authorized or not
+    //   // console.log({ email: values.email, password: values.password });
+    // },
   });
 
   return (
     <section className="registration-section">
-      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login page image" />
+      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login-page-img" />
       <form className="registration-section__form" action="login" onSubmit={formik.handleSubmit}>
         <h1 className="registration-section__title">REGISTRATION</h1>
         <div className="registration-section__form-input-wrapper">
