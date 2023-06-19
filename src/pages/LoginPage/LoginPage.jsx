@@ -14,13 +14,13 @@ function LoginPage() {
     }),
     // onSubmit: (values) => {
     //   //! запрос на сервер и получение ответа (токена). Authorized or not
-    //   // console.log({ email: values.email, password: values.password });
+    //   console.log({ email: values.email, password: values.password });
     // },
   });
 
   return (
     <section className="login-section">
-      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login page" />
+      <img width={450} height={470} src="./img/loginPageImage.jpg" alt="login page" />
       <form className="login-section__form" action="login" onSubmit={formik.handleSubmit}>
         <h1 className="login-section__title">LOGIN</h1>
         <div className="login-section__form-input-wrapper">
