@@ -13,8 +13,10 @@ function LoginPage() {
       password: Yup.string().required("Password required"),
     }),
     // onSubmit: (values) => {
+
     //   //! запрос на сервер и получение ответа (токена). Authorized or not
     //   // console.log({ email: values.email, password: values.password });
+
     // },
   });
 

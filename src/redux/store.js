@@ -2,13 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";// defaults to localStorage for web
-// import { burgerMenuReducer as burgerMenu } from "./reducers/burgerMenu";
-import burgerMenuReducer from "./reducers/burgerMenu";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 const rootReducer = combineReducers({
   // products: productsReducer,
-  isMenuOpen: burgerMenuReducer,
+
 });
 
 const persistConfig = {
