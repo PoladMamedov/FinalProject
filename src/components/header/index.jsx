@@ -49,8 +49,6 @@ const Header = () => {
                </div>
             </div>
             <div className="header__container-bottom">
-
-
                <svg className="header__nav-search" xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
                   <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
 
@@ -59,10 +57,9 @@ const Header = () => {
                   className="header__company-logo"
                   to="/"
                   onClick={() => handleLinkClick(0)}>
-
-                  <img src="/img/main-logo.png" alt="" />
+                  <img src="/img/main-logo.png" alt="main-logo" />
                </NavLink>
-               <nav className={`header__nav${isMenuOpen ? "--open" : "''"}`}>
+               <nav className={`header__nav${isMenuOpen ? "--open" : ""}`}>
 
                   <ul className="header__nav-list">
                      <li className="header__nav-item" key={1}>
@@ -92,8 +89,8 @@ const Header = () => {
                      <span className="header__nav-cart--count">1</span>
 
                      {/* В спан записать с редакса количество в корзине */}
-                  </NavLink>
 
+                  </NavLink >
                   <NavLink
                      to={"/login"}
                      key={5}
@@ -103,10 +100,11 @@ const Header = () => {
                      <img className="header__nav-login" src="img/login.png" alt="login-img" />
                   </NavLink>
                </div >
+
                <button
-                  type="button"
                   onClick={() => handleBtnClick()}
-                  className={`header__menu-btn${isMenuOpen ? "--active" : ""}`}>
+                  className={`header__menu-btn${isMenuOpen ? "--active" : ""}`}
+                  type="button">
                   <span className="header__menu-lines"></span>
                   <span className="header__menu-lines"></span>
                   <span className="header__menu-lines"></span>
