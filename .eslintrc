@@ -6,7 +6,7 @@
   },
   "extends": ["standard", "react-app", "airbnb", "airbnb/hooks"],
   "rules": {
-    "no-trailing-spaces": ["error", { "skipBlankLines": true }],//проверяет наличие пробелов в конце строк,по настройке будет игнорить их
+    "no-trailing-spaces": 0,//проверяет наличие пробелов в конце строк(правило отключено)
     "no-return-assign": 0,//проверяет, содержит ли выражение присваивание (=) внутри return(правило отключено)
     "eol-last": 0,//определяет, должна ли в конце файла быть пустая строка(правило отключено)
     "semi": "warn",//определяет, должны ли в JavaScript-коде использоваться точки с запятой(будет выдавать предупреждение) 
@@ -41,7 +41,13 @@
     "array-bracket-spacing": "warn",//перед закрывающей скобкой ] не должно быть пробела
     "react/self-closing-comp": "off",//пустые компоненты в JSX должны быть самозакрывающимися Пример:<span className="header__menu-lines"/>(правило отключено)
     "padded-blocks": "off",//блок кода не должен быть окружен пустыми строками(правило отключено)
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "default-param-last": "off",
+    "import/named": "off",
+    "react/button-has-type": 0,
+    "import/no-extraneous-dependencies": "off"
   },
   "settings": {
     "react": {
