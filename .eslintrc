@@ -10,6 +10,9 @@
     "airbnb",
     "airbnb/hooks"
   ],
+  "plugins": [
+    "jsx-a11y"
+  ],
   "rules": {
     "no-trailing-spaces": [
       "error",
@@ -59,7 +62,8 @@
     "array-bracket-spacing": "warn", //перед закрывающей скобкой ] не должно быть пробела
     "react/self-closing-comp": "off", //пустые компоненты в JSX должны быть самозакрывающимися Пример:<span className="header__menu-lines"/>(правило отключено)
     "padded-blocks": "off", //блок кода не должен быть окружен пустыми строками(правило отключено)
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-props-no-spreading": "off"
   },
   "settings": {
     "react": {
