@@ -29,10 +29,10 @@ jobs:
              ${{ runner.os }}-build-
              ${{ runner.os }}-
 
-      - name: Setup Node.js 16.8.0
+      - name: Setup Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16.8.0
+          node-version: 18
 
       - name: Install dependencies
         run: "npm install"
