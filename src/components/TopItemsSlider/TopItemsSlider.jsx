@@ -28,9 +28,9 @@ const TopItemsSlider = () => {
            key={item.id} >
             <a href="/products" className="topItems_link">
             <h3 className="topItems_caption">{item.title}</h3>
-            <img 
+            <img
             className="topItems_img"
-            src={item.image} 
+            src={item.image}
             alt={item.title}
              />
             </a>

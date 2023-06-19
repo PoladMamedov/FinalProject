@@ -1,7 +1,6 @@
 import AppRoutes from "./AppRoutes";
 import TopItemsSlider from "./components/TopItemsSlider/TopItemsSlider";
 
-
 function App() {
   return (
     <>
@@ -9,7 +8,8 @@ function App() {
       <div className="containerSlider">
         <TopItemsSlider />
       </div>
-    </>);
+    </>
+  );
 }
 
 export default App;
