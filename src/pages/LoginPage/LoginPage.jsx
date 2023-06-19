@@ -20,7 +20,7 @@ function LoginPage() {
 
   return (
     <section className="login-section">
-      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login page image" />
+      <img width={500} height={520} src="./img/loginPageImage.jpg" alt="login page" />
       <form className="login-section__form" action="login" onSubmit={formik.handleSubmit}>
         <h1 className="login-section__title">LOGIN</h1>
         <div className="login-section__form-input-wrapper">
