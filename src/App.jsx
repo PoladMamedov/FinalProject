@@ -6,9 +6,10 @@ function App() {
     <>
       <AppRoutes />
       <div className="containerSlider">
-      <TopItemsSlider/>
+        <TopItemsSlider />
       </div>
-    </>);
+    </>
+  );
 }
 
 export default App;
