@@ -1,7 +1,7 @@
-import { burgerMenuTypes } from "../type/burgerMenu";
+import { burgerMenuTypes } from "./type/burgerMenu";
 
-export function toggleMenu() {
+export default function toggleMenu() {
    return {
       type: burgerMenuTypes.TOGGLE_MENU,
-   }
+   };
 }

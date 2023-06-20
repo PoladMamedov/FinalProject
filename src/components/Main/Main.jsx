@@ -1,13 +1,16 @@
-import React from 'react';
-import Benefits from '../Benefits/BenefitsList';
-import content from "../Benefits/content.json";
+import Benefits from "../Sections/Benefits/BenefitsList";
+import content from "../Sections/Benefits/content.json";
+import TopItemsSlider from "../TopItemsSlider/TopItemsSlider";
 
 const Main = () => {
     return (
         <main>
-          <Benefits data={content}/>
+        <div className="containerSlider">
+       <TopItemsSlider />
+      </div>
+          <Benefits content={content}/>
         </main>
     );
-}
+};
 
 export default Main;

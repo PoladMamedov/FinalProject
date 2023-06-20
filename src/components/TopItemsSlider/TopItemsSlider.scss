@@ -1,0 +1,26 @@
+@import "../../styles/style.scss";
+
+.top_items {
+  background-color: $secondaryLight;
+}
+
+.topItems_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.topItems_img {
+  width: 820px;
+  height: 500px;
+}
+
+.topItems_caption {
+  position: absolute;
+  top: 50px;
+  width: 40%;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+}

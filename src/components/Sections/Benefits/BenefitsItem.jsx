@@ -1,4 +1,3 @@
-import React from 'react';
 
 const BenefitsItem = (props) => {
 
@@ -12,5 +11,5 @@ const BenefitsItem = (props) => {
             <p className='benefits-section-list__item-text'>{props.data.text}</p>
         </li>
     );
-}
+};
 export default BenefitsItem;
