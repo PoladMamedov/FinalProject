@@ -6,10 +6,30 @@ import styles from "./TopItemsSlider.scss";
 
 const TopItemsSlider = () => {
   const items = [
-    { id: 1, title: "Apple Watch", image: "/img/watch.jpeg" },
-    { id: 2, title: "Headphone Sony", image: "/img/headphone-slider.jpeg" },
-    { id: 3, title: "Keyboard", image: "/img/keyboards-slider.jpeg" },
-    { id: 4, title: "Mice", image: "/img/mice-slider.jpeg" },
+    {
+      id: 1,
+      title: "Apple Watch",
+      image: "/img/top-slider/watch.jpeg",
+      text: "Stay Connected in Style"
+    },
+    {
+      id: 2,
+      title: "Wireless Headphones",
+      image: "/img/top-slider/headphone-slider.jpeg",
+      text: "Immerse Yourself in Music"
+    },
+    {
+      id: 3,
+      title: "Gaming Keyboard",
+      image: "/img/top-slider/keyboards-slider.jpeg",
+      text: "Unleash Your Gaming Potential"
+    },
+    {
+      id: 4,
+      title: "Optical Mouse",
+      image: "/img/top-slider/mice-slider.jpeg",
+      text: "Precision at Your Fingertips"
+    }
   ];
   const settings = {
     dots: true,
@@ -17,23 +37,24 @@ const TopItemsSlider = () => {
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 8000,
+    // autoplay: true,
+    // autoplaySpeed: 8000,
   };
   return (
       <Slider {...settings}>
         {items.map(( item ) => (
           <div
-           className={styles.top_items}
+           className={styles.topItems}
            key={item.id} >
-            <a href="/products" className="topItems_link">
-            <h3 className="topItems_caption">{item.title}</h3>
+            <h1 type="button" className={styles.topItems_title}>{item.title}</h1>
+            <h3 className={styles.topItems_caption}>{item.text}</h3>
+            <a href="/products" className={styles.topItems_link}>
+              <button type="button" className={styles.topItems_btn}>Shop Now</button></a>
             <img
             className="topItems_img"
             src={item.image}
-            alt={item.title}
+            alt={item.text}
              />
-            </a>
           </div>
         ))}
       </Slider>

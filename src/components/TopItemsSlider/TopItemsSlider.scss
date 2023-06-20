@@ -1,7 +1,15 @@
 @import "../../styles/style.scss";
 
-.top_items {
-  background-color: $secondaryLight;
+.topItems {
+  display: flex;
+  align-items: center;
+  background-color: #FCF9F6;
+  border-radius: 5px;
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2509803922);
+}
+
+.topItems_title {
+  text-align: center;
 }
 
 .topItems_link {
@@ -12,15 +20,29 @@
 }
 
 .topItems_img {
-  width: 820px;
-  height: 500px;
+  width: 520px;
+  height: 300px;
+  border-radius: 15px;
 }
 
 .topItems_caption {
   position: absolute;
-  top: 50px;
+  top: 10px;
+  left: 10px;
   width: 40%;
-  color: white;
+  color: #0e0d0d;
   padding: 10px;
   font-size: 18px;
+}
+
+.topItems_btn {
+  margin-left: auto;
+  border: none;
+  outline: none;
+  background-color: #0e0d0d;
+}
+
+/* Slider */
+.containerSlider {
+	background-color: #FCF9F6;
 }
