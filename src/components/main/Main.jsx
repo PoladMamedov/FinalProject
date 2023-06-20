@@ -1,5 +1,6 @@
-import Benefits from "../sections/benefits/BenefitsList";
-import content from "../sections/benefits/content.json";
+import Benefits from "../sections/Benefits/BenefitsList";
+import content from "../sections/Benefits/content.json";
+
 import TopItemsSlider from "../TopItemsSlider/TopItemsSlider";
 
 const Main = () => {
