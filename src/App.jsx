@@ -1,12 +1,12 @@
 import AppRoutes from "./AppRoutes";
-// import TopItemsSlider from "./components/TopItemsSlider/TopItemsSlider";
+import TopItemsSlider from "./components/TopItemsSlider/TopItemsSlider";
 
 function App() {
   return (
     <>
       <AppRoutes />
       <div className="containerSlider">
-        {/* <TopItemsSlider /> */}
+        <TopItemsSlider />
       </div>
     </>
   );
