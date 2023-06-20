@@ -1,5 +1,6 @@
 .registration-section {
   margin-top: 50px;
+  margin-bottom: 100px;
   @include flex(column, center, center);
   @include breakpoint-mf("md") {
     margin-top: 50px;
