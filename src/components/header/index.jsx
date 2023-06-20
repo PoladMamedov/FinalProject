@@ -1,23 +1,28 @@
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Breadcrumb from "../breadCrumb/breadCrumb";
+import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
 
 
 const Header = () => {
+   const dispatch = useDispatch();
+   const { pagePath } = useSelector((state) => state.currentPath);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
-   const [activePage, setActivePage] = useState(0);
+   const [searchTerm, setSearchTerm] = useState("");
    const pages = ["Products", "About"];
 
    const handleBtnClick = () => {
 
       setIsMenuOpen(!isMenuOpen);
    };
-   const handleLinkClick = (index) => {
-      setActivePage(index);
-      if (activePage !== 0) {
-         setIsMenuOpen(!isMenuOpen);
-      }
+   const handleLinkClick = (path) => {
+      dispatch(setPagePath(path));
+      setIsMenuOpen(!isMenuOpen);
+   };
+   const handleChange = (value) => {
+      setSearchTerm(value);
    };
 
    return (
@@ -29,30 +34,45 @@ const Header = () => {
                   <ul className="header__nav-list">
                      <li className="header__nav-item" key={1}>
                         <NavLink
-                           className={`header__nav-link${activePage === 0 ? "--active" : ""}`}
-                           onClick={() => handleLinkClick(0)}
+                           className={`header__nav-link${pagePath === "home" ? "--active" : ""}`}
+                           onClick={() => handleLinkClick("home")}
                            to={"/"}>Home</NavLink >
                      </li>
                      {pages.map((item, index) => (
                         <li className="header__nav-item" key={index + 1}>
                            <NavLink
-                              className={`header__nav-link${activePage === index + 1 ? "--active" : ""}`}
-                              onClick={() => handleLinkClick(index + 1)}
+                              className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""}`}
+                              onClick={() => handleLinkClick(item.toLowerCase())}
                               to={`/${item.toLowerCase()}`}>{item}</NavLink >
                         </li>
                      ))}
                   </ul>
                </nav>
                <div className="header__container-top-wrap">
-                  <p className="header__container-top-lang">ENG</p>
+                  <p style={{ fontWeight: 700 }} className="header__container-top-lang">ENG</p>
                   <p className="header__container-top-lang">UKR</p>
                </div>
             </div>
             <div className="header__container-bottom">
                <svg className="header__nav-search" xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
                   <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-
                </svg>
+               <div className="header__search-wrap">
+                  <input
+                     value={searchTerm}
+                     onChange={(e) => handleChange(e.target.value)}
+                     className="header__search-input"
+                     type="text"
+                     placeholder="Search products..."
+                  />
+                  {/* <button className="header__search-submit" type="button">
+                     SEARCH
+                  </button> */}
+                  <svg className="header__nav-search-submit" xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
+                     <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                  </svg>
+               </div>
+
                <NavLink
                   className="header__company-logo"
                   to="/"
@@ -64,15 +84,15 @@ const Header = () => {
                   <ul className="header__nav-list">
                      <li className="header__nav-item" key={1}>
                         <NavLink
-                           className={`header__nav-link${activePage === 0 ? "--active" : ""}`}
+                           className={`header__nav-link${pagePath === "home" ? "--active" : ""}`}
                            onClick={() => handleLinkClick(0)}
                            to={"/"}>Home</NavLink >
                      </li>
                      {pages.map((item, index) => (
                         <li className="header__nav-item" key={index + 1}>
                            <NavLink
-                              className={`header__nav-link${activePage === index + 1 ? "--active" : ""}`}
-                              onClick={() => handleLinkClick(index + 1)}
+                              className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""}`}
+                              onClick={() => handleLinkClick(item.toLowerCase())}
                               to={`/${item.toLowerCase()}`}>{item}</NavLink >
                         </li>
                      ))}
