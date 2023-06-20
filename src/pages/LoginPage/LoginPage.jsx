@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import useServer from "../../hooks/useServer";
 
 function LoginPage() {
   const [showPass, setShowPass] = useState(false);
+  const { loginUser } = useServer();
   const formik = useFormik({
     initialValues: {
       loginOrEmail: "",
@@ -14,13 +16,14 @@ function LoginPage() {
       loginOrEmail: Yup.string().required("You need to enter your email or login to continue"),
       password: Yup.string().required("Password required"),
     }),
-    onSubmit: (values) => {
-      const usersInfo = {
+    onSubmit: async (values) => {
+      const userData = {
         loginOrEmail: values.loginOrEmail,
         password: values.password,
       };
       //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (succes, token)
-      console.log(usersInfo);
+      const loginResult = await loginUser(userData);
+      console.log(loginResult);
     },
   });
 

@@ -1,5 +1,6 @@
 .login-section {
   margin-top: 100px;
+  margin-bottom: 100px;
   @include flex(column, center, center);
   @include breakpoint-mf("md") {
     margin-top: 50px;
