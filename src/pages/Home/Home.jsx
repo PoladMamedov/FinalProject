@@ -1,8 +1,9 @@
-import Main from "../../components/main/Main";
+
+import Main from "../../components/Main/main";
 
 const Home = () => {
     return (
-        <><Main/></>
+        <><Main /></>
     );
 };
 
