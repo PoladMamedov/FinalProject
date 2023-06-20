@@ -2,16 +2,16 @@
     {
         "src": "img/benefit-icons/quality.png",
         "title": "Best Quality",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+        "text": "We can give you the best quality products on the basis of reasonable prices."
     },
     {
         "src": "img/benefit-icons/shipping.png",
         "title": "Free Shipping",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+        "text": "Browse our entire range of accessories and take advantage of our free shipping offer."
     },
     {
         "src": "img/benefit-icons/warranty.png",
         "title": "Warranty",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id"
+        "text": "The warranty is valid from the date of purchase and covers possible defects in materials or workmanship."
     }
 ]
