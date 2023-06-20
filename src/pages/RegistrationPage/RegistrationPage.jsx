@@ -17,7 +17,11 @@ function RegistrationPage() {
       confirmPassword: Yup.string()
         .required("Confirm our password")
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
-    })
+    }),
+    // onSubmit: (values) => {
+    //   //! запрос на сервер и получение ответа (токена). Authorized or not
+    //   // console.log({ email: values.email, password: values.password });
+    // },
   });
 
   return (
