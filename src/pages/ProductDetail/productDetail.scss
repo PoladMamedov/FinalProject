@@ -1,0 +1,293 @@
+.product-detail-section {
+  padding: 50px 18px 53px;
+
+  @include breakpoint-mf('sm') {
+    padding: 40px 55px 77px;
+  }
+
+  @include breakpoint-mf('my') {
+    padding: 42px 40px 140px;
+    display: grid;
+    grid-template-areas:
+            'main-img additional-imgs'
+            'info-block info-block'
+            'cart-block cart-block';
+  }
+
+  @include breakpoint-mf('lg') {
+    grid-template-areas:
+            'main-img info-block'
+            'main-img cart-block'
+            'main-img additional-imgs';
+  }
+
+  @include breakpoint-mf('xl') {
+    padding: 42px 0 140px;
+  }
+}
+
+.product-detail__main-img {
+  grid-area: main-img;
+  display: block;
+  border-radius: 4px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+
+  @include breakpoint-mf('xxs') {
+    height: 355px;
+  }
+
+  @include breakpoint-mf('my') {
+    height: 600px;
+  }
+
+  @include breakpoint-mf('lg') {
+    height: 500px;
+    //padding-right: 40px;
+  }
+
+  @include breakpoint-mf('xl') {
+    height: 660px;
+    //padding-right: 70px;
+  }
+}
+
+.product-detail__additional-imgs {
+  grid-area: additional-imgs;
+  width: 100%;
+  @include flex(row, space-between, center);
+  gap: 5px;
+  flex-wrap: wrap;
+  @include margin (10px, 70px);
+
+  @include breakpoint-mf('sm') {
+    @include margin(30px, 30px);
+  }
+
+  @include breakpoint-mf('my') {
+    @include flex(column, space-between, center);
+    margin: 0;
+    align-items: flex-end;
+  }
+
+  @include breakpoint-mf('lg') {
+    @include flex(row, space-between, center);
+    align-items: flex-end;
+    width: 82%;
+    margin-left: 40px;
+  }
+
+  @include breakpoint-mf('xl') {
+    margin-left: 70px;
+  }
+}
+
+
+.product-detail__img {
+  border-radius: 4px;
+  min-width: 66px;
+  min-height: 55px;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+
+  @include breakpoint-mf('xxs') {
+    width: 85px;
+    height: 85px;
+  }
+
+  @include breakpoint-mf('xs') {
+    width: 145px;
+    height: 128px;
+  }
+
+  @include breakpoint-mf('lg') {
+    width: 120px;
+    height: 100px;
+  }
+
+  @include breakpoint-mf('xl') {
+    border-radius: 2px;
+    width: 85px;
+    height: 85px;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.product-detail__info-block {
+  grid-area: info-block;
+
+  @include breakpoint-mf('my') {
+    padding-top: 42px;
+  }
+
+
+  @include breakpoint-mf('lg') {
+    width: 82%;
+    padding-top: 42px;
+    margin-left: 40px;
+  }
+
+  @include breakpoint-mf('xl') {
+    margin-left: 70px;
+  }
+}
+
+.product-detail__name {
+  color: $primaryLight;
+  @include fonts(400, 25px, 38px);
+
+  @include breakpoint-mf('sm') {
+    color: $primary;
+    @include fonts(400, 30px, 35px);
+  }
+
+  @include breakpoint-mf('xl') {
+    color: $primaryLight;
+    @include fonts(400, 40px, 47px);
+  }
+}
+
+.product-detail__description {
+  margin-top: 10px;
+  color: $secondary;
+  @include fonts(400, 14px, 21px);
+  text-align: left;
+
+  @include breakpoint-mf('sm') {
+    margin-top: 30px;
+    color: $primaryLight;
+    @include fonts(400, 25px, 30px);
+  }
+
+  @include breakpoint-mf('xl') {
+    margin-top: 34px;
+    color: $secondary;
+    @include fonts(400, 18px, 35px);
+  }
+}
+
+.product-detail__item {
+  color: $primaryLight;
+  text-align: left;
+  @include fonts(400, 14px, 21px);
+  @include margin(10px, 10px);
+
+  @include breakpoint-mf('sm') {
+    @include fonts(400, 20px, 30px);
+    @include margin(15px, 15px);
+  }
+
+  &-value {
+    color: $primary;
+    @include fonts(500, 14px, 21px);
+
+    @include breakpoint-mf('sm') {
+      @include fonts(500, 22px, 33px);
+    }
+  }
+}
+
+.product-detail__brand {
+  display: none;
+
+  @include breakpoint-mf('xl') {
+    display: block;
+  }
+}
+
+.product-detail__stock {
+  display: none;
+
+  @include breakpoint-mf('xl') {
+    display: block;
+  }
+}
+
+.product-detail__price {}
+
+.product-detail__cart-block {
+  grid-area: cart-block;
+
+  @include breakpoint-mf('lg') {
+    @include flex(row, start, center);
+    gap: 35px;
+    margin-left: 40px;
+  }
+
+  @include breakpoint-mf('xl') {
+    margin-left: 70px;
+  }
+}
+
+.cart-block__amount-wrap {
+  @include margin(20px, 20px);
+  @include flex(row, start, center);
+  gap: 10px;
+
+  @include breakpoint-mf('sm') {
+    @include margin(25px, 25px);
+    gap: 15px;
+  }
+
+  @include breakpoint-mf('xl') {
+    margin: 0;
+  }
+}
+
+.cart-block__amount-item {
+  width: 35px;
+  height: 35px;
+  background-color: $secondaryLight;
+  color: $primaryLight;
+  @include fonts(400, 20px, 35px);
+
+  @include breakpoint-mf('sm') {
+    width: 55px;
+    height: 55px;
+    @include fonts(400, 30px, 55px);
+  }
+}
+
+.cart-block__decrease-btn,
+.cart-block__increase-btn {
+  cursor: pointer;
+  &:hover {
+    background-color: darken($secondaryLight, 5%);
+  }
+}
+
+.cart-block__add-btn {
+  padding: 10px 13px;
+  color: $primaryLight;
+  border: 2px solid $primaryLight;
+  background-color: $secondaryLight;
+  @include fonts(400, 12px, 18px);
+  cursor: pointer;
+
+  @include breakpoint-mf('sm') {
+    padding: 13px 15px;
+    @include fonts(400, 20px, 30px);
+  }
+
+  @include breakpoint-mf('lg') {
+    padding: 14px 16px;
+    @include fonts(400, 15px, 17px);
+    background-color: $primaryDark;
+    border-color: $primaryDark;
+    color: $white;
+  }
+
+  &:hover {
+    background-color: darken($primaryDark, 5%);
+    color: $white;
+  }
+}
+
