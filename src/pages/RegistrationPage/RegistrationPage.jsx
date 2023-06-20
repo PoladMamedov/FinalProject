@@ -27,7 +27,7 @@ function RegistrationPage() {
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
     }),
     onSubmit: (values) => {
-      const usersInfo = {
+      const userInfo = {
         firstName: values.firstName,
         lastName: values.lastName,
         login: values.login,
@@ -35,7 +35,7 @@ function RegistrationPage() {
         password: values.password,
       };
       //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (created user object)
-      console.log(usersInfo);
+      console.log(userInfo);
     },
   });
 
