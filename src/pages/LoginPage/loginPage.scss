@@ -1,10 +1,12 @@
 .login-section {
   margin-top: 100px;
+  margin-bottom: 100px;
   @include flex(column, center, center);
   @include breakpoint-mf("md") {
     margin-top: 50px;
   }
   @include breakpoint-mf("my") {
+    margin-top: 30px;
     @include flex(row, center, center);
     gap: 65px;
   }
@@ -45,6 +47,8 @@
   width: 100%;
   svg {
     position: absolute;
+    width: 20px;
+    height: 20px;
     left: 15px;
     top: 9px;
     @include breakpoint-mf("md") {
