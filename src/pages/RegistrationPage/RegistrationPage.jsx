@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import useServer from "../../hooks/useServer";
 
 function RegistrationPage() {
   const [showPass, setShowPass] = useState(false);
   const [showConfrimPass, setShowConfirmPass] = useState(false);
+  const { registerUser } = useServer();
 
   const formik = useFormik({
     initialValues: {
@@ -26,8 +28,8 @@ function RegistrationPage() {
         .required("Confirm your password")
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
     }),
-    onSubmit: (values) => {
-      const userInfo = {
+    onSubmit: async (values) => {
+      const newUserData = {
         firstName: values.firstName,
         lastName: values.lastName,
         login: values.login,
@@ -35,7 +37,8 @@ function RegistrationPage() {
         password: values.password,
       };
       //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (created user object)
-      console.log(userInfo);
+      const newUser = await registerUser(newUserData)
+      console.log(newUser);
     },
   });
 
