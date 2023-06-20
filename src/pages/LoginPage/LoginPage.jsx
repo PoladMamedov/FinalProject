@@ -11,11 +11,7 @@ function LoginPage() {
     validationSchema: Yup.object({
       email: Yup.string().email("You need to enter valid email").required("You need to enter your email to continue"),
       password: Yup.string().required("Password required"),
-    }),
-    // onSubmit: (values) => {
-    //   //! запрос на сервер и получение ответа (токена). Authorized or not
-    //   console.log({ email: values.email, password: values.password });
-    // },
+    })
   });
 
   return (
