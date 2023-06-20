@@ -3,19 +3,18 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import Header from "./components/header";
+import Home from "./pages/Home/Home";
 import Footer from "./components/footer";
 
 const AppRoutes = () => {
   return (
     <>
       <Header />
-      <div className="container">
         <Routes>
-          <Route path="/" element={<h1>mainpage</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
         </Routes>
-      </div>
       <Footer/>
     </>
 
