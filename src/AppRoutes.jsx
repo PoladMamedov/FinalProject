@@ -12,24 +12,24 @@ const AppRoutes = () => {
   return (
     <>
       <Header />
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<h1>mainpage</h1>} />
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/"
-            element={
-              <>
-                <div className={styles.containerSlider}>
-                  <TopItemsSlider />
-                </div>
-              </>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-        </Routes>
-      <Footer/>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        {/* <Route path="/" element={<h1>mainpage</h1>} /> */}
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <div className={styles.containerSlider}>
+                <TopItemsSlider />
+              </div>
+            </>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
+      </Routes>
+      <Footer />
     </>
   );
 };
