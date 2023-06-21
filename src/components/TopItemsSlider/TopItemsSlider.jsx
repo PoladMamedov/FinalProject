@@ -8,31 +8,31 @@ const TopItemsSlider = () => {
   const items = [
     {
       id: 1,
-      title: "Apple Watch 7X",
-      image: "/img/top-slider/watch.jpeg",
-      text: "Embrace the Future of Timekeeping with Apple Watch 7X:",
-      subtext: "Unleash Your Style and Stay Connected in Style."
+      title: "Apple Watch",
+      image: "/img/top-slider/watch01.jpeg",
+      text: "Stay Connected and Stylish with the",
+      subtext: "Revolutionary Apple 7X Watch!"
     },
     {
       id: 2,
-      title: "Headphone Sony G",
-      image: "/img/top-slider/headphone04.jpeg",
-      text: "Experience Pure Audio Freedom with Sony G Wireless Headphones:",
-      subtext: "Unleash the Sound."
+      title: "Headphone Sony",
+      image: "/img/top-slider/headphone01.jpeg",
+      text: "Immerse Yourself in Crystal Clear Sound",
+      subtext: "with Sony G Headphones!"
     },
     {
       id: 3,
-      title: "Gaming Keyboard Max",
-      image: "/img/top-slider/keyboards-slider.jpeg",
-      text: "Maximize Your Gaming Performance with Gaming Keyboard Max:",
-      subtext: "Unleash Your Competitive Edge."
+      title: "Gaming Keyboard",
+      image: "/img/top-slider/keyboard01.jpeg",
+      text: "Maximize Your Gaming Performance with",
+      subtext: "Gaming Keyboard Max!"
     },
     {
       id: 4,
-      title: "Optical Mouse G305",
-      image: "/img/top-slider/mice02.jpeg",
-      text: "Elevate Your Precision with Optical Mouse G305:",
-      subtext: "Unleash Your Gaming Potential."
+      title: "Optical Mouse",
+      image: "/img/top-slider/mice01.jpeg",
+      text: "Experience Precision and Speed with",
+      subtext: " the G305 Optical Mouse!"
     }
   ];
   const settings = {
@@ -41,8 +41,8 @@ const TopItemsSlider = () => {
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 8000,
+    autoplay: true,
+    autoplaySpeed: 6000,
   };
   return (
       <Slider {...settings}>
