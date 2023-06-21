@@ -15,7 +15,7 @@ const TopItemsSlider = () => {
     {
       id: 2,
       title: "Wireless Headphones",
-      image: "/img/top-slider/headphone-slider.jpeg",
+      image: "/img/top-slider/headphone04.jpeg",
       text: "Immerse Yourself in Music"
     },
     {
@@ -27,7 +27,7 @@ const TopItemsSlider = () => {
     {
       id: 4,
       title: "Optical Mouse",
-      image: "/img/top-slider/mice-slider.jpeg",
+      image: "/img/top-slider/mice02.jpeg",
       text: "Precision at Your Fingertips"
     }
   ];
@@ -46,10 +46,12 @@ const TopItemsSlider = () => {
           <div
            className={styles.topItems}
            key={item.id} >
-            <h1 type="button" className={styles.topItems_title}>{item.title}</h1>
+            <div className="container">
+            <h1 type="button" className="topItems_title">{item.title}</h1>
             <h3 className={styles.topItems_caption}>{item.text}</h3>
             <a href="/products" className={styles.topItems_link}>
-              <button type="button" className={styles.topItems_btn}>Shop Now</button></a>
+              <button type="button" className="topItems_btn">Shop Now</button></a>
+              </div>
             <img
             className="topItems_img"
             src={item.image}

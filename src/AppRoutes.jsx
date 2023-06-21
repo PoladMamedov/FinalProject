@@ -15,7 +15,6 @@ const AppRoutes = () => {
             path="/"
             element={
               <>
-                <h1>mainpage</h1>
                 <div className={styles.containerSlider}>
                   <TopItemsSlider />
                 </div>
