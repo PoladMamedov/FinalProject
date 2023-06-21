@@ -7,10 +7,8 @@ import TopItemsSlider from "../TopItemsSlider/TopItemsSlider";
 const Main = () => {
     return (
         <main>
-            <div className="containerSlider">
-                <TopItemsSlider />
-            </div>
-            <Benefits content={content} />
+       <TopItemsSlider />
+          <Benefits content={content}/>
         </main>
     );
 };
