@@ -4,13 +4,15 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import Header from "./components/header";
 import TopItemsSlider from "./components/TopItemsSlider/TopItemsSlider";
 import styles from "./components/TopItemsSlider/TopItemsSlider.scss";
+import Home from "./pages/Home/Home";
+import Footer from "./components/footer";
 
 const AppRoutes = () => {
   return (
     <>
       <Header />
-      <div className="container">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
             path="/"
             element={
@@ -24,7 +26,7 @@ const AppRoutes = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
         </Routes>
-      </div>
+      <Footer/>
     </>
   );
 };

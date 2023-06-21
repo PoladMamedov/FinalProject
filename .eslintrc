@@ -64,7 +64,8 @@
     "padded-blocks": "off", //блок кода не должен быть окружен пустыми строками(правило отключено)
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/destructuring-assigment": "off"
+    "react/destructuring-assignment": "off",
+    "react/prop-types": ["off"]
   },
   "settings": {
     "react": {
