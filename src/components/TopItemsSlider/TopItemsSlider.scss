@@ -2,6 +2,7 @@
 
 .topItems {
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin-top: 30px;
   // background-color: #fcf9f6;
@@ -12,14 +13,14 @@
     top: 10px;
     // text-align: center;
     font-size: 38px;
-    margin-left: 30px;
+    margin-left: 90px;
   }
 
   &_img {
     position: relative;
     margin-top: 100px;
     top: -80px;
-    right: -550px;
+    right: -590px;
     width: 520px;
     height: 326px;
     border-radius: 15px;
@@ -38,7 +39,7 @@
     font-size: 20px;
   }
 
-  &_caption {
+  &_text {
     position: absolute;
     top: 110px;
     // left: 10px;
@@ -46,7 +47,17 @@
     color: #0e0d0d;
     padding: 10px;
     font-size: 18px;
+    flex-grow: 1;
   }
+
+  &_subtext {
+    position: absolute;
+    top: 140px;
+    padding: 10px;
+  }
+}
+.topItems .container {
+  height: 100%; /* Установите нужную высоту для контейнера элемента */
 }
 
 .topItems_link {
