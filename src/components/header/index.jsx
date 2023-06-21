@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "../breadCrumb/breadCrumb";
 import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
-
 
 const Header = () => {
    const dispatch = useDispatch();
@@ -12,9 +11,22 @@ const Header = () => {
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [searchTerm, setSearchTerm] = useState("");
    const pages = ["Products", "About"];
+   const menuRef = useRef(null);
 
+   const handleClickOutside = (e) => {
+      // Проверяем, был ли клик вне меню
+      if (e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)) {
+         setIsMenuOpen(false);
+      }
+   };
+   useEffect(() => {
+      document.addEventListener("click", handleClickOutside);
+
+      return () => {
+         document.removeEventListener("click", handleClickOutside);
+      };
+   }, []);
    const handleBtnClick = () => {
-
       setIsMenuOpen(!isMenuOpen);
    };
    const handleLinkClick = (path) => {
@@ -23,6 +35,12 @@ const Header = () => {
    };
    const handleChange = (value) => {
       setSearchTerm(value);
+   };
+
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      // console.log(searchTerm);
+      setSearchTerm("");
    };
 
    return (
@@ -57,7 +75,7 @@ const Header = () => {
                <svg className="header__nav-search" xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
                   <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                </svg>
-               <div className="header__search-wrap">
+               <form onSubmit={(e) => handleSubmit(e)} className="header__search-form">
                   <input
                      value={searchTerm}
                      onChange={(e) => handleChange(e.target.value)}
@@ -65,13 +83,12 @@ const Header = () => {
                      type="text"
                      placeholder="Search products..."
                   />
-                  {/* <button className="header__search-submit" type="button">
-                     SEARCH
-                  </button> */}
-                  <svg className="header__nav-search-submit" xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
-                     <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-                  </svg>
-               </div>
+                  <button className="header__search-submit" type="submit">
+                     <svg xmlns="http://www.w3.org/2000/svg" height="1.1em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                     </svg>
+                  </button>
+               </form>
 
                <NavLink
                   className="header__company-logo"
@@ -79,7 +96,7 @@ const Header = () => {
                   onClick={() => handleLinkClick(0)}>
                   <img src="/img/main-logo.png" alt="main-logo" />
                </NavLink>
-               <nav className={`header__nav${isMenuOpen ? "--open" : ""}`}>
+               <nav ref={menuRef} className={`header__nav${isMenuOpen ? "--open" : ""}`}>
 
                   <ul className="header__nav-list">
                      <li className="header__nav-item" key={1}>
@@ -94,6 +111,9 @@ const Header = () => {
                               className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""}`}
                               onClick={() => handleLinkClick(item.toLowerCase())}
                               to={`/${item.toLowerCase()}`}>{item}</NavLink >
+                           <div className="test">
+                              <p className="test2">Test Categories</p>
+                           </div>
                         </li>
                      ))}
                   </ul>
