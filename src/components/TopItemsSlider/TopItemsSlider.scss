@@ -11,7 +11,7 @@
     position: relative;
     margin-top: 100px;
     top: -80px;
-    right: -620px;
+    right: -610px;
     width: 520px;
     height: 326px;
     border-radius: 15px;
@@ -19,7 +19,7 @@
 
   &_btn {
     position: absolute;
-    margin-left: 60px;
+    margin-left: 70px;
     border: 1px #211F1C;
     color: #fff;
     outline: none;
@@ -36,7 +36,7 @@
     top: 30px;
     font-family: Leto;
     font-size: 60px;
-    margin-left: 60px;
+    margin-left: 70px;
     color: #393D45;
   }
 
@@ -47,18 +47,17 @@
     font-family: Roboto;
     font-weight: 400;
     font-size: 22px;
-    margin: 70px 0px 0px 60px;
+    margin: 70px 0px 0px 70px;
   }
 
   &_subtext {
     position: absolute;
     top: 140px;
-    margin: 40px 0px 0px 60px;
     color: #616467;
     font-family: Roboto;
     font-weight: 400;
     font-size: 22px;
-    margin: 70px 0px 0px 60px;
+    margin: 70px 0px 0px 70px;
   }
 }
 
