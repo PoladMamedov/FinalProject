@@ -132,6 +132,19 @@
       @include breakpoint-mf('lg') {
          width: 350px
       }
+
+      &--active {
+         position: absolute;
+         z-index: 100;
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         @media (min-width: 768px) {
+            display: none;
+         }
+      }
    }
 
    &__search-submit {
@@ -150,17 +163,46 @@
       @media (min-width: 840px) {
          right: 12px;
       }
+
+      &--active {
+         display: block;
+         position: absolute;
+         top: 17px;
+         right: 25px;
+         background-color: transparent;
+
+      }
+   }
+
+   &__search-close {
+      position: absolute;
+      right: 5px;
+
+      @include breakpoint-mf('md') {
+         display: none;
+      }
    }
 
    &__search-input {
       display: none;
+
+      &--active {
+         display: block;
+         width: 100%;
+         height: 52px;
+
+         @include breakpoint-mf('md') {
+            height: 75px;
+
+         }
+      }
 
       @include breakpoint-mf('md') {
          display: block;
          width: 100%;
          margin-left: 12px;
          padding: 7px 38px 7px 10px;
-         border: 1px solid black;
+         border: 1px solid $primary;
          border-radius: 5px;
          grid-column: 3/4;
          place-self: center;
