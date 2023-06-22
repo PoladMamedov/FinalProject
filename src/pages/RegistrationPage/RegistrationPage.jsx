@@ -37,7 +37,7 @@ function RegistrationPage() {
         password: values.password,
       };
       //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (created user object)
-      const newUser = await registerUser(newUserData)
+      const newUser = await registerUser(newUserData);
       console.log(newUser);
     },
   });

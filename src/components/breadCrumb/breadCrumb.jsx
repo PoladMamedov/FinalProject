@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import BreadcrumbItem from "../breadcrumbItem/breadcrumbItem";
+import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
 
 const Breadcrumb = () => {
+   const dispatch = useDispatch();
    const location = useLocation();
    const history = useNavigate();
    const [path, setPath] = useState([]);
-
    useEffect(() => {
       const { pathname } = location;
       const segments = pathname.split("/").filter((segment) => segment !== "");
-
+      const currentSegment = pathname.substring(1);
+      dispatch(setPagePath(currentSegment === "" ? "home" : currentSegment));
       setPath((prevPath) => {
          const previousPath = prevPath.slice(0, -1);
          const currentPath = segments;
@@ -24,7 +27,7 @@ const Breadcrumb = () => {
          }
          return currentPath;
       });
-   }, [location]);
+   }, [location, dispatch]);
 
    const renderBreadcrumb = () => {
       if (path.length === 0) {

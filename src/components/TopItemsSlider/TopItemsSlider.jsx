@@ -8,27 +8,31 @@ const TopItemsSlider = () => {
   const items = [
     {
       id: 1,
-      title: "Apple Watch",
+      title: "Apple Watch 7X",
       image: "/img/top-slider/watch.jpeg",
-      text: "Stay Connected in Style"
+      text: "Embrace the Future of Timekeeping with Apple Watch 7X:",
+      subtext: "Unleash Your Style and Stay Connected in Style."
     },
     {
       id: 2,
-      title: "Wireless Headphones",
+      title: "Headphone Sony G",
       image: "/img/top-slider/headphone04.jpeg",
-      text: "Immerse Yourself in Music"
+      text: "Experience Pure Audio Freedom with Sony G Wireless Headphones:",
+      subtext: "Unleash the Sound."
     },
     {
       id: 3,
-      title: "Gaming Keyboard",
+      title: "Gaming Keyboard Max",
       image: "/img/top-slider/keyboards-slider.jpeg",
-      text: "Unleash Your Gaming Potential"
+      text: "Maximize Your Gaming Performance with Gaming Keyboard Max:",
+      subtext: "Unleash Your Competitive Edge."
     },
     {
       id: 4,
-      title: "Optical Mouse",
+      title: "Optical Mouse G305",
       image: "/img/top-slider/mice02.jpeg",
-      text: "Precision at Your Fingertips"
+      text: "Elevate Your Precision with Optical Mouse G305:",
+      subtext: "Unleash Your Gaming Potential."
     }
   ];
   const settings = {
@@ -44,11 +48,12 @@ const TopItemsSlider = () => {
       <Slider {...settings}>
         {items.map(( item ) => (
           <div
-           className={styles.topItems}
+           className="topItems"
            key={item.id} >
             <div className="container">
             <h1 type="button" className="topItems_title">{item.title}</h1>
-            <h3 className={styles.topItems_caption}>{item.text}</h3>
+            <h3 className="topItems_text">{item.text}</h3>
+            <h3 className="topItems_subtext">{item.subtext}</h3>
             <a href="/products" className={styles.topItems_link}>
               <button type="button" className="topItems_btn">Shop Now</button></a>
               </div>
