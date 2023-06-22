@@ -1,40 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "./slick.scss";
 import "./slick-theme.scss";
+import { Link } from "react-router-dom";
 import styles from "./TopItemsSlider.scss";
+import useServer from "../../hooks/useServer";
 
 const TopItemsSlider = () => {
-  const items = [
-    {
-      _id: 1,
-      title: "Apple Watch",
-      image: "/img/top-slider/watch01.jpeg",
-      text: "Stay Connected and Stylish with the",
-      subtext: "Revolutionary Apple 7X Watch!"
-    },
-    {
-      _id: 2,
-      title: "Headphone Sony",
-      image: "/img/top-slider/headphone01.jpeg",
-      text: "Immerse Yourself in Crystal Clear",
-      subtext: "Sound with Sony G Headphones!"
-    },
-    {
-      _id: 3,
-      title: "Gaming Keyboard",
-      image: "/img/top-slider/keyboard01.jpeg",
-      text: "Maximize Your Gaming Performance",
-      subtext: "with Gaming Keyboard Max!"
-    },
-    {
-      _id: 4,
-      title: "Optical Mouse",
-      image: "/img/top-slider/mice01.jpeg",
-      text: "Experience Precision and Speed with",
-      subtext: " the G305 Optical Mouse!"
-    }
-  ];
+  const [items, setItems] = useState([]);
+  const { getSlides } = useServer();
+
+  useEffect(() => {
+    const fetchSlider = async () => {
+      try {
+        const products = await getSlides();
+        setItems(products);
+      } catch (err) {
+      }
+    };
+
+    fetchSlider();
+  }, [getSlides]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -47,22 +34,24 @@ const TopItemsSlider = () => {
   return (
       <Slider {...settings}>
         {items.map(( item ) => (
+          <>
           <div
-           className="topItems"
-           key={item.id} >
+            className="topItems"
+            key={item.id}>
             <div className="container">
-            <h1 type="button" className="topItems_title">{item.title}</h1>
-            <h3 className="topItems_text">{item.text}</h3>
-            <h3 className="topItems_subtext">{item.subtext}</h3>
-            <a href="/products" className={styles.topItems_link}>
-              <button type="button" className="topItems_btn">Shop Now</button></a>
-              </div>
-            <img
-            className="topItems_img"
-            src={item.image}
-            alt={item.text}
-             />
+              <h1 type="button" className="topItems_title">{item.title}</h1>
+              <h3 className="topItems_text">{item.text}</h3>
+              <h3 className="topItems_subtext">{item.subtext}</h3>
+              <Link to={`/products/${item.customId}`} className={styles.topItems_link}>
+                <button type="button" className="topItems_btn">Shop Now</button>
+              </Link>
           </div>
+          <img
+              className="topItems_img"
+              src={item.imageUrl}
+              alt={item.text} />
+          </div>
+          </>
         ))}
       </Slider>
   );
