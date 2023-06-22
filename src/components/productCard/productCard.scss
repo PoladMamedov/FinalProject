@@ -1,0 +1,55 @@
+@import "../../styles/style.scss";
+
+.cardContainer{
+  width: 275px;
+  height: 423px;
+}
+
+.card{
+  position: relative;
+  width: 269px;
+  height: 418px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.25);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &:hover {
+    z-index: 2;
+    width: calc(100% + 10px);
+  }
+
+    &__btn{
+    position: absolute;
+    width: 205px;
+    height: 36px;
+    margin-top: 370px;
+    margin-left: 32px;
+    display: flex;
+    gap: 15px;
+  }
+  &__btn-details{
+    width: 138px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: $primary;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__btn-cartContainer{
+    width:52px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+  }
+  &__btn-svgCart{
+    width:23px;
+    height: 26px;
+    background-color: white;
+  }
+}
