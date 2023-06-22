@@ -28,6 +28,18 @@ export default function useServer() {
     return loginResult;
   }
 
+  async function getUser(token) {
+    const user = await fetch(`${url}/customers/customer`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return user;
+  }
+
   //* Getting all categories
   async function getCategories() {
     const categories = await fetch(`${url}/catalog`)
@@ -61,6 +73,7 @@ export default function useServer() {
   return {
     registerUser,
     loginUser,
+    getUser,
     getCategories,
     getAllProducts,
     getProduct,

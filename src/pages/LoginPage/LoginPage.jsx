@@ -6,7 +6,7 @@ import useServer from "../../hooks/useServer";
 
 function LoginPage() {
   const [showPass, setShowPass] = useState(false);
-  const { loginUser } = useServer();
+  const { loginUser, getUser } = useServer();
   const formik = useFormik({
     initialValues: {
       loginOrEmail: "",
@@ -23,7 +23,10 @@ function LoginPage() {
       };
       //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (succes, token)
       const loginResult = await loginUser(userData);
+      const user = await getUser(loginResult.token);
       console.log(loginResult);
+      console.log(user);
+      //! пока только выводит в консоль, нужно дописать редюсер и так далее
     },
   });
 

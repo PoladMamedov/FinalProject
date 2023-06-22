@@ -3,11 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import useServer from "../../hooks/useServer";
-import Notification from "../../components/Notification/Notification";
+import PreLoader from "../../components/PreLoader/PreLoader";
 
 function RegistrationPage() {
   const [showPass, setShowPass] = useState(false);
   const [showConfrimPass, setShowConfirmPass] = useState(false);
+  const [newUser, setNewUser] = useState({});
+  const [loading, setLoading] = useState(false);
   const { registerUser } = useServer();
 
   const formik = useFormik({
@@ -20,14 +22,23 @@ function RegistrationPage() {
       confirmPassword: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required("First name required"),
-      lastName: Yup.string().required("Last name required"),
+      firstName: Yup.string()
+        .min(2, "First Name must be between 2 and 25 characters")
+        .max(25, "First Name must be between 2 and 25 characters")
+        .required("First name required"),
+      lastName: Yup.string()
+        .min(2, "Last Name must be between 2 and 25 characters")
+        .max(25, "Last Name must be between 2 and 25 characters")
+        .required("Last name required"),
       login: Yup.string().required("Login required"),
       email: Yup.string().email("You need to enter a valid email").required("You need to enter your email to continue"),
-      password: Yup.string().required("Password required"),
+      password: Yup.string()
+        .min(7, "Password must be between 7 and 30 characters")
+        .max(30, "Password must be between 7 and 30 characters")
+        .required("Password required"),
       confirmPassword: Yup.string()
-        .required("Confirm your password")
-        .oneOf([Yup.ref("password"), null], "Passwords must match"),
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Confirm your password"),
     }),
     onSubmit: async (values) => {
       const newUserData = {
@@ -37,10 +48,11 @@ function RegistrationPage() {
         email: values.email,
         password: values.password,
       };
-      //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (created user object)
-      const newUser = await registerUser(newUserData);
-      console.log(newUser);
-      formik.resetForm();
+      setLoading(true);
+      const response = await registerUser(newUserData);
+      setLoading(false);
+      if (response.enabled) formik.resetForm();
+      setNewUser(response);
     },
   });
 
@@ -49,7 +61,6 @@ function RegistrationPage() {
       <section className="registration-section">
         <form className="registration-section__form" action="login" onSubmit={formik.handleSubmit}>
           <h1 className="registration-section__title">REGISTRATION</h1>
-
           <div className="registration-section__form-input-wrapper">
             <input
               className="registration-section__form-input"
@@ -226,9 +237,19 @@ function RegistrationPage() {
             Already registered?
             <Link to={"/login"}> Log in now!</Link>
           </p>
+          {newUser.enabled ? (
+            <p className="registration-section__request-good-res">{`User ${newUser.firstName} ${newUser.lastName} created succesfully, now you can log in!`}</p>
+          ) : null}
+          {newUser.message ? <p className="registration-section__request-bad-res">{newUser.message}</p> : null}
+          {newUser.firstName && !newUser.enabled ? (
+            <p className="registration-section__request-bad-res">{newUser.firstName}</p>
+          ) : null}
+          {newUser.lastName && !newUser.enabled ? (
+            <p className="registration-section__request-bad-res">{newUser.lastName}</p>
+          ) : null}
         </form>
       </section>
-      <Notification />
+      {loading ? <PreLoader /> : null}
     </>
   );
 }
