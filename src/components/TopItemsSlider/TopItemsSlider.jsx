@@ -7,28 +7,28 @@ import styles from "./TopItemsSlider.scss";
 const TopItemsSlider = () => {
   const items = [
     {
-      id: 1,
+      _id: 1,
       title: "Apple Watch",
       image: "/img/top-slider/watch01.jpeg",
       text: "Stay Connected and Stylish with the",
       subtext: "Revolutionary Apple 7X Watch!"
     },
     {
-      id: 2,
+      _id: 2,
       title: "Headphone Sony",
       image: "/img/top-slider/headphone01.jpeg",
       text: "Immerse Yourself in Crystal Clear",
       subtext: "Sound with Sony G Headphones!"
     },
     {
-      id: 3,
+      _id: 3,
       title: "Gaming Keyboard",
       image: "/img/top-slider/keyboard01.jpeg",
       text: "Maximize Your Gaming Performance",
       subtext: "with Gaming Keyboard Max!"
     },
     {
-      id: 4,
+      _id: 4,
       title: "Optical Mouse",
       image: "/img/top-slider/mice01.jpeg",
       text: "Experience Precision and Speed with",
