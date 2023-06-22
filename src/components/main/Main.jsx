@@ -7,11 +7,8 @@ import OurPartners from "../OurPartners/OurPartners";
 const Main = () => {
     return (
         <main>
-            <div className="containerSlider">
-                <TopItemsSlider />
-            </div>
-            <OurPartners />
-            <Benefits content={content} />
+       <TopItemsSlider />
+          <Benefits content={content}/>
         </main>
     );
 };

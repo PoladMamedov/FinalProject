@@ -1,63 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "./slick.scss";
 import "./slick-theme.scss";
+import { Link } from "react-router-dom";
 import styles from "./TopItemsSlider.scss";
+import useServer from "../../hooks/useServer";
 
 const TopItemsSlider = () => {
-  const items = [
-    {
-      id: 1,
-      title: "Apple Watch",
-      image: "/img/top-slider/watch.jpeg",
-      text: "Stay Connected in Style"
-    },
-    {
-      id: 2,
-      title: "Wireless Headphones",
-      image: "/img/top-slider/headphone04.jpeg",
-      text: "Immerse Yourself in Music"
-    },
-    {
-      id: 3,
-      title: "Gaming Keyboard",
-      image: "/img/top-slider/keyboards-slider.jpeg",
-      text: "Unleash Your Gaming Potential"
-    },
-    {
-      id: 4,
-      title: "Optical Mouse",
-      image: "/img/top-slider/mice02.jpeg",
-      text: "Precision at Your Fingertips"
-    }
-  ];
+  const [items, setItems] = useState([]);
+  const { getSlides } = useServer();
+
+  useEffect(() => {
+    const fetchSlider = async () => {
+      try {
+        const products = await getSlides();
+        setItems(products);
+      } catch (err) {
+      }
+    };
+
+    fetchSlider();
+  }, [getSlides]);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 8000,
+    autoplay: true,
+    autoplaySpeed: 6000,
   };
   return (
       <Slider {...settings}>
         {items.map(( item ) => (
+          <>
           <div
-           className={styles.topItems}
-           key={item.id} >
+            className="topItems"
+            key={item.id}>
             <div className="container">
-            <h1 type="button" className="topItems_title">{item.title}</h1>
-            <h3 className={styles.topItems_caption}>{item.text}</h3>
-            <a href="/products" className={styles.topItems_link}>
-              <button type="button" className="topItems_btn">Shop Now</button></a>
-              </div>
-            <img
-            className="topItems_img"
-            src={item.image}
-            alt={item.text}
-             />
+              <h1 type="button" className="topItems_title">{item.title}</h1>
+              <h3 className="topItems_text">{item.text}</h3>
+              <h3 className="topItems_subtext">{item.subtext}</h3>
+              <Link to={`/products/${item.customId}`} className={styles.topItems_link}>
+                <button type="button" className="topItems_btn">Shop Now</button>
+              </Link>
           </div>
+          <img
+              className="topItems_img"
+              src={item.imageUrl}
+              alt={item.text} />
+          </div>
+          </>
         ))}
       </Slider>
   );
