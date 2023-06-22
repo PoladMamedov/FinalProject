@@ -51,6 +51,7 @@
 
    &__back-btn {
       margin-left: 9px;
+      cursor: pointer;
 
       @include breakpoint-mf('md') {
          margin-top: 2px;
@@ -59,6 +60,7 @@
 
    &__forward-btn {
       margin-left: 2px;
+      cursor: pointer;
 
       @include breakpoint-mf('md') {
          margin-top: 2px;
