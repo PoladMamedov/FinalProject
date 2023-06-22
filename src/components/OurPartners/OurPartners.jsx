@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 import "./ourPartners.scss";
-
+import useServer from "../../hooks/useServer";
 
 const OurPartners = () => {
+   const server = useServer();
    const [partners, setPartners] = useState([]);
    useEffect(() => {
-      fetch("https://final-project-backend-phi.vercel.app/api/partners")
-         .then((response) => {
-            response.json().then((data) => setPartners(data));
-         });
-   }, [partners]);
+      async function fetchPartners() {
+         try {
+            const ourPartners = await server.getPartners();
+            setPartners(ourPartners);
+         } catch (error) {
+            console.error(error);
+         }
+      }
+      fetchPartners();
+   }, [server]);
    return (
       <>
          <section className="our-partners">
