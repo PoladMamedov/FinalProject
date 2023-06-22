@@ -1,0 +1,173 @@
+[
+  {
+    "_id": "64908f904f04b6e91a61cd28",
+    "id": "smart_watch",
+    "name": "smart_watch",
+    "parentId": "null",
+    "description": "A category, that represents smart watch products",
+    "level": 0,
+    "date": "2023-06-19T17:28:33.222Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd29",
+    "id": "headphones",
+    "name": "headphones",
+    "parentId": "null",
+    "description": "A category, that represents headphones products",
+    "level": 0,
+    "date": "2023-06-19T17:28:33.223Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2a",
+    "id": "keyboards",
+    "name": "keyboards",
+    "parentId": "null",
+    "description": "A category, that represents keyboards products",
+    "level": 0,
+    "date": "2023-06-19T17:28:33.223Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2b",
+    "id": "mouses",
+    "name": "mouses",
+    "parentId": "null",
+    "description": "A category, that represents mouses products",
+    "level": 0,
+    "date": "2023-06-19T17:28:33.224Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2c",
+    "id": "all_mouses",
+    "name": "all_mouses",
+    "parentId": "mouses",
+    "description": "A category, that represents all mouses products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.224Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2d",
+    "id": "wired_mouses",
+    "name": "wired_mouses",
+    "parentId": "mouses",
+    "description": "A category, that represents wired mouses products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.224Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2e",
+    "id": "wireless_mouses",
+    "name": "wireless_mouses",
+    "parentId": "mouses",
+    "description": "A category, that represents wireless mouses products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.224Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd2f",
+    "id": "led_lights_mouses",
+    "name": "led_lights_mouses",
+    "parentId": "mouses",
+    "description": "A category, that represents led lights mouses products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd30",
+    "id": "all_keyboards",
+    "name": "all_keyboards",
+    "parentId": "keyboards",
+    "description": "A category, that represents all keyboards products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd31",
+    "id": "wired_keyboards",
+    "name": "wired_keyboards",
+    "parentId": "keyboards",
+    "description": "A category, that represents wired keyboards products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd32",
+    "id": "wireless_keyboards",
+    "name": "wireless_keyboards",
+    "parentId": "keyboards",
+    "description": "A category, that represents wireless keyboards products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd33",
+    "id": "gaming_keyboards",
+    "name": "gaming_keyboards",
+    "parentId": "keyboards",
+    "description": "A category, that represents gaming keyboards products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd34",
+    "id": "all_smart_watch",
+    "name": "all_smart_watch",
+    "parentId": "smart_watch",
+    "description": "A category, that represents all smart watch products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd35",
+    "id": "sport_smart_watch",
+    "name": "sport_smart_watch",
+    "parentId": "smart_watch",
+    "description": "A category, that represents sport smart watch products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd36",
+    "id": "waterproof_smart_watch",
+    "name": "waterproof_smart_watch",
+    "parentId": "smart_watch",
+    "description": "A category, that represents waterproof smart watch products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd37",
+    "id": "all_headphones",
+    "name": "all_headphones",
+    "parentId": "headphones",
+    "description": "A category, that represents all headphones products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd38",
+    "id": "wired_headphones",
+    "name": "wired_headphones",
+    "parentId": "headphones",
+    "description": "A category, that represents wired headphones products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.225Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd39",
+    "id": "wireless_headphones",
+    "name": "wireless_headphones",
+    "parentId": "headphones",
+    "description": "A category, that represents wireless headphones products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.226Z"
+  },
+  {
+    "_id": "64908f904f04b6e91a61cd3a",
+    "id": "noise_cancel_headphones",
+    "name": "noise_cancel_headphones",
+    "parentId": "headphones",
+    "description": "A category, that represents noise cancelling headphones products",
+    "level": 1,
+    "date": "2023-06-19T17:28:33.226Z"
+  }
+]
