@@ -31,8 +31,10 @@ const Header = () => {
       setIsMenuOpen(!isMenuOpen);
    };
    const handleLinkClick = (path) => {
+      setIsCategoriesOpen(isCategoriesOpen ? false : null);
       dispatch(setPagePath(path));
       setIsMenuOpen(!isMenuOpen);
+
    };
    const handleCategories = () => {
       setIsCategoriesOpen(!isCategoriesOpen);
