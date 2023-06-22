@@ -9,8 +9,6 @@ function Categories() {
   const { categories } = useSelector((state) => state.categories);
   const [activeCategory, setActiveCategory] = useState(null);
 
-  console.log(categories);
-
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -21,6 +19,7 @@ function Categories() {
     );
 
     return filteredCategories.map((category) => (
+      // eslint-disable-next-line no-underscore-dangle
       <li key={category._id} className="subcategory__list-item">
         <NavLink className="subcategory__list-link">{category.name}</NavLink>
         {groupCategories(category.id)}
@@ -34,6 +33,7 @@ function Categories() {
         {categories
           .filter((category) => category.parentId === "null")
           .map((category) => (
+            // eslint-disable-next-line no-underscore-dangle
             <li key={category._id} className="category__list-item">
               <NavLink
                 className="category__list-link"
