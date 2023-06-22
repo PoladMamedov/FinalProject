@@ -29,4 +29,113 @@
          margin-bottom: 70px;
       }
    }
+
+   &__list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 67px;
+      margin-bottom: 25px;
+
+      @include breakpoint-mf('xxs') {
+         gap: 45px 75px;
+      }
+
+      @include breakpoint-mf('sm') {
+         gap: 50px 80px;
+      }
+
+      @include breakpoint-mf('md') {
+         grid-template-columns: repeat(4, 1fr);
+         gap: 65px;
+         margin-bottom: 51px;
+      }
+
+      @include breakpoint-mf('my') {
+         gap: 85px;
+      }
+
+      @include breakpoint-mf('lg') {
+         gap: 100px;
+      }
+
+      @include breakpoint-mf('xl') {
+         gap: 120px;
+         margin-bottom: 110px;
+      }
+   }
+
+   &__item:nth-child(1) {
+      place-self: end;
+   }
+
+   &__logo {
+      width: 100px;
+      height: 23px;
+      vertical-align: middle;
+
+      @include breakpoint-mf('xxs') {
+         width: 110px;
+         height: 24px;
+      }
+
+      @include breakpoint-mf('xs') {
+         width: 140px;
+         height: 26px;
+      }
+
+      @include breakpoint-mf('sm') {
+         width: 150px;
+         height: 28px;
+      }
+
+      @include breakpoint-mf('md') {
+         width: 125px;
+         height: 30px;
+      }
+
+      @include breakpoint-mf('my') {
+         width: 150px;
+         height: 30px;
+      }
+
+      @include breakpoint-mf('lg') {
+         width: 160px;
+         height: 32px;
+      }
+
+      @include breakpoint-mf('xl') {
+         width: 195px;
+         height: 40px;
+      }
+
+      &--last {
+         @extend .our-partners__logo;
+         height: 30px;
+
+         @include breakpoint-mf('xxs') {
+
+            height: 31px;
+         }
+
+         @include breakpoint-mf('xs') {
+
+            height: 33px;
+         }
+
+         @include breakpoint-mf('sm') {
+
+            height: 35px;
+         }
+
+         @include breakpoint-mf('my') {
+
+            height: 37px;
+         }
+
+         @include breakpoint-mf('xl') {
+
+            height: 45px;
+         }
+      }
+   }
 }

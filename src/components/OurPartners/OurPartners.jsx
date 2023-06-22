@@ -14,10 +14,14 @@ const OurPartners = () => {
       <>
          <section className="our-partners">
             <h2 className="our-partners__title">OUR PARTNERS</h2>
-            <ul>
-               {partners.length !== 0 ? partners.map(({ name }, index) => {
+            <ul className="our-partners__list">
+               {partners.length !== 0 ? partners.map(({ imageUrl, url }, index) => {
                   return (
-                     <li key={index}>{name}</li>
+                     <li className="our-partners__item" key={index}>
+                        <a href={url} className="our-partners__link" target="blank">
+                           <img className={`our-partners__logo${index === 3 ? "--last" : ""}`} src={imageUrl} alt="partner-logo" />
+                        </a>
+                     </li>
                   );
                }) : <p>loading</p>}
             </ul>
