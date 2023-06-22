@@ -30,13 +30,12 @@ const Header = () => {
    const handleBtnClick = () => {
       setIsMenuOpen(!isMenuOpen);
    };
-   const handleLinkClick = (e, path) => {
-      if (e.target.tagName === "SPAN") {
-         setIsCategoriesOpen(!isCategoriesOpen);
-      } else {
-         dispatch(setPagePath(path));
-         setIsMenuOpen(!isMenuOpen);
-      }
+   const handleLinkClick = (path) => {
+      dispatch(setPagePath(path));
+      setIsMenuOpen(!isMenuOpen);
+   };
+   const handleCategories = () => {
+      setIsCategoriesOpen(!isCategoriesOpen);
    };
 
    const handleChange = (value) => {
@@ -123,10 +122,11 @@ const Header = () => {
                      <li className="header__nav-item" key={2}>
                         <NavLink
                            className={`header__nav-link${pagePath === "products" ? "--active" : ""}`}
-                           onClick={(e) => handleLinkClick(e, 1)}
-                           to={"/products"}>Products
-                           <span className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}></span>
-                        </NavLink >
+                           onClick={() => handleLinkClick(1)}
+                           to={"/products"}>Products </NavLink >
+                        <button type="button" onClick={() => handleCategories()} className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}>
+                        </button>
+
                         <ul className={isCategoriesOpen ? "test2" : "test"}>
                            <li>test</li>
                            <li>test</li>

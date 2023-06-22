@@ -361,26 +361,34 @@
 
    &__nav-item {
       position: relative;
-      overflow-y: clip;
    }
 
    &__nav-arrow {
+      position: absolute;
+      top: 0px;
+      right: -150px;
+      background-color: transparent;
+
       &::after {
+         display: block;
          content: "\25B2";
          color: $primary;
          position: absolute;
-         top: 0px;
-         right: -25px;
+         top: 2px;
+         right: 130px;
          transition: transform .3s linear;
       }
 
       &--open {
+         @extend .header__nav-arrow;
+
          &::after {
             content: "\25B2";
             color: $primary;
             position: absolute;
-            top: 0px;
-            right: -25px;
+            top: 2px;
+            right: 130px;
+
             transform: rotateZ(180deg);
             transition: transform .3s linear;
          }
@@ -547,12 +555,12 @@
 }
 
 .test {
-   display: block;
+   display: none;
    position: absolute;
-   top: -80px;
+   top: 0;
    transition: top .5s linear;
 }
 
 .test2 {
-   top: 0;
+   top: block;
 }
