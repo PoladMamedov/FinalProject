@@ -9,9 +9,9 @@
     padding: 42px 40px 140px;
     display: grid;
     grid-template-areas:
-            'main-img additional-imgs'
-            'info-block info-block'
-            'cart-block cart-block';
+            'main-img main-img additional-imgs'
+            'info-block info-block info-block'
+            'cart-block cart-block cart-block';
   }
 
   @include breakpoint-mf('lg') {
@@ -46,11 +46,6 @@
   }
 
   @include breakpoint-mf('lg') {
-    height: 500px;
-    //padding-right: 40px;
-  }
-
-  @include breakpoint-mf('xl') {
     height: 660px;
     //padding-right: 70px;
   }
@@ -71,7 +66,7 @@
   @include breakpoint-mf('my') {
     @include flex(column, space-between, center);
     margin: 0;
-    align-items: flex-end;
+    align-items: center;
   }
 
   @include breakpoint-mf('lg') {
