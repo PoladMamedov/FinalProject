@@ -30,9 +30,11 @@ const TopItemsSlider = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,
+    pauseOnHover: true
   };
+
   return (
-      <div className="responsive-slider">
+    <div className="responsive-slider">
       <Slider {...settings}>
         {items.map((item) => (
           <div className="topItems" key={item.id}>
@@ -53,3 +55,5 @@ const TopItemsSlider = () => {
 };
 
 export default TopItemsSlider;
+
+
