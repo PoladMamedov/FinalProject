@@ -1,5 +1,6 @@
 import "../../styles/style.scss";
 import { useState } from "react";
+// import { useParams } from "react-router-dom";
 
 const mockData = {
   name: "Razer Mouse X89",
@@ -12,6 +13,8 @@ const mockData = {
 
 export default function ProductDetail() {
   const [productAmount, setProductAmount] = useState(1);
+  // const { itemNo } = useParams();
+
 
   function onIncreaseBtnClick() {
     if (productAmount < mockData.stock) {
