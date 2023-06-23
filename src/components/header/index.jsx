@@ -47,12 +47,10 @@ const Header = () => {
   const handleChange = (value) => {
     setSearchTerm(value);
   };
-  const handleSearchOpen = () => {
+  const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-  const handleSearchClose = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,7 +103,7 @@ const Header = () => {
         </div>
         <div className="header__container-bottom">
           <svg
-            onClick={() => handleSearchOpen()}
+            onClick={() => handleSearch()}
             className="header__nav-search"
             xmlns="http://www.w3.org/2000/svg"
             height="1.1em"
@@ -141,7 +139,7 @@ const Header = () => {
               </svg>
             </button>
             <svg
-              onClick={() => handleSearchClose()}
+              onClick={() => handleSearch()}
               className="header__search-close"
               xmlns="http://www.w3.org/2000/svg"
               height="1.4em"
