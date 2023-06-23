@@ -1,0 +1,112 @@
+@import "../../styles/style.scss";
+
+.category {
+  // .category__list
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1160px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 30px;
+    border-bottom: 1px solid $secondary;
+
+    @media (max-width: 1200px) {
+      margin-left: 20px;
+      margin-right: 20px;
+      max-width: 1160px;
+      width: calc(100% - 40px);
+    }
+  }
+
+  // .category__list-item
+
+  &__list-item {
+    padding-bottom: 13px;
+  }
+
+  // .category__list-link
+
+  &__list-link {
+    line-height: 19px;
+    color: #616467;
+    position: relative;
+    padding-bottom: 2px;
+    font-size: 16px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 2px solid $primaryLight;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+    }
+
+    &:hover::after,
+    &:active:after {
+      transform: scaleX(1);
+      transform-origin: center;
+    }
+  }
+}
+
+.subcategory {
+  // .subcategory__list
+
+  &__list {
+    display: none;
+  }
+
+  // .subcategory__list-link
+
+  &__list-link {
+    line-height: 19px;
+    color: #616467;
+    position: relative;
+    padding-bottom: 2px;
+
+    &:hover {
+      font-weight: 700;
+      transform: scaleX(1);
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+.category__list-item:hover .subcategory__list {
+  z-index: 2; 
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  justify-content: space-around;
+  max-width: 1200px;
+  height: 60px;
+  padding-top: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 9px;
+  // border-top: 1px solid $primaryLight
+  &::before {
+    margin-top: 30px;
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 0;
+    right: 0;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid $primaryLight;
+  }
+}

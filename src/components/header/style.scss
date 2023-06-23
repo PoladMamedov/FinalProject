@@ -361,37 +361,38 @@
 
    &__nav-item {
       position: relative;
+   }
 
-      &:nth-child(2) {
-         padding-right: 10px;
-      }
+   &__nav-arrow {
+      position: absolute;
+      top: 0px;
+      right: -150px;
+      background-color: transparent;
 
-      &:nth-child(2)::after {
+      &::after {
+         display: block;
          content: "\25B2";
          color: $primary;
          position: absolute;
-         top: 0;
-         left: 80px;
+         top: 2px;
+         right: 130px;
          transition: transform .3s linear;
+      }
 
-         @include breakpoint-mf('md') {
-            content: "";
+      &--open {
+         @extend .header__nav-arrow;
+
+         &::after {
+            content: "\25B2";
+            color: $primary;
+            position: absolute;
+            top: 2px;
+            right: 130px;
+
+            transform: rotateZ(180deg);
+            transition: transform .3s linear;
          }
       }
-
-      &:nth-child(2):hover::after {
-         transform: rotateZ(180deg);
-      }
-
-      &:nth-child(2):hover .test {
-         top: 20px;
-         width: 200px;
-      }
-
-      &:nth-child(2):hover>.header__nav-list {
-         padding-bottom: 70px;
-      }
-
    }
 
    &__nav-btn-wrap {
@@ -554,14 +555,12 @@
 }
 
 .test {
-   display: block;
-   width: 200px;
-   margin: 0 auto;
-   background-color: red;
-   height: 100px;
+   display: none;
    position: absolute;
-   top: -200px;
-   left: -55px;
-   transition: top .4s linear;
-   z-index: 10;
+   top: 0;
+   transition: top .5s linear;
+}
+
+.test2 {
+   top: block;
 }
