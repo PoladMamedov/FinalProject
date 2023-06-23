@@ -6,7 +6,9 @@ import "./style.scss";
 
 function Categories() {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.categories);
+  const { categories, loading, error } = useSelector(
+    (state) => state.categories
+  );
   const [activeCategory, setActiveCategory] = useState(null);
 
   useEffect(() => {
@@ -26,27 +28,28 @@ function Categories() {
       </li>
     ));
   };
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    console.log(`Error:${error}`);
+  }
   return (
     <div className="category">
       <ul className="category__list">
         {categories
           .filter((category) => category.parentId === "null")
           .map((category) => (
-            // eslint-disable-next-line no-underscore-dangle
-            <li key={category._id} className="category__list-item">
-              <NavLink
-                className="category__list-link"
-                onMouseEnter={() => setActiveCategory(category.id)}
-              >
-                {category.name}
-              </NavLink>
+            <li
+              key={category.id}
+              onMouseEnter={() => setActiveCategory(category.id)}
+              onMouseLeave={() => setActiveCategory(null)}
+              className="category__list-item"
+            >
+              <NavLink className="category__list-link">{category.name}</NavLink>
 
               {activeCategory === category.id && (
-                <ul
-                  className="subcategory__list"
-                  onMouseLeave={() => setActiveCategory(null)}
-                >
+                <ul className="subcategory__list">
                   {groupCategories(category.id)}
                 </ul>
               )}
