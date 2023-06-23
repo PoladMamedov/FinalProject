@@ -48,6 +48,13 @@ export default function useServer() {
     return categories;
   }
 
+  async function getPartners() {
+    const categories = await fetch(`${url}/partners`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return categories;
+  }
+
   //* Getting products
   async function getAllProducts() {
     const products = await fetch(`${url}/products`)
@@ -75,6 +82,7 @@ export default function useServer() {
     loginUser,
     getUser,
     getCategories,
+    getPartners,
     getAllProducts,
     getProduct,
     getSlides,
