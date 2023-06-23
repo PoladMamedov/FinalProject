@@ -7,8 +7,9 @@ import OurPartners from "../OurPartners/OurPartners";
 const Main = () => {
     return (
         <main>
-       <TopItemsSlider />
-          <Benefits content={content}/>
+            <TopItemsSlider />
+            <OurPartners />
+            <Benefits content={content} />
         </main>
     );
 };

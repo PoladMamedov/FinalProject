@@ -7,6 +7,7 @@ import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
 
 const Header = () => {
+
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,13 +17,11 @@ const Header = () => {
   const pages = ["Products", "About"];
   const menuRef = useRef(null);
 
+
   const handleClickOutside = (e) => {
     // Проверяем, был ли клик вне меню
     if (
-      e.target.tagName !== "SPAN" &&
-      e.target.tagName !== "BUTTON" &&
-      menuRef.current &&
-      !menuRef.current.contains(e.target)
+      e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {
       setIsMenuOpen(false);
     }
@@ -48,12 +47,10 @@ const Header = () => {
   const handleChange = (value) => {
     setSearchTerm(value);
   };
-  const handleSearchOpen = () => {
+  const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-  const handleSearchClose = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,9 +69,8 @@ const Header = () => {
             <ul className="header__nav-list">
               <li className="header__nav-item" key={1}>
                 <NavLink
-                  className={`header__nav-link${
-                    pagePath === "home" ? "--active" : ""
-                  }`}
+                  className={`header__nav-link${pagePath === "home" ? "--active" : ""
+                    }`}
                   onClick={() => handleLinkClick("home")}
                   to={"/"}
                 >
@@ -84,9 +80,8 @@ const Header = () => {
               {pages.map((item, index) => (
                 <li className="header__nav-item" key={index + 1}>
                   <NavLink
-                    className={`header__nav-link${
-                      pagePath === item.toLowerCase() ? "--active" : ""
-                    }`}
+                    className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""
+                      }`}
                     onClick={() => handleLinkClick(item.toLowerCase())}
                     to={`/${item.toLowerCase()}`}
                   >
@@ -108,7 +103,7 @@ const Header = () => {
         </div>
         <div className="header__container-bottom">
           <svg
-            onClick={() => handleSearchOpen()}
+            onClick={() => handleSearch()}
             className="header__nav-search"
             xmlns="http://www.w3.org/2000/svg"
             height="1.1em"
@@ -124,16 +119,14 @@ const Header = () => {
             <input
               value={searchTerm}
               onChange={(e) => handleChange(e.target.value)}
-              className={`header__search-input${
-                isSearchOpen ? "--active" : ""
-              }`}
+              className={`header__search-input${isSearchOpen ? "--active" : ""
+                }`}
               type="text"
               placeholder="Search products..."
             />
             <button
-              className={`header__search-submit${
-                isSearchOpen ? "--active" : ""
-              }`}
+              className={`header__search-submit${isSearchOpen ? "--active" : ""
+                }`}
               type="submit"
             >
               <svg
@@ -146,7 +139,7 @@ const Header = () => {
               </svg>
             </button>
             <svg
-              onClick={() => handleSearchClose()}
+              onClick={() => handleSearch()}
               className="header__search-close"
               xmlns="http://www.w3.org/2000/svg"
               height="1.4em"
@@ -173,9 +166,8 @@ const Header = () => {
             <ul className="header__nav-list">
               <li className="header__nav-item" key={1}>
                 <NavLink
-                  className={`header__nav-link${
-                    pagePath === "home" ? "--active" : ""
-                  }`}
+                  className={`header__nav-link${pagePath === "home" ? "--active" : ""
+                    }`}
                   onClick={() => handleLinkClick(0)}
                   to={"/"}
                 >
@@ -184,9 +176,8 @@ const Header = () => {
               </li>
               <li className="header__nav-item" key={2}>
                 <NavLink
-                  className={`header__nav-link${
-                    pagePath === "products" ? "--active" : ""
-                  }`}
+                  className={`header__nav-link${pagePath === "products" ? "--active" : ""
+                    }`}
                   onClick={() => handleLinkClick(1)}
                   to={"/products"}
                 >
@@ -195,10 +186,8 @@ const Header = () => {
                 <button
                   type="button"
                   onClick={() => handleCategories()}
-                  className={`header__nav-arrow${
-                    isCategoriesOpen ? "--open" : ""
-                  }`}
-                ></button>
+                  className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}
+                >k</button>
 
                 <ul className={isCategoriesOpen ? "test2" : "test"}>
                   <li>test</li>
@@ -209,9 +198,8 @@ const Header = () => {
               </li>
               <li className="header__nav-item" key={3}>
                 <NavLink
-                  className={`header__nav-link${
-                    pagePath === "about" ? "--active" : ""
-                  }`}
+                  className={`header__nav-link${pagePath === "about" ? "--active" : ""
+                    }`}
                   onClick={() => handleLinkClick(3)}
                   to={"/about"}
                 >
