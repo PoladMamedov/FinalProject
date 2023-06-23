@@ -4,6 +4,7 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import Header from "./components/header";
 import Home from "./pages/Home/Home";
 import Footer from "./components/footer";
+import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFoundPage/NotFound";
 
 const AppRoutes = () => {
@@ -15,6 +16,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
+          <Route path="/cabinet" element={<UsersCabinet />} />
         </Routes>
       <Footer/>
     </>
