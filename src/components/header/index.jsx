@@ -10,6 +10,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const pages = ["Products", "About"];
@@ -18,17 +19,16 @@ const Header = () => {
   const handleClickOutside = (e) => {
     // Проверяем, был ли клик вне меню
     if (
-      e.target.tagName !== "SPAN"
-      && e.target.tagName !== "BUTTON"
-      && menuRef.current
-      && !menuRef.current.contains(e.target)
+      e.target.tagName !== "SPAN" &&
+      e.target.tagName !== "BUTTON" &&
+      menuRef.current &&
+      !menuRef.current.contains(e.target)
     ) {
       setIsMenuOpen(false);
     }
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -37,9 +37,14 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const handleLinkClick = (path) => {
+    setIsCategoriesOpen(isCategoriesOpen ? false : null);
     dispatch(setPagePath(path));
     setIsMenuOpen(!isMenuOpen);
   };
+  const handleCategories = () => {
+    setIsCategoriesOpen(!isCategoriesOpen);
+  };
+
   const handleChange = (value) => {
     setSearchTerm(value);
   };
@@ -177,22 +182,42 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
-              {pages.map((item, index) => (
-                <li className="header__nav-item" key={index + 1}>
-                  <NavLink
-                    className={`header__nav-link${
-                      pagePath === item.toLowerCase() ? "--active" : ""
-                    }`}
-                    onClick={() => handleLinkClick(item.toLowerCase())}
-                    to={`/${item.toLowerCase()}`}
-                  >
-                    {item}
-                  </NavLink>
-                  <div className="test">
-                    <p className="test2">Test Categories</p>
-                  </div>
-                </li>
-              ))}
+              <li className="header__nav-item" key={2}>
+                <NavLink
+                  className={`header__nav-link${
+                    pagePath === "products" ? "--active" : ""
+                  }`}
+                  onClick={() => handleLinkClick(1)}
+                  to={"/products"}
+                >
+                  Products{" "}
+                </NavLink>
+                <button
+                  type="button"
+                  onClick={() => handleCategories()}
+                  className={`header__nav-arrow${
+                    isCategoriesOpen ? "--open" : ""
+                  }`}
+                ></button>
+
+                <ul className={isCategoriesOpen ? "test2" : "test"}>
+                  <li>test</li>
+                  <li>test</li>
+                  <li>test</li>
+                  <li>test</li>
+                </ul>
+              </li>
+              <li className="header__nav-item" key={3}>
+                <NavLink
+                  className={`header__nav-link${
+                    pagePath === "about" ? "--active" : ""
+                  }`}
+                  onClick={() => handleLinkClick(3)}
+                  to={"/about"}
+                >
+                  About
+                </NavLink>
+              </li>
             </ul>
           </nav>
 
