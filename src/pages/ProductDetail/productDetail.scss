@@ -1,8 +1,8 @@
 .product-detail-section {
-  padding: 50px 18px 53px;
+  padding: 20px 20px 53px;
 
   @include breakpoint-mf('sm') {
-    padding: 40px 55px 77px;
+    padding: 40px 20px 77px;
   }
 
   @include breakpoint-mf('my') {
@@ -47,72 +47,6 @@
 
   @include breakpoint-mf('lg') {
     height: 660px;
-    //padding-right: 70px;
-  }
-}
-
-.product-detail__additional-imgs {
-  grid-area: additional-imgs;
-  width: 100%;
-  @include flex(row, space-between, center);
-  gap: 5px;
-  flex-wrap: wrap;
-  @include margin (10px, 70px);
-
-  @include breakpoint-mf('sm') {
-    @include margin(30px, 30px);
-  }
-
-  @include breakpoint-mf('my') {
-    @include flex(column, space-between, center);
-    margin: 0;
-    align-items: center;
-  }
-
-  @include breakpoint-mf('lg') {
-    @include flex(row, space-between, center);
-    align-items: flex-end;
-    width: 82%;
-    margin-left: 40px;
-  }
-
-  @include breakpoint-mf('xl') {
-    margin-left: 70px;
-  }
-}
-
-
-.product-detail__img {
-  border-radius: 4px;
-  min-width: 66px;
-  min-height: 55px;
-  object-fit: cover;
-  object-position: center;
-  cursor: pointer;
-
-  @include breakpoint-mf('xxs') {
-    width: 85px;
-    height: 85px;
-  }
-
-  @include breakpoint-mf('xs') {
-    width: 145px;
-    height: 128px;
-  }
-
-  @include breakpoint-mf('lg') {
-    width: 120px;
-    height: 100px;
-  }
-
-  @include breakpoint-mf('xl') {
-    border-radius: 2px;
-    width: 85px;
-    height: 85px;
-  }
-
-  &:hover {
-    opacity: 0.7;
   }
 }
 
@@ -126,7 +60,7 @@
 
   @include breakpoint-mf('lg') {
     width: 82%;
-    padding-top: 42px;
+    padding-top: 0;
     margin-left: 40px;
   }
 
@@ -163,7 +97,6 @@
   }
 
   @include breakpoint-mf('xl') {
-    margin-top: 34px;
     color: $secondary;
     @include fonts(400, 18px, 35px);
   }
