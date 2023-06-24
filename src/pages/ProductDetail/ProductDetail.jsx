@@ -54,8 +54,8 @@ export default function ProductDetail() {
   }
 
   function onArrowClick(event) {
-    if (event.target.classList.contains("carousel__right-arrow") && currentCarouselStart < productData.imageUrls.length - visibleItemCount) {
-    // if (event.target.classList.contains("carousel__right-arrow") && currentCarouselStart < mockData.imgs.length - visibleItemCount) {
+    // if (event.target.classList.contains("carousel__right-arrow") && currentCarouselStart < productData.imageUrls.length - visibleItemCount) {
+    if (event.target.classList.contains("carousel__right-arrow") && currentCarouselStart < mockData.imgs.length - visibleItemCount) {
       setCurrentCarouselStart(currentCarouselStart + 1);
     } else if (event.target.classList.contains("carousel__left-arrow") && currentCarouselStart > 0) {
       setCurrentCarouselStart(currentCarouselStart - 1);
@@ -71,8 +71,8 @@ export default function ProductDetail() {
   return (
     <section className="container product-detail-section">
       <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" />
-      <Carousel currentCarouselStart={currentCarouselStart} imageUrls={productData.imageUrls} visibleItemCount={4} onArrowClick={() => onArrowClick} onItemClick={() => onImgClick}/>
-      {/* <Carousel currentCarouselStart={currentCarouselStart} imageUrls={mockData.imgs} visibleItemCount={4} onArrowClick={() => onArrowClick} onItemClick={() => onImgClick}/> */}
+      {/* <Carousel currentCarouselStart={currentCarouselStart} imageUrls={productData.imageUrls} visibleItemCount={4} onArrowClick={() => onArrowClick} onItemClick={() => onImgClick}/> */}
+      <Carousel currentCarouselStart={currentCarouselStart} imageUrls={mockData.imgs} visibleItemCount={4} onArrowClick={() => onArrowClick} onItemClick={() => onImgClick}/>
       <div className="product-detail__info-block">
         <h2 className="product-detail__name">{productData.name}</h2>
         <p className="product-detail__description">{productData.description}</p>
