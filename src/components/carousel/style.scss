@@ -1,7 +1,28 @@
 .carousel {
   position: relative;
-  grid-area: additional-imgs;
+  grid-area: carousel;
   width: 100%;
+
+  @include breakpoint-mf('lg') {
+    margin-left: 40px;
+    width: 82%;
+  }
+
+  @include breakpoint-mf('xl') {
+    margin-left: 70px;
+  }
+
+  &_full-size {
+    margin-left: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background: rgba(3, 3, 3, 0.9);
+  }
 }
 
 .carousel__items {
@@ -23,13 +44,19 @@
 
   @include breakpoint-mf('lg') {
     @include flex(row, space-between, center);
-    width: 82%;
-    margin-left: 40px;
-    margin-right: 0;
   }
 
-  @include breakpoint-mf('xl') {
-    margin-left: 70px;
+  &_flex-start {
+    gap: 15px;
+    @include flex(row, flex-start, center);
+
+    @include breakpoint-mf('my') {
+      @include flex(column, flex-start, center);
+    }
+
+    @include breakpoint-mf('lg') {
+      @include flex(row, flex-start, center);
+    }
   }
 }
 
@@ -39,7 +66,6 @@
   position: absolute;
   transform: translateY(-50%);
   transition: transform 0.1s linear;
-
   @include fonts(500, 10px, 20px);
   width: 20px;
   height: 20px;
@@ -67,62 +93,77 @@
 
 .carousel {
   &__left-arrow {
+    z-index: 1;
     left: 0;
+
     @include breakpoint-mf('my') {
       top: 0;
       left: 50%;
       transform: translateX(-50%) rotate(90deg);
     }
+
     @include breakpoint-mf('lg') {
       left: 0;
       top: 50%;
-      transform: translate(100%, -50%) rotate(0);
-    }
-    @include breakpoint-mf('xl') {
-      left: 30px;
-      top: 50%;
-      transform: translate(100%, -50%) rotate(0);
+      transform: translateY(-50%) rotate(0);
     }
 
     &:active {
       transform: translateY(-50%) scale(0.9);
+
       @include breakpoint-mf('my') {
-        transform: translate( -50%, 0) scale(0.9) rotate(90deg);
+        transform: translate(-50%, 0) scale(0.9) rotate(90deg);
       }
+
       @include breakpoint-mf('lg') {
-        transform: translate(100%, -50%)scale(0.9) rotate(0);
+        transform: translate(0, -50%)scale(0.9) rotate(0);
+      }
+    }
+
+    &_full-size {
+      left: 10%;
+      top: 50%;
+      transform: translate(-100%, -50%);
+      &:active {
+        transform: translate(-100%, -50%) scale(0.9);
       }
     }
   }
 
   &__right-arrow {
     right: 0;
+
     @include breakpoint-mf('my') {
       top: 100%;
       left: 50%;
       transform: translate(-50%, -100%) rotate(90deg);
     }
+
     @include breakpoint-mf('lg') {
-      left: 76%;
+      left: 100%;
       top: 50%;
-      transform: translate(102%, -50%) rotate(0);
-    }
-    @include breakpoint-mf('xl') {
-      left: 93%;
-      top: 50%;
-      transform: translate(-140%, -50%) rotate(0);
+      transform: translate(-100%, -50%) rotate(0);
     }
 
     &:active {
       transform: translateY(-50%) scale(0.9);
+
       @include breakpoint-mf('my') {
         transform: translate( -50%,-100%) scale(0.9) rotate(90deg);
       }
+
       @include breakpoint-mf('lg') {
-        transform: translate(102%, -50%) scale(0.9) rotate(0);
+        transform: translate(-100%, -50%) scale(0.9) rotate(0);
       }
-      @include breakpoint-mf('xl') {
-        transform: translate(-135%, -50%) scale(0.9) rotate(0);
+    }
+
+    &_full-size {
+      left: 90%;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:active {
+        transform: translateY(-50%) scale(0.9);
       }
     }
   }
@@ -130,8 +171,8 @@
 
 .carousel__item {
   border-radius: 4px;
-  min-width: 66px;
-  min-height: 55px;
+  width: 66px;
+  height: 55px;
   object-fit: cover;
   object-position: center;
   cursor: pointer;
@@ -155,5 +196,15 @@
     border-radius: 2px;
     width: 85px;
     height: 85px;
+  }
+
+  &_full-size {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

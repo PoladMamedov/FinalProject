@@ -9,7 +9,7 @@
     padding: 42px 40px 140px;
     display: grid;
     grid-template-areas:
-            'main-img main-img additional-imgs'
+            'main-img main-img carousel'
             'info-block info-block info-block'
             'cart-block cart-block cart-block';
   }
@@ -18,7 +18,7 @@
     grid-template-areas:
             'main-img info-block'
             'main-img cart-block'
-            'main-img additional-imgs';
+            'main-img carousel';
   }
 
   @include breakpoint-mf('xl') {
@@ -56,7 +56,6 @@
   @include breakpoint-mf('my') {
     padding-top: 42px;
   }
-
 
   @include breakpoint-mf('lg') {
     width: 82%;
@@ -102,7 +101,15 @@
   }
 }
 
+.product-detail__items {
+  display: grid;
+  grid: repeat(3, auto) / auto-flow;
+  column-gap: 15px;
+  align-items: center;
+}
+
 .product-detail__item {
+  width: fit-content;
   color: $primaryLight;
   text-align: left;
   @include fonts(400, 14px, 21px);
@@ -114,32 +121,19 @@
   }
 
   &-value {
+    display: inline-block;
     color: $primary;
     @include fonts(500, 14px, 21px);
 
     @include breakpoint-mf('sm') {
       @include fonts(500, 22px, 33px);
     }
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
 }
-
-.product-detail__brand {
-  display: none;
-
-  @include breakpoint-mf('xl') {
-    display: block;
-  }
-}
-
-.product-detail__stock {
-  display: none;
-
-  @include breakpoint-mf('xl') {
-    display: block;
-  }
-}
-
-.product-detail__price {}
 
 .product-detail__cart-block {
   grid-area: cart-block;
@@ -152,6 +146,8 @@
 
   @include breakpoint-mf('xl') {
     margin-left: 70px;
+    padding-top: 5px;
+    padding-bottom: 20px;
   }
 }
 
@@ -171,6 +167,8 @@
 }
 
 .cart-block__amount-item {
+  border: none;
+  text-align: center;
   width: 35px;
   height: 35px;
   background-color: $secondaryLight;
