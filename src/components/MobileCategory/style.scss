@@ -1,0 +1,44 @@
+@import "../../styles/style.scss";
+
+.header {
+   &__mobile-category {
+      position: relative;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   &__mobile-subcategory-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+   }
+
+   &__mobile-category-btn {
+      background-color: transparent;
+      color: $primary;
+      transition: transform .2s linear;
+      // position: absolute;
+      margin-right: 8px;
+
+      &--open {
+         @extend .header__mobile-category-btn;
+         transform: rotateZ(180deg);
+         transition: transform .2s linear;
+      }
+   }
+
+   &__mobile-subcategory-list {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-weight: 700;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-left: 15px;
+   }
+}
