@@ -10,6 +10,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
+  const { token } = useSelector((state) => state.user.userInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -221,7 +222,7 @@ const Header = () => {
               {/* В спан записать с редакса количество в корзине */}
             </NavLink>
             <NavLink
-              to={"/login"}
+              to={token ? "/cabinet" : "/login"}
               key={5}
               className="header__nav-link--loginBtn"
             >
