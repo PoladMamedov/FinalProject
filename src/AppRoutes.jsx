@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/footer";
 import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFoundPage/NotFound";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
 
 const AppRoutes = () => {
   return (
@@ -16,7 +17,9 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/cabinet" element={<UsersCabinet />} />
+        <Route element={<RequireAuth />}>
+          <Route path="/cabinet" element={<UsersCabinet />} />
+        </Route>
       </Routes>
       <Footer />
     </>
@@ -24,5 +27,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
-
