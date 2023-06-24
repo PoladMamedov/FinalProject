@@ -7,6 +7,7 @@ import Footer from "./components/footer";
 import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFoundPage/NotFound";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
 
 const AppRoutes = () => {
   return (
@@ -17,8 +18,10 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/cabinet" element={<UsersCabinet />} />
-        <Route path="/products/:itemNo" element={<ProductDetail />} />
+        <Route element={<RequireAuth />}>
+          <Route path="/cabinet" element={<UsersCabinet />} />
+          <Route path="/products/:itemNo" element={<ProductDetail />} />
+        </Route>
       </Routes>
       <Footer />
     </>
@@ -26,5 +29,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
-
