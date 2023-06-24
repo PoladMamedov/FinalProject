@@ -26,6 +26,7 @@ const Header = () => {
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {
       setIsMenuOpen(false);
+      setIsCategoriesOpen(false);
     }
   };
   useEffect(() => {
@@ -36,6 +37,8 @@ const Header = () => {
   }, []);
   const handleBtnClick = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsCategoriesOpen(false);
+
   };
   const handleLinkClick = (path) => {
     setIsCategoriesOpen(isCategoriesOpen ? false : null);
