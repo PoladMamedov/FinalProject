@@ -113,24 +113,24 @@
          justify-content: center;
          place-self: center;
          position: relative;
-         width: 210px;
+         width: 220px;
          color: $primary;
       }
 
       @media (min-width: 840px) {
-         width: 240px;
+         width: 250px;
       }
 
       @media (min-width: 900px) {
-         width: 260px;
+         width: 275px;
       }
 
       @include breakpoint-mf('my') {
-         width: 330px
+         width: 320px
       }
 
       @include breakpoint-mf('lg') {
-         width: 350px
+         width: 400px
       }
 
       &--active {

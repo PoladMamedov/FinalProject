@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
-import Breadcrumb from "../breadCrumb/breadCrumb";
 import Categories from "../Categories";
 import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
@@ -250,7 +249,7 @@ const Header = () => {
           </button>
         </div>
       </header>
-      <Breadcrumb />
+
       <Categories />
     </>
   );
