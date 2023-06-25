@@ -113,24 +113,24 @@
          justify-content: center;
          place-self: center;
          position: relative;
-         width: 210px;
+         width: 220px;
          color: $primary;
       }
 
       @media (min-width: 840px) {
-         width: 240px;
+         width: 250px;
       }
 
       @media (min-width: 900px) {
-         width: 260px;
+         width: 275px;
       }
 
       @include breakpoint-mf('my') {
-         width: 330px
+         width: 320px
       }
 
       @include breakpoint-mf('lg') {
-         width: 350px
+         width: 400px
       }
 
       &--active {
@@ -292,12 +292,12 @@
       position: absolute;
       overflow: hidden;
       width: 100%;
-      top: 53px;
-      left: -100%;
+      top: -550px;
+      left: 0;
       background-color: $white;
       margin-bottom: 30px;
       box-shadow: 0px 6px 10px 0px #00000040;
-      transition: left .5s ease;
+      transition: top .6s ease;
 
       @include breakpoint-mf('md') {
          display: none;
@@ -306,6 +306,7 @@
       &--open {
          @extend .header__nav;
          left: 0;
+         top: 100%;
          z-index: 2;
 
 
@@ -323,14 +324,15 @@
    &__nav-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      gap: 20px;
+      gap: 30px;
       padding: 16px 0;
       margin-left: 9px;
       position: relative;
       overflow: hidden;
-      padding-bottom: 65px;
+      padding-bottom: 55px;
+      padding-top: 30px;
 
 
       @include breakpoint-mf('md') {
@@ -361,37 +363,56 @@
 
    &__nav-item {
       position: relative;
+      width: 100%;
 
-      &:nth-child(2) {
-         padding-right: 10px;
+      @include breakpoint-mf('md') {
+         width: auto;
       }
 
-      &:nth-child(2)::after {
-         content: "\25B2";
-         color: $primary;
-         position: absolute;
-         top: 0;
-         left: 80px;
-         transition: transform .3s linear;
+      &--open {
+         position: relative;
+         width: 100%;
 
-         @include breakpoint-mf('md') {
-            content: "";
-         }
       }
+   }
 
-      &:nth-child(2):hover::after {
+   &__nav-arrow {
+      // position: absolute;
+      top: 2px;
+      right: -45px;
+      color: $primary;
+      background-color: transparent;
+      transition: transform .3s ease;
+      margin-right: 6px;
+
+      &--open {
+         @extend .header__nav-arrow;
          transform: rotateZ(180deg);
-      }
+         transition: transform .3s ease;
 
-      &:nth-child(2):hover .test {
-         top: 20px;
-         width: 200px;
       }
+   }
 
-      &:nth-child(2):hover>.header__nav-list {
-         padding-bottom: 70px;
+   &__products-link-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   &__mobile-categories {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 17px;
+      font-weight: 500;
+      font-size: 14px;
+      margin-left: 5px;
+
+      @include breakpoint-mf('xs') {
+         font-size: 16px;
       }
-
    }
 
    &__nav-btn-wrap {
@@ -439,7 +460,7 @@
       }
 
       @include breakpoint-mf('md') {
-         font-size: 16px;
+         font-size: 18px;
 
       }
 
@@ -551,17 +572,4 @@
    transform: rotateZ(-40deg);
    width: 17px;
 
-}
-
-.test {
-   display: block;
-   width: 200px;
-   margin: 0 auto;
-   background-color: red;
-   height: 100px;
-   position: absolute;
-   top: -200px;
-   left: -55px;
-   transition: top .4s linear;
-   z-index: 10;
 }
