@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
-import Carousel from "../../components/carousel/carousel";
+import Index from "../../components/carousel";
 
 // const mockData = {
 //   name: "Razer Mouse X89",
@@ -151,10 +151,14 @@ export default function ProductDetail() {
     setIsFullScreenImg(true);
     setCarouselConfig({...carouselConfig, fullSize: {...carouselConfig.fullSize, currentStartItemIndex: productData.imageUrls.findIndex((el) => mainImgUrl.includes(el))}});
     // setCarouselConfig({...carouselConfig, fullSize: {...carouselConfig.fullSize, currentStartItemIndex: mockData.imgs.findIndex((el) => el === mainImgUrl)}});
+    document.querySelector("body").style.overflow = "hidden";
   }
 
   function onCloseCarousel(event) {
-    if (["IMG", "BUTTON"].every((el) => el !== event.target.tagName)) setIsFullScreenImg(false);
+    if (["IMG", "BUTTON"].every((el) => el !== event.target.tagName)) {
+      setIsFullScreenImg(false);
+      document.querySelector("body").style.overflow = "";
+    }
   }
 
   if (!isLoaded) return <PreLoader/>;
@@ -163,7 +167,7 @@ export default function ProductDetail() {
     <>
     <section className="container product-detail-section">
       <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
-      <Carousel {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
+      <Index {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
       <div className="product-detail__info-block">
         <h2 className="product-detail__name">{productData.name}</h2>
         <p className="product-detail__description">{productData.description}</p>
@@ -184,7 +188,7 @@ export default function ProductDetail() {
         <button type="button" className="cart-block__add-btn">Add to cart</button>
       </div>
     </section>
-      {isFullScreenImg && <Carousel
+      {isFullScreenImg && <Index
         {...carouselConfig.fullSize}
         onArrowClick={() => onArrowClick}
         onItemClick={() => {}}

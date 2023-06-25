@@ -228,7 +228,7 @@ const Header = () => {
             >
               <img
                 className="header__nav-login"
-                src="img/login.png"
+                src="/img/login.png"
                 alt="login-img"
               />
             </NavLink>
