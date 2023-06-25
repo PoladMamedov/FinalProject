@@ -6,8 +6,6 @@ import ProductCard from "../productCard";
 
 function TopProductItem() {
   const { getAllProducts } = useServer();
-  // const [columnCount, setColumnCount] = useState(4);
-  // const [cardCount, setCardCount] = useState(8);
   const [storedProducts, setStoredProducts] = useState([]);
 
   useEffect(() => {
