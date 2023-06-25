@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
-import Breadcrumb from "../breadCrumb/breadCrumb";
 import Categories from "../Categories";
 import setPagePath from "../../redux/actions/setPagePath";
 import "./style.scss";
+import MobileCategory from "../MobileCategory";
 
 const Header = () => {
 
@@ -17,7 +17,8 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const pages = ["Products", "About"];
   const menuRef = useRef(null);
-
+  const { categories } = useSelector((state) => state.categories);
+  const allCategories = categories.filter((item) => item.parentId === "null");
 
   const handleClickOutside = (e) => {
     // Проверяем, был ли клик вне меню
@@ -25,6 +26,7 @@ const Header = () => {
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {
       setIsMenuOpen(false);
+      setIsCategoriesOpen(false);
     }
   };
   useEffect(() => {
@@ -35,6 +37,8 @@ const Header = () => {
   }, []);
   const handleBtnClick = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsCategoriesOpen(false);
+
   };
   const handleLinkClick = (path) => {
     setIsCategoriesOpen(isCategoriesOpen ? false : null);
@@ -175,28 +179,29 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
-              <li className="header__nav-item" key={2}>
-                <NavLink
-                  className={`header__nav-link${pagePath === "products" ? "--active" : ""
-                    }`}
-                  onClick={() => handleLinkClick(1)}
-                  to={"/products"}
-                >
-                  Products{" "}
-                </NavLink>
-                <button
-                  type="button"
-                  onClick={() => handleCategories()}
-                  className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}
-                >k</button>
-
-                <ul className={isCategoriesOpen ? "test2" : "test"}>
-                  <li>test</li>
-                  <li>test</li>
-                  <li>test</li>
-                  <li>test</li>
-                </ul>
+              <li className={`header__nav-item${isCategoriesOpen ? "--open" : ""}`} key={2}>
+                <div className="header__products-link-wrap">
+                  <NavLink
+                    className={`header__nav-link${pagePath === "products" ? "--active" : ""
+                      }`}
+                    onClick={() => handleLinkClick(1)}
+                    to={"/products"}
+                  >
+                    Products{" "}
+                  </NavLink>
+                  <button
+                    type="button"
+                    onClick={() => handleCategories()}
+                    className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}
+                  >&#9650;</button>
+                </div>
               </li>
+              {isCategoriesOpen && <ul className="header__mobile-categories">
+                <MobileCategory category={allCategories[0].id} />
+                <MobileCategory category={allCategories[1].id} />
+                <MobileCategory category={allCategories[2].id} />
+                <MobileCategory category={allCategories[3].id} />
+              </ul>}
               <li className="header__nav-item" key={3}>
                 <NavLink
                   className={`header__nav-link${pagePath === "about" ? "--active" : ""
@@ -228,7 +233,7 @@ const Header = () => {
             >
               <img
                 className="header__nav-login"
-                src="img/login.png"
+                src="/img/login.png"
                 alt="login-img"
               />
             </NavLink>
@@ -245,7 +250,7 @@ const Header = () => {
           </button>
         </div>
       </header>
-      <Breadcrumb />
+
       <Categories />
     </>
   );

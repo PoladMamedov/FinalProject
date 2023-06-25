@@ -15,6 +15,7 @@ function Categories() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
+  // Фильтр категории и их подКатегории по parentId
   const groupCategories = (parentId) => {
     const filteredCategories = categories.filter(
       (category) => category.parentId === parentId
@@ -47,7 +48,6 @@ function Categories() {
               className="category__list-item"
             >
               <NavLink className="category__list-link">{category.name}</NavLink>
-
               {activeCategory === category.id && (
                 <ul className="subcategory__list">
                   {groupCategories(category.id)}
@@ -56,7 +56,7 @@ function Categories() {
             </li>
           ))}
       </ul>
-    </div>
+    </div >
   );
 }
 

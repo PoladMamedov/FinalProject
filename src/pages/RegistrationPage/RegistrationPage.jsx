@@ -244,6 +244,9 @@ function RegistrationPage() {
           {newUser.firstName && !newUser.enabled ? (
             <p className="registration-section__request-bad-res">{newUser.firstName}</p>
           ) : null}
+          {newUser.login && !newUser.enabled ? (
+            <p className="registration-section__request-bad-res">{newUser.login}</p>
+          ) : null}
           {newUser.lastName && !newUser.enabled ? (
             <p className="registration-section__request-bad-res">{newUser.lastName}</p>
           ) : null}
