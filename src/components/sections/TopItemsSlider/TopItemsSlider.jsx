@@ -4,7 +4,7 @@ import "./slick.scss";
 import "./slick-theme.scss";
 import { Link } from "react-router-dom";
 import styles from "./TopItemsSlider.scss";
-import useServer from "../../hooks/useServer";
+import useServer from "../../../hooks/useServer";
 
 const TopItemsSlider = () => {
   const [items, setItems] = useState([]);
