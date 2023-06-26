@@ -1,4 +1,4 @@
-import "./About.scss";
+import "./about.scss";
 import Map from "../../components/Map/Map";
 
 const About = () => {
