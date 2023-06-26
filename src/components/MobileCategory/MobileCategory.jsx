@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import "./mobileCategory.scss";
 
 const MobileCategory = ({ category }) => {
    const { categories } = useSelector((state) => state.categories);

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import BreadcrumbItem from "../BreadCrumbItem/BreadCrumbItem";
 import setPagePath from "../../redux/actions/setPagePath";
-import "./breadCrumb.scss";
 
 const Breadcrumb = () => {
    const dispatch = useDispatch();

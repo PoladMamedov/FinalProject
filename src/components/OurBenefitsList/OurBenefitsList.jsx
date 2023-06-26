@@ -1,4 +1,4 @@
-import BenefitsItem from "./OurBenefitsItem";
+import BenefitsItem from "../OurBenefitsItem/OurBenefitsItem";
 
 const Benefits = (props) => {
     return (

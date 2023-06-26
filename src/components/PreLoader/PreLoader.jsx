@@ -1,4 +1,3 @@
-import "./preLoader.scss";
 import { Dna } from "react-loader-spinner";
 
 function Notification() {

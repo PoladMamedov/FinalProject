@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { fetchCategories } from "../../redux/actions/categories";
-import "./categories.scss";
 
 function Categories() {
   const dispatch = useDispatch();

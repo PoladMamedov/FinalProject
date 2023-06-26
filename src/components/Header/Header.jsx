@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import Categories from "../Categories/Categories";
 import setPagePath from "../../redux/actions/setPagePath";
-import "./header.scss";
 import MobileCategory from "../MobileCategory/MobileCategory";
 
 const Header = () => {

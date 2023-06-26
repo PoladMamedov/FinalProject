@@ -1,6 +1,4 @@
 import React, { memo, useEffect, useState } from "react";
-import "../../styles/global.scss";
-import "./topProductItems.scss";
 import useServer from "../../hooks/useServer";
 import ProductCard from "../ProductCard/ProductCard";
 
