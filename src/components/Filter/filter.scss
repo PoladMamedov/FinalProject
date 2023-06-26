@@ -1,0 +1,181 @@
+@import "../../styles/style.scss";
+
+.filter-section {
+    @include flex(column, flex-start, flex-start);
+    font-family: "Roboto";
+    position: relative;
+
+    &__title {
+        @include margin(0px, 63px);
+        @include fonts(500, 26px, 34px);
+    }
+
+    &-btn-close {
+        position: absolute;
+        left: 270px;
+        top: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        @include breakpoint-mf("sm"){
+            display: none;
+        }
+
+    }
+
+    &-container {
+        @include flex(column, flex-start, flex-start);
+    }
+
+    &__subtitle {
+        @include margin(0px, 20px);
+        @include fonts(500, 16px, 21px);
+    }
+
+    &-list {
+        @include fonts(400, 16px, 21px);
+        color: $primaryLight;
+
+        &__item {
+            @include flex(row, space-between, flex-start);
+            gap: 85px;
+            margin-bottom: 15px;
+
+            &-checkbox:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &-inputs {
+        @include flex(row, space-between, flex-start);
+        gap: 13px;
+
+        &__item {
+            width: 102px;
+            height: 31px;
+            border: 1px solid #C5C5C5;
+            border-radius: 10px;
+            background-color: #F5F7FB;
+            text-align: center;
+            @include fonts(400, 14px, 18px);
+        }
+
+        &__item:focus {
+            background-color: $white;
+        }
+    }
+
+    &-btn-container {
+        @include flex(row, center, flex-start);
+        gap: 10px;
+    }
+
+    &-btn {
+        width: 215px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid $primaryDark;
+        padding: 0;
+        font-family: "Roboto";
+        @include fonts(400, 16px, 21px);
+
+        &--dark {
+            @include margin(10px, 63px);
+            background-color: $primaryDark;
+            color: $white;
+        }
+
+        &--light {
+            width: 140px;
+            @include breakpoint-mf("sm"){
+                width: 215px;
+            }
+        }
+
+        &--apply {
+            width: 140px;
+            margin-top: 0;
+            @include breakpoint-mf("sm"){
+                display: none;
+            }
+        }
+    }
+
+    &-mini {
+        display: none;
+
+        &-container {
+            @include flex(row, space-between, center);
+            width: 280px;
+            margin: 0 auto;
+            @include breakpoint-mf("sm"){
+                display: none;
+            }
+        }
+        &-select{
+            width: 113px;
+            height: 24px;
+            border: 1px solid $secondary;
+            border-radius: 10px;
+            text-align: center;
+            @include fonts(400, 14px, 18px);
+            color: $primaryLight;
+        }
+        &-text{
+        color: $primaryLight;
+        text-decoration: underline;
+        background: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+        }
+       
+    }
+
+}
+
+.hidden {
+    display: none;
+}
+
+.visibility {
+    display: block;
+}
+
+@include breakpoint-mf("sm"){
+    .filter-section-full{
+        display: block;
+    }
+}
+
+input[type="checkbox"]:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid $primaryLight;
+    border-radius: 2px;
+}
+
+input[type="checkbox"]:checked:before {
+    background-color: $primaryDark;
+    border: none;
+}
+
+input[type="checkbox"]:checked:after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: 2px solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    position: relative;
+    top: -18px;
+    left: 6px;
+}
