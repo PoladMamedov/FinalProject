@@ -1,17 +1,15 @@
-@import "../../styles/style.scss";
-
 /* Slider */
 .slick-slider {
   position: relative;
   display: block;
   box-sizing: border-box;
 
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 
   -webkit-user-select: none;
-  -moz-user-select: none;  
+  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 
@@ -21,18 +19,18 @@
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
 
-  @include breakpoint-between('md', 'xs') {
+  @include breakpoint-between("md", "xs") {
     max-width: 768px;
     width: 100%;
     margin: 0 auto;
- }
+  }
 }
 
 .slick-list {
   display: flex;
   position: relative;
-  background-color: #FCF9F6;
-  
+  background-color: #fcf9f6;
+
   display: block;
   overflow: hidden;
   margin-top: 15px;
