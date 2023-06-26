@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import BreadcrumbItem from "../OObreadcrumbItem/BreadCrumbItem";
+import BreadcrumbItem from "../BreadCrumbItem/BreadCrumbItem";
 import setPagePath from "../../redux/actions/setPagePath";
 import "./breadCrumb.scss";
 
