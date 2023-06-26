@@ -10,12 +10,6 @@ const Filter = forwardRef((props, ref) => {
   const server = useServer();
   const [filters, setFilters] = useState([]);
 
-
-  const [valuesPrice, setValuesPrice] = useState({
-    Max: "",
-    Min: "",
-  });
-
   useEffect(() => {
     async function fetchFilters() {
       try {
@@ -37,6 +31,15 @@ const Filter = forwardRef((props, ref) => {
         dispatch(fetchCategories());
       }, [dispatch]);
   
+  const [valuesPrice, setValuesPrice] = useState({
+    Max: "",
+    Min: "",
+  });
+
+  const [checkedItems, setCheckedItems] = useState(
+    categories.filter((item) => item.level === 0).map(() => false)
+  );
+
   // для cохранения значений инпутов в стейте, чтобы потом сбросить фильтр
   function handleSetValue(e) {
     const { name, value } = e.target;
@@ -46,12 +49,12 @@ const Filter = forwardRef((props, ref) => {
     } else {
       setValuesPrice((prevState) => ({ ...prevState, Max: "0", Min: "0" }));
     }
-    
 }
 
 // для очищения инпутов
 function resetBtnClick() {
   setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
+  setCheckedItems(checkedItems.map(() => false));
 }
 
     return (
@@ -66,10 +69,23 @@ function resetBtnClick() {
                  {
                     categories
                     .filter((item) => item.level === 0)
-                    .map((item) => (
+                    .map((item, index) => (
                     <div key={item.name} className="filter-section-list__item">
                     <label htmlFor={item.name}>{item.name}</label>
-                    <input id={item.name} name={item.name} type="checkbox" onClick={props.addCounter} className="filter-section-list__item-checkbox"></input>
+                    <input
+                    id={item.name}
+                    name={item.name}
+                    type="checkbox"
+                    checked={checkedItems[index]}
+                    onChange={() => {
+                     setCheckedItems([
+                    ...checkedItems.slice(0, index),
+                    !checkedItems[index],
+                    ...checkedItems.slice(index + 1),
+                  ]);
+                }}
+                    onClick={props.addCounter}
+                    className="filter-section-list__item-checkbox"></input>
                     </div>))
                  }
                  </form>
