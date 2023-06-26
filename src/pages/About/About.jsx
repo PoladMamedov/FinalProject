@@ -1,6 +1,6 @@
 
 import "./About.scss";
-import Map from "../../components/GoogleMap";
+import Map from "../../components/GoogleMap/GoogleMap";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const About = () => {
