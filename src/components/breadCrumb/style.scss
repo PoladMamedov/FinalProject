@@ -3,7 +3,7 @@
 .navigation-block {
    width: 90%;
    margin: 0 auto;
-   margin-top: 30px;
+   margin-top: 12px;
    display: flex;
    align-items: center;
    justify-content: flex-start;
@@ -26,7 +26,7 @@
    }
 
    &__link {
-      padding: 16px 0 16px 13px;
+      padding: 10px 0 10px 13px;
       font-weight: 400;
       font-size: 16px;
       line-height: 19px;
@@ -34,18 +34,13 @@
 
       @include breakpoint-mf('xs') {
          font-size: 18px;
-         padding: 13px 0 13px 20px;
+         padding-left: 20px;
       }
 
       @include breakpoint-mf('md') {
          font-size: 20px;
          line-height: 24px;
-         padding: 15px 0 15px 43px;
-      }
-
-      @include breakpoint-mf('xl') {
-
-         padding: 16px 0 16px 43px;
+         padding: 12px 0 12px 43px;
       }
    }
 
