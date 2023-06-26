@@ -2,8 +2,8 @@
 import "./filter.scss";
 import React, {useState, useEffect, forwardRef} from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { fetchCategories } from "../../../../redux/actions/categories";
-import useServer from "../../../../hooks/useServer";
+import { fetchCategories } from "../../redux/actions/categories";
+import useServer from "../../hooks/useServer";
 
 
 const Filter = forwardRef((props, ref) => {

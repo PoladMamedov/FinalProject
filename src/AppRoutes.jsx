@@ -14,6 +14,7 @@ const AppRoutes = () => {
   return (
     <>
       <Header />
+      <main>
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Route path="/cabinet" element={<UsersCabinet />} />
         </Route>
       </Routes>
+      </main>
       <Footer />
     </>
   );

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useRef } from "react";
-import Filter from "./Filter/Filter";
-import FilterMini from "./Filter/FilterMini";
+import Filter from "../../Filter/Filter";
+import FilterMini from "../../Filter/FilterMini";
 
 import "./productsSection.scss";
 

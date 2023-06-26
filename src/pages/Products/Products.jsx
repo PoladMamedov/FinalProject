@@ -2,9 +2,9 @@ import ProductsSection from "../../components/sections/ProductsSection/ProductsS
 
 const Products = () => {
     return (
-        <main>
+        <>
            <ProductsSection/>
-        </main>
+        </>
     );
 };
 
