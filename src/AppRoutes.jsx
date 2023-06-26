@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
-import Header from "./components/header/index";
+import Header from "./components/OOheader/Header";
 import Home from "./pages/Home/Home";
-import Footer from "./components/footer";
+import Footer from "./components/OOfooter/Footer";
 import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFoundPage/NotFound";
 import RequireAuth from "./components/RequireAuth/RequireAuth";

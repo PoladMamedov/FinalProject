@@ -1,9 +1,9 @@
-import Benefits from "../../components/sections/Benefits/BenefitsList";
-import OurPartners from "../../components/sections/OurPartners/OurPartners";
-import TopItemsSlider from "../../components/sections/TopItemsSlider/TopItemsSlider";
-import TopProductItem from "../../components/topProductItem";
-import content from "../../components/sections/Benefits/content.json";
-import Breadcrumb from "../../components/breadCrumb/breadCrumb";
+import Benefits from "../../components/OurBenefits/OurBenefitsList";
+import OurPartners from "../../components/OurPartners/OurPartners";
+import TopItemsSlider from "../../components/TopItemsSlider/TopItemsSlider";
+import TopProductItem from "../../components/OOtopProductItems/TopProductsItems";
+import content from "../../components/OurBenefits/content.json";
+import Breadcrumb from "../../components/OObreadCrumb/BreadCrumb";
 
 
 const Home = () => {
