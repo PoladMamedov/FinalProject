@@ -1,9 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./filter.scss";
-import React, { useEffect, forwardRef } from "react";
+import React, {useState, useEffect, forwardRef} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { fetchCategories } from "../../../../redux/actions/categories";
+import useServer from "../../../../hooks/useServer";
+
 
 const Filter = forwardRef((props, ref) => {
+  const server = useServer();
+  const [filters, setFilters] = useState([]);
+
+
+  const [valuesPrice, setValuesPrice] = useState({
+    Max: "",
+    Min: "",
+  });
+
+  useEffect(() => {
+    async function fetchFilters() {
+      try {
+        const filterResponse = await server.getFilters();
+        setFilters(filterResponse);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchFilters();
+  }, []);
+
     const dispatch = useDispatch();
     const {categories} = useSelector(
         (state) => state.categories
@@ -12,6 +36,23 @@ const Filter = forwardRef((props, ref) => {
       useEffect(() => {
         dispatch(fetchCategories());
       }, [dispatch]);
+  
+  // для cохранения значений инпутов в стейте, чтобы потом сбросить фильтр
+  function handleSetValue(e) {
+    const { name, value } = e.target;
+    const intValue = parseInt(value, 10);
+    if (!Number.isNaN(intValue) && intValue >= 0) {
+      setValuesPrice((prevState) => ({ ...prevState, [name]: value }));
+    } else {
+      setValuesPrice((prevState) => ({ ...prevState, Max: "0", Min: "0" }));
+    }
+    
+}
+
+// для очищения инпутов
+function resetBtnClick() {
+  setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
+}
 
     return (
       <>
@@ -28,18 +69,31 @@ const Filter = forwardRef((props, ref) => {
                     .map((item) => (
                     <div key={item.name} className="filter-section-list__item">
                     <label htmlFor={item.name}>{item.name}</label>
-                    <input id={item.name} type="checkbox" onClick={props.addCounter} className="filter-section-list__item-checkbox"></input>
+                    <input id={item.name} name={item.name} type="checkbox" onClick={props.addCounter} className="filter-section-list__item-checkbox"></input>
                     </div>))
                  }
                  </form>
              <h4 className="filter-section__subtitle">Price range</h4>
              <form className="filter-section-inputs">
-                <input className="filter-section-inputs__item" placeholder="Min"></input>
-                <input className="filter-section-inputs__item" placeholder="Max"></input>
+                 {
+                  filters.length !== 0 ? filters.map(({type, name}, idx) => (
+                      <input
+                      key={idx}
+                      className={"filter-section-inputs__item"}
+                      placeholder={name}
+                      name={name}
+                      type={type}
+                      step="1"
+                      min="0"
+                      value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
+                      onChange={handleSetValue}></input>
+                    
+                  )) : <p>loading...</p>
+                 }
              </form>
              <button type="button" className="filter-section-btn filter-section-btn--dark">Set Price</button>
              <div className="filter-section-btn-container">
-             <button type="button" className="filter-section-btn filter-section-btn--light">Clear Filter</button>
+             <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
              </div>
              </div>

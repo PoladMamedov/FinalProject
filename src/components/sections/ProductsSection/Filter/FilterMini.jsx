@@ -5,7 +5,6 @@ const FilterMini = forwardRef((props, ref) => {
 
     return (
       <>
-        <div className="filter-section">
         <div className="filter-section-mini" ref={ref}>
         <div className="filter-section-mini-container">
         <button onClick={props.toggle} type="button" className="filter-section-mini-text">Filter({props.count})</button>
@@ -16,7 +15,7 @@ const FilterMini = forwardRef((props, ref) => {
          </select>
         </div>
         </div>
-        </div>
+        
         </>
     );
 });
