@@ -1,10 +1,12 @@
 
 import "./About.scss";
 import Map from "../../components/GoogleMap";
+import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const About = () => {
   return (
     <>
+      <Breadcrumb />
       <div className="container">
         <div className="about__container">
           <h1 className="about__title">Welcome to Innovation Oasis: Your Ultimate Destination for Electronics and Endless Possibilities!</h1>
