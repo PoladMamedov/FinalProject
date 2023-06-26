@@ -67,6 +67,7 @@
     "react/destructuring-assignment": "off",
     "react/prop-types": ["off"],
     "react-hooks/exhaustive-deps": "off"
+    "react/no-unescaped-entities": "off"
   },
   "settings": {
     "react": {
