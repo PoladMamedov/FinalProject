@@ -5,6 +5,7 @@ import { fetchCategories } from "../../redux/actions/categories";
 import Categories from "../Categories/Categories";
 import setPagePath from "../../redux/actions/setPagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Header = () => {
 
@@ -13,8 +14,8 @@ const Header = () => {
   const { token } = useSelector((state) => state.user.userInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState("");
   const pages = ["Products", "About"];
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
@@ -52,19 +53,19 @@ const Header = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
   };
 
-  const handleChange = (value) => {
-    setSearchTerm(value);
-  };
-  const handleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
+  // const handleChange = (value) => {
+  //   setSearchTerm(value);
+  // };
+  // const handleSearch = () => {
+  //   setIsSearchOpen(!isSearchOpen);
+  // };
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(searchTerm);
-    setSearchTerm("");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // console.log(searchTerm);
+  //   setSearchTerm("");
+  // };
 
   return (
     <>
@@ -110,8 +111,9 @@ const Header = () => {
               <p className="header__container-top-lang">UKR</p>
             </div>
           </div>
-          <div className="header__container-bottom">
-            <svg
+           <div className="header__container-bottom">
+            <SearchBar />
+           {/* <svg
               onClick={() => handleSearch()}
               className="header__nav-search"
               xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +161,7 @@ const Header = () => {
                   fill="#393d45"
                 />
               </svg>
-            </form>
+            </form> */}
 
             <NavLink
               className="header__company-logo"
