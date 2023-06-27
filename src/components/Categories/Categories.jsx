@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { fetchCategories } from "../../redux/actions/categories";
 
 function Categories() {
-  const dispatch = useDispatch();
   const { categories, loading, error } = useSelector(
     (state) => state.categories
   );
   const [activeCategory, setActiveCategory] = useState(null);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-
   // Фильтр категории и их подКатегории по parentId
   const groupCategories = (parentId) => {
     const filteredCategories = categories.filter(
@@ -36,25 +29,27 @@ function Categories() {
   }
   return (
     <div className="category">
-      <ul className="category__list">
-        {categories
-          .filter((category) => category.parentId === "null")
-          .map((category) => (
-            <li
-              key={category.id}
-              onMouseEnter={() => setActiveCategory(category.id)}
-              onMouseLeave={() => setActiveCategory(null)}
-              className="category__list-item"
-            >
-              <NavLink className="category__list-link">{category.name}</NavLink>
-              {activeCategory === category.id && (
-                <ul className="subcategory__list">
-                  {groupCategories(category.id)}
-                </ul>
-              )}
-            </li>
-          ))}
-      </ul>
+      <div className="container">
+        <ul className="category__list">
+          {categories
+            .filter((category) => category.parentId === "null")
+            .map((category) => (
+              <li
+                key={category.id}
+                onMouseEnter={() => setActiveCategory(category.id)}
+                onMouseLeave={() => setActiveCategory(null)}
+                className="category__list-item"
+              >
+                <NavLink className="category__list-link">{category.name}</NavLink>
+                {activeCategory === category.id && (
+                  <ul className="subcategory__list">
+                    {groupCategories(category.id)}
+                  </ul>
+                )}
+              </li>
+            ))}
+        </ul>
+      </div>
     </div >
   );
 }

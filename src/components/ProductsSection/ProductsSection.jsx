@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
+import Breadcrumb from "../BreadCrumb/BreadCrumb";
 
 const ProductsSection = () => {
   const [counter, setCounter] = useState(0);
@@ -20,15 +21,18 @@ const ProductsSection = () => {
     filterMini.current.classList.toggle("visibility");
   }
   return (
-    <section>
-      <div className="container">
-        <div className="products-section">
-          <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} />
-          <FilterMini toggle={toggleFilter} count={counter} ref={filterMini} />
-          <div className="products-section-cards">Карточки продуктов</div>
+    <>
+      <Breadcrumb />
+      <section>
+        <div className="container">
+          <div className="products-section">
+            <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} />
+            <FilterMini toggle={toggleFilter} count={counter} ref={filterMini} />
+            <div className="products-section-cards">Карточки продуктов</div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
