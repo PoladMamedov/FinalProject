@@ -1,0 +1,61 @@
+.personal-data {
+  border: 1px solid $secondary;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.personal-data__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-bottom: 10px;
+}
+.personal-data__item {
+  &:first-child {
+    margin-top: 0;
+  }
+  margin-top: 10px;
+  label {
+    color: $secondary;
+    font-size: 13px;
+  }
+  p {
+    margin-top: 5px;
+    text-align: left;
+    color: $primary;
+  }
+  input {
+    color: $primaryBlue;
+    font-size: 16px;
+    background-color: $secondaryLight;
+    width: 100%;
+    height: 30px;
+    border: 1px solid $secondary;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    transition: background-color 0.2s ease-in-out;
+    &:focus {
+      background-color: darken($secondaryLight, $amount: 10%);
+    }
+  }
+}
+.personal-data__btns-wrapper {
+  @include flex(row, space-between, center);
+  gap: 10px;
+}
+.personal-data__btn {
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  background-color: $primaryDark;
+  color: $secondaryLight;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-radius: 5px;
+  transition: background-color 0.1s ease-in-out;
+  &:hover {
+    background-color: $primaryBlue;
+  }
+}
