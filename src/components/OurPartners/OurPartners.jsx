@@ -14,11 +14,11 @@ const OurPartners = () => {
          }
       }
       fetchPartners();
-   }, [server]);
+   }, []);
    return (
       <>
          <section className="our-partners">
-            <h2 className="our-partners__title">Our Partners</h2>
+            <h2 className="our-partners__title section-title">Our Partners</h2>
             <ul className="our-partners__list">
                {partners.length !== 0 ? partners.map(({ imageUrl, url }, index) => {
                   return (
