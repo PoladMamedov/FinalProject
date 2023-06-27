@@ -1,4 +1,4 @@
-import ProductsSection from "../../components/sections/ProductsSection/ProductsSection";
+import ProductsSection from "../../components/ProductsSection/ProductsSection";
 
 const Products = () => {
     return (

@@ -1,6 +1,31 @@
+//! Global
 @import "./normalize.scss";
 @import "./constants.scss";
-@import "./global.scss";
 @import "./mixins.scss";
+@import "./global.scss";
+
+//! Pages
 @import "../pages/LoginPage/loginPage.scss";
-@import "../pages/RegistrationPage/RegistrationPage.scss";
+@import "../pages/RegistrationPage/registrationPage.scss";
+@import "../pages/UsersCabinet/usersCabinet.scss";
+@import "../pages/NotFoundPage/notFound.scss";
+@import "../pages/About/About.scss";
+
+//!Components
+@import "../components/ProductsSection/productsSection.scss";
+@import "../components/ProductCard/productCard.scss";
+@import "../components/OurBenefitsList/ourBenefits.scss";
+@import "../components/OurPartners/ourPartners.scss";
+@import "../components/TopItemsSlider/topItemsSlider.scss";
+@import "../components/TopItemsSlider/slick.scss";
+@import "../components/TopItemsSlider/slick-theme.scss";
+@import "../components/BreadCrumb/breadCrumb.scss";
+@import "../components/BreadcrumbItem/breadCrumbItem.scss";
+@import "../components/Categories/categories.scss";
+@import "../components/Filter/filter.scss";
+@import "../components/Footer/footer.scss";
+@import "../components/Header/header.scss";
+@import "../components/Map/map.scss";
+@import "../components/MobileCategory/mobileCategory.scss";
+@import "../components/PreLoader/preLoader.scss";
+@import "../components/TopProductItems/topProductItems.scss";

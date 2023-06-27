@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "./filter.scss";
 import React, {useState, useEffect, forwardRef} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { fetchCategories } from "../../redux/actions/categories";

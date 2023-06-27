@@ -1,4 +1,3 @@
-import "./filter.scss";
 import React, { forwardRef } from "react";
 
 const FilterMini = forwardRef((props, ref) => {
