@@ -1,4 +1,7 @@
+
+import "./About.scss";
 import Map from "../../components/Map/Map";
+import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const About = () => {
   return (
