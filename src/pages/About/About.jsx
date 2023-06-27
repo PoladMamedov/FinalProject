@@ -1,10 +1,10 @@
-
-import "./About.scss";
 import Map from "../../components/Map/Map";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const About = () => {
   return (
+    <>
+    <Breadcrumb />
     <div className="container about">
       <div className="about__main">
         <h1 className="about__title">
@@ -38,7 +38,7 @@ const About = () => {
         <li>
         <div className="about__item">
         <img className="about__icons" src="/img/about/Icon05.png" alt="" width={80} height={70} />
-          <h3>What We Do: Making Quality Affordable - Redefining the Way You Shop</h3>
+          <h3>What we do: Making Quality Affordable - Redefining the Way You Shop</h3>
           </div>
           <p>
           At Innovation Oasis, our mission is clear: to provide you with the opportunity to purchase essential products at more affordable prices without compromising on quality. We believe that everyone should have access to top-notch electronics without breaking the bank.
@@ -82,12 +82,22 @@ const About = () => {
         <li>
         <div className="about__item">
         <img className="about__icons" src="/img/about/Icon07.png" alt="" />
-          <h3>Contact Us</h3>
+          <h3>Stay Connected with Us</h3>
+          </div>
+          <div className="about__item-contact">
+          <a href="tel:+380623656899">Tel: +380 62 365 68 99</a>
+          <a href="mailto:info@innoasis.com">Email: info@innoasis.com</a>
+          <span>Address: ul.Bolsunovska, 13-15</span>
           </div>
         </li>
       </ul>
+      <div className="about__item">
+        <img className="about__icons" src="/img/about/location01.png" alt="" />
+          <h3>Find Us on the Map!</h3>
+          </div>
       <Map />
     </div>
+    </>
   );
 };
 

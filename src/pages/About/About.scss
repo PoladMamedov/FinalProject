@@ -1,7 +1,25 @@
 .about {
   margin-top: 30px;
   color: $primary;
-
+  font-family: Roboto;
+  p {
+    text-align: left;
+    margin: 0px 0px 15px 25px;
+    color: $primaryLight;
+    font-family: Lato;
+    @include breakpoint-mf("xs") {
+      @include fonts(400, 18px, 22px);
+      margin: 0px 0px 10px 25px;
+    }
+    @include breakpoint-mf("md") {
+      @include fonts(400, 20px, 24px);
+      margin: 0px 0px 10px 25px;
+    }
+    @include breakpoint-mf("xl") {
+      @include fonts(400, 22px, 26px);
+      margin: 10px 0px 10px 25px;
+    }
+  }
   &__main {
     @include flex(row, space-between, flex-start);
     @include breakpoint-mf("md") {
@@ -11,55 +29,84 @@
       @include fonts(700, 40px, 50px);
     }
   }
-
   &__title {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 16px;
     color: $primary;
     margin-top: 0px;
+    @include breakpoint-mf("xxs") {
+      @include fonts(700, 20px, 22px);
+      margin-top: 0px;
+    }
+    @include breakpoint-mf("xs") {
+      @include fonts(700, 28px, 28px);
+      margin-top: 5px;
+    }
     @include breakpoint-mf("sm") {
-      @include fonts(700, 26px, 35px);
+      @include fonts(700, 32px, 32px);
       margin-top: 5px;
     }
     @include breakpoint-mf("md") {
-      @include fonts(700, 36px, 45px);
+      @include fonts(700, 38px, 37px);
       margin-top: 5px;
     }
     @include breakpoint-mf("xl") {
-      @include fonts(700, 42px, 50px);
+      @include fonts(700, 58px, 56px);
+      margin-top: 5px;
     }
   }
   &__img {
     max-width: 70%;
+    @include breakpoint-mf("xxs") {
+      max-width: 70%;
+    }
     @include breakpoint-mf("md") {
-      max-width: 80%;
+      max-width: 70%;
     }
     @include breakpoint-mf("xl") {
       max-width: 100%;
     }
   }
-
   &__item {
-    display: flex;
-    justify-content: start;
-    margin: 0;
-  }
-
-  &__icons {
-    margin-right: 10px;
-    color: $primary;
-    width: 90px;
-    @include breakpoint-mf("sm") {
-      max-width: 10%;
-      max-height: 10%;
+    @include flex(row, start, center);
+    margin: 10px 0px 10px 0px;
+    font-size: 18px;
+    line-height: 22px;
+    @include breakpoint-mf("xs") {
+      @include fonts(700, 24px, 26px);
+      margin: 0px 0px 10px 0px;
     }
     @include breakpoint-mf("md") {
+      @include fonts(700, 26px, 30px);
+      margin: 0px 0px 10px 0px;
+    }
+    @include breakpoint-mf("xl") {
+      @include fonts(700, 28px, 30px);
+      margin: 20px 0px 10px 0px;
+    }
+  }
+  &__icons {
+    color: $primary;
+    max-width: 8%;
+    max-height: 8%;
+    visibility: hidden;
+    @include breakpoint-mf("sm") {
+      margin-right: 10px;
       max-width: 10%;
       max-height: 10%;
+      visibility: visible
+    }
+    @include breakpoint-mf("md") {
+      margin-right: 10px;
+      max-width: 9%;
+      max-height: 9%;
+      visibility: visible
     }
     @include breakpoint-mf("xl") {
       margin-right: 10px;
       color: $primary;
       width: 90px;
+      visibility: visible
     }
   }
   &_list {
@@ -81,21 +128,21 @@
       @include flex(column, center, center);
     }
     &-title {
-      @include fonts(700, 20px, 23px);
+      @include fonts(700, 26px, 23px);
       font-family: "Roboto";
       top: 50%;
       left: 50%;
       text-align: center;
       width: 100%;
       @include breakpoint-mf("md") {
-        @include fonts(700, 22px, 35px);
+        @include fonts(700, 28px, 35px);
       }
       @include breakpoint-mf("xl") {
-        @include fonts(700, 28px, 36px);
+        @include fonts(700, 30px, 36px);
       }
     }
     &-text {
-      @include fonts(400, 16px, 20px);
+      @include fonts(700, 16px, 20px);
       margin: 20px 0px 0px 40px;
       font-family: "Roboto";
       position: absolute;
@@ -105,11 +152,11 @@
       text-align: center;
       width: 100%;
       @include breakpoint-mf("md") {
-        @include fonts(400, 18px, 20px);
+        @include fonts(700, 18px, 20px);
         margin: 20px 0px 0px 40px;
       }
       @include breakpoint-mf("xl") {
-        @include fonts(400, 18px, 20px);
+        @include fonts(700, 18px, 20px);
         margin: 20px 0px 0px 40px;
       }
     }
@@ -122,6 +169,38 @@
       @include flex(row, space-between, flex-start);
       flex-wrap: nowrap;
       gap: 30px;
+    }
+  }
+  &__item-contact {
+    @include flex(column, start, flex-start);
+    @include fonts(700, 14px, 16px);
+    margin: 0px 0px 0px 80px;
+    gap: 5px;
+    @include breakpoint-mf("xxs") {
+      @include fonts(700, 16px, 18px);
+      margin: 0px 0px 0px 100px;
+    }
+    @include breakpoint-mf("xs") {
+      @include fonts(700, 17px, 18px);
+      margin: 0px 0px 0px 110px;
+    }
+    @include breakpoint-mf("sm") {
+      @include fonts(700, 18px, 20px);
+      margin: 0px 0px 0px 120px;
+    }
+    @include breakpoint-mf("md") {
+      @include fonts(700, 19px, 18px);
+      margin: 0px 0px 0px 120px;
+    }
+    @include breakpoint-mf("xl") {
+      @include fonts(700, 20px, 20px);
+      margin: 0px 0px 0px 120px;
+    }
+    a,
+    span {
+      text-decoration: none;
+      color: $primaryLight;
+      font-family: Lato;
     }
   }
 }
