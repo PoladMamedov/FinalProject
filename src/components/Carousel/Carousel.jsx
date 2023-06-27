@@ -1,6 +1,4 @@
-import "../../styles/style.scss";
-
-export default function Index(props) {
+export default function Carousel(props) {
   const {
     currentStartItemIndex, items, visibleItemCount, flexStart, fullSize, onArrowClick, onItemClick, onCloseCarousel
 } = props;

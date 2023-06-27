@@ -1,9 +1,8 @@
-import "../../styles/style.scss";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
-import Index from "../../components/carousel";
+import Carousel from "../../components/Carousel/Carousel";
 
 // const mockData = {
 //   name: "Razer Mouse X89",
@@ -167,7 +166,7 @@ export default function ProductDetail() {
     <>
     <section className="container product-detail-section">
       <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
-      <Index {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
+      <Carousel {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
       <div className="product-detail__info-block">
         <h2 className="product-detail__name">{productData.name}</h2>
         <p className="product-detail__description">{productData.description}</p>
@@ -188,7 +187,7 @@ export default function ProductDetail() {
         <button type="button" className="cart-block__add-btn">Add to cart</button>
       </div>
     </section>
-      {isFullScreenImg && <Index
+      {isFullScreenImg && <Carousel
         {...carouselConfig.fullSize}
         onArrowClick={() => onArrowClick}
         onItemClick={() => {}}
