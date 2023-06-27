@@ -3,21 +3,25 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-
+import { useMemo } from "react";
 
 const Map = () => {
-   const icon = L.icon({ iconUrl: "./img/mapMarker/marker-icon.png" });
-   const position = [50.450919503613015, 30.522919842328225];
+   const icon = L.icon({
+      iconUrl: "./img/mapMarker/marker-icon.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+   });
+   const position = useMemo(() => ([50.42182139, 30.55313411]), []);
    return (
       <MapContainer className="map__container" center={position} zoom={16} scrollWheelZoom={false}>
          <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
          />
-         <Marker icon={icon} position={position}>
+         <Marker icon={icon} position={position} bounceOnZoomEnd={false} bubblingMouseEvents={false}>
             <Popup className="map__popup">
                <h3 className="map__title  ">"Innovation Oasis"</h3>
-               <p>Майдан Незалежності, 1</p>
+               <p>вулиця Болсуновська, 13-15</p>
                <p>
                   Графік роботи:
                   <br />

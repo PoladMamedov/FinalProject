@@ -1,9 +1,9 @@
+.products-section {
+   padding-right: 20px;
+   padding-left: 20px;
+   @include margin(63px, 95px);
 
-.products-section{
- padding-right: 20px;
- padding-left: 20px;
- @include margin(63px, 95px);
- &-cards{
-    display: none;
- }
+   &-cards {
+      display: none;
+   }
 }
