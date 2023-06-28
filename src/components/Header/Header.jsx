@@ -51,20 +51,6 @@ const Header = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
   };
 
-  // const handleChange = (value) => {
-  //   setSearchTerm(value);
-  // };
-  // const handleSearch = () => {
-  //   setIsSearchOpen(!isSearchOpen);
-  // };
-
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // console.log(searchTerm);
-  //   setSearchTerm("");
-  // };
-
   return (
     <>
       <header className="header">

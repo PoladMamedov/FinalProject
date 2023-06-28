@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
+    const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -39,6 +41,7 @@ const SearchBar = () => {
     e.preventDefault();
     const searchInput = e.target.elements.searchInput.value;
     performSearch(searchInput);
+    navigate("/products");
   };
 
   return (
@@ -92,7 +95,7 @@ const SearchBar = () => {
         <ul>
   {searchResults.map((product) => (
     // eslint-disable-next-line
-    <li key={product._id}>{product.name}</li>
+    <li key={product._id}></li>
   ))}
 </ul>
     </>
