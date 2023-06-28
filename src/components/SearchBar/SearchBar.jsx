@@ -30,7 +30,6 @@ const SearchBar = () => {
     }
   };
   
-
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
