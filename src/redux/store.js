@@ -6,12 +6,14 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { pagePathReducer } from "./reducers/setPagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
+import counterFilterReducer from "./reducers/counterFilter";
 
 const rootReducer = combineReducers({
   // products: productsReducer,
   currentPath: pagePathReducer,
   categories,
   user: userReducer,
+  countFilter: counterFilterReducer,
 });
 
 const persistConfig = {

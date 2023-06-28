@@ -1,18 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
 import Breadcrumb from "../BreadCrumb/BreadCrumb";
 
 const ProductsSection = () => {
-  const [counter, setCounter] = useState(0);
+
+const dispatch = useDispatch();
+
   const filterFull = React.createRef();
   const filterMini = useRef();
 
   // для изменения кол-ва в скобках при свернутом фильтре
   function addCountFilter(e) {
-    return e.target.checked ? setCounter(counter + 1) : setCounter(counter - 1);
+    return e.target.checked ? dispatch(increment()) : dispatch(decrement());
   }
 
   // для переключения свернутого и развернуго фильтра на мобил.
@@ -27,7 +31,7 @@ const ProductsSection = () => {
         <div className="container">
           <div className="products-section">
             <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} />
-            <FilterMini toggle={toggleFilter} count={counter} ref={filterMini} />
+            <FilterMini toggle={toggleFilter} ref={filterMini} />
             <div className="products-section-cards">Карточки продуктов</div>
           </div>
         </div>

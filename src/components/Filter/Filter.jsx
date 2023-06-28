@@ -3,6 +3,7 @@ import React, {useState, useEffect, forwardRef} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { fetchCategories } from "../../redux/actions/categories";
 import useServer from "../../hooks/useServer";
+import { reset } from "../../redux/actions/counterFilter";
 
 
 const Filter = forwardRef((props, ref) => {
@@ -54,6 +55,7 @@ const Filter = forwardRef((props, ref) => {
 function resetBtnClick() {
   setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
   setCheckedItems(checkedItems.map(() => false));
+  dispatch(reset());
 }
 
     return (
