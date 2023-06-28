@@ -1,25 +1,35 @@
 import React, { useState } from "react";
-import useServer from "../../hooks/useServer";
 
 const SearchBar = () => {
-  const server = useServer();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   const performSearch = async (searchTerm) => {
-    const allProducts = await server.getAllProducts();
+    const searchPhrases = {
+      query: searchTerm
+    };
+    try {
+      const response = await fetch("https://final-project-backend-phi.vercel.app/api/products/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(searchPhrases)
+      });
+  
+      if (!response.ok) {
+        throw new Error("Search request failed.");
+      }
+  
+      const products = await response.json();
+      console.log(products);
+      setSearchResults(products);
 
-    const results = allProducts.filter((product) => {
-      const productName = product.name?.toLowerCase();
-      const productCategories = product.categories?.toLowerCase();
-      const productBrand = product.brand?.toLowerCase();
-
-      return (
-        (productName && productName.includes(searchTerm.toLowerCase())) || (productCategories && productCategories.includes(searchTerm.toLowerCase())) || (productBrand && productBrand.includes(searchTerm.toLowerCase()))
-      );
-    });
-
-    console.log(results);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -33,7 +43,6 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="header__container-bottom">
         <svg
           onClick={() => handleSearch()}
           className="header__nav-search"
@@ -80,7 +89,12 @@ const SearchBar = () => {
             />
           </svg>
         </form>
-      </div>
+        <ul>
+  {searchResults.map((product) => (
+    // eslint-disable-next-line
+    <li key={product._id}>{product.name}</li>
+  ))}
+</ul>
     </>
   );
 };
