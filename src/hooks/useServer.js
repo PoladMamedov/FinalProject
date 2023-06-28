@@ -77,6 +77,15 @@ export default function useServer() {
     return slides;
   }
 
+  // Get filters
+  async function getFilters() {
+    const filters = await fetch(`${url}/filters`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filters;
+  }
+
+
   return {
     registerUser,
     loginUser,
@@ -86,5 +95,6 @@ export default function useServer() {
     getAllProducts,
     getProduct,
     getSlides,
+    getFilters
   };
 }

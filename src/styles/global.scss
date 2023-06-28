@@ -2,25 +2,30 @@
 @import "./constants.scss";
 
 body {
-	margin: 0;
-	font-family: 'Lato', 'Roboto', sans-serif;
+  margin: 0;
+  font-family: "Lato", "Roboto", sans-serif;
 }
 
 .container {
-	max-width: 1200px;
-	width: 100%;
-	margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  @include breakpoint-mf("md") {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
-.section-title{
-@include fonts(700, 22px, 26px);
-color: $primary;
-text-align: center;
-@include breakpoint-mf("md"){
-	@include fonts(700, 28px, 34px);
-};
-@include breakpoint-mf("xl"){
-	@include fonts(700, 45px, 54px);
+.section-title {
+  @include fonts(700, 22px, 26px);
+  color: $primary;
+  text-align: center;
+  @include breakpoint-mf("md") {
+    @include fonts(700, 28px, 34px);
+  }
+  @include breakpoint-mf("xl") {
+    @include fonts(700, 45px, 54px);
+  }
 }
-}
-

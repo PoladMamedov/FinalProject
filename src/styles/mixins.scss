@@ -34,6 +34,12 @@ $grid-breakpoints: (
   }
 }
 
+@mixin breakpoint-bet($min-size, $max-size) {
+  @media (min-width: $min-size) and (max-width: $max-size) {
+    @content;
+  }
+}
+
 //mixin for flexbox
 @mixin flex($flex-direction, $justify: start, $align: flex-start) {
   display: flex;

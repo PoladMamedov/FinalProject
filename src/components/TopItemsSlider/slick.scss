@@ -4,13 +4,31 @@
   display: block;
   box-sizing: border-box;
 
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  @include breakpoint-mf("xxs") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-mf("sm") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-mf("md") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-bet(769px, 1920px) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+ 
   -webkit-user-select: none;
-  -moz-user-select: none;  
-  -ms-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; 
   user-select: none;
 
   -webkit-touch-callout: none;
@@ -18,19 +36,24 @@
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
+
+  @include breakpoint-between("md", "xs") {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 .slick-list {
   display: flex;
   position: relative;
-  background-color: #FCF9F6;
-  
+  background-color: #fcf9f6;
+
   display: block;
   overflow: hidden;
   margin-top: 15px;
   padding: 0;
   border-radius: 5px;
-//   border-bottom: 1px solid  rgb(144, 144, 144);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
 }
 .slick-list:focus {
@@ -82,10 +105,6 @@
 [dir="rtl"] .slick-slide {
   float: right;
 }
-// .slick-slide img
-// {
-//     display: block;
-// }
 .slick-slide.slick-loading img {
   display: none;
 }
