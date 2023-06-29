@@ -91,7 +91,6 @@ function RegistrationPage() {
               <label className="registration-section__form-input-error">{formik.errors.firstName}</label>
             ) : null}
           </div>
-
           <div className="registration-section__form-input-wrapper">
             <input
               className="registration-section__form-input"
@@ -122,7 +121,6 @@ function RegistrationPage() {
               <label className="registration-section__form-input-error">{formik.errors.lastName}</label>
             ) : null}
           </div>
-
           <div className="registration-section__form-input-wrapper">
             <input
               className="registration-section__form-input"
@@ -153,7 +151,6 @@ function RegistrationPage() {
               <label className="registration-section__form-input-error">{formik.errors.login}</label>
             ) : null}
           </div>
-
           <div className="registration-section__form-input-wrapper">
             <input
               className="registration-section__form-input"
@@ -252,7 +249,7 @@ function RegistrationPage() {
           ) : null}
         </form>
       </section>
-      {loading ? <PreLoader /> : null}
+      {loading ? <PreLoader fillScreen /> : null}
     </>
   );
 }
