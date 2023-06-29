@@ -1,15 +1,29 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
 import Breadcrumb from "../BreadCrumb/BreadCrumb";
+import useServer from "../../hooks/useServer";
 
 const ProductsSection = () => {
-
-const dispatch = useDispatch();
+  const server = useServer();
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]); // тут хранятся продукты
+  
+  useEffect(() => {
+    async function fetchProducts() {
+       try {
+         const responce = await server.getAllProducts();
+         setProducts(responce);
+       } catch (error) {
+          console.error(error);
+       }
+    }
+    fetchProducts();
+ }, []);
 
   const filterFull = React.createRef();
   const filterMini = useRef();
@@ -32,7 +46,22 @@ const dispatch = useDispatch();
           <div className="products-section">
             <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} />
             <FilterMini toggle={toggleFilter} ref={filterMini} />
-            <div className="products-section-cards">Карточки продуктов</div>
+            {/* <div className="products-section-cards">
+            {
+              products.map(({
+                categories,
+                currentPrice,
+                name,
+                itemNo
+                }) => (
+                <div key={itemNo} style={{ border: "1px solid black" }}>
+                  <h4>{name}</h4>
+                  <p>{categories}</p>
+                  <p>{currentPrice}</p>
+                </div>
+              ))
+              }
+            </div> */}
           </div>
         </div>
       </section>

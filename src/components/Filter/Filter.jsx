@@ -1,5 +1,11 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect, forwardRef} from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useRef
+} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { fetchCategories } from "../../redux/actions/categories";
 import useServer from "../../hooks/useServer";
@@ -7,10 +13,15 @@ import { reset } from "../../redux/actions/counterFilter";
 
 
 const Filter = forwardRef((props, ref) => {
+  const errorText = useRef();
   const server = useServer();
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState([]); // это для вывода на панели наименований фильтров из базы
+  const dispatch = useDispatch();
+  const {categories} = useSelector(
+        (state) => state.categories
+      );
 
-  useEffect(() => {
+useEffect(() => {
     async function fetchFilters() {
       try {
         const filterResponse = await server.getFilters();
@@ -22,26 +33,63 @@ const Filter = forwardRef((props, ref) => {
     fetchFilters();
   }, []);
 
-    const dispatch = useDispatch();
-    const {categories} = useSelector(
-        (state) => state.categories
-      );
+useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
-      useEffect(() => {
-        dispatch(fetchCategories());
-      }, [dispatch]);
-  
-  const [valuesPrice, setValuesPrice] = useState({
+  // стейт с ценой
+const [valuesPrice, setValuesPrice] = useState({
     Max: "",
     Min: "",
   });
 
-  const [checkedItems, setCheckedItems] = useState(
+  // стейт чексбоксов
+const [checkedItems, setCheckedItems] = useState(
     categories.filter((item) => item.level === 0).map(() => false)
   );
 
-  // для cохранения значений инпутов в стейте, чтобы потом сбросить фильтр
-  function handleSetValue(e) {
+// стейт для хранения выбранных категорий
+const [selectedCategories, setSelectedCategories] = useState([]);
+
+// функция для сбора категорий по клику на чексбокс и отправки запроса на сервер
+async function handleCheckboxChange(e, index) {
+  let category = e.target.name.toLowerCase().replace(/ /g, "_");
+  if (category === "smart_watches") {
+    category = category.replace(/es$/, "");
+  }
+  const isChecked = e.target.checked;
+
+  // Обновление состояния checkedItems
+  setCheckedItems([
+    ...checkedItems.slice(0, index),
+    !checkedItems[index],
+    ...checkedItems.slice(index + 1),
+  ]);
+
+  // я ввела эту переменную, чтобы в стейт выбранных категорий попадали актуальные значения, а не с опозданием на 1 шаг
+  let updatedSelectedCategories;
+
+  // Обновление массива выбранных категорий
+  if (isChecked) {
+    updatedSelectedCategories = [...selectedCategories, category];
+  } else {
+    updatedSelectedCategories = selectedCategories.filter((c) => c !== category);
+  }
+  setSelectedCategories(updatedSelectedCategories);
+
+  // Отправка запроса на сервер для фильтрации продуктов
+  const response = await fetch(
+    `https://final-project-backend-phi.vercel.app/api/products/filter?categories=${updatedSelectedCategories.join(
+      ","
+    )}`
+  );
+  const data = await response.json();
+  console.log(data);
+  // Обработка полученных данных
+}
+
+// для cохранения значений инпутов в стейте, чтобы потом сбросить фильтр
+function handleSetValue(e) {
     const { name, value } = e.target;
     const intValue = parseInt(value, 10);
     if (!Number.isNaN(intValue) && intValue >= 0) {
@@ -55,9 +103,9 @@ const Filter = forwardRef((props, ref) => {
 function resetBtnClick() {
   setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
   setCheckedItems(checkedItems.map(() => false));
+  setSelectedCategories([]);
   dispatch(reset());
 }
-
     return (
       <>
         <div className="filter-section">
@@ -78,13 +126,7 @@ function resetBtnClick() {
                     name={item.name}
                     type="checkbox"
                     checked={checkedItems[index]}
-                    onChange={() => {
-                     setCheckedItems([
-                    ...checkedItems.slice(0, index),
-                    !checkedItems[index],
-                    ...checkedItems.slice(index + 1),
-                  ]);
-                }}
+                    onChange={(e) =>  handleCheckboxChange(e, index)}
                     onClick={props.addCounter}
                     className="filter-section-list__item-checkbox"></input>
                     </div>))
@@ -104,10 +146,10 @@ function resetBtnClick() {
                       min="0"
                       value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
                       onChange={handleSetValue}></input>
-                    
                   )) : <p>loading...</p>
                  }
              </form>
+             <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
              <button type="button" className="filter-section-btn filter-section-btn--dark">Set Price</button>
              <div className="filter-section-btn-container">
              <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>

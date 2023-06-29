@@ -64,6 +64,11 @@
         &__item:focus {
             background-color: $white;
         }
+        &__error-text {
+            color: red;
+            @include margin(3px, 3px);
+            display: none;
+        }
     }
 
     &-btn-container {
