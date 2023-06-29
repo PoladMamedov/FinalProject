@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
 import Breadcrumb from "../BreadCrumb/BreadCrumb";
+import AllProductItems from "../AllProductItems/AllProductItems";
 
 const ProductsSection = () => {
   const [counter, setCounter] = useState(0);
@@ -28,7 +29,7 @@ const ProductsSection = () => {
           <div className="products-section">
             <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} />
             <FilterMini toggle={toggleFilter} count={counter} ref={filterMini} />
-            <div className="products-section-cards">Карточки продуктов</div>
+            <AllProductItems />
           </div>
         </div>
       </section>

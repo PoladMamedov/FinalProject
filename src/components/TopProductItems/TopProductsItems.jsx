@@ -1,15 +1,20 @@
 import React, { memo, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import useServer from "../../hooks/useServer";
 import ProductCard from "../ProductCard/ProductCard";
+import fillProducts from "../../redux/actions/getProdicts";
 
 function TopProductItem() {
   const { getAllProducts } = useServer();
   const [storedProducts, setStoredProducts] = useState([]);
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
 
     getAllProducts()
       .then((result) => {
+        dispatch(fillProducts(result));
         const originalProducts = [...result];
         const selectedProducts = [];
         while (selectedProducts.length < 8 && originalProducts.length > 0) {
