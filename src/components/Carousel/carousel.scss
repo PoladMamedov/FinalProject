@@ -3,17 +3,7 @@
   grid-area: carousel;
   width: 100%;
 
-  @include breakpoint-mf('lg') {
-    margin-left: 40px;
-    width: 82%;
-  }
-
-  @include breakpoint-mf('xl') {
-    margin-left: 70px;
-  }
-
   &--full-size {
-    margin-left: 0;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -25,47 +15,44 @@
 }
 
 .carousel__items {
-  @include flex(row, space-between, center);
-  gap: 5px;
-  @include margin (10px, 70px);
-
-  @include breakpoint-mf('sm') {
-    @include margin(30px, 30px);
-  }
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  grid-auto-flow: column;
+  justify-content: space-between;
 
   @include breakpoint-mf('my') {
-    @include flex(column, space-between, center);
+    grid-auto-flow: row;
+    justify-content: center;
     height: 100%;
-    @include margin(0, 0);
     align-items: center;
-    flex-wrap: wrap;
   }
 
   @include breakpoint-mf('lg') {
-    @include flex(row, space-between, center);
+    grid-auto-flow: column;
+    justify-content: space-between;
   }
 
-  &--flex-start {
-    gap: 15px;
-    @include flex(row, flex-start, center);
+  &--justify-start {
+    justify-content: start;
 
     @include breakpoint-mf('my') {
-      @include flex(column, flex-start, center);
+      justify-content: center;
     }
 
     @include breakpoint-mf('lg') {
-      @include flex(row, flex-start, center);
+      justify-content: start;
     }
   }
 }
 
 .carousel__arrow {
+  @include fonts(500, 10px, 20px);
   top: 50%;
   cursor: pointer;
   position: absolute;
   transform: translateY(-50%);
   transition: transform 0.1s linear;
-  @include fonts(500, 10px, 20px);
   width: 20px;
   height: 20px;
   color: $white;
@@ -87,6 +74,12 @@
     @include fonts(700, 20px, 40px);
     width: 40px;
     height: 40px;
+  }
+
+  @include breakpoint-mf('lg') {
+    @include fonts(700, 15px, 30px);
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -170,25 +163,19 @@
 
 .carousel__item {
   border-radius: 4px;
-  width: 66px;
-  height: 55px;
+  width: 85px;
+  height: 85px;
   object-fit: cover;
   object-position: center;
   cursor: pointer;
 
-  @include breakpoint-mf('xxs') {
+  @include breakpoint-mf('xs') {
+    width: 200px;
+    height: 100%;
+  }
+  @include breakpoint-mf('lg') {
     width: 85px;
     height: 85px;
-  }
-
-  @include breakpoint-mf('xs') {
-    width: 145px;
-    height: 128px;
-  }
-
-  @include breakpoint-mf('lg') {
-    width: 120px;
-    height: 100px;
   }
 
   @include breakpoint-mf('xl') {

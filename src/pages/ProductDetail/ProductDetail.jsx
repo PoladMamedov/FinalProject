@@ -4,19 +4,28 @@ import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
 import Carousel from "../../components/Carousel/Carousel";
 
-// const mockData = {
-//   name: "Razer Mouse X89",
-//   imgs: ["https://images.unsplash.com/photo-1616296425622-4560a2ad83de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=713&q=80", "https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=386&q=80", "https://images.unsplash.com/photo-1616296425622-4560a2ad83de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=713&q=80", "https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=386&q=80", "https://images.unsplash.com/photo-1621068403583-19332ce20219?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80", "https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=386&q=80", "https://images.unsplash.com/photo-1621068403583-19332ce20219?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"],
-//   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh erat",
-//   brand: "Teknology",
-//   stock: 5,
-//   price: 55
-// };
-
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [productData, setProductData] = useState({});
+
+  const [productData, setProductData] = useState({
+    name: "",
+    description: "",
+    imageUrls: [],
+    price: {
+      currentPrice: 0,
+      previousPrice: 0,
+    },
+    sale: false,
+    color: [],
+    basicProps: {
+      brand: "",
+      stock: 0,
+      article: 0
+    },
+    props: {},
+  });
   const [productAmount, setProductAmount] = useState(1);
+  const [productColor, setProductColor] = useState("");
 
   const [mainImgUrl, setMainImgUrl] = useState("");
   const [isFullScreenImg, setIsFullScreenImg] = useState(false);
@@ -26,14 +35,14 @@ export default function ProductDetail() {
       currentStartItemIndex: 0,
       visibleItemCount: 3,
       items: [],
-      flexStart: false,
+      justifyContentStart: false,
       fullSize: false
     },
     fullSize: {
       currentStartItemIndex: 0,
       visibleItemCount: 1,
       items: [],
-      flexStart: false,
+      justifyContentStart: false,
       fullSize: true
     }
 
@@ -47,26 +56,45 @@ export default function ProductDetail() {
     setIsLoaded(false);
     async function fetchProduct() {
       try {
-        const data = await getProduct(itemNo);
-        setProductData(data);
+        const {
+          name, description, imageUrls, quantity, currentPrice, previousPrice, properties: {color, brand, ...properties}
+        } = await getProduct(itemNo);
+        setProductData({
+          ...productData,
+          name,
+          description,
+          imageUrls,
+          price: {
+            ...productData.price,
+            currentPrice,
+            previousPrice,
+          },
+          sale: currentPrice < previousPrice,
+          color,
+          basicProps: {
+            ...productData.basicProps,
+            stock: quantity,
+            article: itemNo,
+            brand
+          },
+          props: {...productData.props, ...properties}
+        });
         setIsLoaded(true);
+        setProductColor(color[0]);
         setCarouselConfig({
           ...carouselConfig,
           basic: {
             ...carouselConfig.basic,
-            items: data.imageUrls,
-            // items: mockData.imgs,
-            visibleItemCount: data.imageUrls.length > 6 ? 4 : carouselConfig.basic.visibleItemCount,
-            flexStart: data.imageUrls.length < 3,
-            // flexStart: mockData.imgs.length < 3,
+            items: imageUrls,
+            visibleItemCount: imageUrls.length > 3 ? 4 : carouselConfig.basic.visibleItemCount,
+            justifyContentStart: imageUrls.length < 3,
           },
           fullSize: {
             ...carouselConfig.fullSize,
-            items: data.imageUrls
-            // items: mockData.imgs
+            items: imageUrls
           }
         });
-        setMainImgUrl(data.imageUrls[0]);
+        setMainImgUrl(imageUrls[0]);
       } catch (error) {
         console.error(error);
       }
@@ -75,7 +103,7 @@ export default function ProductDetail() {
   }, [itemNo]);
 
   function onIncreaseBtnClick() {
-    if (inputProductAmountRef.current.value < productData.quantity) {
+    if (inputProductAmountRef.current.value < productData.basicProps.stock) {
       setProductAmount(+inputProductAmountRef.current.value + 1);
     }
   }
@@ -86,7 +114,7 @@ export default function ProductDetail() {
   }
 
   function isValidProductAmount(amount) {
-    return /^[0-9]*$/.test(amount) && amount > 0 && amount <= productData.quantity;
+    return /^[0-9]*$/.test(amount) && amount > 0 && amount <= productData.basicProps.stock;
   }
 
   function onProductAmountChange(event) {
@@ -122,7 +150,6 @@ export default function ProductDetail() {
       configStructure = "fullSize";
     }
 
-    // if (event.target.className.includes("right-arrow") && carouselConfig[configStructure].currentStartItemIndex < mockData.imgs.length - carouselConfig[configStructure].visibleItemCount) {
     if (event.target.className.includes("right-arrow") && carouselConfig[configStructure].currentStartItemIndex < productData.imageUrls.length - carouselConfig[configStructure].visibleItemCount) {
       setCarouselConfig({
         ...carouselConfig,
@@ -149,7 +176,6 @@ export default function ProductDetail() {
   function onMainImgClick() {
     setIsFullScreenImg(true);
     setCarouselConfig({...carouselConfig, fullSize: {...carouselConfig.fullSize, currentStartItemIndex: productData.imageUrls.findIndex((el) => mainImgUrl.includes(el))}});
-    // setCarouselConfig({...carouselConfig, fullSize: {...carouselConfig.fullSize, currentStartItemIndex: mockData.imgs.findIndex((el) => el === mainImgUrl)}});
     document.querySelector("body").style.overflow = "hidden";
   }
 
@@ -160,22 +186,34 @@ export default function ProductDetail() {
     }
   }
 
+  function onAnchorLinkClick(event) {
+    event.preventDefault();
+    const targetElement = document.querySelector(`#${event.target.href.split("#")[1]}`);
+      targetElement.scrollIntoView({ behavior: "smooth" });
+  }
+
   if (!isLoaded) return <PreLoader/>;
 
   return (
     <>
     <section className="container product-detail-section">
       <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
-      <Carousel {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
+      <Carousel className="product-detail__carousel" {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
       <div className="product-detail__info-block">
         <h2 className="product-detail__name">{productData.name}</h2>
         <p className="product-detail__description">{productData.description}</p>
-        <div className="product-detail__items">
-          {/* TODO: rewrite with map or other method to avoid duplication */}
-          <p className="product-detail__item product-detail__brand">Brand: <span className="product-detail__item-value">{productData.brand}</span></p>
-          <p className="product-detail__item product-detail__stock">Stock: <span className="product-detail__item-value">{productData.quantity}</span></p>
-          <p className="product-detail__item product-detail__price">Price: <span className="product-detail__item-value">{productData.currentPrice}$</span></p>
-          <p className="product-detail__item product-detail__color">Color: <span className="product-detail__item-value">{productData.color}</span></p>
+        <a href="#techSpecs" className="product-detail__characteristics-link" onClick={onAnchorLinkClick}>See Tech Specs...</a>
+        <div className={productData.sale ? "product-detail__info-wrap" : "product-detail__info-wrap--flex-start"}>
+          <div className="product-detail__basic-characteristics">
+            {Object.entries(productData.basicProps).map(([key, value], index) => <p key={index} className={`product-detail__basic-characteristic product-detail__${key}`}>{key}: <span className="product-detail__basic-characteristic-value">{value}</span></p>)}
+          </div>
+          {productData.sale ? <div className="product-detail__price-wrap">{Object.entries(productData.price).map(([key, value], index) => <p key={index} className={`product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__basic-characteristic">Price: <span className="product-detail__basic-characteristic-value">{productData.price.currentPrice}$</span></p>}
+        </div>
+        <div className="product-detail__color-wrap">
+          <p className="product-detail__basic-characteristic">Color: <span className="product-detail__basic-characteristic-value">{productColor}</span></p>
+          <div className="product-detail__color-list">
+            {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
+          </div>
         </div>
       </div>
       <div className="product-detail__cart-block">
@@ -185,6 +223,14 @@ export default function ProductDetail() {
           <button type="button" className="cart-block__amount-item cart-block__increase-btn" onClick={onIncreaseBtnClick}>+</button>
         </div>
         <button type="button" className="cart-block__add-btn">Add to cart</button>
+      </div>
+      <div className="product-detail__characteristic-block" id="techSpecs">
+        <h3 className="product-detail__characteristics-title">Specifications</h3>
+        <table className="product-detail__characteristics-table">
+          <tbody className="product-detail__characteristic-list">
+          {Object.entries(productData.props).map(([key, value], index) => <tr key={index} className="product-detail__characteristic-item"><td className="product-detail__characteristic-data">{key}:</td><td className="product-detail__characteristic-data product-detail__characteristic-data--value">{value.toString()}</td></tr>)}
+          </tbody>
+        </table>
       </div>
     </section>
       {isFullScreenImg && <Carousel
