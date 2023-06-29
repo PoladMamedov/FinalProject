@@ -41,7 +41,7 @@ $grid-breakpoints: (
 }
 
 //mixin for flexbox
-@mixin flex($flex-direction, $justify: start, $align: flex-start) {
+@mixin flex($flex-direction, $justify: flex-start, $align: flex-start) {
   display: flex;
   flex-direction: $flex-direction;
   justify-content: $justify;
