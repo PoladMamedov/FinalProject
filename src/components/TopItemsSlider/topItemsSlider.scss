@@ -1,13 +1,5 @@
-.responsive-slider .slick-slider {
-  @media (max-width: 1200px) {
-    width: 90%;
-    margin: 0 auto;
-  }
-}
 .topItems {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(row, space-between, flex-start);
   margin-top: 30px;
   border-radius: 5px;
 
@@ -19,20 +11,16 @@
     width: 520px;
     height: 326px;
     border-radius: 15px;
-    @media (max-width: 1200px) {
-      right: -490px;
-      width: 40%;
-      height: auto;
+    @include breakpoint-bet(1020px, 1199px) {
+      width: 46%;
+      margin-left: -70px;
     }
-    @media (max-width: 900px) {
-      position: static;
-      margin-top: 20px;
-      width: 70%;
-      height: auto;
+    @include breakpoint-bet(898px, 1019px) {
+      width: 45%;
+      margin-left: -130px;
+    }
+    @include breakpoint-bet(320px, 897px) {
       visibility: hidden;
-    }
-    @media (max-width: 768px) {
-      width: 80%;
     }
   }
 
@@ -40,7 +28,6 @@
     position: absolute;
     border: 1px #211f1c;
     color: #fff;
-    outline: none;
     background-color: #211f1c;
     font-family: Roboto;
     margin-left: 70px;
@@ -48,26 +35,40 @@
     width: 169px;
     height: 52px;
     font-size: 20px;
-    @media (max-width: 768px) {
+    @include breakpoint-bet(1000px, 1199px) {
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(898px, 999px) {
+      font-size: 18px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(768px, 897px) {
+      font-size: 18px;
+      margin-left: 90px;
+    }
+    @include breakpoint-bet(568px, 768px) {
+      font-size: 16px;
+      margin-left: 90px;
       width: 191px;
       height: 39px;
-      font-size: 16px;
-      top: 240px;
       border-radius: 10px;
       box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
-    @media (max-width: 568px) {
-      max-width: 312px;
+    @include breakpoint-bet(425px, 568px) {
+      width: 312px;
       height: 26px;
+      margin-left: 50px;
       font-size: 10px;
-      top: 210px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
-    @media (max-width: 410px) {
-      max-width: 312px;
+    @include breakpoint-bet(320px, 425px) {
+      width: 252px;
       height: 26px;
+      margin-left: 30px;
       font-size: 10px;
-      top: 150px;
-      margin-left: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
   }
 
@@ -78,21 +79,33 @@
     font-size: 60px;
     margin-left: 70px;
     color: $primary;
-    @media (max-width: 1200px) {
-      font-size: 52px;
+    @include breakpoint-bet(1000px, 1199px) {
+      font-size: 48px;
+      margin-left: 50px;
     }
-    @media (max-width: 768px) {
+    @include breakpoint-bet(898px, 999px) {
+      font-size: 42px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(768px, 897px) {
+      font-size: 40px;
+      margin-left: 90px;
+      margin-top: 50px;
+    }
+    @include breakpoint-bet(568px, 768px) {
       font-size: 32px;
-      top: 60px;
+      margin-left: 90px;
+      margin-top: 70px;
     }
-    @media (max-width: 568px) {
+    @include breakpoint-bet(425px, 568px) {
       font-size: 30px;
-      top: 50px;
+      margin-top: 80px;
+      margin-left: 50px;
     }
-    @media (max-width: 410px) {
-      font-size: 26px;
-      top: 30px;
-      margin-left: 40px;
+    @include breakpoint-bet(320px, 425px) {
+      font-size: 30px;
+      margin-top: 90px;
+      margin-left: 30px;
     }
   }
 
@@ -104,17 +117,28 @@
     font-weight: 400;
     font-size: 22px;
     margin: 70px 0px 0px 70px;
-    @media (max-width: 768px) {
+
+    @include breakpoint-bet(1000px, 1199px) {
+      font-size: 20px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(898px, 999px) {
       font-size: 18px;
-      top: 80px;
+      margin-left: 50px;
     }
-    @media (max-width: 568px) {
+    @include breakpoint-bet(568px, 897px) {
+      font-size: 18px;
+      margin-left: 90px;
+    }
+    @include breakpoint-bet(425px, 568px) {
+      font-size: 16px;
+      top: 125px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(320px, 425px) {
       font-size: 14px;
-      top: 70px;
-    }
-    @media (max-width: 410px) {
-      top: 30px;
-      margin-left: 40px;
+      margin-left: 30px;
+      top: 125px;
     }
   }
 
@@ -126,17 +150,27 @@
     font-weight: 400;
     font-size: 22px;
     margin: 70px 0px 0px 70px;
-    @media (max-width: 768px) {
+    @include breakpoint-bet(1000px, 1199px) {
+      font-size: 20px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(898px, 999px) {
       font-size: 18px;
-      top: 100px;
+      margin-left: 50px;
     }
-    @media (max-width: 568px) {
+    @include breakpoint-bet(568px, 897px) {
+      font-size: 18px;
+      margin-left: 90px;
+    }
+    @include breakpoint-bet(425px, 568px) {
+      font-size: 16px;
+      top: 150px;
+      margin-left: 50px;
+    }
+    @include breakpoint-bet(320px, 425px) {
       font-size: 14px;
-      top: 87px;
-    }
-    @media (max-width: 410px) {
-      top: 45px;
-      margin-left: 40px;
+      margin-left: 30px;
+      top: 150px;
     }
   }
 }
