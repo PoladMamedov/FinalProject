@@ -77,7 +77,7 @@ export default function useServer() {
     return slides;
   }
 
-  // Get filters
+  //* Get filters
   async function getFilters() {
     const filters = await fetch(`${url}/filters`)
       .then((res) => res.json())

@@ -30,6 +30,9 @@
 .logout-btn {
   margin-top: 10px;
   background-color: red;
+  @include breakpoint-mf("xs") {
+    margin-right: 10px;
+  }
   &:hover {
     background-color: darken(red, $amount: 10%);
   }
