@@ -85,6 +85,15 @@ export default function useServer() {
     return filters;
   }
 
+  // Get filters categories
+ async function getFiltersCategories(categories) {
+  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+      ","
+      )}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
 
   return {
     registerUser,
@@ -95,6 +104,7 @@ export default function useServer() {
     getAllProducts,
     getProduct,
     getSlides,
-    getFilters
+    getFilters,
+    getFiltersCategories
   };
 }

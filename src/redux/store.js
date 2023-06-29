@@ -7,6 +7,7 @@ import { pagePathReducer } from "./reducers/setPagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
 import counterFilterReducer from "./reducers/counterFilter";
+import filteredProductsReducer from "./reducers/filteredProducts";
 
 const rootReducer = combineReducers({
   // products: productsReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   categories,
   user: userReducer,
   countFilter: counterFilterReducer,
+  filteredProducts: filteredProductsReducer,
 });
 
 const persistConfig = {
