@@ -95,6 +95,15 @@ export default function useServer() {
       return filteredProducts;
  }
 
+ // Get filters categories+price
+ async function getFiltersCategoriesPrices(categories, min, max) {
+  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+      ","
+      )}&minPrice=${min}&maxPrice=${max}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
   return {
     registerUser,
     loginUser,
@@ -105,6 +114,7 @@ export default function useServer() {
     getProduct,
     getSlides,
     getFilters,
-    getFiltersCategories
+    getFiltersCategories,
+    getFiltersCategoriesPrices
   };
 }

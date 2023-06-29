@@ -64,6 +64,28 @@ function handleSetValue(e) {
 // стейт для хранения выбранных категорий
 const [selectedCategories, setSelectedCategories] = useState([]);
 
+// функция для отправки запроса на сервер для фильтрации
+async function fetchFilteredProducts(updatedSelectedCategories) {
+  let filteredProductsResponse;
+  try {
+    if (valuesPrice.Max !== "" && valuesPrice.Min !== "") {
+      filteredProductsResponse = await server.getFiltersCategoriesPrices(
+        updatedSelectedCategories,
+        valuesPrice.Min,
+        valuesPrice.Max
+      );
+    } else {
+      filteredProductsResponse = await server.getFiltersCategories(
+        updatedSelectedCategories
+      );
+    }
+    dispatch(addFilteredProducts(filteredProductsResponse)); // добавляю фильтрованные продукты в редакс
+    console.log(filteredProductsResponse);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // функция для сбора категорий по клику на чексбокс и отправки запроса на сервер
 async function handleCheckboxChange(e, index) {
   let category = e.target.name.toLowerCase().replace(/ /g, "_");
@@ -91,16 +113,7 @@ async function handleCheckboxChange(e, index) {
   setSelectedCategories(updatedSelectedCategories);
 
   // Отправка запроса на сервер для фильтрации продуктов по категориям
-  async function fetchFilteredProducts() {
-    try {
-      const filteredProductsResponse = await server.getFiltersCategories(updatedSelectedCategories);
-      dispatch(addFilteredProducts(filteredProductsResponse)); // добавляю фильтрованные продукты в редакс
-      console.log(filteredProductsResponse);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  fetchFilteredProducts();
+  fetchFilteredProducts(updatedSelectedCategories);
 }
 
 // для сброса всех фильтров
@@ -155,7 +168,10 @@ function resetBtnClick() {
                  }
              </form>
              <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
-             <button type="button" className="filter-section-btn filter-section-btn--dark">Set Price</button>
+             <button
+             type="button"
+             className="filter-section-btn filter-section-btn--dark"
+             onClick={() => fetchFilteredProducts(selectedCategories)}>Set Price</button>
              <div className="filter-section-btn-container">
              <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
