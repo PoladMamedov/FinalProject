@@ -40,6 +40,35 @@ export default function useServer() {
     return user;
   }
 
+  //* User data and password changing
+  async function updateUserData(userData, token) {
+    const updateResult = await fetch(`${url}/customers`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
+  async function changeUserPassword(passwords, token) {
+    const updateResult = await fetch(`${url}/customers/password`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(passwords),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
   //* Getting all categories
   async function getCategories() {
     const categories = await fetch(`${url}/catalog`)
@@ -85,16 +114,17 @@ export default function useServer() {
     return filters;
   }
 
-
   return {
     registerUser,
     loginUser,
     getUser,
+    updateUserData,
+    changeUserPassword,
     getCategories,
     getPartners,
     getAllProducts,
     getProduct,
     getSlides,
-    getFilters
+    getFilters,
   };
 }

@@ -1,11 +1,16 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../redux/actions/user";
+import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
 import PersonalDataEditForm from "../../components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "../../components/PasswordChangeForm/PasswordChangeForm";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrorAndMessages());
+    };
+  }, []);
   return (
     <>
       <section className="users-cabinet">

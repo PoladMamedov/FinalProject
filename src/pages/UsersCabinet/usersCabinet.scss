@@ -37,3 +37,14 @@
     background-color: darken(red, $amount: 10%);
   }
 }
+.users-cabinet__form-error {
+  margin-top: 5px;
+  color: $secondary;
+  font-size: 13px;
+  text-align: right;
+}
+.users-cabinet__success-message {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -2,12 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1;
-  background-color: #000000;
-  opacity: 0.5;
+  background-color: #00000064;
+}
+.fill-screen {
+position: fixed;
 }

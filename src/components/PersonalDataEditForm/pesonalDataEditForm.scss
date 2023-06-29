@@ -1,4 +1,6 @@
 .personal-data {
+  position: relative;
+  overflow: hidden;
   border: 1px solid $secondary;
   border-radius: 5px;
   padding: 10px;
@@ -22,11 +24,6 @@
     color: $secondary;
     font-size: 13px;
   }
-  p {
-    margin-top: 5px;
-    text-align: left;
-    color: $primary;
-  }
   input {
     display: block;
     color: $primaryBlue;
@@ -44,10 +41,21 @@
     }
   }
 }
+.personal-data__item-info {
+  margin-top: 5px;
+  text-align: left;
+  color: $primary;
+}
 .personal-data__btns-wrapper {
   @include flex(row, space-between, center);
   gap: 10px;
   @include breakpoint-mf("xs") {
     @include flex(row, flex-end, center);
   }
+}
+form-error {
+  margin-top: 5px;
+  color: $secondary;
+  font-size: 13px;
+  text-align: right;
 }
