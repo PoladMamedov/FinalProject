@@ -64,29 +64,49 @@ function handleSetValue(e) {
 // стейт для хранения выбранных категорий
 const [selectedCategories, setSelectedCategories] = useState([]);
 
-// функция для отправки запроса на сервер для фильтрации
-async function fetchFilteredProducts(updatedSelectedCategories) {
+async function fetchFilteredProducts(checkedCategories) {
   let filteredProductsResponse;
   try {
     if (valuesPrice.Max !== "" && valuesPrice.Min !== "") {
-      filteredProductsResponse = await server.getFiltersCategoriesPrices(
-        updatedSelectedCategories,
-        valuesPrice.Min,
-        valuesPrice.Max
-      );
+      if (checkedCategories.length === 0) {
+        // Отправка запроса на сервер для фильтрации только по цене
+        filteredProductsResponse = await server.getFiltersPrices(
+          valuesPrice.Min,
+          valuesPrice.Max
+        );
+      } else {
+        // Отправка запроса на сервер для фильтрации по категориям и цене
+        filteredProductsResponse = await server.getFiltersCategoriesPrices(
+          checkedCategories,
+          valuesPrice.Min,
+          valuesPrice.Max
+        );
+      }
     } else {
+      // Отправка запроса на сервер для фильтрации только по категориям
       filteredProductsResponse = await server.getFiltersCategories(
-        updatedSelectedCategories
+        checkedCategories
       );
     }
     dispatch(addFilteredProducts(filteredProductsResponse)); // добавляю фильтрованные продукты в редакс
-    console.log(filteredProductsResponse);
   } catch (err) {
     console.log(err);
   }
 }
 
-// функция для сбора категорий по клику на чексбокс и отправки запроса на сервер
+// функция для проверки того что мин цена меньше макс.
+function handleSetPrice() {
+  const min = parseInt(valuesPrice.Min, 10);
+  const max = parseInt(valuesPrice.Max, 10);
+  if (min > max) {
+    errorText.current.style.display = "block";
+  } else {
+    errorText.current.style.display = "none";
+    fetchFilteredProducts(selectedCategories);
+  }
+}
+
+// функция для сбора категорий по клику на чексбокс
 async function handleCheckboxChange(e, index) {
   let category = e.target.name.toLowerCase().replace(/ /g, "_");
   if (category === "smart_watches") {
@@ -171,7 +191,7 @@ function resetBtnClick() {
              <button
              type="button"
              className="filter-section-btn filter-section-btn--dark"
-             onClick={() => fetchFilteredProducts(selectedCategories)}>Set Price</button>
+             onClick={handleSetPrice}>Set Price</button>
              <div className="filter-section-btn-container">
              <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>

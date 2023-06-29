@@ -104,6 +104,15 @@ export default function useServer() {
       .catch((err) => err);
       return filteredProducts;
  }
+
+ // Get filters prices
+ async function getFiltersPrices(min, max) {
+  const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
+
   return {
     registerUser,
     loginUser,
@@ -115,6 +124,7 @@ export default function useServer() {
     getSlides,
     getFilters,
     getFiltersCategories,
-    getFiltersCategoriesPrices
+    getFiltersCategoriesPrices,
+    getFiltersPrices
   };
 }
