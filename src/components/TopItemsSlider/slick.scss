@@ -7,10 +7,28 @@
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-
+  padding-right: 10px;
+  padding-left: 10px;
+  @include breakpoint-mf("xxs") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-mf("sm") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-mf("md") {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  @include breakpoint-bet(769px, 1920px) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+ 
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; 
   user-select: none;
 
   -webkit-touch-callout: none;
