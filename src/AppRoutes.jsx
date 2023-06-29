@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFoundPage/NotFound";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
+import CartPage from "./pages/CartPage/CartPage";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/products" element={<Products />}/>
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route element={<RequireAuth />}>
           <Route path="/cabinet" element={<UsersCabinet />} />
