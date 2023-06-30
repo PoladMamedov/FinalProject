@@ -95,7 +95,18 @@ const Header = () => {
               <p className="header__container-top-lang">UKR</p>
             </div>
           </div>
-           <div className="header__container-bottom">
+          <div className="header__container-bottom">
+            <div className="header__container-burger-wrap">
+              <button
+                onClick={() => handleBtnClick()}
+                className={`header__menu-btn${isMenuOpen ? "--active" : ""}`}
+                type="button"
+              >
+                <span className="header__menu-lines"></span>
+                <span className="header__menu-lines"></span>
+                <span className="header__menu-lines"></span>
+              </button>
+            </div>
             <SearchBar />
 
             <NavLink
@@ -179,16 +190,6 @@ const Header = () => {
                 />
               </NavLink>
             </div>
-
-            <button
-              onClick={() => handleBtnClick()}
-              className={`header__menu-btn${isMenuOpen ? "--active" : ""}`}
-              type="button"
-            >
-              <span className="header__menu-lines"></span>
-              <span className="header__menu-lines"></span>
-              <span className="header__menu-lines"></span>
-            </button>
           </div>
         </div>
       </header>
