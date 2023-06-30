@@ -1,12 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import useServer from "../../hooks/useServer";
+import { useSelector, useDispatch } from "react-redux";
+import { logInUser } from "../../redux/actions/user";
+import PreLoader from "../../components/PreLoader/PreLoader";
 
 function LoginPage() {
   const [showPass, setShowPass] = useState(false);
-  const { loginUser } = useServer();
+
+  const dispatch = useDispatch();
+  const {
+    userInfo: { token, password, loginOrEmail },
+    loading,
+  } = useSelector((state) => state.user);
+
   const formik = useFormik({
     initialValues: {
       loginOrEmail: "",
@@ -16,14 +24,12 @@ function LoginPage() {
       loginOrEmail: Yup.string().required("You need to enter your email or login to continue"),
       password: Yup.string().required("Password required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       const userData = {
         loginOrEmail: values.loginOrEmail,
         password: values.password,
       };
-      //! Создается обьект юзера (такой как нужен по документации), который нужно отправить пост запросом на сервер и получить ответ (succes, token)
-      const loginResult = await loginUser(userData);
-      console.log(loginResult);
+      dispatch(logInUser(userData));
     },
   });
 
@@ -88,10 +94,14 @@ function LoginPage() {
         <button className="login-section__form-submit-btn" type="submit">
           LOGIN
         </button>
+        {password && !token ? <p className="login-section__request-bad-res">{password}</p> : null}
+        {loginOrEmail && !token ? <p className="login-section__request-bad-res">{loginOrEmail}</p> : null}
         <p className="login-section__message">
           Need an account? <Link to={"/registration"}>Sign up now!</Link>
         </p>
       </form>
+      {loading ? <PreLoader fillScreen /> : null}
+      {token ? <Navigate to={"/cabinet"} /> : null}
     </section>
   );
 }

@@ -138,10 +138,16 @@
     text-decoration: underline;
   }
   @include breakpoint-mf("md") {
-    // margin-top: 20px;
     font-size: 20px;
   }
   @include breakpoint-mf("my") {
     font-size: 18px;
+  }
+}
+.login-section__request-bad-res {
+  text-align: center;
+  color: red;
+  @include breakpoint-mf("md") {
+    font-size: 22px;
   }
 }

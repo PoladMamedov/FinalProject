@@ -1,6 +1,34 @@
-@import "./normalize.scss";
-@import "./constants.scss";
-@import "./global.scss";
-@import "./mixins.scss";
-@import "../pages/LoginPage/loginPage.scss";
-@import "../pages/RegistrationPage/RegistrationPage.scss";
+//! Global
+@import "./normalize";
+@import "./constants";
+@import "./mixins";
+@import "./global";
+
+//! Pages
+@import "../pages/LoginPage/loginPage";
+@import "../pages/RegistrationPage/registrationPage";
+@import "../pages/UsersCabinet/usersCabinet";
+@import "../pages/NotFoundPage/notFound";
+@import "../pages/About/About";
+
+//!Components
+@import "../components/ProductsSection/productsSection";
+@import "../components/ProductCard/productCard";
+@import "../components/OurBenefitsList/ourBenefits";
+@import "../components/OurPartners/ourPartners";
+@import "../components/TopItemsSlider/topItemsSlider";
+@import "../components/TopItemsSlider/slick";
+@import "../components/TopItemsSlider/slick-theme";
+@import "../components/BreadCrumb/breadCrumb";
+@import "../components/BreadcrumbItem/breadCrumbItem";
+@import "../components/Categories/categories";
+@import "../components/Filter/filter";
+@import "../components/Footer/footer";
+@import "../components/Header/header";
+@import "../components/Map/map";
+@import "../components/MobileCategory/mobileCategory";
+@import "../components/PreLoader/preLoader";
+@import "../components/TopProductItems/topProductItems";
+@import "../components/PersonalDataEditForm/pesonalDataEditForm";
+@import "../components/PasswordChangeForm/passwordChangeForm";
+@import "../components/SortFilter/sortFilter.scss";

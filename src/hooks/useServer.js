@@ -28,9 +28,57 @@ export default function useServer() {
     return loginResult;
   }
 
+  async function getUser(token) {
+    const user = await fetch(`${url}/customers/customer`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return user;
+  }
+
+  //* User data and password changing
+  async function updateUserData(userData, token) {
+    const updateResult = await fetch(`${url}/customers`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
+  async function changeUserPassword(passwords, token) {
+    const updateResult = await fetch(`${url}/customers/password`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(passwords),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
   //* Getting all categories
   async function getCategories() {
     const categories = await fetch(`${url}/catalog`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return categories;
+  }
+
+  async function getPartners() {
+    const categories = await fetch(`${url}/partners`)
       .then((res) => res.json())
       .catch((err) => err);
     return categories;
@@ -58,12 +106,55 @@ export default function useServer() {
     return slides;
   }
 
+  //* Get filters
+  async function getFilters() {
+    const filters = await fetch(`${url}/filters`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filters;
+  }
+  // Get filters categories
+ async function getFiltersCategories(categories) {
+  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+      ","
+      )}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
+
+ // Get filters categories+price
+ async function getFiltersCategoriesPrices(categories, min, max) {
+  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+      ","
+      )}&minPrice=${min}&maxPrice=${max}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
+
+ // Get filters prices
+ async function getFiltersPrices(min, max) {
+  const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}`)
+      .then((res) => res.json())
+      .catch((err) => err);
+      return filteredProducts;
+ }
+
   return {
     registerUser,
     loginUser,
+    getUser,
+    updateUserData,
+    changeUserPassword,
     getCategories,
+    getPartners,
     getAllProducts,
     getProduct,
     getSlides,
+    getFilters,
+    getFiltersCategories,
+    getFiltersCategoriesPrices,
+    getFiltersPrices,
   };
 }
