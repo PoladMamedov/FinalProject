@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./reviewSlider.scss";
-// import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
 import data from "./data";
