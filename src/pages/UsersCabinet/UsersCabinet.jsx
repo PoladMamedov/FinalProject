@@ -1,28 +1,37 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setUserInfo } from "../../redux/actions/user";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
+import PersonalDataEditForm from "../../components/PersonalDataEditForm/PersonalDataEditForm";
+import PasswordChangeForm from "../../components/PasswordChangeForm/PasswordChangeForm";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
-  const {
-  firstName, lastName, token, login, email
-  } = useSelector((state) => state.user.userInfo);
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrorAndMessages());
+    };
+  }, []);
   return (
     <>
-      <h1>Users cabinet in progress....</h1>
-      <p>{firstName}</p>
-      <p>{lastName}</p>
-      <p>{login}</p>
-      <p>{email}</p>
-      <p>{token}</p>
-      <button
-        className="login-section__form-submit-btn"
-        type="button"
-        onClick={() => {
-          dispatch(setUserInfo({}));
-        }}
-      >
-        LOG OUT
-      </button>
+      <section className="users-cabinet">
+        <div className="container">
+          <h2 className="section-title">Personal data</h2>
+          <PersonalDataEditForm />
+          <h2 className="section-title">Password</h2>
+          <PasswordChangeForm />
+          <div className="users-cabinet__logout-btn-wrapper">
+            <button
+              className="users-cabinet__btn logout-btn"
+              type="button"
+              onClick={() => {
+                dispatch(setUserInfo({}));
+              }}
+            >
+              LOG OUT
+            </button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

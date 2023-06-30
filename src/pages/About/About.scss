@@ -68,7 +68,7 @@
     }
   }
   &__item {
-    @include flex(row, start, center);
+    @include flex(row, flex-start, center);
     margin: 10px 0px 10px 0px;
     font-size: 18px;
     line-height: 22px;
@@ -172,7 +172,7 @@
     }
   }
   &__item-contact {
-    @include flex(column, start, flex-start);
+    @include flex(column, flex-start, flex-start);
     @include fonts(700, 14px, 16px);
     margin: 0px 0px 0px 80px;
     gap: 5px;
