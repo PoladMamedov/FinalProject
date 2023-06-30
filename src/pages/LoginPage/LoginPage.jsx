@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser } from "../../redux/actions/user";
+import { logInUser } from "../../redux/actions/user";
 import PreLoader from "../../components/PreLoader/PreLoader";
 
 function LoginPage() {
@@ -29,7 +29,7 @@ function LoginPage() {
         loginOrEmail: values.loginOrEmail,
         password: values.password,
       };
-      dispatch(fetchUser(userData));
+      dispatch(logInUser(userData));
     },
   });
 
@@ -100,7 +100,7 @@ function LoginPage() {
           Need an account? <Link to={"/registration"}>Sign up now!</Link>
         </p>
       </form>
-      {loading ? <PreLoader /> : null}
+      {loading ? <PreLoader fillScreen /> : null}
       {token ? <Navigate to={"/cabinet"} /> : null}
     </section>
   );
