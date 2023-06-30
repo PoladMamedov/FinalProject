@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
 import PersonalDataEditForm from "../../components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "../../components/PasswordChangeForm/PasswordChangeForm";
+import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ function UsersCabinet() {
   }, []);
   return (
     <>
+      <Breadcrumb />
+
       <section className="users-cabinet">
         <div className="container">
           <h2 className="section-title">Personal data</h2>

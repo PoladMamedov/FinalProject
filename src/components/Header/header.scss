@@ -40,17 +40,13 @@
 
       @include breakpoint-mf('md') {
          justify-self: right;
-         display: flex;
-         align-items: center;
-         justify-content: center;
+         @include flex(row, center, center);
          gap: 15px;
       }
    }
 
    &__container-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      @include flex(row, space-between, center);
       max-width: 1200px;
       width: 100%;
       margin: 0 auto;
@@ -94,9 +90,7 @@
    }
 
    &__container-burger-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flex(row, center, center);
       gap: 15px;
 
       @include breakpoint-mf('md') {
@@ -120,9 +114,7 @@
       display: none;
 
       @include breakpoint-mf('md') {
-         display: flex;
-         align-items: center;
-         justify-content: center;
+         @include flex(row, center, center);
          place-self: center;
          position: relative;
          width: 220px;
@@ -149,9 +141,7 @@
          position: absolute;
          z-index: 100;
          width: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: center;
+         @include flex(row, center, center);
 
          @media (min-width: 768px) {
             display: none;
@@ -254,9 +244,7 @@
    }
 
    &__menu-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flex(row, center, center);
       grid-column: 1/2;
       grid-row: 1/2;
       background-color: transparent;
@@ -334,10 +322,7 @@
    }
 
    &__nav-list {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      @include flex(column, center, flex-start);
       gap: 30px;
       padding: 16px 0;
       margin-left: 9px;
@@ -412,10 +397,7 @@
 
    &__mobile-categories {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      @include flex(column, center, flex-start);
       gap: 17px;
       font-weight: 500;
       font-size: 14px;
@@ -429,9 +411,7 @@
    &__nav-btn-wrap {
       grid-column: 4/5;
       grid-row: 1/2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flex(row, center, center);
       justify-self: flex-end;
       gap: 10px;
 
@@ -520,9 +500,7 @@
       }
 
       &--count {
-         display: flex;
-         align-items: center;
-         justify-content: center;
+         @include flex(row, center, center);
          padding: 1px 0 0 1px;
          position: absolute;
          font-size: 14px;
