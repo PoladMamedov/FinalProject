@@ -40,6 +40,35 @@ export default function useServer() {
     return user;
   }
 
+  //* User data and password changing
+  async function updateUserData(userData, token) {
+    const updateResult = await fetch(`${url}/customers`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
+  async function changeUserPassword(passwords, token) {
+    const updateResult = await fetch(`${url}/customers/password`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(passwords),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updateResult;
+  }
+
   //* Getting all categories
   async function getCategories() {
     const categories = await fetch(`${url}/catalog`)
@@ -77,14 +106,13 @@ export default function useServer() {
     return slides;
   }
 
-  // Get filters
+  //* Get filters
   async function getFilters() {
     const filters = await fetch(`${url}/filters`)
       .then((res) => res.json())
       .catch((err) => err);
     return filters;
   }
-
   // Get filters categories
  async function getFiltersCategories(categories) {
   const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
@@ -117,6 +145,8 @@ export default function useServer() {
     registerUser,
     loginUser,
     getUser,
+    updateUserData,
+    changeUserPassword,
     getCategories,
     getPartners,
     getAllProducts,
@@ -125,6 +155,6 @@ export default function useServer() {
     getFilters,
     getFiltersCategories,
     getFiltersCategoriesPrices,
-    getFiltersPrices
+    getFiltersPrices,
   };
 }
