@@ -1,0 +1,19 @@
+.filter-section-sort{
+    position: absolute;
+    display: none;
+    top: 80px;
+    right: 0px;
+    gap: 10px;
+    &-select {
+        width: 150px;
+        height: 24px;
+        border: 1px solid $secondary;
+        border-radius: 10px;
+        text-align: center;
+        @include fonts(400, 14px, 18px);
+        color: $primaryLight;
+    }
+    @include breakpoint-mf("sm"){
+            @include flex(row, space-between, center);
+        }
+}

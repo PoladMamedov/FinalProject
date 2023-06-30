@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {
@@ -11,6 +12,7 @@ import { fetchCategories } from "../../redux/actions/categories";
 import useServer from "../../hooks/useServer";
 import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
+import SortFilter from "../SortFilter/SortFilter";
 
 
 const Filter = forwardRef((props, ref) => {
@@ -45,20 +47,23 @@ const [valuesPrice, setValuesPrice] = useState({
     Min: "",
   });
 
+  const [selectedSortValue, setSelectedSortValue] = useState({
+    value: ""
+    
+  });
+
+  console.log(selectedSortValue);
+
   // стейт чексбоксов
 const [checkedItems, setCheckedItems] = useState(
     categories.filter((item) => item.level === 0).map(() => false)
   );
 
   // функция для cохранения значений инпутов цены в стейте
+
 function handleSetValue(e) {
   const { name, value } = e.target;
-  const intValue = parseInt(value, 10);
-  if (!Number.isNaN(intValue) && intValue >= 0) {
-    setValuesPrice((prevState) => ({ ...prevState, [name]: value }));
-  } else {
-    setValuesPrice((prevState) => ({ ...prevState, Max: "0", Min: "0" }));
-  }
+  setValuesPrice((prevState) => ({ ...prevState, [name]: value }));
 }
 
 // стейт для хранения выбранных категорий
@@ -94,10 +99,12 @@ async function fetchFilteredProducts(checkedCategories) {
   }
 }
 
+const min = parseInt(valuesPrice.Min, 10);
+const max = parseInt(valuesPrice.Max, 10);
+const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= 0 || max <= 0;
+
 // функция для проверки того что мин цена меньше макс.
 function handleSetPrice() {
-  const min = parseInt(valuesPrice.Min, 10);
-  const max = parseInt(valuesPrice.Max, 10);
   if (min > max) {
     errorText.current.style.display = "block";
   } else {
@@ -134,6 +141,11 @@ async function handleCheckboxChange(e, index) {
 
   // Отправка запроса на сервер для фильтрации продуктов по категориям
   fetchFilteredProducts(updatedSelectedCategories);
+}
+
+function handleSelectChange(e) {
+  const selectedValue = e.target.value;
+  setSelectedSortValue((prev) => ({ ...prev, value: selectedValue }));
 }
 
 // для сброса всех фильтров
@@ -173,13 +185,13 @@ function resetBtnClick() {
              <h4 className="filter-section__subtitle">Price range</h4>
              <form className="filter-section-inputs">
                  {
-                  filters.length !== 0 ? filters.map(({type, name}, idx) => (
+                  filters.length !== 0 ? filters.map(({name}, idx) => (
                       <input
                       key={idx}
                       className={"filter-section-inputs__item"}
                       placeholder={name}
                       name={name}
-                      type={type}
+                      type="text"
                       step="1"
                       min="0"
                       value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
@@ -187,11 +199,13 @@ function resetBtnClick() {
                   )) : <p>loading...</p>
                  }
              </form>
+             <SortFilter change={handleSelectChange}/>
              <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
              <button
              type="button"
              className="filter-section-btn filter-section-btn--dark"
-             onClick={handleSetPrice}>Set Price</button>
+             onClick={handleSetPrice}
+             disabled={isButtonDisabled}>Set Price</button>
              <div className="filter-section-btn-container">
              <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../Filter/Filter";
