@@ -69,6 +69,8 @@
       line-height: 30px;
       color: $primaryLight;
       margin-top: 8px;
+      filter:
+         drop-shadow(2px 2px 2px #6164674b);
 
       @media (min-width: 370px) {
          justify-self: center;
