@@ -5,6 +5,7 @@ import TopProductItem from "../../components/TopProductItems/TopProductsItems";
 import content from "../../components/OurBenefitsList/content.json";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import Categories from "../../components/Categories/Categories";
+import ReviewSlider from "../../components/ReviewSlider/ReviewSlider";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <OurPartners />
       <TopProductItem />
       <Benefits content={content} />
+      <ReviewSlider />
     </>
   );
 };
