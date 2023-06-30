@@ -48,8 +48,8 @@
    }
 
    &__container-bottom {
-      display: grid;
-      grid-template-columns: minmax(50px, 50px) minmax(40px, 50px) minmax(155px, 1fr) minmax(70px, 100px);
+      display: flex;
+      justify-content: space-between;
       align-items: center;
       max-width: 1200px;
       width: 100%;
@@ -91,10 +91,22 @@
       }
    }
 
+   &__container-burger-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+
+      @include breakpoint-mf('md') {
+         display: none;
+      }
+   }
+
    &__nav-search {
       grid-column: 2/3;
       grid-row: 1/2;
-      margin-left: -5px;
+      margin-left: -15px;
+      margin-bottom: 2px;
 
       @include breakpoint-mf('md') {
          margin: 0;
@@ -265,7 +277,7 @@
 
    &__menu-lines {
       position: absolute;
-      left: 16px;
+      left: 8px;
       width: 17px;
       height: 2px;
       background-color: $primary;
@@ -375,7 +387,6 @@
    }
 
    &__nav-arrow {
-      // position: absolute;
       top: 2px;
       right: -45px;
       color: $primary;
@@ -419,6 +430,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      justify-self: flex-end;
       gap: 10px;
 
       @include breakpoint-mf('md') {
