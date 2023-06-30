@@ -1,15 +1,15 @@
 //! Global
-@import "./normalize.scss";
-@import "./constants.scss";
-@import "./mixins.scss";
-@import "./global.scss";
+@import "./normalize";
+@import "./constants";
+@import "./mixins";
+@import "./global";
 
 //! Pages
-@import "../pages/LoginPage/loginPage.scss";
-@import "../pages/RegistrationPage/registrationPage.scss";
-@import "../pages/UsersCabinet/usersCabinet.scss";
-@import "../pages/NotFoundPage/notFound.scss";
-@import "../pages/About/About.scss";
+@import "../pages/LoginPage/loginPage";
+@import "../pages/RegistrationPage/registrationPage";
+@import "../pages/UsersCabinet/usersCabinet";
+@import "../pages/NotFoundPage/notFound";
+@import "../pages/About/About";
 
 //!Components
 @import "../components/ProductsSection/productsSection.scss";
