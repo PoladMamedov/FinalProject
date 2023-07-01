@@ -100,11 +100,14 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= 0 || m
 
 // функция для проверки того что мин цена меньше макс.
 function handleSetPrice() {
+    fetchFilteredProducts(selectedCategories);
+}
+
+function handlePriceBlur() {
   if (min > max) {
     errorText.current.style.display = "block";
   } else {
     errorText.current.style.display = "none";
-    fetchFilteredProducts(selectedCategories);
   }
 }
 
@@ -185,7 +188,8 @@ function resetBtnClick() {
                       step="1"
                       min="0"
                       value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
-                      onChange={handleSetValue}></input>
+                      onChange={handleSetValue}
+                      onBlur={handlePriceBlur}></input>
                   )) : <p>loading...</p>
                  }
              </form>

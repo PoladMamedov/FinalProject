@@ -14,16 +14,16 @@ function handleSelectChange(e) {
             dispatch(sortHighToLowPrice());
             props.products.products.sort((a, b) => b.currentPrice - a.currentPrice);
         }
-    } else {
+        console.log(props.products);
+    } else if (props.products.length === 0) {
       if (e.target.value === "1") {
         dispatch(sortLowToHighPrice());
         console.log("Сюда добавить продукты выведенные по дефолту в порядке возрастания");
     } else if (e.target.value === "2") {
       dispatch(sortHighToLowPrice());
-    }
       console.log("Сюда добавить продукты выведенные по дефолту в порядке убывания");
     }
-    console.log(props.products);
+  }
   }
 
     return (
