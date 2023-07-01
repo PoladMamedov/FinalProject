@@ -4,7 +4,7 @@
     position: relative;
 
     &__title {
-        @include margin(0px, 63px);
+        @include margin(0px, 33px);
         @include fonts(500, 26px, 34px);
     }
 
@@ -91,6 +91,12 @@
             color: $white;
         }
 
+        &--disabled {
+            @include margin(10px, 63px);
+            background-color: $primaryLight;
+            color: $white;
+        }
+
         &--light {
             width: 140px;
             @include breakpoint-mf("sm"){
@@ -111,17 +117,27 @@
         display: none;
 
         &-container {
-            @include flex(row, space-between, center);
-            width: 280px;
+            @include flex(row, start, center);
+            width: 100%;
+            gap: 20%;
             margin: 0 auto;
             @include breakpoint-mf("sm"){
                 display: none;
             }
+            &__img {
+                position: absolute;
+                right: 50%;
+            }
         }
         &-text{
         color: $primaryLight;
+        padding: 0;
+        margin-left: 10%;
         text-decoration: underline;
         background: none;
+        @include fonts(400, 14px, 18px);
+        font-family: "Roboto", sans-serif;
+
 
         &:hover {
             cursor: pointer;

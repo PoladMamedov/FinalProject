@@ -8,6 +8,7 @@ import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
+import sortFilterReducer from "./reducers/sortFilter";
 
 const rootReducer = combineReducers({
   // products: productsReducer,
@@ -16,12 +17,13 @@ const rootReducer = combineReducers({
   user: userReducer,
   countFilter: counterFilterReducer,
   filteredProducts: filteredProductsReducer,
+  sortFilter: sortFilterReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts"]
+  blacklist: ["countFilter", "filteredProducts", "sortFilter"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

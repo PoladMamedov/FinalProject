@@ -114,28 +114,28 @@ export default function useServer() {
     return filters;
   }
   // Get filters categories
- async function getFiltersCategories(categories) {
+ async function getFiltersCategories(categories, sort) {
   const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
       ","
-      )}`)
+      )}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
       return filteredProducts;
  }
 
  // Get filters categories+price
- async function getFiltersCategoriesPrices(categories, min, max) {
+ async function getFiltersCategoriesPrices(categories, min, max, sort) {
   const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
       ","
-      )}&minPrice=${min}&maxPrice=${max}`)
+      )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
       return filteredProducts;
  }
 
  // Get filters prices
- async function getFiltersPrices(min, max) {
-  const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}`)
+ async function getFiltersPrices(min, max, sort) {
+  const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
       return filteredProducts;
