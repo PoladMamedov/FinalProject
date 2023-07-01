@@ -10,12 +10,12 @@ switch (action.type) {
     case sortFilterTypes.LOW_TO_HIGH:
         return {
             ...state,
-            sortValue: "-"
+            sortValue: "+"
         };
     case sortFilterTypes.HIGH_TO_LOW:
         return {
             ...state,
-            sortValue: "+"
+            sortValue: "-"
         };
         default: return state;
     }

@@ -1,31 +1,30 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { sortLowToHighPrice, sortHighToLowPrice } from "../../redux/actions/sortFilter";
 
-const SortFilter = () => {
+const SortFilter = (props) => {
 
 const dispatch = useDispatch();
 
-const { filteredProducts } =  useSelector((state) => state.filteredProducts);
-
-
 function handleSelectChange(e) {
-  if (filteredProducts && filteredProducts.products) {
+    if (props.products.length !== 0) {
+        if (e.target.value === "1") {
+            dispatch(sortLowToHighPrice());
+            props.products.products.sort((a, b) => a.currentPrice - b.currentPrice);
+        } else if (e.target.value === "2") {
+            dispatch(sortHighToLowPrice());
+            props.products.products.sort((a, b) => b.currentPrice - a.currentPrice);
+        }
+    } else {
       if (e.target.value === "1") {
-          dispatch(sortHighToLowPrice());
-          filteredProducts.products.sort((a, b) => b.currentPrice - a.currentPrice);
-      } else if (e.target.value === "2") {
-          dispatch(sortLowToHighPrice());
-          filteredProducts.products.sort((a, b) => a.currentPrice - b.currentPrice);
-      }
-  } else {
-    if (e.target.value === "1") {
+        dispatch(sortLowToHighPrice());
+        console.log("Сюда добавить продукты выведенные по дефолту в порядке возрастания");
+    } else if (e.target.value === "2") {
       dispatch(sortHighToLowPrice());
-  } else if (e.target.value === "2") {
-      dispatch(sortLowToHighPrice());
+    }
+      console.log("Сюда добавить продукты выведенные по дефолту в порядке убывания");
+    }
+    console.log(props.products);
   }
-    console.log("Сюда добавить продукты выведенные по дефолту");
-  }
-}
 
     return (
         <div className="filter-section-sort">

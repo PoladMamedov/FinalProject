@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
@@ -28,13 +28,20 @@ const ProductsSection = () => {
     setIsSortFilterVisible(filterFull.current.classList.contains("hidden"));
   }
 
+  const { filteredProducts } =  useSelector((state) => state.filteredProducts);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(filteredProducts);
+  }, [filteredProducts]);
+
   return (
     <>
       <Breadcrumb />
       <section>
         <div className="container">
           <div className="products-section">
-          {(!isNarrowScreen || isSortFilterVisible) && <SortFilter />}
+          {(!isNarrowScreen || isSortFilterVisible) && <SortFilter products={products}/>}
             <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
             <FilterMini toggle={toggleFilter} ref={filterMini} />
           </div>
