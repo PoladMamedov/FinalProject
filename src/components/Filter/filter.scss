@@ -93,7 +93,8 @@
 
         &--disabled {
             @include margin(10px, 63px);
-            background-color: $primaryLight;
+            background-color: $primaryDark;
+            opacity: .8;
             color: $white;
         }
 
