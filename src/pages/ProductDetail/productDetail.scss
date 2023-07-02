@@ -391,6 +391,10 @@
   @include breakpoint-mf('sm') {
     @include fonts(400, 20px, 30px);
   }
+
+  &:hover {
+    color: darken($primaryLight, 15%);
+  }
 }
 
 //------BASIC SPECS----------------------------------------
@@ -401,8 +405,9 @@
   @include flex(row, space-between, center);
 
   &--flex-start {
-    gap: 25px;
+    gap: 0 25px;
     @include flex(row, flex-start, center);
+    flex-wrap: wrap;
   }
 }
 

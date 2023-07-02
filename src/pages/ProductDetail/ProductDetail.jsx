@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
+import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
 // const mockData = {
 //   color: "black",
@@ -177,9 +178,11 @@ export default function ProductDetail() {
   }
 
   if (!isLoaded) return <PreLoader/>;
+  // TODO: Sync full size carousel with main img after closing & centered additional carousel
 
   return (
     <>
+      <BreadCrumb/>
     <section className="container product-detail-section">
       <div className="product-detail__wrap">
         <div className="product-detail__images-block">
