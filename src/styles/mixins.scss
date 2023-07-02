@@ -40,8 +40,8 @@ $grid-breakpoints: (
   }
 }
 
-//mixin for flexbox
-@mixin flex($flex-direction, $justify: start, $align: flex-start) {
+// mixin for flexbox
+@mixin flex($flex-direction, $justify: flex-start, $align: flex-start) {
   display: flex;
   flex-direction: $flex-direction;
   justify-content: $justify;
@@ -55,7 +55,7 @@ $grid-breakpoints: (
   line-height: $c;
 }
 
-//mixin for margin
+// mixin for margin
 @mixin margin($a, $b) {
   margin-top: $a;
   margin-bottom: $b;

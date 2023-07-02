@@ -1,9 +1,6 @@
-@import "./mixins.scss";
-@import "./constants.scss";
-
 body {
   margin: 0;
-  font-family: "Lato", "Roboto", sans-serif;
+  font-family: Lato, Roboto, sans-serif;
 }
 
 .container {
@@ -12,6 +9,7 @@ body {
   margin: 0 auto;
   padding-right: 10px;
   padding-left: 10px;
+
   @include breakpoint-mf("md") {
     padding-right: 15px;
     padding-left: 15px;
@@ -22,9 +20,11 @@ body {
   @include fonts(700, 22px, 26px);
   color: $primary;
   text-align: center;
+
   @include breakpoint-mf("md") {
     @include fonts(700, 28px, 34px);
   }
+
   @include breakpoint-mf("xl") {
     @include fonts(700, 45px, 54px);
   }
