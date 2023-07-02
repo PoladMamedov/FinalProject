@@ -4,7 +4,13 @@ import Slider from "react-slick";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
 
-
+// const mockData = {
+//   color: "black",
+//   similarProducts: {
+//     37137: "red",
+//     27277: "green"
+//   }
+// };
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -194,7 +200,8 @@ export default function ProductDetail() {
             <div className="product-detail__color-wrap">
               <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
               <div className="product-detail__color-list">
-                {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
+                 {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
+                {/* {Object.entries(mockData.similarProducts).map(([key, value], index) => <Link to={`/products/${key}`}><span key={index} className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)} */}
               </div>
             </div>
           </div>

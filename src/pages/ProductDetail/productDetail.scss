@@ -408,10 +408,11 @@
 
 .product-detail__basic-specs {
   @include flex(row, flex-start, center);
-  gap: 20px;
+  gap: 0 20px;
+  flex-wrap: wrap;
 
   @include breakpoint-mf('md') {
-    gap: 25px;
+    gap: 0 25px;
   }
 }
 
@@ -419,13 +420,13 @@
   width: fit-content;
   color: $primaryLight;
   text-align: left;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   @include fonts(400, 14px, 21px);
 
   @include breakpoint-mf('sm') {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     @include fonts(400, 20px, 30px);
   }
 
@@ -475,7 +476,9 @@
 
 //------COLOR BLOCK----------------------------------------
 
-.product-detail__color-wrap {}
+.product-detail__color-wrap {
+  margin-top: 20px;
+}
 
 .product-detail__color-list {
   @include flex(row, flex-start, center);
