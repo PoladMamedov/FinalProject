@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { fetchCategories } from "../../redux/actions/categories";
-import Categories from "../Categories/Categories";
 import setPagePath from "../../redux/actions/setPagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
@@ -193,8 +192,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-
-      <Categories />
     </>
   );
 };
