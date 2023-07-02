@@ -1,37 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import searchProducts from "../../redux/actions/searchBar";
 
 const SearchBar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-
-  const performSearch = async (searchTerm) => {
-    const searchPhrases = {
-      query: searchTerm
-    };
-    try {
-      const response = await fetch("https://final-project-backend-phi.vercel.app/api/products/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(searchPhrases)
-      });
-
-      if (!response.ok) {
-        throw new Error("Search request failed.");
-      }
-
-      const products = await response.json();
-      console.log(products);
-      setSearchResults(products);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
 
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -40,14 +15,14 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const searchInput = e.target.elements.searchInput.value;
-    performSearch(searchInput);
+    dispatch(searchProducts(searchInput));
     navigate("/products");
   };
 
   return (
     <>
       <svg
-        onClick={() => handleSearch()}
+        onClick={handleSearch}
         className="header__nav-search"
         xmlns="http://www.w3.org/2000/svg"
         height="1.1em"
@@ -57,7 +32,7 @@ const SearchBar = () => {
         <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
       </svg>
       <form
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={handleSubmit}
         className={`header__search-form${isSearchOpen ? "--active" : ""}`}
       >
         <input
@@ -80,7 +55,7 @@ const SearchBar = () => {
           </svg>
         </button>
         <svg
-          onClick={() => handleSearch()}
+          onClick={handleSearch}
           className="header__search-close"
           xmlns="http://www.w3.org/2000/svg"
           height="1.4em"
@@ -92,12 +67,6 @@ const SearchBar = () => {
           />
         </svg>
       </form>
-      <ul>
-        {searchResults.map((product) => (
-          // eslint-disable-next-line
-          <li key={product._id}></li>
-        ))}
-      </ul>
     </>
   );
 };
