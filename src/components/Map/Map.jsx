@@ -1,7 +1,10 @@
 import {
    MapContainer, TileLayer, Marker, Popup
+// eslint-disable-next-line import/no-unresolved
 } from "react-leaflet";
+// eslint-disable-next-line import/no-unresolved
 import L from "leaflet";
+// eslint-disable-next-line import/no-unresolved
 import "leaflet/dist/leaflet.css";
 import { useMemo } from "react";
 

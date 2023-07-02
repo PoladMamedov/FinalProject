@@ -15,17 +15,17 @@ const AppRoutes = () => {
     <>
       <Header />
       <main>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />}/>
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route element={<RequireAuth />}>
-          <Route path="/cabinet" element={<UsersCabinet />} />
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registration" element={<RegistrationPage />} />
+          <Route element={<RequireAuth />}>
+            <Route path="/cabinet" element={<UsersCabinet />} />
+          </Route>
+        </Routes>
       </main>
       <Footer />
     </>
