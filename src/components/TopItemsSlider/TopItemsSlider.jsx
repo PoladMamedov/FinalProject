@@ -33,8 +33,8 @@ const TopItemsSlider = () => {
   return (
     <div className="responsive-slider">
       <Slider {...settings}>
-        {items.map((item) => (
-          <div className="topItems" key={item.id}>
+      {items.map((item, index) => (
+          <div className="topItems" key={index}>
             <div className="container">
               <h1 type="button" className="topItems_title">{item.title}</h1>
               <h3 className="topItems_text">{item.text}</h3>
