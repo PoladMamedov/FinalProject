@@ -53,7 +53,7 @@ const About = () => {
         <li>
         <div className="about__item">
         <img className="about__icons" src="/img/about/Icon06.png" alt="" />
-          <h3>Our Core Values</h3>
+          <h3 className="about__item-subtitle">Our Core Values</h3>
           </div>
           <ul className="about_list">
             <li className="about_list-items">
@@ -82,7 +82,7 @@ const About = () => {
         <li>
         <div className="about__item">
         <img className="about__icons" src="/img/about/Icon07.png" alt="" />
-          <h3>Stay Connected with Us</h3>
+          <h3 className="about__item-subtitle">Stay Connected with Us</h3>
           </div>
           <div className="about__item-contact">
           <a href="tel:+380623656899">Tel: +380 62 365 68 99</a>
@@ -93,7 +93,7 @@ const About = () => {
       </ul>
       <div className="about__item">
         <img className="about__icons" src="/img/about/location01.png" alt="" />
-          <h3>Find Us on the Map!</h3>
+          <h3 className="about__item-subtitle">Find Us on the Map!</h3>
           </div>
       <Map />
     </div>
