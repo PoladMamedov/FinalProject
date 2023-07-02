@@ -4,7 +4,7 @@
     position: relative;
 
     &__title {
-        @include margin(0px, 63px);
+        @include margin(0px, 33px);
         @include fonts(500, 26px, 34px);
     }
 
@@ -64,6 +64,11 @@
         &__item:focus {
             background-color: $white;
         }
+        &__error-text {
+            color: red;
+            @include margin(3px, 3px);
+            display: none;
+        }
     }
 
     &-btn-container {
@@ -83,6 +88,13 @@
         &--dark {
             @include margin(10px, 63px);
             background-color: $primaryDark;
+            color: $white;
+        }
+
+        &--disabled {
+            @include margin(10px, 63px);
+            background-color: $primaryDark;
+            opacity: .8;
             color: $white;
         }
 
@@ -106,26 +118,27 @@
         display: none;
 
         &-container {
-            @include flex(row, space-between, center);
-            width: 280px;
+            @include flex(row, start, center);
+            width: 100%;
+            gap: 20%;
             margin: 0 auto;
             @include breakpoint-mf("sm"){
                 display: none;
             }
-        }
-        &-select{
-            width: 113px;
-            height: 24px;
-            border: 1px solid $secondary;
-            border-radius: 10px;
-            text-align: center;
-            @include fonts(400, 14px, 18px);
-            color: $primaryLight;
+            &__img {
+                position: absolute;
+                right: 50%;
+            }
         }
         &-text{
         color: $primaryLight;
+        padding: 0;
+        margin-left: 10%;
         text-decoration: underline;
         background: none;
+        @include fonts(400, 14px, 18px);
+        font-family: "Roboto", sans-serif;
+
 
         &:hover {
             cursor: pointer;
