@@ -10,21 +10,9 @@
   @include breakpoint-mf('my') {
     padding-top: 42px;
     padding-bottom: 140px;
-    display: grid;
-    grid-template-areas:
-            'main-img main-img carousel'
-            'info-block info-block info-block'
-            'cart-block cart-block cart-block'
-            'characteristic-block characteristic-block characteristic-block';
-
   }
 
   @include breakpoint-mf('lg') {
-    grid-template-areas:
-            'main-img info-block'
-            'main-img info-block'
-            'carousel cart-block'
-            'characteristic-block characteristic-block';
   }
 
   @include breakpoint-mf('xl') {
@@ -32,8 +20,30 @@
   }
 }
 
+.product-detail__wrap {
+  @include breakpoint-mf('xl') {
+    display: grid;
+    grid-template-columns: 540px 1fr;
+    height: fit-content;
+  }
+}
+
+
+//------IMAGES BLOCK----------------------------------------
+
+.product-detail__images-block {
+  @include breakpoint-mf('my') {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    height: 660px;
+  }
+  @include breakpoint-mf('xl') {
+    display: block;
+    height: auto;
+  }
+}
+
 .product-detail__main-img {
-  grid-area: main-img;
   display: block;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -48,95 +58,298 @@
 
   @include breakpoint-mf('my') {
     margin-bottom: 0;
-    height: 600px;
-  }
-
-  @include breakpoint-mf('lg') {
     height: 660px;
   }
 
   @include breakpoint-mf('xl') {
     margin-bottom: 10px;
-    height: 660px;
   }
 }
 
+//-----CAROUSEL-------------------------------------------------
+.product-detail__carousel {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  @include breakpoint-mf('my') {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+  }
+}
+
+.product-detail__carousel .slick-list,
+.product-detail__fs-carousel .slick-list {
+  background-color: unset;
+  box-shadow: unset;
+  border-radius: unset;
+  margin-top: 0;
+}
+
+.product-detail__carousel .slick-list .slick-track {
+  height: 55px;
+
+  @include breakpoint-mf('sm') {
+    height: 85px;
+  }
+
+  @include breakpoint-mf('md') {
+    height: 128px;
+  }
+
+  @include breakpoint-mf('my') {
+    height: 160px;
+  }
+
+  @include breakpoint-mf('xl') {
+    height: 85px;
+  }
+}
+
+.product-detail__carousel .slick-arrow,
+.product-detail__fs-carousel .slick-arrow {
+  &::before {
+    content: "" !important;
+  }
+}
+
+.product-detail__carousel .slick-prev,
+.product-detail__fs-carousel .slick-prev {
+  z-index: 1;
+  left: 0;
+}
+
+.product-detail__carousel .slick-next,
+.product-detail__fs-carousel .slick-next {
+  right: 0;
+}
+
+.product-detail__carousel .slick-disabled,
+.product-detail__fs-carousel .slick-disabled {
+    display: none !important;
+}
+
+.product-detail__carousel .slick-list .slick-track .slick-slide div,
+.product-detail__fs-carousel .slick-list .slick-track .slick-slide div {
+  &:focus-visible {
+    outline: none !important;
+    outline: 0 !important;
+  }
+}
+
+.product-detail__carousel-img-wrap {
+  height: 55px;
+
+  @include breakpoint-mf('sm') {
+    height: 85px;
+  }
+
+  @include breakpoint-mf('md') {
+    height: 128px;
+  }
+
+  @include breakpoint-mf('my') {
+    height: 160px;
+  }
+
+  @include breakpoint-mf('xl') {
+    height: 85px;
+  }
+}
+
+.product-detail__carousel-img {
+  cursor: pointer;
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+
+  display: flex;
+  margin: 0 auto;
+}
+
+.product-detail__carousel .slick-arrow,
+.product-detail__fs-carousel .slick-arrow {
+  @include fonts(0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.1s linear;
+  width: 30px;
+  height: 30px;
+  color: $white;
+  background-color: $primaryDark;
+  border-radius: 100%;
+  text-align: center;
+
+  @include breakpoint-mf('my') {
+    width: 40px;
+    height: 40px;
+  }
+
+  @include breakpoint-mf('xl') {
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    background: darken($primaryDark, 5%);
+  }
+
+  &:active {
+    transform: scale(0.9) translateY(-50%);
+  }
+
+  &::before {
+    @include fonts(700, 15px, 30px);
+    color: $white;
+    opacity: 1;
+
+    @include breakpoint-mf('my') {
+      @include fonts(700, 20px, 40px);
+    }
+
+    @include breakpoint-mf('xl') {
+      @include fonts(700, 15px, 30px);
+    }
+  }
+
+  &.slick-next::before {
+    content: ">" !important;
+  }
+  &.slick-prev::before {
+      content: "<" !important;
+  }
+}
+.product-detail__carousel .slick-arrow {
+  &.slick-next {
+    @include breakpoint-between('my', 'xl') {
+      top: unset;
+      bottom: 6px !important;
+      right: 50% !important;
+      transform: rotate(90deg) translateY(-50%);
+    }
+}
+
+  &.slick-prev {
+    @include breakpoint-between('my', 'xl') {
+      top: 0;
+      left: 50% !important;
+      transform: rotate(90deg) translateY(50%);
+    }
+  }
+}
+
+//------FULL SIZE CAROUSEL------------------------------------------------
+
+.product-detail__fs-carousel-wrap {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100vw;
+  background: rgba(3, 3, 3, 0.9);
+  @include flex(row, center, center);
+}
+
+.product-detail__fs-carousel-close-btn {
+  @include fonts(700, 20px, 40px);
+  padding-right: 0;
+  padding-left: 0;
+  cursor: pointer;
+  background: none;
+  color: $white;
+
+  position: absolute;
+  right: 5%;
+  top: 5%;
+
+  &:hover {
+    color: darken($white, 15%);
+  }
+}
+
+.product-detail__fs-carousel-img {
+  width: 90%;
+  height: 60vh;
+  object-fit: cover;
+  object-position: center;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 4px;
+}
+
+.product-detail__carousel-arrow {
+  &-fs {
+    @include fonts(700, 20px, 40px);
+    width: 40px;
+    height: 40px;
+  }
+
+  &-prev-fs {
+    top: -25% !important;
+    left: 0 !important;
+  }
+
+  &-next-fs {
+    top: -25% !important;
+    right: 0 !important;
+  }
+}
+
+.product-detail__fs-carousel-dots {
+  margin-top: 0;
+  padding-top: 20px;
+  display: flex !important;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.product-detail__fs-carousel-dots li{
+  @include flex(row, center, center);
+  width: 10px;
+}
+
+.product-detail__fs-carousel-dots li button {
+  cursor: pointer;
+  background: $secondaryLight;
+  font-size: 0;
+  border: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+}
+
+.product-detail__fs-carousel-dots .slick-active {
+  width: 30px;
+  transition: all 0.5s;
+}
+
+.product-detail__fs-carousel-dots .slick-active button{
+  background: $primary;
+  border: none;
+  width: 30px;
+  transition: all 0.5s;
+}
+
+//------INFO BLOCK----------------------------------------
+
 .product-detail__info-block {
-  grid-area: info-block;
   padding-top: 50px;
 
   @include breakpoint-mf('md') {
     padding-top: 30px;
   }
 
-  @include breakpoint-mf('lg') {
+  @include breakpoint-mf('xl') {
     width: 82%;
     padding-top: 0;
     padding-bottom: 10px;
-    margin-left: 40px;
-  }
-
-  @include breakpoint-mf('xl') {
     margin-left: 70px;
   }
 }
 
-.product-detail__info-wrap {
-  width: 100%;
-  gap: 15px;
-  @include flex(row, space-between, center);
-
-  &--flex-start {
-    gap: 25px;
-    @include flex(row, flex-start, center);
-  }
-}
-
-
-.product-detail__basic-characteristics {
-  @include flex(row, flex-start, center);
-  gap: 20px;
-
-  @include breakpoint-mf('md') {
-    gap: 25px;
-  }
-}
-
-.product-detail__basic-characteristic {
-  width: fit-content;
-  color: $primaryLight;
-  text-align: left;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  @include fonts(400, 14px, 21px);
-
-  @include breakpoint-mf('sm') {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    @include fonts(400, 20px, 30px);
-  }
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-
-  &-value {
-    display: inline-block;
-    color: $primary;
-    @include fonts(500, 14px, 21px);
-
-    @include breakpoint-mf('sm') {
-      @include fonts(500, 22px, 33px);
-    }
-
-    &:first-letter {
-      text-transform: uppercase;
-    }
-  }
-}
-
 .product-detail__name {
-  grid-area: product-name;
   color: $primaryLight;
   @include fonts(400, 25px, 38px);
 
@@ -169,7 +382,7 @@
   }
 }
 
-.product-detail__characteristics-link {
+.product-detail__specs-link {
   color: $primaryLight;
   display: block;
   @include margin(20px, 20px);
@@ -178,8 +391,64 @@
   @include breakpoint-mf('sm') {
     @include fonts(400, 20px, 30px);
   }
-
 }
+
+//------BASIC SPECS----------------------------------------
+
+.product-detail__basic-specs-wrap {
+  width: 100%;
+  gap: 15px;
+  @include flex(row, space-between, center);
+
+  &--flex-start {
+    gap: 25px;
+    @include flex(row, flex-start, center);
+  }
+}
+
+.product-detail__basic-specs {
+  @include flex(row, flex-start, center);
+  gap: 20px;
+
+  @include breakpoint-mf('md') {
+    gap: 25px;
+  }
+}
+
+.product-detail__basic-spec {
+  width: fit-content;
+  color: $primaryLight;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  @include fonts(400, 14px, 21px);
+
+  @include breakpoint-mf('sm') {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    @include fonts(400, 20px, 30px);
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.product-detail__basic-spec-value {
+  display: inline-block;
+  color: $primary;
+  @include fonts(500, 14px, 21px);
+
+  @include breakpoint-mf('sm') {
+    @include fonts(500, 22px, 33px);
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+//------PRICE BLOCK----------------------------------------
 
 .product-detail__price-wrap {
   @include margin(15px, 15px);
@@ -203,24 +472,24 @@
   }
 }
 
+
+//------COLOR BLOCK----------------------------------------
+
+.product-detail__color-wrap {}
+
 .product-detail__color-list {
   @include flex(row, flex-start, center);
   padding-left: 3px;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .product-detail__color-list-item {
   position: relative;
   display: block;
-  height: 15px;
-  width: 15px;
-  border-radius: 4px;
-
-  @include breakpoint-mf('sm') {
-    height: 20px;
-    width: 20px;
-  }
+  height: 32px;
+  width: 32px;
+  border-radius: 100%;
 
   &--active{
     &::before {
@@ -229,103 +498,17 @@
       position: absolute;
       top: -3px;
       left: -3px;
-      width: 21px;
-      height: 21px;
-      border-radius: 4px;
+      width: 38px;
+      height: 38px;
+      border-radius: 100%;
       border: 1px solid green;
-
-      @include breakpoint-mf('sm') {
-        height: 26px;
-        width: 26px;
-      }
     }
   }
 }
 
-.product-detail__characteristic-block {
-  margin-top: 50px;
-  padding-top: 30px;
-  grid-area: characteristic-block;
-  position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-    height: 1px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: $secondary;
-  }
-}
-
-.product-detail__characteristics-title {
-  color: $primaryLight;
-  @include fonts(400, 20px, 30px);
-  margin-top: 0;
-
-  @include breakpoint-mf('sm') {
-    color: $primary;
-    @include fonts(400, 25px, 38px);
-  }
-
-  @include breakpoint-mf('xl') {
-    color: $primaryLight;
-    @include fonts(400, 35px, 50px);
-  }
-}
-
-.product-detail__characteristics-table {
-  width: 100%;
-}
-
-.product-detail__characteristic-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 30px;
-}
-
-.product-detail__characteristic-item {
-  @include flex(row, flex-start, center);
-  gap: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.product-detail__characteristic-data {
-  @include fonts(400, 14px, 21px);
-  color: $primaryLight;
-  display: inline-block;
-  width: fit-content;
-  margin-right: 15px;
-
-  @include breakpoint-mf('sm') {
-    @include fonts(400, 20px, 30px);
-  }
-
-  @include breakpoint-mf('lg') {
-    @include fonts(400, 20px, 30px);
-  }
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-
-  &--value {
-
-    @include fonts(500, 14px, 21px);
-    color: $primary;
-
-    @include breakpoint-mf('sm') {
-      @include fonts(500, 22px, 33px);
-    }
-  }
-}
+//------CART BLOCK----------------------------------------
 
 .product-detail__cart-block {
-  grid-area: cart-block;
-
   @include breakpoint-mf('lg') {
     @include flex(row, start, center);
     gap: 35px;
@@ -339,7 +522,7 @@
   }
 }
 
-.cart-block__amount-wrap {
+.cart-block__quantity-wrap {
   @include margin(20px, 20px);
   @include flex(row, start, center);
   gap: 10px;
@@ -354,7 +537,7 @@
   }
 }
 
-.cart-block__amount-item {
+.cart-block__quantity-item {
   border: none;
   text-align: center;
   width: 35px;
@@ -404,4 +587,87 @@
     color: $white;
   }
 }
+
+//------TECH SPECS BLOCK----------------------------------------
+
+.product-detail__specs-block {
+  margin-top: 50px;
+  padding-top: 30px;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $secondary;
+  }
+}
+
+.product-detail__specs-title {
+  color: $primaryLight;
+  @include fonts(400, 20px, 30px);
+  margin-top: 0;
+
+  @include breakpoint-mf('sm') {
+    color: $primary;
+    @include fonts(400, 25px, 38px);
+  }
+
+  @include breakpoint-mf('xl') {
+    color: $primaryLight;
+    @include fonts(400, 35px, 50px);
+  }
+}
+
+.product-detail__specs-table {
+  width: 100%;
+}
+
+.product-detail__specs-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 30px;
+}
+
+.product-detail__specs-item {
+  @include flex(row, flex-start, center);
+  gap: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.product-detail__specs-data {
+  @include fonts(400, 14px, 21px);
+  color: $primaryLight;
+  display: inline-block;
+  width: fit-content;
+  margin-right: 15px;
+
+  @include breakpoint-mf('sm') {
+    @include fonts(400, 20px, 30px);
+  }
+
+  @include breakpoint-mf('lg') {
+    @include fonts(400, 20px, 30px);
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+
+  &--value {
+
+    @include fonts(500, 14px, 21px);
+    color: $primary;
+
+    @include breakpoint-mf('sm') {
+      @include fonts(500, 22px, 33px);
+    }
+  }
+}
+
 

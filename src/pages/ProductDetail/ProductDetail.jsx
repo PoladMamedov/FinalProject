@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import Slider from "react-slick";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
-import Carousel from "../../components/Carousel/Carousel";
+
 
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,22 +31,37 @@ export default function ProductDetail() {
   const [mainImgUrl, setMainImgUrl] = useState("");
   const [isFullScreenImg, setIsFullScreenImg] = useState(false);
 
-  const [carouselConfig, setCarouselConfig] = useState({
-    basic: {
-      currentStartItemIndex: 0,
-      visibleItemCount: 3,
-      items: [],
-      justifyContentStart: false,
-      fullSize: false
+  const [sliderSettings, setSliderSettings] = useState({
+    default: {
+      className: "product-detail__carousel",
+      dots: false,
+      infinite: false,
+      slidesToShow: 0,
+      slidesToScroll: 1,
+     responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            vertical: true,
+            verticalSwiping: true
+          }
+        },
+        {
+          breakpoint: 1023,
+          settings: {
+            vertical: false,
+            verticalSwiping: false
+          }
+        }
+      ]
     },
     fullSize: {
-      currentStartItemIndex: 0,
-      visibleItemCount: 1,
-      items: [],
-      justifyContentStart: false,
-      fullSize: true
+      dots: true,
+      dotsClass: "product-detail__fs-carousel-dots",
+      infinite: false,
+      slidesToShow: 1,
+      slidesToScroll: 1
     }
-
   });
 
   const { itemNo } = useParams();
@@ -81,19 +97,7 @@ export default function ProductDetail() {
         });
         setIsLoaded(true);
         setProductColor(color[0]);
-        setCarouselConfig({
-          ...carouselConfig,
-          basic: {
-            ...carouselConfig.basic,
-            items: imageUrls,
-            visibleItemCount: imageUrls.length > 3 ? 4 : carouselConfig.basic.visibleItemCount,
-            justifyContentStart: imageUrls.length < 3,
-          },
-          fullSize: {
-            ...carouselConfig.fullSize,
-            items: imageUrls
-          }
-        });
+        setSliderSettings({...sliderSettings, default: {...sliderSettings.default, slidesToShow: imageUrls.length > 4 ? 4 : imageUrls.length}});
         setMainImgUrl(imageUrls[0]);
       } catch (error) {
         console.error(error);
@@ -144,43 +148,17 @@ export default function ProductDetail() {
     }
   }
 
-  function onArrowClick(event) {
-    let configStructure = "basic";
-    if (event.target.className.includes("full-size")) {
-      configStructure = "fullSize";
-    }
-
-    if (event.target.className.includes("right-arrow") && carouselConfig[configStructure].currentStartItemIndex < productData.imageUrls.length - carouselConfig[configStructure].visibleItemCount) {
-      setCarouselConfig({
-        ...carouselConfig,
-        [configStructure]: {
-          ...carouselConfig[configStructure],
-          currentStartItemIndex: carouselConfig[configStructure].currentStartItemIndex + 1
-        }
-      });
-    } else if (event.target.className.includes("left-arrow") && carouselConfig[configStructure].currentStartItemIndex > 0) {
-      setCarouselConfig({
-        ...carouselConfig,
-        [configStructure]: {
-          ...carouselConfig[configStructure],
-          currentStartItemIndex: carouselConfig[configStructure].currentStartItemIndex - 1
-        }
-      });
-    }
-  }
-
   function onAdditionalImgClick(event) {
     setMainImgUrl(event.target.src);
   }
 
   function onMainImgClick() {
     setIsFullScreenImg(true);
-    setCarouselConfig({...carouselConfig, fullSize: {...carouselConfig.fullSize, currentStartItemIndex: productData.imageUrls.findIndex((el) => mainImgUrl.includes(el))}});
     document.querySelector("body").style.overflow = "hidden";
   }
 
-  function onCloseCarousel(event) {
-    if (["IMG", "BUTTON"].every((el) => el !== event.target.tagName)) {
+  function closeCarousel(event) {
+    if (["product-detail__fs-carousel-wrap", "product-detail__fs-carousel-img-wrap", "product-detail__fs-carousel-dots"].some((el) => event.target.classList.contains(el))) {
       setIsFullScreenImg(false);
       document.querySelector("body").style.overflow = "";
     }
@@ -197,47 +175,54 @@ export default function ProductDetail() {
   return (
     <>
     <section className="container product-detail-section">
-      <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
-      <Carousel className="product-detail__carousel" {...carouselConfig.basic} onArrowClick={() => onArrowClick} onItemClick={() => onAdditionalImgClick} onCloseCarousel={() => onCloseCarousel}/>
-      <div className="product-detail__info-block">
-        <h2 className="product-detail__name">{productData.name}</h2>
-        <p className="product-detail__description">{productData.description}</p>
-        <a href="#techSpecs" className="product-detail__characteristics-link" onClick={onAnchorLinkClick}>See Tech Specs...</a>
-        <div className={productData.sale ? "product-detail__info-wrap" : "product-detail__info-wrap--flex-start"}>
-          <div className="product-detail__basic-characteristics">
-            {Object.entries(productData.basicProps).map(([key, value], index) => <p key={index} className={`product-detail__basic-characteristic product-detail__${key}`}>{key}: <span className="product-detail__basic-characteristic-value">{value}</span></p>)}
-          </div>
-          {productData.sale ? <div className="product-detail__price-wrap">{Object.entries(productData.price).map(([key, value], index) => <p key={index} className={`product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__basic-characteristic">Price: <span className="product-detail__basic-characteristic-value">{productData.price.currentPrice}$</span></p>}
+      <div className="product-detail__wrap">
+        <div className="product-detail__images-block">
+          <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
+            <Slider {...sliderSettings.default}>{productData.imageUrls.map((el, index) => <div key={index} className="product-detail__carousel-img-wrap"><img className="product-detail__carousel-img" src={el} alt="img" onClick={onAdditionalImgClick}/></div>)}</Slider>
         </div>
-        <div className="product-detail__color-wrap">
-          <p className="product-detail__basic-characteristic">Color: <span className="product-detail__basic-characteristic-value">{productColor}</span></p>
-          <div className="product-detail__color-list">
-            {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
+        <div className="product-detail__info-wrap">
+          <div className="product-detail__info-block">
+            <h2 className="product-detail__name">{productData.name}</h2>
+            <p className="product-detail__description">{productData.description}</p>
+            <a href="#techSpecs" className="product-detail__specs-link" onClick={onAnchorLinkClick}>See Tech Specs...</a>
+            <div className={productData.sale ? "product-detail__basic-specs-wrap" : "product-detail__basic-specs-wrap--flex-start"}>
+              <div className="product-detail__basic-specs">
+                {Object.entries(productData.basicProps).map(([key, value], index) => <p key={index} className={`product-detail__basic-spec product-detail__${key}`}>{key}: <span className="product-detail__basic-spec-value">{value}</span></p>)}
+              </div>
+              {productData.sale ? <div className="product-detail__price-wrap">{Object.entries(productData.price).map(([key, value], index) => <p key={index} className={`product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__basic-spec">Price: <span className="product-detail__basic-spec-value">{productData.price.currentPrice}$</span></p>}
+            </div>
+            <div className="product-detail__color-wrap">
+              <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
+              <div className="product-detail__color-list">
+                {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
+              </div>
+            </div>
+          </div>
+          <div className="product-detail__cart-block">
+            <div className="cart-block__quantity-wrap">
+              <button type="button" className="cart-block__quantity-item cart-block__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
+              <input type="text" className="cart-block__quantity-item cart-block__quantity-input" value={productAmount} onChange={onProductAmountChange} ref={inputProductAmountRef} onBlur={onProductAmountBlur} onKeyDown={onProductAmountKeyDown}/>
+              <button type="button" className="cart-block__quantity-item cart-block__increase-btn" onClick={onIncreaseBtnClick}>+</button>
+            </div>
+            <button type="button" className="cart-block__add-btn">Add to cart</button>
           </div>
         </div>
       </div>
-      <div className="product-detail__cart-block">
-        <div className="cart-block__amount-wrap">
-          <button type="button" className="cart-block__amount-item cart-block__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
-          <input type="text" className="cart-block__amount-item cart-block__amount-input" value={productAmount} onChange={onProductAmountChange} ref={inputProductAmountRef} onBlur={onProductAmountBlur} onKeyDown={onProductAmountKeyDown}/>
-          <button type="button" className="cart-block__amount-item cart-block__increase-btn" onClick={onIncreaseBtnClick}>+</button>
-        </div>
-        <button type="button" className="cart-block__add-btn">Add to cart</button>
-      </div>
-      <div className="product-detail__characteristic-block" id="techSpecs">
-        <h3 className="product-detail__characteristics-title">Specifications</h3>
-        <table className="product-detail__characteristics-table">
-          <tbody className="product-detail__characteristic-list">
-          {Object.entries(productData.props).map(([key, value], index) => <tr key={index} className="product-detail__characteristic-item"><td className="product-detail__characteristic-data">{key}:</td><td className="product-detail__characteristic-data product-detail__characteristic-data--value">{value.toString()}</td></tr>)}
+      <div className="product-detail__specs-block" id="techSpecs">
+        <h3 className="product-detail__specs-title">Specifications</h3>
+        <table className="product-detail__specs-table">
+          <tbody className="product-detail__specs-list">
+          {Object.entries(productData.props).map(([key, value], index) => <tr key={index} className="product-detail__specs-item"><td className="product-detail__specs-data">{key}:</td><td className="product-detail__specs-data product-detail__specs-data--value">{value.toString()}</td></tr>)}
           </tbody>
         </table>
       </div>
+      {isFullScreenImg && <div className="product-detail__fs-carousel-wrap" onClick={closeCarousel}>
+        <button type="button" className="product-detail__fs-carousel-close-btn" onClick={() => setIsFullScreenImg(false)}>x</button>
+        <Slider {...sliderSettings.fullSize} className="product-detail__fs-carousel">
+           {productData.imageUrls.map((el, index) => <div key={index} className="product-detail__fs-carousel-img-wrap"><img className="product-detail__fs-carousel-img" src={el} alt="img"/></div>)}
+        </Slider>
+      </div>}
     </section>
-      {isFullScreenImg && <Carousel
-        {...carouselConfig.fullSize}
-        onArrowClick={() => onArrowClick}
-        onItemClick={() => {}}
-        onCloseCarousel={() => onCloseCarousel}/>}
     </>
   );
 }
