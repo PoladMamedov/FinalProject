@@ -9,6 +9,7 @@ import userReducer from "./reducers/user";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
+import searchReducer from "./reducers/searchBar";
 
 const rootReducer = combineReducers({
   // products: productsReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   countFilter: counterFilterReducer,
   filteredProducts: filteredProductsReducer,
   sortFilter: sortFilterReducer,
+  search: searchReducer,
 });
 
 const persistConfig = {
