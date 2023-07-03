@@ -1,27 +1,13 @@
 import searchBarTypes from "../type/searchBar";
+import useServer from "../../hooks/useServer";
 
 function searchProducts(searchTerm) {
     return async (dispatch) => {
         dispatch({ type: searchBarTypes.SEARCH_PRODUCTS_REQUEST });
 
-        const searchPhrases = {
-            query: searchTerm
-        };
-
         try {
-            const response = await fetch("https://final-project-backend-phi.vercel.app/api/products/search", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(searchPhrases)
-            });
-
-            if (!response.ok) {
-                throw new Error("Search request failed.");
-            }
-
-            const products = await response.json();
+            const server = useServer();
+            const products = await server.searchProducts(searchTerm);
 
             dispatch({
                 type: searchBarTypes.SEARCH_PRODUCTS_SUCCESS,
