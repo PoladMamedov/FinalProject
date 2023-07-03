@@ -3,10 +3,10 @@ import useServer from "../../hooks/useServer";
 
 function searchProducts(searchTerm) {
     return async (dispatch) => {
+        const server = useServer();
         dispatch({ type: searchBarTypes.SEARCH_PRODUCTS_REQUEST });
 
         try {
-            const server = useServer();
             const products = await server.searchProducts(searchTerm);
 
             dispatch({
