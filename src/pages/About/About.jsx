@@ -5,7 +5,7 @@ const About = () => {
   return (
     <>
     <Breadcrumb />
-    <div className="container about">
+    <section className="container about">
       <div className="about__main">
         <h1 className="about__title">
           Welcome to Innovation Oasis: Your Ultimate Destination for Electronics
@@ -96,7 +96,7 @@ const About = () => {
           <h3 className="about__item-subtitle">Find Us on the Map!</h3>
           </div>
       <Map />
-    </div>
+    </section>
     </>
   );
 };
