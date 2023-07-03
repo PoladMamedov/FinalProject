@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { fetchCategories } from "../../redux/actions/categories";
 import setPagePath from "../../redux/actions/setPagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
+import HeaderSearch from "../HeaderSearch/HeaderSearch";
 
 const Header = () => {
 
@@ -255,6 +256,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <HeaderSearch searchTerm={searchTerm} />
     </>
   );
 };

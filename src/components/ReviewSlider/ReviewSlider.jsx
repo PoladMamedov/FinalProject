@@ -5,7 +5,7 @@ import data from "./data";
 
 const ReviewSlider = () => {
   const [people] = useState(data);
-  console.log(data);
+  // console.log(data);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

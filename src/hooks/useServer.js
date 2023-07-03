@@ -114,32 +114,45 @@ export default function useServer() {
     return filters;
   }
   // Get filters categories
- async function getFiltersCategories(categories, sort) {
-  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+  async function getFiltersCategories(categories, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
       ","
-      )}&sort=${sort}currentPrice`)
+    )}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
-      return filteredProducts;
- }
+    return filteredProducts;
+  }
 
- // Get filters categories+price
- async function getFiltersCategoriesPrices(categories, min, max, sort) {
-  const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
+  // Get filters categories+price
+  async function getFiltersCategoriesPrices(categories, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
       ","
-      )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+    )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
-      return filteredProducts;
- }
+    return filteredProducts;
+  }
 
- // Get filters prices
- async function getFiltersPrices(min, max, sort) {
-  const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+  // Get filters prices
+  async function getFiltersPrices(min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
-      return filteredProducts;
- }
+    return filteredProducts;
+  }
+
+  async function getSearchedProducts(searchPhrases) {
+    const searchResult = await fetch(`${url}/products/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(searchPhrases),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return searchResult;
+  }
 
   return {
     registerUser,
@@ -156,5 +169,6 @@ export default function useServer() {
     getFiltersCategories,
     getFiltersCategoriesPrices,
     getFiltersPrices,
+    getSearchedProducts,
   };
 }
