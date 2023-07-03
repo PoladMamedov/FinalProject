@@ -6,6 +6,7 @@ import content from "../../components/OurBenefitsList/content.json";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import Categories from "../../components/Categories/Categories";
 import ReviewSlider from "../../components/ReviewSlider/ReviewSlider";
+import slides from "../../components/ReviewSlider/review-slider.json";
 
 const Home = () => {
   return (
@@ -16,7 +17,7 @@ const Home = () => {
       <OurPartners />
       <TopProductItem />
       <Benefits content={content} />
-      <ReviewSlider />
+      <ReviewSlider slides={slides}/>
     </>
   );
 };
