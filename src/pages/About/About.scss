@@ -51,9 +51,8 @@
       @include fonts(700, 38px, 37px);
       margin-top: 5px;
     }
-    @include breakpoint-mf("xl") {
-      @include fonts(700, 58px, 56px);
-      margin-top: 5px;
+    @include breakpoint-bet(1120px,1920px) {
+      @include fonts(700, 59px, 56px);
     }
     @include breakpoint-bet(320px, 1019px) {
       text-align: center;
@@ -113,7 +112,7 @@
       visibility: visible;
     }
   }
-  &_list {
+  &__list {
     @include flex(column, center, center);
     gap: 20px;
     &-items {
@@ -206,9 +205,9 @@
     }
     a,
     span {
+      font-family: "Roboto", sans-serif;
       text-decoration: none;
       color: $primaryLight;
-      font-family: Lato;
     }
   }
 }

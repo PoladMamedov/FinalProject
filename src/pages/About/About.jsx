@@ -55,26 +55,26 @@ const About = () => {
         <img className="about__icons" src="/img/about/Icon06.png" alt="" />
           <h3 className="about__item-subtitle">Our Core Values</h3>
           </div>
-          <ul className="about_list">
-            <li className="about_list-items">
-              <img className="about_list-img" src="img/about/better-together.png" alt="" />
-              <div className="about_list-item">
-            <h3 className="about_list-title">Customer first</h3>
-            <span className="about_list-text">Our priority is to provide a flawless e-commerce experience to our customers.</span>
+          <ul className="about__list">
+            <li className="about__list-items">
+              <img className="about__list-img" src="img/about/better-together.png" alt="" />
+              <div className="about__list-item">
+            <h3 className="about__list-title">Customer first</h3>
+            <span className="about__list-text">Our priority is to provide a flawless e-commerce experience to our customers.</span>
             </div>
             </li>
-            <li className="about_list-items">
-              <img className="about_list-img" src="img/about/results-matter.png" alt="" />
-              <div className="about_list-item">
-            <h3 className="about_list-title">Results matter</h3>
-            <span className="about_list-text">We are solution-oriented and take ownership of our work. We value results over opinions.</span>
+            <li className="about__list-items">
+              <img className="about__list-img" src="img/about/results-matter.png" alt="" />
+              <div className="about__list-item">
+            <h3 className="about__list-title">Results matter</h3>
+            <span className="about__list-text">We are solution-oriented and take ownership of our work. We value results over opinions.</span>
             </div>
             </li>
-            <li className="about_list-items">
-              <img className="about_list-img" src="img/about/trust-in-data.png" alt="" />
-              <div className="about_list-item">
-            <h3 className="about_list-title">Stronger as a team</h3>
-            <span className="about_list-text">We empower and value each other, and strive for our shared dream together as a team.</span>
+            <li className="about__list-items">
+              <img className="about__list-img" src="img/about/trust-in-data.png" alt="" />
+              <div className="about__list-item">
+            <h3 className="about__list-title">Stronger as a team</h3>
+            <span className="about__list-text">We empower and value each other, and strive for our shared dream together as a team.</span>
             </div>
             </li>
           </ul>
