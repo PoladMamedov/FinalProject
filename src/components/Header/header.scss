@@ -101,7 +101,9 @@
    &__nav-search {
       grid-column: 2/3;
       grid-row: 1/2;
-      margin-left: -15px;
+      margin-left: -5px;
+      position: absolute;
+      left: 30px;
       margin-bottom: 2px;
 
       @include breakpoint-mf('md') {
@@ -187,11 +189,14 @@
 
    &__search-input {
       display: none;
+      background-color: #F3F6FF;
 
       &--active {
          display: block;
          width: 100%;
          height: 52px;
+         border: 1px solid $primary;
+         border-radius: 10px;
 
          @include breakpoint-mf('md') {
             height: 75px;
@@ -204,13 +209,13 @@
          width: 100%;
          margin-left: 12px;
          padding: 7px 38px 7px 10px;
-         border: 1px solid $primary;
-         border-radius: 5px;
+         border: 0.1px solid $primary;
+         border-radius: 30px;
          grid-column: 3/4;
          place-self: center;
          font-size: 15px;
          color: $primary;
-         box-shadow: 3px 3px 3px $primary;
+         box-shadow: 1px 3px 3px $primary;
          transition: box-shadow .3s ease;
 
          &:focus {
