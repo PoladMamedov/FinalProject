@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
-import NotFound from "./pages/NotFound/NotFound";
+import NotFound from "./pages/NotFoundPage/NotFound";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
