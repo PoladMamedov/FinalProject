@@ -118,7 +118,7 @@
         display: none;
 
         &-container {
-            @include flex(row, start, center);
+            @include flex(row, flex-start, center);
             width: 100%;
             gap: 20%;
             margin: 0 auto;
