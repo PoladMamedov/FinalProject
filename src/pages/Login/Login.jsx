@@ -7,7 +7,7 @@ import { logInUser } from "../../redux/actions/user";
 import PreLoader from "../../components/PreLoader/PreLoader";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 
-function LoginPage() {
+function Login() {
   const [showPass, setShowPass] = useState(false);
 
   const dispatch = useDispatch();
@@ -110,4 +110,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Login;
