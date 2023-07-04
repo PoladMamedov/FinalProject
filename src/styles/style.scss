@@ -4,15 +4,6 @@
 @import "./mixins";
 @import "./global";
 
-<<<<<<< HEAD
-// !Pages
-@import "../pages/LoginPage/loginPage";
-@import "../pages/RegistrationPage/registrationPage";
-@import "../pages/UsersCabinet/usersCabinet";
-@import "../pages/NotFoundPage/notFound";
-@import "../pages/About/About";
-@import "../pages/ProductDetail/ProductDetail";
-=======
 //! Pages
 @import "../pages/Login/login";
 @import "../pages/Registration/registration";
@@ -20,8 +11,7 @@
 @import "../pages/NotFound/notFound";
 @import "../pages/About/about";
 @import "../pages/Cart/cart";
-
->>>>>>> main
+@import "../pages/ProductDetail/ProductDetail";
 
 // !Components
 @import "../components/ProductsSection/productsSection";
