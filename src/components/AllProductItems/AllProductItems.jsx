@@ -17,9 +17,25 @@ function AllProductItems() {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    getAllProducts()
+      .then((result) => {
+        dispatch(fillProducts(result));
+      });
+  }, [] );
+
+  useEffect(() => {
+    if (allProducts.length === 0) {
+      dispatch(fillProducts(allProductState));
+    }
+  }, [allProducts, allProductState]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [allProducts]);
   const handleResize = () => {
     if (window.innerWidth >= 1190) {
-      setProductsPerPage(8)
+      setProductsPerPage(8);
     } else if (window.innerWidth >= 768) {
       setProductsPerPage(6);
     } else {
@@ -36,23 +52,6 @@ function AllProductItems() {
   }, []);
 
   useEffect(() => {
-    getAllProducts()
-      .then((result) => {
-        dispatch(fillProducts(result));
-      });
-  }, [] );
-
-  useEffect(() => {
-    if (allProducts.length === 0) {
-      dispatch(fillProducts(allProductState))
-    }
-  }, [allProducts, allProductState]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [allProducts]);
-
-  useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
     const newPaginatedProducts = allProducts.slice(startIndex, endIndex);
@@ -64,9 +63,9 @@ function AllProductItems() {
   };
 
   return (
-    <div className="allProduct__wrapper">
+    <div className="all-product__wrapper">
       <div className="container flex_container">
-        <div className="allProduct__card">
+        <div className="all-product__card">
           {paginatedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
             <ProductCard active={currentPage} item={e} key={e._id} />

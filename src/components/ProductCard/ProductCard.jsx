@@ -7,18 +7,18 @@ export default function ProductCard(props) {
 
   return (
     <>
-      <div className={props.active ? "allCardContainer" : "cardContainer"}>
-        <div className={props.active ? "allCard" : "card"} style={{backgroundImage: `url(${urlImg})`}} >
-          <div className={props.active ? "allCard__btn" : "card__btn"}>
-            <Link className={props.active ? "allCard__btn-details" : "card__btn-details"} to={`/details/${urlItemNumber}`}>DETAIL</Link>
-            <button type={"button"} className={props.active ? "allCard__btn-cartContainer" : "card__btn-cartContainer"}>
-              <img className={props.active ? "allCard__btn-svgCart" : "card__btn-svgCart"} src="/img/cart-logo.png" alt="cart-logo" />
+      <div className={props.active ? "all-card-container" : "card-container"}>
+        <div className={props.active ? "all-card" : "card"} style={{backgroundImage: `url(${urlImg})`}} >
+          <div className={props.active ? "all-card__btn" : "card__btn"}>
+            <Link className={props.active ? "all-card__btn-details" : "card__btn-details"} to={`/details/${urlItemNumber}`}>DETAIL</Link>
+            <button type={"button"} className={props.active ? "all-card__btn-cartContainer" : "card__btn-cartContainer"}>
+              <img className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"} src="/img/cart-logo.png" alt="cart-logo" />
             </button>
           </div>
         </div>
-        <div className={props.active ? "allCard__block" : "unactive"} >
-          <div className={"allCard__productName"} >{props.item.name}</div>
-          <div className={"allCard__productPrice"} >{props.item.currentPrice}</div>
+        <div className={props.active ? "all-card__block" : "unactive"} >
+          <div className={"all-card__product-name"} >{props.item.name}</div>
+          <div className={"all-card__product-price"} >{props.item.currentPrice}</div>
         </div>
       </div>
 

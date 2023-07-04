@@ -28,18 +28,18 @@ function TopProductItem() {
   }, [] );
 
   return (
-    <div className={"topProduct__wrapper"}>
+    <div className={"top-product__wrapper"}>
       <div className="container flex_container">
-        <h2 className={"topProduct"}>Top Products</h2>
-        <div className="topProduct__card">
+        <h2 className={"top-product"}>Top Products</h2>
+        <div className="top-product__card">
           {storedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
             <ProductCard item={e} key={e._id} />
           ))}
         </div>
-        <button type={"button"} className={"topProduct__btn-allProduct"}>
+        <button type={"button"} className={"top-product__btn-allProduct"}>
           ALL Product
-          <svg className={"topProduct__svg"} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={"top-product__svg"} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.16666 10H15.8333" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M10 4.16667L15.8333 10L10 15.8333" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
