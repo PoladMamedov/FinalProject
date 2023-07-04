@@ -8,6 +8,7 @@ import FilterMini from "../Filter/FilterMini";
 import Breadcrumb from "../BreadCrumb/BreadCrumb";
 import AllProductItems from "../AllProductItems/AllProductItems";
 import SortFilter from "../SortFilter/SortFilter";
+import fillProducts from "../../redux/actions/getProdicts";
 
 const ProductsSection = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,13 @@ const ProductsSection = () => {
     setIsSortFilterVisible(filterFull.current.classList.contains("hidden"));
   }
 
-  const { filteredProducts } =  useSelector((state) => state.filteredProducts);
+  const filteredProducts =  useSelector((state) => state.filteredProducts.filteredProducts);
   const [products, setProducts] = useState([]);
+
 
   useEffect(() => {
     setProducts(filteredProducts);
+
   }, [filteredProducts]);
 
   return (

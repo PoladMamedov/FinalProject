@@ -1349,6 +1349,10 @@ body {
   height: 36px;
 }
 
+.unactive {
+  display: none;
+}
+
 .benefits-section {
   padding: 28px 0;
 }
@@ -3627,7 +3631,6 @@ article.nextSlide {
 }
 @media (min-width: 640px) {
   .filter-section-sort {
-    position: static;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -3663,7 +3666,8 @@ article.nextSlide {
 
 .allProduct__card > div {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map */

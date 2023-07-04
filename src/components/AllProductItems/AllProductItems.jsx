@@ -1,41 +1,60 @@
-import React, {
- memo, useEffect, useState
-} from "react";
-import { useSelector} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
+import fillProducts from "../../redux/actions/getProdicts";
 
 function AllProductItems() {
-
   const [pageNumber, setPageNumber] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
-  const [allProducts] = useSelector((state) => state.products);
-  // eslint-disable-next-line no-shadow
-  useEffect(() =>  {
-    // eslint-disable-next-line no-shadow,,no-unused-vars
-    let getPaginatedProducts = (() => {
+  const [allProductState] = useState(useSelector((state) => state.filteredProducts.filteredProducts));
+  const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (allProducts.length === 0) {
+      dispatch(fillProducts(allProductState))
+    }
+  }, [allProducts]);
+  const [sortChanged, setSortChanged] = useState(false);
+  useEffect(() => {
+    setSortChanged(true); // Установка значения true при сортировке в редаксе
+  }, [allProducts]);
+
+  useEffect(() => {
+    if (sortChanged) {
+      setSortChanged(false); // Сброс значения после перерендера
+    }
+  }, [sortChanged]);
+
+  useEffect(() => {
+    setPaginatedProducts([]);
+    setPageNumber(1);
+  }, [allProducts]);
+
+  useEffect(() => {
+    let getPaginatedProducts = () => {
       const startIndex = (pageNumber - 1) * 8;
       const endIndex = startIndex + 8;
       return allProducts.slice(startIndex, endIndex);
-    });
+    };
+
     const newPaginatedProducts = getPaginatedProducts();
-    setPaginatedProducts([...paginatedProducts, ...newPaginatedProducts]);
+    setPaginatedProducts((prevPaginatedProducts) => [...prevPaginatedProducts, ...newPaginatedProducts]);
   }, [pageNumber, allProducts]);
 
-
-    useEffect(() => {
-      // eslint-disable-next-line no-use-before-define
-      document.addEventListener("scroll", handleScroll);
-      return () => {
-        // eslint-disable-next-line no-use-before-define
-        document.removeEventListener("scroll", handleScroll);
-      };
-    }, []);
   const handleScroll = (e) => {
-    if (
-      e.target.documentElement.scrollHeight - (window.innerHeight + e.target.documentElement.scrollTop) < 100) {
+    if (e.target.documentElement.scrollHeight - (window.innerHeight + e.target.documentElement.scrollTop) < 20) {
       setPageNumber((prevState) => prevState + 1);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="allProduct__wrapper">
@@ -51,4 +70,4 @@ function AllProductItems() {
   );
 }
 
-export default memo(AllProductItems);
+export default AllProductItems;

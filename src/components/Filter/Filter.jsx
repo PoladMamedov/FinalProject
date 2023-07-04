@@ -18,7 +18,7 @@ const Filter = forwardRef((props, ref) => {
   const errorText = useRef();
   const server = useServer();
   const [filters, setFilters] = useState([]); // это для вывода на панели наименований фильтров из базы
-  
+
   const dispatch = useDispatch();
   const {categories} = useSelector(
         (state) => state.categories
@@ -88,7 +88,10 @@ async function fetchFilteredProducts(checkedCategories) {
         sortValue
       );
     }
-    dispatch(addFilteredProducts(filteredProductsResponse)); // добавляю фильтрованные продукты в редакс
+    const products = Object.values(filteredProductsResponse)
+    const firstArray = products[0];
+    dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
+
   } catch (err) {
     console.log(err);
   }
