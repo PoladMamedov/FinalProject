@@ -5,12 +5,13 @@
 @import "./global";
 
 //! Pages
-@import "../pages/LoginPage/loginPage";
-@import "../pages/RegistrationPage/registrationPage";
+@import "../pages/Login/login";
+@import "../pages/Registration/registration";
 @import "../pages/UsersCabinet/usersCabinet";
 @import "../pages/NotFoundPage/notFound";
 @import "../pages/About/about";
 @import "../pages/CartPage/cartPage";
+
 
 //!Components
 @import "../components/ProductsSection/productsSection";
