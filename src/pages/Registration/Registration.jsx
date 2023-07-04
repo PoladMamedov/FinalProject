@@ -5,7 +5,7 @@ import { useState } from "react";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
 
-function RegistrationPage() {
+function Registration() {
   const [showPass, setShowPass] = useState(false);
   const [showConfrimPass, setShowConfirmPass] = useState(false);
   const [newUser, setNewUser] = useState({});
@@ -254,4 +254,4 @@ function RegistrationPage() {
   );
 }
 
-export default RegistrationPage;
+export default Registration;

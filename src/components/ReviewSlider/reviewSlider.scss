@@ -33,7 +33,7 @@
     @include fonts(400, 20px, 23px);
     color: #211f1c;
     @include breakpoint-mf("xl") {
-      @include fonts(400, 32px, 38px);
+    @include fonts(400, 32px, 38px);
     }
   }
 
@@ -43,21 +43,27 @@
     margin: 0 auto;
     margin-top: 3rem;
     width: 80vw;
-    height: 696px;
+    height: 764px;
     max-width: 800px;
     text-align: center;
     position: relative;
     display: flex;
     overflow: hidden;
     @include breakpoint-mf("xxs") {
-      height: 620px;
+    height: 746px;
+    width: 68vw;
     }
     @include breakpoint-mf("xs") {
-      height: 545px;
+      height: 569px;
     }
     @include breakpoint-mf("sm") {
-      height: 545px;
+      height: 600px;
+      width: 83vw;
     }
+    @media (min-width: 415px) and (max-width: 568px) {
+    height: 726px;
+    width: 58vw;
+  }
   }
 
   // .slider-section__img
@@ -103,7 +109,7 @@
     color: #5e5e5e;
     @include fonts(400, 16px, 35px);
     color: #616467;
-    padding-bottom: 30px;
+    // padding-bottom: 30px;
     font-family: "Roboto";
     @include breakpoint-mf("md") {
       @include fonts(400, 18px, 35px);
@@ -130,6 +136,7 @@
   cursor: pointer;
   transition: all 0.3s linear;
   transition: transform 1s;
+  color: black;
 }
 
 .prev {
