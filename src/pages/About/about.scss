@@ -1,12 +1,12 @@
 .about {
   margin-top: 30px;
   color: $primary;
-  font-family: Roboto;
+  font-family: "Roboto", sans-serif;
   p {
     text-align: left;
     margin: 0px 0px 15px 25px;
     color: $primaryLight;
-    font-family: Lato;
+    font-family: "Roboto", sans-serif;
     @include breakpoint-mf("xs") {
       @include fonts(400, 18px, 22px);
       margin: 0px 0px 10px 25px;
@@ -21,11 +21,12 @@
     }
   }
   &__main {
-    @include flex(row, space-between, flex-start);
+    @include flex(column, center, center);
     @include breakpoint-mf("md") {
       @include fonts(700, 26px, 40px);
     }
-    @include breakpoint-mf("xl") {
+    @include breakpoint-bet(1020px, 1920px) {
+      @include flex(row, space-between, flex-start);
       @include fonts(700, 40px, 50px);
     }
   }
@@ -50,18 +51,20 @@
       @include fonts(700, 38px, 37px);
       margin-top: 5px;
     }
-    @include breakpoint-mf("xl") {
-      @include fonts(700, 58px, 56px);
-      margin-top: 5px;
+    @include breakpoint-bet(1120px,1920px) {
+      @include fonts(700, 59px, 56px);
+    }
+    @include breakpoint-bet(320px, 1019px) {
+      text-align: center;
     }
   }
   &__img {
-    max-width: 70%;
+    max-width: 80%;
     @include breakpoint-mf("xxs") {
-      max-width: 70%;
+      max-width: 80%;
     }
     @include breakpoint-mf("md") {
-      max-width: 70%;
+      max-width: 80%;
     }
     @include breakpoint-mf("xl") {
       max-width: 100%;
@@ -94,22 +97,22 @@
       margin-right: 10px;
       max-width: 10%;
       max-height: 10%;
-      visibility: visible
+      visibility: visible;
     }
     @include breakpoint-mf("md") {
       margin-right: 10px;
       max-width: 9%;
       max-height: 9%;
-      visibility: visible
+      visibility: visible;
     }
     @include breakpoint-mf("xl") {
       margin-right: 10px;
       color: $primary;
       width: 90px;
-      visibility: visible
+      visibility: visible;
     }
   }
-  &_list {
+  &__list {
     @include flex(column, center, center);
     gap: 20px;
     &-items {
@@ -176,21 +179,25 @@
     @include fonts(700, 14px, 16px);
     margin: 0px 0px 0px 80px;
     gap: 5px;
-    @include breakpoint-mf("xxs") {
-      @include fonts(700, 16px, 18px);
-      margin: 0px 0px 0px 100px;
+    @include breakpoint-bet(320px, 567px) {
+      @include fonts(700, 14px, 18px);
+      margin: 0px 0px 0px 50px;
     }
     @include breakpoint-mf("xs") {
       @include fonts(700, 17px, 18px);
-      margin: 0px 0px 0px 110px;
+      margin: 0px 0px 0px 70px;
     }
     @include breakpoint-mf("sm") {
       @include fonts(700, 18px, 20px);
-      margin: 0px 0px 0px 120px;
+      margin: 0px 0px 0px 90px;
     }
     @include breakpoint-mf("md") {
       @include fonts(700, 19px, 18px);
-      margin: 0px 0px 0px 120px;
+      margin: 0px 0px 0px 100px;
+    }
+    @include breakpoint-mf("my") {
+      @include fonts(700, 19px, 18px);
+      margin: 0px 0px 0px 110px;
     }
     @include breakpoint-mf("xl") {
       @include fonts(700, 20px, 20px);
@@ -198,9 +205,9 @@
     }
     a,
     span {
+      font-family: "Roboto", sans-serif;
       text-decoration: none;
       color: $primaryLight;
-      font-family: Lato;
     }
   }
 }
