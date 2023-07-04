@@ -13,7 +13,7 @@
 
 .cart-list__item-details {
   font-size: 12px;
-  @include flex(column, start);
+  @include flex(column, flex-start);
   gap: 10px;
   padding-left: 20px;
   @include breakpoint-mf('sm') {
