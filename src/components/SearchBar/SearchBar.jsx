@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
+import useDebounce from "../../hooks/useDebounce";
 import setSearchProducts from "../../redux/actions/searchBar";
 
 const SearchBar = () => {
@@ -12,8 +13,10 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults } = useSelector((state) => state.search);
 
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   const searchPhrases = {
-    query: searchTerm
+    query: debouncedSearchTerm
   };
 
   const handleSearch = () => {
@@ -36,10 +39,13 @@ const SearchBar = () => {
         console.error(error);
       }
     }
-    if (searchTerm !== "" && searchTerm.length >= 3) {
+    if (searchTerm !== "") {
       searchProducts();
     }
-  }, [searchTerm]);
+    if (searchTerm === "") {
+      dispatch(setSearchProducts([]));
+    }
+  }, [debouncedSearchTerm]);
 
   const handleSearchChange = (e) => {
     const actualSearchTerm = e.currentTarget.value;
@@ -95,13 +101,20 @@ const SearchBar = () => {
             fill="#393d45"
           />
         </svg>
-        <ul>
-          {searchResults?.map(({ name }) => {
+        {searchResults.length >= 1 && <ul className="searched__list">
+          {searchResults.length >= 1 && searchResults?.map(({
+            name, _id, imageUrls, currentPrice
+          }) => {
             return (
-              <li>{name}</li>
+              <li className="searched__-product" key={_id}>
+                <p>{name}</p>
+                <img className="search__product-photo" src={imageUrls[1]} alt="product_photo" />
+                <p>{currentPrice}</p>
+              </li>
             );
           })}
-        </ul>
+        </ul>}
+
       </form>
     </>
   );

@@ -119,24 +119,24 @@
          @include flex(row, center, center);
          place-self: center;
          position: relative;
-         width: 220px;
+         width: 240px;
          color: $primary;
       }
 
       @media (min-width: 840px) {
-         width: 250px;
+         width: 280px;
       }
 
       @media (min-width: 900px) {
-         width: 275px;
+         width: 295px;
       }
 
       @include breakpoint-mf('my') {
-         width: 320px
+         width: 355px
       }
 
       @include breakpoint-mf('lg') {
-         width: 400px
+         width: 420px
       }
 
       &--active {
@@ -207,7 +207,7 @@
       @include breakpoint-mf('md') {
          display: block;
          width: 100%;
-         margin-left: 12px;
+         margin-left: 5px;
          padding: 7px 38px 7px 10px;
          border: 0.1px solid $primary;
          border-radius: 30px;
@@ -226,10 +226,12 @@
 
       @media (min-width: 840px) {
          padding-right: 40px;
+         margin-left: 5px;
       }
 
       @media (min-width: 900px) {
          padding-right: 43px;
+         margin-left: 8px;
 
       }
 
@@ -566,5 +568,4 @@
 .header__menu-btn--active .header__menu-lines:nth-child(3) {
    transform: rotateZ(-40deg);
    width: 17px;
-
 }
