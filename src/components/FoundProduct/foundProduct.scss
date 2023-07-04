@@ -1,0 +1,117 @@
+.searched-product {
+   width: 100%;
+   @include flex (row, flex-start, center);
+   margin-top: 15px;
+   gap: 15px;
+
+   @include breakpoint-mf('xxs') {
+      gap: 20px;
+      margin-top: 12px;
+   }
+
+
+   @include breakpoint-mf('sm') {
+      gap: 20px;
+      margin-top: 15px;
+      width: 50%;
+   }
+
+   @include breakpoint-mf('md') {
+      width: 100%;
+   }
+
+   @include breakpoint-mf('my') {}
+
+   @include breakpoint-mf('lg') {}
+
+   @include breakpoint-mf('xl') {}
+
+   &__photo {
+      margin-left: 10px;
+      width: 75px;
+      height: 70px;
+      border-radius: 10px;
+
+      @include breakpoint-mf('xxs') {
+         width: 75px;
+         height: 75px;
+      }
+
+
+      @include breakpoint-mf('sm') {
+         width: 85px;
+         height: 80px;
+         margin-left: 5px;
+      }
+
+      @include breakpoint-mf('md') {
+         width: 65px;
+         height: 60px;
+      }
+
+      @include breakpoint-mf('my') {
+         width: 75px;
+         height: 70px;
+      }
+
+      @include breakpoint-mf('lg') {
+         width: 80px;
+         height: 75px;
+      }
+
+      @include breakpoint-mf('xl') {
+         width: 100px;
+         height: 85px;
+      }
+   }
+
+   &__description {
+      height: 100%;
+      max-width: 165px;
+      gap: 15px;
+      @include flex(column, space-between, space-between)
+   }
+
+   &__name {
+      font-size: 18px;
+      color: $primary;
+   }
+
+   &__prices-wrap {
+      @include flex(row, flex-start, center);
+      font-size: 16px;
+      gap: 25px;
+
+   }
+
+   &__price {
+      &--prev {
+         text-decoration: line-through;
+         color: red;
+      }
+   }
+}
+
+// @include breakpoint-mf('xxs') {
+//    display: none;
+// }
+
+// @include breakpoint-mf('xs') {
+//    display: none;
+// }
+
+// @include breakpoint-mf('sm') {
+//    display: none;
+// }
+
+// @include breakpoint-mf('my') {
+//    display: none;
+// }
+
+// @include breakpoint-mf('lg') {
+//    display: none;
+// }
+
+// @include breakpoint-mf('xl') {
+//    display: none;
+// }

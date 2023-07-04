@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
 import setSearchProducts from "../../redux/actions/searchBar";
+import FoundProduct from "../FoundProduct/FoundProduct";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -102,15 +103,9 @@ const SearchBar = () => {
           />
         </svg>
         {searchResults.length >= 1 && <ul className="searched__list">
-          {searchResults.length >= 1 && searchResults?.map(({
-            name, _id, imageUrls, currentPrice
-          }) => {
+          {searchResults.length >= 1 && searchResults?.map((product) => {
             return (
-              <li className="searched__-product" key={_id}>
-                <p>{name}</p>
-                <img className="search__product-photo" src={imageUrls[1]} alt="product_photo" />
-                <p>{currentPrice}</p>
-              </li>
+              <FoundProduct key={product.itemNo} {...product} />
             );
           })}
         </ul>}

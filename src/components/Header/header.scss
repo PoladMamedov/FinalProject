@@ -139,6 +139,10 @@
          width: 420px
       }
 
+      @include breakpoint-mf('lg') {
+         width: 435px
+      }
+
       &--active {
          position: absolute;
          z-index: 100;
