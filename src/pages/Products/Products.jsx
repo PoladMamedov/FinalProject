@@ -16,7 +16,7 @@ const Products = () => {
 
   const filterFull = React.createRef();
   const filterMini = useRef();
-  const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
+  const [isFilterCollapsed, setIsFilterCollapsed] = useState(true);
 
   // для изменения кол-ва в скобках при свернутом фильтре
   function addCountFilter(e) {
