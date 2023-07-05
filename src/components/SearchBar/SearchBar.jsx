@@ -119,10 +119,14 @@ const SearchBar = () => {
         {isSearchOpen ? <ul className="searched__list">
           {searchResults.length >= 1 ? searchResults?.map((product) => {
             return (
-              <FoundProduct key={product.itemNo} {...product} />
+              <FoundProduct
+                key={product.itemNo}
+                {...product}
+                setIsSearchOpen={setIsSearchOpen}
+              />
             );
           }) : <div className="searching-preview">{
-            searchTerm.length <= 3 ? <p>Write min 3 letters</p> : <p>Searching...</p>
+            searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>Searching...</p>
           }</div>}
         </ul> : null}
       </form >
