@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { sortLowToHighPrice, sortHighToLowPrice } from "../../redux/actions/sortFilter";
+import {sortProducts} from "../../redux/actions/getProdicts";
 
 const SortFilter = (props) => {
 
@@ -9,12 +10,13 @@ function handleSelectChange(e) {
     if (props.products.length !== 0) {
         if (e.target.value === "1") {
             dispatch(sortLowToHighPrice());
-            props.products.products.sort((a, b) => a.currentPrice - b.currentPrice);
+            const sortHigh = props.products.sort((a, b) => a.currentPrice - b.currentPrice);
+            dispatch(sortProducts(sortHigh))
         } else if (e.target.value === "2") {
             dispatch(sortHighToLowPrice());
-            props.products.products.sort((a, b) => b.currentPrice - a.currentPrice);
+          const sortLow = props.products.sort((a, b) => b.currentPrice - a.currentPrice);
+          dispatch(sortProducts(sortLow))
         }
-        console.log(props.products);
     } else if (props.products.length === 0) {
       if (e.target.value === "1") {
         dispatch(sortLowToHighPrice());
@@ -35,7 +37,7 @@ function handleSelectChange(e) {
          <option value="2">Price(High to Low)</option>
          </select>
         </div>
-        
+
     );
 };
 
