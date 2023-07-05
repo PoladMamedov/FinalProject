@@ -10,13 +10,13 @@ import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
 
 function ReviewSlider({ slides }) {
   return (
-    <section className="slider__wrapper">
-      <div className="slider-section__section">
-        <div className="slider-section__title">
+    <section className="review__wrapper">
+      <div className="review-section__section">
+        <div className="review-section__title">
           <h1>Help us Improve our productivity</h1>
         </div>
         <Swiper
-          className="slider-section__center"
+          className="review-section__center"
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={50}
           slidesPerView={1}
@@ -26,15 +26,14 @@ function ReviewSlider({ slides }) {
           }}
           // eslint-disable-next-line react/jsx-props-no-multi-spaces, react/jsx-boolean-value
           loop={true}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
+          
         >
           {slides.map((slide) => (
             <SwiperSlide className="article" key={slide.image}>
-              <img className="slider-section__img" src={slide.image} alt="" />
-              <h4 className="slider-section__name">{slide.name}</h4>
-              <p className="slider-section__client">{slide.title}</p>
-              <p className="slider-section__text">{slide.text}</p>
+              <img className="review-section__img" src={slide.image} alt="" />
+              <h4 className="review-section__name">{slide.name}</h4>
+              <p className="review-section__client">{slide.title}</p>
+              <p className="review-section__text">{slide.text}</p>
             </SwiperSlide>
           ))}
           <RxDoubleArrowLeft className="swiper-button-prev prev" />
