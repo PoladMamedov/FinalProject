@@ -31,26 +31,24 @@ const TopItemsSlider = () => {
   };
 
   return (
-    <div className="responsive-slider">
+    <section className="top-items__slider">
       <Slider {...settings}>
       {items.map((item, index) => (
-          <div className="topItems" key={index}>
+          <div className="top-items" key={index}>
             <div className="container">
-              <h1 type="button" className="topItems_title">{item.title}</h1>
-              <h3 className="topItems_text">{item.text}</h3>
-              <h3 className="topItems_subtext">{item.subtext}</h3>
-              <Link to={`/products/${item.customId}`} className="topItems_link">
-                <button type="button" className="topItems_btn">Shop Now</button>
+              <h1 type="button" className="top-items__title">{item.title}</h1>
+              <h3 className="top-items__text">{item.text}</h3>
+              <h3 className="top-items__subtext">{item.subtext}</h3>
+              <Link to={`/products/${item.itemNo}`} className="top-items__link">
+                <button type="button" className="top-items__btn">Shop Now</button>
               </Link>
             </div>
-            <img className="topItems_img" src={item.imageUrl} alt={item.text} />
+            <img className="top-items__img" src={item.imageUrl} alt={item.text} />
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 
 export default TopItemsSlider;
-
-
