@@ -116,13 +116,15 @@ const SearchBar = () => {
             fill="#393d45"
           />
         </svg>
-        {searchResults.length >= 1 && <ul className="searched__list">
-          {searchResults.length >= 1 && searchResults?.map((product) => {
+        {isSearchOpen ? <ul className="searched__list">
+          {searchResults.length >= 1 ? searchResults?.map((product) => {
             return (
               <FoundProduct key={product.itemNo} {...product} />
             );
-          })}
-        </ul>}
+          }) : <div className="searching-preview">{
+            searchTerm.length <= 3 ? <p>Write min 3 letters</p> : <p>Searching...</p>
+          }</div>}
+        </ul> : null}
       </form >
 
     </>
