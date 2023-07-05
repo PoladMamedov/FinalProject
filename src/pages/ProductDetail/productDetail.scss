@@ -333,6 +333,12 @@
 }
 
 //------INFO BLOCK----------------------------------------
+.product-detail__info-wrap {
+  @include breakpoint-mf('xl') {
+    padding-left: 70px;
+    @include flex(column, space-between, flex-start);
+  }
+}
 
 .product-detail__info-block {
   padding-top: 50px;
@@ -342,10 +348,7 @@
   }
 
   @include breakpoint-mf('xl') {
-    width: 82%;
     padding-top: 0;
-    padding-bottom: 10px;
-    margin-left: 70px;
   }
 }
 
@@ -520,13 +523,7 @@
   @include breakpoint-mf('lg') {
     @include flex(row, start, center);
     gap: 35px;
-    margin-left: 40px;
-  }
-
-  @include breakpoint-mf('xl') {
-    margin-left: 70px;
-    padding-top: 5px;
-    padding-bottom: 20px;
+    padding-top: 30px;
   }
 }
 
@@ -540,8 +537,8 @@
     gap: 15px;
   }
 
-  @include breakpoint-mf('xl') {
-    margin: 0;
+  @include breakpoint-mf('lg') {
+    @include margin(0, 0);
   }
 }
 

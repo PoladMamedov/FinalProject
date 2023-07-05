@@ -1,17 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Slider from "react-slick";
 import useServer from "../../hooks/useServer";
 import PreLoader from "../../components/PreLoader/PreLoader";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
-// const mockData = {
-//   color: "black",
-//   similarProducts: {
-//     37137: "red",
-//     27277: "green"
-//   }
-// };
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -24,13 +17,14 @@ export default function ProductDetail() {
       previousPrice: 0,
     },
     sale: false,
-    color: [],
+    color: "",
     basicProps: {
       brand: "",
       stock: 0,
       article: 0
     },
     props: {},
+    similarProducts: {}
   });
   const [productAmount, setProductAmount] = useState(1);
   const [productColor, setProductColor] = useState("");
@@ -80,7 +74,7 @@ export default function ProductDetail() {
     async function fetchProduct() {
       try {
         const {
-          name, description, imageUrls, quantity, currentPrice, previousPrice, properties: {color, brand, ...properties}
+          name, description, imageUrls, quantity, currentPrice, previousPrice, similarProducts, properties: {color, brand, ...properties}
         } = await getProduct(itemNo);
         setProductData({
           ...productData,
@@ -100,10 +94,11 @@ export default function ProductDetail() {
             article: itemNo,
             brand
           },
-          props: {...productData.props, ...properties}
+          props: {...productData.props, ...properties},
+          similarProducts: { ...similarProducts, [itemNo]: color}
         });
         setIsLoaded(true);
-        setProductColor(color[0]);
+        setProductColor(color);
         setSliderSettings({...sliderSettings, default: {...sliderSettings.default, slidesToShow: imageUrls.length > 4 ? 4 : imageUrls.length}});
         setMainImgUrl(imageUrls[0]);
       } catch (error) {
@@ -203,8 +198,8 @@ export default function ProductDetail() {
             <div className="product-detail__color-wrap">
               <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
               <div className="product-detail__color-list">
-                 {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)}
-                {/* {Object.entries(mockData.similarProducts).map(([key, value], index) => <Link to={`/products/${key}`}><span key={index} className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)} */}
+                 {/* {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)} */}
+                 {Object.entries(productData.similarProducts).map(([key, value], index) => <Link to={`/products/${key}`}><span key={index} className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
               </div>
             </div>
           </div>
