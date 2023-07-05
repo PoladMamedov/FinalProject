@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
-import CartPage from "./pages/CartPage/CartPage";
+import CartPage from "./pages/Cart/Cart";
 
 const AppRoutes = () => {
   return (

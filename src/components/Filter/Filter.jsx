@@ -17,12 +17,12 @@ const Filter = forwardRef((props, ref) => {
   const { sortValue } = useSelector((state) => state.sortFilter);
   const errorText = useRef();
   const server = useServer();
-  const [filters, setFilters] = useState([]); // это для вывода на панели наименований фильтров из базы
+  const [filters, setFilters] = useState([]);
   
   const dispatch = useDispatch();
   const {categories} = useSelector(
         (state) => state.categories
-      );
+        );
 
 useEffect(() => {
     async function fetchFilters() {
@@ -119,14 +119,13 @@ async function handleCheckboxChange(e, index) {
   }
   const isChecked = e.target.checked;
 
-  // Обновление состояния checkedItems
+  // Обновление стейта checkedItems
   setCheckedItems([
     ...checkedItems.slice(0, index),
     !checkedItems[index],
     ...checkedItems.slice(index + 1),
   ]);
 
-  // я ввела эту переменную, чтобы в стейт выбранных категорий попадали актуальные значения, а не с опозданием на 1 шаг
   let updatedSelectedCategories;
 
   // Обновление массива выбранных категорий
@@ -149,6 +148,17 @@ function resetBtnClick() {
   dispatch(reset());
   dispatch(removeFilteredProducts());
 }
+
+
+const resetBtn = useRef();
+useEffect(() => {
+if (checkedItems.every((item) => item === false) && Object.values(valuesPrice).every((item) => item === "")) {
+resetBtn.current.disabled = true;
+} else {
+  resetBtn.current.disabled = false;
+}
+}, [checkedItems, valuesPrice]);
+
     return (
       <>
         <div className="filter-section">
@@ -200,7 +210,7 @@ function resetBtnClick() {
              onClick={handleSetPrice}
              disabled={isButtonDisabled}>Set Price</button>
              <div className="filter-section-btn-container">
-             <button type="button" onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
+             <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" onClick={props.apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
              </div>
              </div>
