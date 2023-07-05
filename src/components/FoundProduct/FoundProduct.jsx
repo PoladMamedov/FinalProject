@@ -10,6 +10,7 @@ const FoundProduct = ({
       setIsSearchOpen(false);
       dispatch(setPagePath("product"));
    };
+
    return (
       <li className="searched-product">
          <img className="searched-product__photo" src={imageUrls[1]} alt="product_photo" />

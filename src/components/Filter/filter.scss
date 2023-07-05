@@ -4,8 +4,11 @@
     position: relative;
 
     &__title {
-        @include margin(0px, 33px);
+        @include margin(0px, 63px);
         @include fonts(500, 26px, 34px);
+        @include breakpoint-mf("sm"){
+            @include margin(0px, 33px);
+        }
     }
 
     &-btn-close {
@@ -79,11 +82,15 @@
     &-btn {
         width: 215px;
         height: 36px;
+        cursor: pointer;
         border-radius: 10px;
         border: 1px solid $primaryDark;
         padding: 0;
         font-family: "Roboto";
         @include fonts(400, 16px, 21px);
+        &:disabled {
+            cursor: not-allowed;
+        }
 
         &--dark {
             @include margin(10px, 63px);

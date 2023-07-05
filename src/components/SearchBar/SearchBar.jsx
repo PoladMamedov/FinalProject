@@ -127,6 +127,7 @@ const SearchBar = () => {
             );
           }) : <div className="searching-preview">{
             searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>Searching...</p>
+
           }</div>}
         </ul> : null}
       </form >
