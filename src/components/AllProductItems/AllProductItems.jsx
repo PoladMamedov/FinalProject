@@ -10,7 +10,6 @@ function AllProductItems() {
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
-  console.log(allProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
   const { getAllProducts } = useServer();
@@ -36,8 +35,10 @@ function AllProductItems() {
   }, [allProducts]);
 
   const handleResize = () => {
-    if (window.innerWidth >= 1190) {
+    if (window.innerWidth >= 1200) {
       setProductsPerPage(8);
+    } else if (window.innerWidth <= 499) {
+      setProductsPerPage(4);
     } else {
       setProductsPerPage(6);
     }

@@ -45,7 +45,7 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
           return (
             // eslint-disable-next-line react/button-has-type
             <button
-              key={index}
+              key={index} // Уникальный ключ
               className="pagination__button pagination__button--active"
               onClick={() => onPageChange(pageNumber)}
             >
@@ -56,7 +56,11 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
         if (typeof pageNumber === "number") {
           return (
             // eslint-disable-next-line react/button-has-type
-            <button key={index} className="pagination__button" onClick={() => onPageChange(pageNumber)}>
+            <button
+              key={index} // Уникальный ключ
+              className="pagination__button"
+              onClick={() => onPageChange(pageNumber)}
+            >
               {pageNumber}
             </button>
           );

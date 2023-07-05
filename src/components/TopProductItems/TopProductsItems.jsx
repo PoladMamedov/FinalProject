@@ -21,12 +21,8 @@ function TopProductItem() {
           originalProducts.splice(randomIndex, 1);
         }
         setStoredProducts(selectedProducts);
-      })
-      .catch((error) => {
-        console.error(error);
       });
-
-  }, [] );
+    }, [] );
 
   return (
     <div className={"top-product__wrapper"}>

@@ -24,19 +24,20 @@
     grid-column-gap: 10px;
     grid-row-gap: 10px;
     grid-template-columns: repeat(2, 1fr);
-    margin-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
     overflow: hidden;
     @media (min-width: 430px) {
       grid-template-columns: repeat(3, 1fr);
     }
     @media (min-width: 630px) {
-      margin-top: 50px;
+      margin-top: 40px;
       grid-column-gap: 10px;
       grid-row-gap: 35px;
       grid-template-columns: repeat(3, 1fr);
     }
     @media (min-width: 1170px) {
-      margin-top: 73px;
+      margin-top: 63px;
       grid-column-gap: 10px;
       grid-row-gap: 45px;
       grid-template-columns: repeat(4, 1fr);
