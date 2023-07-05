@@ -25,9 +25,8 @@ function handleSelectChange(e) {
     }
   }
   }
-
     return (
-        <div className="filter-section-sort">
+        <div className={`filter-section-sort ${props.isCollapsed ? "filter-section-sort--position" : ""}`}>
         <p className="filter-section-sort-text">Sort by</p>
          <select
          className="filter-section-sort-select"
