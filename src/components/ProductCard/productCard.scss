@@ -1,13 +1,27 @@
-.cardContainer {
+.card-container {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 }
 
+.all-card-container {
+  width: 100%;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 640px) {
+    width: 100%;
+    height: 290px;
+  }
+  @media (min-width: 860px) {
+    width: 100%;
+    height: 360px;
+  }
+}
+
 .card{
   position: relative;
-  cursor: pointer;
   width: 129px;
   height: 200px;
   border-radius: 10px;
@@ -15,55 +29,47 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  transition: transform 0.6s ease;
   &:hover {
-    z-index: 2;
-    width: 135px;
+    transform: scale(1.05);
   }
 
-  @media (min-width: 605px) {
+  @media (min-width: 630px) {
     width: 196px;
     height: 322px;
     border-radius: 10px;
     box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
-    &:hover {
-      z-index: 2;
-      width: 202px;
-    }
   }
 
-  @media (min-width: 1110px) {
+  @include breakpoint-mf('xl') {
     width: 269px;
     height: 418px;
     border-radius: 20px;
-    &:hover {
-      z-index: 2;
-      width: calc(100% + 5px);
-    }
   }
 
-    &__btn{
+  &__btn{
     position: absolute;
-      width: 98px;
-      height: 19px;
-      margin-top: 176px;
+    width: 98px;
+    height: 19px;
+    margin-top: 176px;
+    margin-left: 16px;
+    display: flex;
+    gap: 7px;
+    @media (min-width: 630px) {
+      width: 165px;
+      height: 29px;
+      margin-top: 276px;
       margin-left: 16px;
+      gap: 12px;
+    }
+    @include breakpoint-mf('xl') {
+      width: 205px;
+      height: 36px;
+      margin-top: 370px;
+      margin-left: 32px;
       display: flex;
-      gap: 7px;
-      @media (min-width: 605px) {
-        width: 165px;
-        height: 29px;
-        margin-top: 276px;
-        margin-left: 16px;
-        gap: 12px;
-      }
-      @media (min-width: 1110px) {
-        width: 205px;
-        height: 36px;
-        margin-top: 370px;
-        margin-left: 32px;
-        display: flex;
-        gap: 15px;
-      }
+      gap: 15px;
+    }
   }
   &__btn-details{
     width: 66px;
@@ -76,22 +82,19 @@
     justify-content: center;
     align-items: center;
     font-family: "Josefin Sans",  sans-serif;
-    &:hover {
-      background-color: $primaryDark;
-      font-weight: 700;
-    }
-    @media (min-width: 605px) {
+
+    @media (min-width: 630px) {
       width: 111px;
       height: 28px;
       font-size: 14px;
     }
-    @media (min-width: 1110px) {
+    @include breakpoint-mf('xl') {
       width: 138px;
       height: 100%;
       border-radius: 10px;
     }
   }
-  &__btn-cartContainer{
+  &__btn-card-container{
     width: 25px;
     height: 18px;
     display: flex;
@@ -99,32 +102,229 @@
     align-items: center;
     background-color: white;
     border-radius: 10px;
-    &:hover {
-      border-radius: 25px;
-    }
+    cursor: pointer;
 
-    @media (min-width: 605px) {
+    @media (min-width: 630px) {
       width:41px;
       height: 28px;
     }
-    @media (min-width: 1110px) {
+    @include breakpoint-mf('xl') {
       width:52px;
       height: 36px;
     }
   }
-  &__btn-svgCart{
+  &__btn-svg-cart{
     width: 10px;
     height: 12px;
     background-color: white;
 
-    @media (min-width: 605px) {
+    @media (min-width: 630px) {
       width: 18px;
       height: 20px;
     }
-    @media (min-width: 1110px) {
+    @include breakpoint-mf('xl') {
       width:23px;
       height: 26px;
     }
 
   }
 }
+
+.all-card{
+  position: relative;
+  width: 129px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 4px 8px 10px 0 rgba(0, 0, 0, 0.05);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 860px) {
+    width: 183px;
+    height: 289px;
+    border-radius: 10px;
+    box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  @include breakpoint-mf('xl') {
+    width: 203px;
+    height: 296px;
+  }
+
+  &__product-name{
+    font-size: 10px;
+    width: 125%;
+    @include breakpoint-mf('sm') {
+      font-size: 10px;
+    }
+    @include breakpoint-mf('my') {
+      font-size: 14px;
+    }
+    @include breakpoint-mf('lg') {
+      font-size: 14px;
+    }
+    @include breakpoint-mf('xl') {
+      font-size: 16px;
+    }
+  }
+
+  &__prices-wrap {
+    @include flex(row, flex-end, center);
+    margin-left: 4px;
+    font-size: 10px;
+    gap: 2px;
+
+    @include breakpoint-mf('xs') {
+      width: 100%;
+      font-size: 10px;
+      gap: 4px;
+    }
+
+    @include breakpoint-mf('my') {
+      font-size: 14px;
+    }
+
+    @include breakpoint-mf('lg') {
+      margin-left: 8px;
+      font-size: 16px;
+      gap: 5px;
+    }
+    @include breakpoint-mf('xl') {
+      font-size: 18px;
+      gap: 10px;
+    }
+  }
+
+  &__price {
+    @include breakpoint-mf('lg') {
+      font-size: 18px;
+    }
+
+    &--curr {
+      font-size: 10px;
+      font-weight: 500;
+      @include breakpoint-mf('sm') {
+        font-size: 10px;
+      }
+      @include breakpoint-mf('my') {
+        font-size: 14px;
+      }
+      @include breakpoint-mf('xl') {
+        font-size: 16px;
+      }
+    }
+
+    &--prev {
+      text-decoration: line-through;
+      color: red;
+    }
+  }
+
+  &__btn{
+    position: absolute;
+    width: 98px;
+    height: 19px;
+    margin-top: 176px;
+    margin-left: 16px;
+    display: flex;
+    gap: 7px;
+    @media (min-width: 860px) {
+      width: 165px;
+      height: 29px;
+      margin-top: 244px;
+      margin-left: 9px;
+      gap: 12px;
+    }
+    @include breakpoint-mf('xl') {
+      width: 154px;
+      height: 25px;
+      margin-top: 260px;
+      margin-left: 25px;
+      display: flex;
+      gap: 11px;
+    }
+  }
+  &__btn-details{
+    width: 66px;
+    height: 17px;
+    font-size: 10px;
+    border-radius: 10px;
+    background-color: $primary;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Josefin Sans",  sans-serif;
+
+    @media (min-width: 860px) {
+      width: 111px;
+      height: 28px;
+      font-size: 12px;
+    }
+    @include breakpoint-mf('xl') {
+      width: 104px;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+  &__btn-card-container{
+    width: 25px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+
+    @media (min-width: 860px) {
+      width:41px;
+      height: 28px;
+    }
+    @include breakpoint-mf('xl') {
+      width:39px;
+      height: 25px;
+    }
+  }
+  &__btn-svg-cart{
+    width: 10px;
+    height: 12px;
+    background-color: white;
+
+    @media (min-width: 860px) {
+      width: 18px;
+      height: 20px;
+    }
+    @include breakpoint-mf('xl') {
+      width:17px;
+      height: 17px;
+    }
+  }
+
+  &__block{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    width: 129px;
+    height: 36px;
+    @media (min-width: 860px) {
+      width: 183px;
+      height: 36px;
+    }
+    @include breakpoint-mf('xl') {
+      width: 100%;
+      height: 36px;
+    }
+  }
+}
+
+.unactive{
+  display: none;
+}
+
+

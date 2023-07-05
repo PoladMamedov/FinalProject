@@ -7,12 +7,13 @@ import Filter from "../../components/Filter/Filter";
 import FilterMini from "../../components/Filter/FilterMini";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
+import AllProductItems from "../../components/AllProductItems/AllProductItems";
 
 
 const Products = () => {
     const dispatch = useDispatch();
     const sort = useRef();
- 
+
   const filterFull = React.createRef();
   const filterMini = useRef();
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(true);
@@ -45,6 +46,7 @@ const Products = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
               <FilterMini toggle={toggleFilter} ref={filterMini} />
+              <AllProductItems />
             </div>
           </div>
         </section>
