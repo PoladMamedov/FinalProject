@@ -176,7 +176,7 @@
   width: 30px;
   height: 30px;
   color: $white;
-  background-color: $primaryDark;
+  background-color: $primaryDark !important;
   border-radius: 100%;
   text-align: center;
 
@@ -191,7 +191,7 @@
   }
 
   &:hover {
-    background: darken($primaryDark, 5%);
+    background: darken($primaryDark, 5%) !important;
   }
 
   &:active {
@@ -252,19 +252,29 @@
 }
 
 .product-detail__fs-carousel-close-btn {
-  @include fonts(700, 20px, 40px);
+  @include fonts(500, 16px, 30px);
   padding-right: 0;
   padding-left: 0;
   cursor: pointer;
-  background: none;
   color: $white;
 
   position: absolute;
   right: 5%;
   top: 5%;
 
+  transition: transform 0.1s linear;
+  width: 30px;
+  height: 30px;
+  background-color: $primaryDark;
+  border-radius: 100%;
+  text-align: center;
+
   &:hover {
-    color: darken($white, 15%);
+    background: darken($primaryDark, 5%);
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 }
 

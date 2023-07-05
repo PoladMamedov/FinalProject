@@ -119,6 +119,14 @@ export default function ProductDetail() {
     }
   }
 
+  function formatLabel(string) {
+    if (string === string.toLowerCase()) return string;
+
+    const upperCaseChar = [...string].find((char) => char === char.toUpperCase() && char !== " ");
+    let formattedString = string.split(upperCaseChar).join(` ${upperCaseChar.toLowerCase()}`);
+    return formatLabel(formattedString);
+  }
+
   function isValidProductAmount(amount) {
     return /^[0-9]*$/.test(amount) && amount > 0 && amount <= productData.basicProps.stock;
   }
@@ -198,8 +206,7 @@ export default function ProductDetail() {
             <div className="product-detail__color-wrap">
               <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
               <div className="product-detail__color-list">
-                 {/* {productData.color.map((el, index) => <span onClick={(e) => setProductColor(e.target.style.backgroundColor)} key={index} className={`product-detail__color-list-item ${productColor === el ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: el}}></span>)} */}
-                 {Object.entries(productData.similarProducts).map(([key, value], index) => <Link to={`/products/${key}`}><span key={index} className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
+                 {Object.entries(productData.similarProducts).map(([key, value], index) => <Link to={`/products/${key}`} key={index}><span className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
               </div>
             </div>
           </div>
@@ -217,12 +224,12 @@ export default function ProductDetail() {
         <h3 className="product-detail__specs-title">Specifications</h3>
         <table className="product-detail__specs-table">
           <tbody className="product-detail__specs-list">
-          {Object.entries(productData.props).map(([key, value], index) => <tr key={index} className="product-detail__specs-item"><td className="product-detail__specs-data">{key}:</td><td className="product-detail__specs-data product-detail__specs-data--value">{value.toString()}</td></tr>)}
+          {Object.entries(productData.props).map(([key, value], index) => <tr key={index} className="product-detail__specs-item"><td className="product-detail__specs-data">{formatLabel(key)}:</td><td className="product-detail__specs-data product-detail__specs-data--value">{value.toString()}</td></tr>)}
           </tbody>
         </table>
       </div>
       {isFullScreenImg && <div className="product-detail__fs-carousel-wrap" onClick={closeCarousel}>
-        <button type="button" className="product-detail__fs-carousel-close-btn" onClick={() => setIsFullScreenImg(false)}>x</button>
+        <button type="button" className="product-detail__fs-carousel-close-btn" onClick={() => setIsFullScreenImg(false)}>&#10006;</button>
         <Slider {...sliderSettings.fullSize} className="product-detail__fs-carousel">
            {productData.imageUrls.map((el, index) => <div key={index} className="product-detail__fs-carousel-img-wrap"><img className="product-detail__fs-carousel-img" src={el} alt="img"/></div>)}
         </Slider>
