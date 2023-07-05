@@ -43,8 +43,8 @@ const Products = () => {
           <div className="container">
             <div className="products-section">
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
+              <FilterMini toggle={toggleFilter} ref={filterMini}/>
               <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
-              <FilterMini toggle={toggleFilter} ref={filterMini} />
             </div>
           </div>
         </section>
