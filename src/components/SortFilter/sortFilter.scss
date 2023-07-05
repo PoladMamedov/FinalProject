@@ -11,7 +11,7 @@
     text-align: center;
     @include fonts(400, 14px, 18px);
     font-family: "Roboto", sans-serif;
-    color: $primaryLight;  
+    color: $primaryLight;
     @include breakpoint-mf("sm"){
         width: 150px;
     }
@@ -23,8 +23,8 @@
         }
     }
     @include breakpoint-mf("sm"){
-        position: static;
+        //position: static;
         @include flex(row, flex-end, center);
         gap: 20px;
-    } 
+    }
 }

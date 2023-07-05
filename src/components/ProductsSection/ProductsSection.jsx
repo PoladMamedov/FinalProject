@@ -6,11 +6,13 @@ import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../Filter/Filter";
 import FilterMini from "../Filter/FilterMini";
 import Breadcrumb from "../BreadCrumb/BreadCrumb";
+import AllProductItems from "../AllProductItems/AllProductItems";
 import SortFilter from "../SortFilter/SortFilter";
+import fillProducts from "../../redux/actions/getProdicts";
 
 const ProductsSection = () => {
   const dispatch = useDispatch();
- 
+
   const filterFull = React.createRef();
   const filterMini = useRef();
   const [isSortFilterVisible, setIsSortFilterVisible] = useState(false);
@@ -28,8 +30,9 @@ const ProductsSection = () => {
     setIsSortFilterVisible(filterFull.current.classList.contains("hidden"));
   }
 
-  const { filteredProducts } =  useSelector((state) => state.filteredProducts);
+  const filteredProducts =  useSelector((state) => state.filteredProducts.filteredProducts);
   const [products, setProducts] = useState([]);
+
 
   useEffect(() => {
     setProducts(filteredProducts);
@@ -44,6 +47,7 @@ const ProductsSection = () => {
           {(!isNarrowScreen || isSortFilterVisible) && <SortFilter products={products}/>}
             <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
             <FilterMini toggle={toggleFilter} ref={filterMini} />
+            <AllProductItems />
           </div>
         </div>
       </section>
