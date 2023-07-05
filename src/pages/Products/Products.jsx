@@ -8,6 +8,7 @@ import Filter from "../../components/Filter/Filter";
 import FilterMini from "../../components/Filter/FilterMini";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
+import AllProductItems from "../../components/AllProductItems/AllProductItems";
 
 
 const Products = () => {
@@ -22,18 +23,6 @@ const Products = () => {
   function addCountFilter(e) {
     return e.target.checked ? dispatch(increment()) : dispatch(decrement());
   }
-
-  const [isLargeScreen, setIsLargeScreen] = useState(window.matchMedia("(min-width: 640px)").matches);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.matchMedia("(min-width: 640px)").matches);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   function toggleFilter() {
     const filter = filterFull.current;
@@ -65,6 +54,7 @@ const Products = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
               <FilterMini toggle={toggleFilter} ref={filterMini} />
+              <AllProductItems />
             </div>
           </div>
         </section>
