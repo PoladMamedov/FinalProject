@@ -142,29 +142,17 @@ export default function useServer() {
   }
 
   // Get filtered products by input
-  async function searchProducts(searchTerm) {
-    const searchPhrases = {
-      query: searchTerm
-    };
-
-    try {
-      const response = await fetch(`${url}/products/search`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(searchPhrases)
-      });
-
-      if (!response.ok) {
-        throw new Error("Search request failed.");
-      }
-
-      const products = await response.json();
-      return products;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  async function getSearchedProducts(searchPhrases) {
+    const searchResult = await fetch(`${url}/products/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(searchPhrases),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return searchResult;
   }
 
   return {
@@ -182,6 +170,6 @@ export default function useServer() {
     getFiltersCategories,
     getFiltersCategoriesPrices,
     getFiltersPrices,
-    searchProducts,
+    getSearchedProducts,
   };
 }
