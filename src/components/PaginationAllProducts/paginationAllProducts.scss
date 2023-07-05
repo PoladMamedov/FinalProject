@@ -1,11 +1,11 @@
 .pagination {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
-  @media (min-width: 590px) {
-    display: flex;
-  }
+  //@media (min-width: 640px) {
+  //  display: flex;
+  //}
 }
 
 .pagination__button {

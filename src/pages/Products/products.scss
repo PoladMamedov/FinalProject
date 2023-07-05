@@ -1,5 +1,7 @@
 .products-section {
     position: relative;
-    display: flex;
     @include margin(33px, 95px);
+  @include breakpoint-mf("sm"){
+    display: flex;
+  }
  }
