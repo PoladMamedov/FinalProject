@@ -15,7 +15,7 @@ const Products = () => {
  
   const filterFull = React.createRef();
   const filterMini = useRef();
-  const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
+  const [isFilterCollapsed, setIsFilterCollapsed] = useState(true);
 
   // для изменения кол-ва в скобках при свернутом фильтре
   function addCountFilter(e) {
@@ -43,8 +43,8 @@ const Products = () => {
           <div className="container">
             <div className="products-section">
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
-              <FilterMini toggle={toggleFilter} ref={filterMini}/>
               <Filter toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
+              <FilterMini toggle={toggleFilter} ref={filterMini} />
             </div>
           </div>
         </section>
