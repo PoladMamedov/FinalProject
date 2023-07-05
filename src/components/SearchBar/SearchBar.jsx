@@ -1,12 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import searchProducts from "../../redux/actions/searchBar";
+import useServer from "../../hooks/useServer";
+import useDebounce from "../../hooks/useDebounce";
+import setSearchProducts from "../../redux/actions/searchBar";
+import FoundProduct from "../FoundProduct/FoundProduct";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { getSearchedProducts } = useServer();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { searchResults } = useSelector((state) => state.search);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  const searchPhrases = {
+    query: debouncedSearchTerm
+  };
 
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -14,9 +26,37 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const searchInput = e.target.elements.searchInput.value;
-    dispatch(searchProducts(searchInput));
     navigate("/products");
+  };
+
+  useEffect(() => {
+    async function searchProducts() {
+      try {
+        const products = await getSearchedProducts(searchPhrases);
+        if (searchTerm !== "") {
+          dispatch(setSearchProducts(products));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (searchTerm !== "") {
+      searchProducts();
+    }
+    if (searchTerm === "") {
+      dispatch(setSearchProducts([]));
+    }
+  }, [debouncedSearchTerm]);
+
+  const handleSearchChange = (e) => {
+    const actualSearchTerm = e.currentTarget.value;
+    setSearchTerm(actualSearchTerm);
+  };
+  const handleSearchCLose = () => {
+    setIsSearchOpen(false);
+    setSearchTerm("");
+    dispatch(setSearchProducts([]));
+
   };
 
   return (
@@ -31,8 +71,15 @@ const SearchBar = () => {
       >
         <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
       </svg>
+      <div
+        onClick={() => handleSearchCLose()}
+        onKeyDown={() => handleSearchCLose()}
+        role="button"
+        tabIndex={0}
+        className={`search-wrap${isSearchOpen ? "--active" : ""}`}>
+      </div >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
         className={`header__search-form${isSearchOpen ? "--active" : ""}`}
       >
         <input
@@ -40,6 +87,9 @@ const SearchBar = () => {
           type="text"
           placeholder="Search products..."
           name="searchInput"
+          value={searchTerm}
+          onChange={(e) => handleSearchChange(e)}
+          onFocus={() => setIsSearchOpen(true)}
         />
         <button
           className={`header__search-submit${isSearchOpen ? "--active" : ""}`}
@@ -66,7 +116,17 @@ const SearchBar = () => {
             fill="#393d45"
           />
         </svg>
-      </form>
+        {isSearchOpen ? <ul className="searched__list">
+          {searchResults.length >= 1 ? searchResults?.map((product) => {
+            return (
+              <FoundProduct key={product.itemNo} {...product} />
+            );
+          }) : <div className="searching-preview">{
+            searchTerm.length <= 3 ? <p>Write min 3 letters</p> : <p>Searching...</p>
+          }</div>}
+        </ul> : null}
+      </form >
+
     </>
   );
 };
