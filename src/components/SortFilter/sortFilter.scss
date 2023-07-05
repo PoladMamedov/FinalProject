@@ -26,8 +26,10 @@
         }
     }
     @include breakpoint-mf("sm"){
-        position: static;
+        top: 5px;
+        right: 20px;
         @include flex(row, flex-end, center);
         gap: 20px;
+        z-index: 1;
     } 
 }
