@@ -8,13 +8,13 @@
 @import "../pages/Login/login";
 @import "../pages/Registration/registration";
 @import "../pages/UsersCabinet/usersCabinet";
-@import "../pages/NotFoundPage/notFound";
+@import "../pages/NotFound/notFound";
 @import "../pages/About/about";
-@import "../pages/CartPage/cartPage";
+@import "../pages/Cart/cart";
+@import "../pages/Products/products";
 
 
 //!Components
-@import "../components/ProductsSection/productsSection";
 @import "../components/ProductCard/productCard";
 @import "../components/OurBenefitsList/ourBenefits";
 @import "../components/OurPartners/ourPartners";
@@ -35,5 +35,9 @@
 @import "../components/SortFilter/sortFilter";
 @import "../components/PersonalDataEditForm/pesonalDataEditForm";
 @import "../components/PasswordChangeForm/passwordChangeForm";
+@import "../components/SearchBar/searchBar";
+@import "../components/FoundProduct/foundProduct";
 @import "../components/CartList/cartList";
 @import "../components/CartItems/cartItems";
+@import "../components/AllProductItems/allProductItems";
+@import "../components/PaginationAllProducts/paginationAllProducts";

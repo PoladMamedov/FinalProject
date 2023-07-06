@@ -65,8 +65,7 @@
       line-height: 30px;
       color: $primaryLight;
       margin-top: 8px;
-      filter:
-         drop-shadow(2px 2px 2px #6164674b);
+      margin-left: 5px;
 
       @media (min-width: 370px) {
          justify-self: center;
@@ -86,6 +85,7 @@
          grid-column: 1/3;
          grid-row: 1/2;
          width: 180px;
+         margin-left: 0;
       }
    }
 
@@ -119,34 +119,64 @@
          @include flex(row, center, center);
          place-self: center;
          position: relative;
-         width: 220px;
+         width: 240px;
          color: $primary;
       }
 
       @media (min-width: 840px) {
-         width: 250px;
+         width: 280px;
       }
 
       @media (min-width: 900px) {
-         width: 275px;
+         width: 295px;
       }
 
       @include breakpoint-mf('my') {
-         width: 320px
+         width: 355px
       }
 
       @include breakpoint-mf('lg') {
-         width: 400px
+         width: 420px
+      }
+
+      @include breakpoint-mf('lg') {
+         width: 435px
       }
 
       &--active {
          position: absolute;
-         z-index: 100;
+         z-index: 15;
          width: 100%;
          @include flex(row, center, center);
+         top: 0px;
+         left: 0px;
 
          @media (min-width: 768px) {
-            display: none;
+            @include flex(row, center, center);
+            place-self: center;
+            position: relative;
+            width: 240px;
+            color: $primary;
+         }
+
+         @media (min-width: 840px) {
+            width: 280px;
+         }
+
+         @media (min-width: 900px) {
+            width: 295px;
+         }
+
+         @include breakpoint-mf('my') {
+            width: 355px
+         }
+
+         @include breakpoint-mf('lg') {
+            width: 420px
+         }
+
+         @include breakpoint-mf('lg') {
+            width: 435px
          }
       }
    }
@@ -175,6 +205,15 @@
          right: 25px;
          background-color: transparent;
 
+         @include breakpoint-mf('md') {
+            display: block;
+            position: absolute;
+            padding: 0;
+            top: 8px;
+            right: 9px;
+            background-color: transparent;
+         }
+
       }
    }
 
@@ -199,15 +238,31 @@
          border-radius: 10px;
 
          @include breakpoint-mf('md') {
-            height: 75px;
+            display: block;
+            width: 100%;
+            margin-left: 5px;
+            padding: 7px 38px 7px 10px;
+            border: 0.1px solid $primary;
+            border-radius: 30px;
+            grid-column: 3/4;
+            place-self: center;
+            height: 100%;
+            font-size: 15px;
+            color: $primary;
+            box-shadow: 1px 3px 3px $primary;
+            transition: box-shadow .3s ease;
 
+            &:focus {
+               box-shadow: 1px 1px 3px $primary;
+
+            }
          }
       }
 
       @include breakpoint-mf('md') {
          display: block;
          width: 100%;
-         margin-left: 12px;
+         margin-left: 5px;
          padding: 7px 38px 7px 10px;
          border: 0.1px solid $primary;
          border-radius: 30px;
@@ -226,10 +281,12 @@
 
       @media (min-width: 840px) {
          padding-right: 40px;
+         margin-left: 5px;
       }
 
       @media (min-width: 900px) {
          padding-right: 43px;
+         margin-left: 8px;
 
       }
 
@@ -566,5 +623,4 @@
 .header__menu-btn--active .header__menu-lines:nth-child(3) {
    transform: rotateZ(-40deg);
    width: 17px;
-
 }

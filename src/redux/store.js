@@ -6,13 +6,13 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { pagePathReducer } from "./reducers/setPagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
+// import productsReduser from "./reducers/getProducts";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
 import searchReducer from "./reducers/searchBar";
 
 const rootReducer = combineReducers({
-  // products: productsReducer,
   currentPath: pagePathReducer,
   categories,
   user: userReducer,
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts", "sortFilter"]
+  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
