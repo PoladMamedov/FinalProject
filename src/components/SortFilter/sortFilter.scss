@@ -1,11 +1,13 @@
 .filter-section-sort{
     position: absolute;
     z-index: 1;
-    top: 50px;
+    top: -5px;
+    right: 20px;
     &--position {
-        right: 20px;
-        top: -5px;
+        display: none;
     }
+
+    
 
     &-select {
     width: 113px;
