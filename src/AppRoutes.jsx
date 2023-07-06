@@ -10,6 +10,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
 import CartPage from "./pages/Cart/Cart";
+import Favorites from "./pages/Favorites/Favorites";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/wishlist" element={<Favorites />} />
           <Route path="/cart" element={<CartPage />} />
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />

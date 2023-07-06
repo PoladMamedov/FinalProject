@@ -165,9 +165,19 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
-
+            
             <div className="header__nav-btn-wrap">
-              <NavLink to={"/cart"} key={4} className="header__nav-link--cart">
+            <NavLink to={"/wishlist"} key={4} className="header__nav-link--cart">
+                <img
+                  className="header__nav-cart"
+                  src="/img/heart_icon.png"
+                  alt="favorites-logo"
+                />
+                <span className="header__nav-cart--count">1</span>
+
+                {/* В спан записать с редакса количество в корзине */}
+              </NavLink>
+              <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
                   className="header__nav-cart"
                   src="/img/cart-logo.png"
