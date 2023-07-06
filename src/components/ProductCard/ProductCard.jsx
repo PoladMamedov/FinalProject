@@ -10,6 +10,9 @@ export default function ProductCard(props) {
       <div className={props.active ? "all-card-container" : "card-container"}>
         <div className={props.active ? "all-card" : "card"} style={{backgroundImage: `url(${urlImg})`}} >
           <div className={props.active ? "all-card__btn" : "card__btn"}>
+          <div className="all-card__like">
+            <img className={props.active ? "all-card__like-btn" : "all-card__like-img"} src="/img/unlike_icon3.png" alt="unlike-icon" />
+            </div>
             <Link className={props.active ? "all-card__btn-details" : "card__btn-details"} to={`/products/${urlItemNumber}`}>DETAIL</Link>
             <button type={"button"} className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
               <img className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"} src="/img/cart-logo.png" alt="cart-logo" />

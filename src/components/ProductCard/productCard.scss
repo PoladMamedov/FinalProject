@@ -20,7 +20,7 @@
   }
 }
 
-.card{
+.card {
   position: relative;
   width: 129px;
   height: 200px;
@@ -41,13 +41,13 @@
     box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
   }
 
-  @include breakpoint-mf('xl') {
+  @include breakpoint-mf("xl") {
     width: 269px;
     height: 418px;
     border-radius: 20px;
   }
 
-  &__btn{
+  &__btn {
     position: absolute;
     width: 98px;
     height: 19px;
@@ -62,7 +62,7 @@
       margin-left: 16px;
       gap: 12px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 205px;
       height: 36px;
       margin-top: 370px;
@@ -71,7 +71,7 @@
       gap: 15px;
     }
   }
-  &__btn-details{
+  &__btn-details {
     width: 66px;
     height: 17px;
     font-size: 10px;
@@ -81,20 +81,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Josefin Sans",  sans-serif;
+    font-family: "Josefin Sans", sans-serif;
 
     @media (min-width: 630px) {
       width: 111px;
       height: 28px;
       font-size: 14px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 138px;
       height: 100%;
       border-radius: 10px;
     }
   }
-  &__btn-card-container{
+  &__btn-card-container {
     width: 25px;
     height: 18px;
     display: flex;
@@ -105,15 +105,15 @@
     cursor: pointer;
 
     @media (min-width: 630px) {
-      width:41px;
+      width: 41px;
       height: 28px;
     }
-    @include breakpoint-mf('xl') {
-      width:52px;
+    @include breakpoint-mf("xl") {
+      width: 52px;
       height: 36px;
     }
   }
-  &__btn-svg-cart{
+  &__btn-svg-cart {
     width: 10px;
     height: 12px;
     background-color: white;
@@ -122,15 +122,14 @@
       width: 18px;
       height: 20px;
     }
-    @include breakpoint-mf('xl') {
-      width:23px;
+    @include breakpoint-mf("xl") {
+      width: 23px;
       height: 26px;
     }
-
   }
 }
 
-.all-card{
+.all-card {
   position: relative;
   width: 129px;
   height: 200px;
@@ -151,24 +150,24 @@
     box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
   }
 
-  @include breakpoint-mf('xl') {
+  @include breakpoint-mf("xl") {
     width: 203px;
     height: 296px;
   }
 
-  &__product-name{
+  &__product-name {
     font-size: 10px;
     width: 125%;
-    @include breakpoint-mf('sm') {
+    @include breakpoint-mf("sm") {
       font-size: 10px;
     }
-    @include breakpoint-mf('my') {
+    @include breakpoint-mf("my") {
       font-size: 14px;
     }
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       font-size: 14px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       font-size: 16px;
     }
   }
@@ -179,42 +178,42 @@
     font-size: 10px;
     gap: 2px;
 
-    @include breakpoint-mf('xs') {
+    @include breakpoint-mf("xs") {
       width: 100%;
       font-size: 10px;
       gap: 4px;
     }
 
-    @include breakpoint-mf('my') {
+    @include breakpoint-mf("my") {
       font-size: 14px;
     }
 
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       margin-left: 8px;
       font-size: 16px;
       gap: 5px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       font-size: 18px;
       gap: 10px;
     }
   }
 
   &__price {
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       font-size: 18px;
     }
 
     &--curr {
       font-size: 10px;
       font-weight: 500;
-      @include breakpoint-mf('sm') {
+      @include breakpoint-mf("sm") {
         font-size: 10px;
       }
-      @include breakpoint-mf('my') {
+      @include breakpoint-mf("my") {
         font-size: 14px;
       }
-      @include breakpoint-mf('xl') {
+      @include breakpoint-mf("xl") {
         font-size: 16px;
       }
     }
@@ -225,7 +224,7 @@
     }
   }
 
-  &__btn{
+  &__btn {
     position: absolute;
     width: 98px;
     height: 19px;
@@ -240,7 +239,7 @@
       margin-left: 9px;
       gap: 12px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 154px;
       height: 25px;
       margin-top: 260px;
@@ -249,7 +248,7 @@
       gap: 11px;
     }
   }
-  &__btn-details{
+  &__btn-details {
     width: 66px;
     height: 17px;
     font-size: 10px;
@@ -259,20 +258,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Josefin Sans",  sans-serif;
+    font-family: "Josefin Sans", sans-serif;
 
     @media (min-width: 860px) {
       width: 111px;
       height: 28px;
       font-size: 12px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 104px;
       height: 100%;
       border-radius: 10px;
     }
   }
-  &__btn-card-container{
+  &__btn-card-container {
     width: 25px;
     height: 18px;
     display: flex;
@@ -283,15 +282,15 @@
     cursor: pointer;
 
     @media (min-width: 860px) {
-      width:41px;
+      width: 41px;
       height: 28px;
     }
-    @include breakpoint-mf('xl') {
-      width:39px;
+    @include breakpoint-mf("xl") {
+      width: 39px;
       height: 25px;
     }
   }
-  &__btn-svg-cart{
+  &__btn-svg-cart {
     width: 10px;
     height: 12px;
     background-color: white;
@@ -300,13 +299,13 @@
       width: 18px;
       height: 20px;
     }
-    @include breakpoint-mf('xl') {
-      width:17px;
+    @include breakpoint-mf("xl") {
+      width: 17px;
       height: 17px;
     }
   }
 
-  &__block{
+  &__block {
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
@@ -316,15 +315,68 @@
       width: 183px;
       height: 36px;
     }
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 100%;
       height: 36px;
     }
   }
+
+  &__like {
+    position: relative;
+    cursor: pointer;
+    @include breakpoint-bet(320px, 629px) {
+      width: 17px;
+      height: 17px;
+      top: -1px;
+      right: 0px;
+    }
+    @include breakpoint-bet(630px, 859px) {
+      width: 30px;
+      height: 30px;
+      top: 2px;
+      right: -5px;
+    }
+    @include breakpoint-bet(860px, 1199px) {
+      width: 35px;
+      height: 35px;
+      top: 0px;
+      right: -5px;
+    }
+    @include breakpoint-bet(1200px, 1940px) {
+      width: 45px;
+      height: 45px;
+      top: 0px;
+    }
+
+    &-btn {
+      position: relative;
+      @include breakpoint-bet(320px, 567px) {
+        width: 17px;
+        height: 17px;
+        top: -1px;
+        right: -5px;
+      }
+      @include breakpoint-bet(568px, 859px) {
+        width: 19px;
+        height: 19px;
+        top: -1px;
+        right: -4px;
+      }
+      @include breakpoint-bet(860px, 1199px) {
+        width: 35px;
+        height: 30px;
+        top: -3px;
+        right: -5px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 35px;
+        height: 30px;
+        top: -3px;
+      }
+    }
+  }
 }
 
-.unactive{
+.unactive {
   display: none;
 }
-
-
