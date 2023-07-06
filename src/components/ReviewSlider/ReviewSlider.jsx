@@ -1,11 +1,8 @@
 import React from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Swiper, SwiperSlide } from "swiper/react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
-  Navigation, Pagination, Scrollbar, A11y
+ Navigation, Pagination, Scrollbar, A11y
 } from "swiper";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
 
 function ReviewSlider({ slides }) {

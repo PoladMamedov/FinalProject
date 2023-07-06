@@ -1,17 +1,23 @@
 .filter-section-sort{
     position: absolute;
+    z-index: 1;
+    top: -5px;
     right: 20px;
-    top: 200px;
+    &--position {
+        display: none;
+    }
+
+    
 
     &-select {
-       width: 113px;
+    width: 113px;
     height: 24px;
     border: 1px solid $secondary;
     border-radius: 10px;
     text-align: center;
     @include fonts(400, 14px, 18px);
     font-family: "Roboto", sans-serif;
-    color: $primaryLight;  
+    color: $primaryLight;
     @include breakpoint-mf("sm"){
         width: 150px;
     }
@@ -23,8 +29,10 @@
         }
     }
     @include breakpoint-mf("sm"){
-        position: static;
+        top: 5px;
+        right: 20px;
         @include flex(row, flex-end, center);
         gap: 20px;
-    } 
+        z-index: 1;
+    }
 }
