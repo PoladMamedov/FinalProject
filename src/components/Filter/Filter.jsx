@@ -18,7 +18,7 @@ const Filter = forwardRef((props, ref) => {
   const errorText = useRef();
   const server = useServer();
   const [filters, setFilters] = useState([]);
-  
+
   const dispatch = useDispatch();
   const {categories} = useSelector(
         (state) => state.categories
@@ -88,7 +88,9 @@ async function fetchFilteredProducts(checkedCategories) {
         sortValue
       );
     }
-    dispatch(addFilteredProducts(filteredProductsResponse)); // добавляю фильтрованные продукты в редакс
+    const products = Object.values(filteredProductsResponse);
+    const firstArray = products[0];
+    dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
   } catch (err) {
     console.log(err);
   }
@@ -161,8 +163,7 @@ resetBtn.current.disabled = true;
 
     return (
       <>
-        <div className="filter-section">
-        <div className="filter-section-full" ref={ref}>
+        <div className="filter-section" ref={ref}>
         <h3 className="filter-section__title">Filter</h3>
             <svg onClick={props.toggle} className="filter-section-btn-close" width={25} height={25} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24" id="close"><path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M15.7,14.3c0.4,0.4,0.4,1,0,1.4c-0.4,0.4-1,0.4-1.4,0L12,13.4l-2.3,2.3c-0.4,0.4-1,0.4-1.4,0c-0.4-0.4-0.4-1,0-1.4l2.3-2.3L8.3,9.7c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0l2.3,2.3l2.3-2.3c0.4-0.4,1-0.4,1.4,0c0.4,0.4,0.4,1,0,1.4L13.4,12L15.7,14.3z"></path></svg>
             <div className="filter-section-container">
@@ -214,7 +215,6 @@ resetBtn.current.disabled = true;
              <button type="button" onClick={props.apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
              </div>
              </div>
-        </div>
         </div>
         </>
     );
