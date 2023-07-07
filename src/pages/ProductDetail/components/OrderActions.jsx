@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import useServer from "../../../hooks/useServer";
 
+// TODO: disabled order quantity btn
+// TODO: show message if unauthorized
+// TODO: add favorite icon
+// TODO: use library to show message
+// https://teodosii.github.io/react-notifications-component/
+
 export default function OrderActions({
   properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
 }) {
