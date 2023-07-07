@@ -1,9 +1,21 @@
 .users-cabinet {
-  padding-top: 10px;
+  padding-top: 30px;
   padding-bottom: 50px;
   .section-title {
     margin-bottom: 10px;
   }
+}
+.users-cabinet__content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  div {
+    grid-column: 2 / 4;
+  }
+}
+.users-cabinet__info {
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px 0px #00000040;
 }
 .users-cabinet__btn {
   font-family: inherit;
@@ -24,10 +36,11 @@
     width: 150px;
   }
 }
-.users-cabinet__logout-btn-wrapper {
-  @include flex(row, flex-end, center);
-}
+// .users-cabinet__logout-btn-wrapper {
+//   @include flex(row, flex-end, center);
+// }
 .logout-btn {
+  width: 100%;
   margin-top: 10px;
   background-color: red;
   @include breakpoint-mf("xs") {
