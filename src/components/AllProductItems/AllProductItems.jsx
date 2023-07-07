@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
-import fillProducts from "../../redux/actions/getProdicts";
+import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 
@@ -24,7 +24,7 @@ function AllProductItems() {
         dispatch(fillProducts(result));
         setAllProductState(result);
       });
-  }, [] );
+  }, []);
 
   useEffect(() => {
     if (allProducts.length === 0) {

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { fetchCategories } from "../../redux/actions/categories";
-import setPagePath from "../../redux/actions/setPagePath";
+import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
 
