@@ -30,7 +30,6 @@ export default function Gallery({imageUrls}) {
       ]
     },
     fullSize: {
-      dots: true,
       dotsClass: "product-detail__fs-slider-dots",
       adaptiveHeight: true,
       slidesToShow: 1,
@@ -54,8 +53,7 @@ export default function Gallery({imageUrls}) {
   }
 
   function close(event) {
-    // TODO: esc close
-    if (["product-detail__fs-slider-wrap", "product-detail__fs-slider-img-wrap", "product-detail__fs-slider-dots"].some((el) => event.target.classList.contains(el))) {
+    if (!["product-detail__fs-slider-img", "slick-arrow"].some((el) => event.target.classList.contains(el)) || event.code === "Escape") {
       setIsFullScreenImg(false);
       document.querySelector("body").style.overflow = "";
     }
@@ -69,7 +67,7 @@ export default function Gallery({imageUrls}) {
       </Slider>
   </div>
   {isFullScreenImg && <div className="product-detail__fs-slider-wrap" onClick={close} onKeyDown={close}>
-    <button type="button" className="product-detail__fs-slider-close-btn" onClick={() => setIsFullScreenImg(false)}>&#10006;</button>
+    <button type="button" className="product-detail__fs-slider-close-btn" onClick={close}>&#10006;</button>
     <Slider {...sliderSettings.fullSize} className="product-detail__fs-slider" id="product-detail__fs-slider">
       {imageUrls.map((el, index) => <div key={index} className="product-detail__fs-slider-img-wrap"><img className="product-detail__fs-slider-img" src={el} alt="img"/></div>)}
     </Slider>

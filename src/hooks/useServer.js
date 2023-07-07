@@ -155,6 +155,20 @@ export default function useServer() {
     return searchResult;
   }
 
+  async function updateCart(products, token) {
+    const updatedCart = await fetch(`${url}/cart`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(products),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updatedCart;
+  }
+
   return {
     registerUser,
     loginUser,
@@ -171,5 +185,6 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
+    updateCart,
   };
 }

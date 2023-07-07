@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import useServer from "../../../hooks/useServer";
 
 export default function OrderActions({
-  properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo
+  properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
 }) {
+  const {updateCart} = useServer();
+  const {userInfo: {token}} = useSelector((state) => state.user);
 
-  const [productAmount, setProductAmount] = useState(1);
+  const [orderQuantity, setOrderQuantity] = useState(1);
   const [productColor, setProductColor] = useState("");
-  const inputProductAmountRef = useRef(null);
+  const inputOrderQuantityRef = useRef(null);
 
   const colors = {...similarProducts, [itemNo]: color};
   const price = {currentPrice, previousPrice};
@@ -17,34 +21,34 @@ export default function OrderActions({
   }, [color]);
 
   function onIncreaseBtnClick() {
-    if (inputProductAmountRef.current.value < quantity) {
-      setProductAmount(+inputProductAmountRef.current.value + 1);
+    if (inputOrderQuantityRef.current.value < quantity) {
+      setOrderQuantity(+inputOrderQuantityRef.current.value + 1);
     }
   }
   function onDecreaseBtnClick() {
-    if (inputProductAmountRef.current.value > 1) {
-      setProductAmount(inputProductAmountRef.current.value - 1);
+    if (inputOrderQuantityRef.current.value > 1) {
+      setOrderQuantity(inputOrderQuantityRef.current.value - 1);
     }
   }
 
-  function isValidProductAmount(amount) {
+  function isValidOrderQuantity(amount) {
     return /^[0-9]*$/.test(amount) && amount > 0 && amount <= quantity;
   }
 
-  function onProductAmountChange(event) {
+  function onOrderQuantityChange(event) {
     if (event.target.value === "") {
-      setProductAmount(event.target.value);
-    } else if (isValidProductAmount(event.target.value)) {
-      setProductAmount(+event.target.value);
+      setOrderQuantity(event.target.value);
+    } else if (isValidOrderQuantity(event.target.value)) {
+      setOrderQuantity(+event.target.value);
     }
   }
-  function onProductAmountBlur(event) {
+  function onOrderQuantityBlur(event) {
     if (event.target.value === "") {
-      inputProductAmountRef.current.focus();
+      inputOrderQuantityRef.current.focus();
     }
   }
 
-  function onProductAmountKeyDown(event) {
+  function onOrderQuantityKeyDown(event) {
     if ([69, 187, 189, 190].includes(event.keyCode)) {
       event.preventDefault();
     }
@@ -58,9 +62,27 @@ export default function OrderActions({
     }
   }
 
+  async function onAddButtonClick() {
+      try {
+        const products = {
+          products: [
+            {
+              product: productID,
+              cartQuantity: orderQuantity
+            }
+          ]
+        };
+        await updateCart(products, token);
+        setOrderQuantity(1);
+        alert("Product successfully added to cart!");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
   return <div className="product-detail__order-actions">
     {currentPrice < previousPrice ? <div className="product-detail__price-wrap">{Object.entries(price).map(([key, value], index) => <p key={index} className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__price">{currentPrice}$</p>}
-    <button type="button" className="order-actions__add-btn">Add to cart</button>
+    <button type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
       <div className="product-detail__color-list">
@@ -69,7 +91,7 @@ export default function OrderActions({
     </div>
     <div className="order-actions__quantity-wrap">
       <button type="button" className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
-      <input type="text" className="order-actions__quantity-item order-actions__quantity-input" value={productAmount} onChange={onProductAmountChange} ref={inputProductAmountRef} onBlur={onProductAmountBlur} onKeyDown={onProductAmountKeyDown}/>
+      <input type="text" className="order-actions__quantity-item order-actions__quantity-input" value={orderQuantity} onChange={onOrderQuantityChange} ref={inputOrderQuantityRef} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown}/>
       <button type="button" className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick}>+</button>
     </div>
   </div>;
