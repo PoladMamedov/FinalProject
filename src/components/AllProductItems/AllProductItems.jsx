@@ -14,6 +14,8 @@ function AllProductItems() {
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
   const { getAllProducts } = useServer();
 
+  const isCardView = useSelector((state) => state.toggleCard.cardView);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,10 +68,10 @@ function AllProductItems() {
   return (
     <div className="all-product__wrapper">
       <div className="container flex_container">
-        <div className="all-product__card">
+        <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
           {paginatedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
-            <ProductCard active={currentPage} item={e} key={e._id} />
+            <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
           ))}
         </div>
         <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
