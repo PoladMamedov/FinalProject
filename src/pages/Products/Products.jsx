@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useRef, useEffect } from "react";
@@ -14,7 +13,7 @@ import AllProductItems from "../../components/AllProductItems/AllProductItems";
 const Products = () => {
   const dispatch = useDispatch();
 
- 
+
   const filterFull = React.createRef();
   const filterMini = useRef();
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
@@ -37,7 +36,7 @@ const Products = () => {
     filterMini.current.classList.toggle("visibility");
     setIsFilterCollapsed(!filterMini.current.classList.contains("visibility"));
   }
-  
+
   const { filteredProducts } =  useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
 
