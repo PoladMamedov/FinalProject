@@ -136,6 +136,7 @@
             &__img {
                 position: absolute;
                 right: 50%;
+              background: none;
             }
         }
         &-text{
@@ -180,7 +181,7 @@
   .hidden-closed {
     animation: filter-out 0.5s ease-in-out;
   }
-  
+
   @keyframes filter-out {
     from {
       transform: translateX(100%);
