@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import setPagePath from "../../redux/actions/setPagePath";
 import { useDispatch } from "react-redux";
+import setPagePath from "../../redux/actions/pagePath";
 
 const FoundProduct = ({
    name, imageUrls, currentPrice, previousPrice, itemNo, setIsSearchOpen
