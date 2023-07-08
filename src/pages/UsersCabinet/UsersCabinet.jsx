@@ -20,7 +20,7 @@ function UsersCabinet() {
       <section className="users-cabinet">
         <div className="container users-cabinet__content-wrapper">
           <aside className="users-cabinet__info">
-            <img width={200} height={200} src="./img/user-cabinet/profile.png" alt="" />
+            <img width={150} height={150} src="./img/user-cabinet/profile.png" alt="" />
             <p>{firstName}</p>
             <p>{lastName}</p>
             <p>{login}</p>
@@ -38,9 +38,9 @@ function UsersCabinet() {
             {/* </div> */}
           </aside>
           <div>
-            <h2 className="section-title">Personal data</h2>
+            {/* <h2 className="section-title">Personal data</h2> */}
             <PersonalDataEditForm />
-            <h2 className="section-title">Password</h2>
+            {/* <h2 className="section-title">Password</h2> */}
             <PasswordChangeForm />
           </div>
         </div>

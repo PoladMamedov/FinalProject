@@ -1,6 +1,6 @@
 .users-cabinet {
   padding-top: 30px;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   .section-title {
     margin-bottom: 10px;
   }
@@ -16,6 +16,9 @@
 .users-cabinet__info {
   border-radius: 10px;
   box-shadow: 0px 6px 10px 0px #00000040;
+  padding: 10px;
+  @include flex(column);
+  gap: 20px;
 }
 .users-cabinet__btn {
   font-family: inherit;
@@ -41,7 +44,7 @@
 // }
 .logout-btn {
   width: 100%;
-  margin-top: 10px;
+  margin-top: auto;
   background-color: red;
   @include breakpoint-mf("xs") {
     margin-right: 10px;
