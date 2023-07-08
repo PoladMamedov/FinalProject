@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import useServer from "../../hooks/useServer";
+import Skeleton from "./Skeleton";
 
 const TopItemsSlider = () => {
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { getSlides } = useServer();
 
   useEffect(() => {
     const fetchSlider = async () => {
+      setIsLoading(true);
       try {
         const products = await getSlides();
+        setIsLoading(false);
         setItems(products);
       } catch (err) {
       }
@@ -32,8 +36,8 @@ const TopItemsSlider = () => {
 
   return (
     <section className="top-items__slider">
-      <Slider {...settings}>
-      {items.map((item, index) => (
+      {!isLoading ? <Slider {...settings}>
+        {items.map((item, index) => (
           <div className="top-items" key={index}>
             <div className="container">
               <h1 type="button" className="top-items__title">{item.title}</h1>
@@ -46,7 +50,8 @@ const TopItemsSlider = () => {
             <img className="top-items__img" src={item.imageUrl} alt={item.text} />
           </div>
         ))}
-      </Slider>
+      </Slider> : <div className="skeleton__loader"><Skeleton /></div>}
+
     </section>
   );
 };
