@@ -26,6 +26,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSearchOpen(false);
     navigate("/products");
   };
 
