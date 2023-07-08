@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useRef, useEffect } from "react";
@@ -25,11 +24,6 @@ const Products = () => {
   const filterMini = useRef();
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
 
-  // для изменения кол-ва в скобках при свернутом фильтре
-  // function addCountFilter(e) {
-  //   return e.target.checked ? dispatch(increment()) : dispatch(decrement());
-  // }
-
   const handleAddCountFilter = (e) => {
     addCountFilter(e, dispatch, increment, decrement);
   };
@@ -37,20 +31,6 @@ const Products = () => {
   const handleToggleFilter = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
-
-  // function toggleFilter() {
-  //   const filter = filterFull.current;
-  //   const isHidden = filter.classList.contains("hidden");
-  //   if (isHidden) {
-  //     filter.classList.remove("hidden");
-  //     filter.classList.add("hidden-closed");
-  //   } else {
-  //     filter.classList.add("hidden");
-  //     filter.classList.remove("hidden-closed");
-  //   }
-  //   filterMini.current.classList.toggle("visibility");
-  //   setIsFilterCollapsed(!filterMini.current.classList.contains("visibility"));
-  // }
   
   const { filteredProducts } =  useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
@@ -59,21 +39,6 @@ const Products = () => {
     setProducts(filteredProducts);
   }, [filteredProducts]);
 
-    // return (
-    //     <>
-    //     <Breadcrumb />
-    //     <section>
-    //       <div className="container">
-    //         <div className="products-section">
-    //           <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
-    //           <Filter categories={filterCategories} toggle={toggleFilter} addCounter={addCountFilter} ref={filterFull} apply={toggleFilter}/>
-    //           <FilterMini toggle={toggleFilter} ref={filterMini} />
-    //           <AllProductItems />
-    //         </div>
-    //       </div>
-    //     </section>
-    //   </>
-    // );
     return (
       <>
       <Breadcrumb />

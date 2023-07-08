@@ -31,7 +31,7 @@ const AppRoutes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />
           </Route>
-          <Route path="/smartwatches" element={<SmartWatches />}/>
+          <Route path="/watches" element={<SmartWatches />}/>
           <Route path="/headphones" element={<Headphones />}/>
           <Route path="/keyboards" element={<Keyboards />}/>
           <Route path="/mouses" element={<Mouses />}/>
