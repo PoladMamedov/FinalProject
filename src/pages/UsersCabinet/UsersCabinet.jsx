@@ -8,7 +8,7 @@ import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 function UsersCabinet() {
   const dispatch = useDispatch();
   // eslint-disable-next-line object-curly-newline
-  const { firstName, lastName, login, email } = useSelector((state) => state.user.userInfo);
+  const { firstName, lastName, email } = useSelector((state) => state.user.userInfo);
   useEffect(() => {
     return () => {
       dispatch(clearErrorAndMessages());
@@ -18,12 +18,11 @@ function UsersCabinet() {
     <>
       <Breadcrumb />
       <section className="users-cabinet">
+        <h2 className="section-title">My account</h2>
         <div className="container users-cabinet__content-wrapper">
           <aside className="users-cabinet__info">
             <img width={150} height={150} src="./img/user-cabinet/profile.png" alt="" />
-            <p>{firstName}</p>
-            <p>{lastName}</p>
-            <p>{login}</p>
+            <p>{`${firstName} ${lastName}`}</p>
             <p>{email}</p>
             {/* <div className="users-cabinet__logout-btn-wrapper"> */}
             <button
@@ -37,10 +36,10 @@ function UsersCabinet() {
             </button>
             {/* </div> */}
           </aside>
-            {/* <h2 className="section-title">Personal data</h2> */}
-            <PersonalDataEditForm />
-            {/* <h2 className="section-title">Password</h2> */}
-            <PasswordChangeForm />
+          {/* <h2 className="section-title">Personal data</h2> */}
+          <PersonalDataEditForm />
+          {/* <h2 className="section-title">Password</h2> */}
+          <PasswordChangeForm />
         </div>
       </section>
     </>
