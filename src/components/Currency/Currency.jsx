@@ -26,7 +26,7 @@ const Currency = () => {
    return (
       <>
          <p>1$ =</p>
-         <p className="currency__price">{currencyValue}</p>
+         <p className="currency__price">{rates ? currencyValue : <div>***</div>}</p>
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
