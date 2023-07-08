@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
-import fillProducts from "../../redux/actions/getProdicts";
+import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 
@@ -10,8 +10,11 @@ function AllProductItems() {
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
+  const { searchResults } = useSelector((state) => state.search);
   const [productsPerPage, setProductsPerPage] = useState(6);
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  const totalSearchedPages = Math.ceil(searchResults.length / productsPerPage);
+
   const { getAllProducts } = useServer();
 
   const isCardView = useSelector((state) => state.toggleCard.cardView);
@@ -24,7 +27,7 @@ function AllProductItems() {
         dispatch(fillProducts(result));
         setAllProductState(result);
       });
-  }, [] );
+  }, []);
 
   useEffect(() => {
     if (allProducts.length === 0) {
@@ -69,12 +72,14 @@ function AllProductItems() {
     <div className="all-product__wrapper">
       <div className="container flex_container">
         <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
-          {paginatedProducts.map((e) => (
+          {searchResults.length >= 1 ? searchResults.map((e) => (
+            <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e.itemNo} />
+          )) : paginatedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
             <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
           ))}
         </div>
-        <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        <PaginationAllProducts currentPage={currentPage} totalPages={searchResults.length >= 1 ? totalSearchedPages : totalPages} onPageChange={handlePageChange} />
       </div>
     </div>
   );

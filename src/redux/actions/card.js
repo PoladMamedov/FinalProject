@@ -1,4 +1,4 @@
-import toggleCard from "../type/toggleCard";
+import toggleCard from "../type/card";
 
 export default function toggleCardBtn(data) {
   return {
