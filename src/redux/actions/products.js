@@ -1,4 +1,4 @@
-import productTypes from "../type/getProducts";
+import productTypes from "../type/products";
 
 
 export default function fillProducts(data) {

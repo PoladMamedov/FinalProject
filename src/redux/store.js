@@ -3,15 +3,15 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { pagePathReducer } from "./reducers/setPagePath";
+import { pagePathReducer } from "./reducers/pagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
-// import productsReduser from "./reducers/getProducts";
+// import productsReduser from "./reducers/products";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
 import searchReducer from "./reducers/searchBar";
-import toggleCardReduser from "./reducers/toggleCard";
+import toggleCardReduser from "./reducers/card";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,

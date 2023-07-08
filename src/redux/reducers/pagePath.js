@@ -1,4 +1,4 @@
-import pagePathTypes from "../type/pagePathTypes";
+import pagePathTypes from "../type/pagePath";
 
 const initialState = {
    pagePath: "home"
