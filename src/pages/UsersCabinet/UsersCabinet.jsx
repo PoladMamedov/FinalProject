@@ -36,10 +36,12 @@ function UsersCabinet() {
             </button>
             {/* </div> */}
           </aside>
-          {/* <h2 className="section-title">Personal data</h2> */}
-          <PersonalDataEditForm />
-          {/* <h2 className="section-title">Password</h2> */}
-          <PasswordChangeForm />
+          <div className="users-cabinet__edit-forms">
+            {/* <h2 className="section-title">Personal data</h2> */}
+            <PersonalDataEditForm />
+            {/* <h2 className="section-title">Password</h2> */}
+            <PasswordChangeForm />
+          </div>
         </div>
       </section>
     </>
