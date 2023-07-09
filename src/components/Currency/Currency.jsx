@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import setCurrency from "../../redux/actions/currency";
 
 const Currency = () => {
+   const dispatch = useDispatch();
    const [allCurrencies, setAllCurrencies] = useState([]);
    const [value, setValue] = useState("UAH");
    const [currencyValue, setCurrencyValue] = useState(null);
@@ -16,6 +19,7 @@ const Currency = () => {
    useEffect(() => {
       if (rates && rates[value]) {
          setCurrencyValue(rates[value].toFixed(2));
+         dispatch(setCurrency(rates[value].toFixed(2)));
       }
    }, [value, rates]);
 
@@ -26,7 +30,7 @@ const Currency = () => {
    return (
       <>
          <p>1$ =</p>
-         <p className="currency__price">{rates ? currencyValue : <div>***</div>}</p>
+         <p className="currency__price">{rates ? currencyValue : <span>***</span>}</p>
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
