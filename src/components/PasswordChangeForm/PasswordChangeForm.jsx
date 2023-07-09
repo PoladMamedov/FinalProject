@@ -43,6 +43,7 @@ function PasswordChangeForm() {
   });
   return (
     <form className="password-form" onSubmit={formik.handleSubmit}>
+      <p>Change password</p>
       <ul className="password-form__list">
         <li className="password-form__item">
           <label htmlFor="curr-password">Current password</label>

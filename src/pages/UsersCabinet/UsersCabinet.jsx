@@ -24,7 +24,6 @@ function UsersCabinet() {
             <img width={150} height={150} src="./img/user-cabinet/profile.png" alt="" />
             <p>{`${firstName} ${lastName}`}</p>
             <p>{email}</p>
-            {/* <div className="users-cabinet__logout-btn-wrapper"> */}
             <button
               className="users-cabinet__btn logout-btn"
               type="button"
@@ -34,14 +33,9 @@ function UsersCabinet() {
             >
               LOG OUT
             </button>
-            {/* </div> */}
           </aside>
-          <div className="users-cabinet__edit-forms">
-            {/* <h2 className="section-title">Personal data</h2> */}
-            <PersonalDataEditForm />
-            {/* <h2 className="section-title">Password</h2> */}
-            <PasswordChangeForm />
-          </div>
+          <PersonalDataEditForm />
+          <PasswordChangeForm />
         </div>
       </section>
     </>
