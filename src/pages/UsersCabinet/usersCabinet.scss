@@ -6,12 +6,12 @@
   }
 }
 .users-cabinet__content-wrapper {
+  display: grid;
+  row-gap: 15px;
   @include breakpoint-mf("sm") {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     column-gap: 20px;
-    row-gap: 15px;
   }
 }
 .users-cabinet__info {
@@ -20,7 +20,9 @@
   padding: 10px;
   @include flex(column, center, center);
   gap: 20px;
-  grid-row: 1 / 3;
+  @include breakpoint-mf("sm") {
+    grid-row: 1 / 3;
+  }
   img {
     margin-left: auto;
     margin-right: auto;
@@ -55,9 +57,6 @@
   width: 100%;
   margin-top: auto;
   background-color: red;
-  @include breakpoint-mf("xs") {
-    margin-right: 10px;
-  }
   &:hover {
     background-color: darken(red, $amount: 10%);
   }
