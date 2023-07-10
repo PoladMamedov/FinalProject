@@ -22,7 +22,7 @@ function AllProductItems() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllProducts()
+      getAllProducts()
       .then((result) => {
         dispatch(fillProducts(result));
         setAllProductState(result);

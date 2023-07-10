@@ -155,6 +155,27 @@ export default function useServer() {
     return searchResult;
   }
 
+  async function getFiltersPricesBySubcategory(subcategorieParent, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+
+  async function getFiltersCategoriesPricesBySubcategory(subcategorieParent, checkedSubcategorie, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+  async function getFiltersCategoriesBySubcategory(subcategorieParent, checkedSubcategorie, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+  
+
   return {
     registerUser,
     loginUser,
@@ -171,5 +192,8 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
+    getFiltersPricesBySubcategory,
+    getFiltersCategoriesPricesBySubcategory,
+    getFiltersCategoriesBySubcategory
   };
 }

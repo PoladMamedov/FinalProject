@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import setCurrency from "../../redux/actions/currency";
 
 const Currency = () => {
+   const dispatch = useDispatch();
    const [allCurrencies, setAllCurrencies] = useState([]);
-   const [value, setValue] = useState("UAH");
-   const [currencyValue, setCurrencyValue] = useState(null);
+   const [value, setValue] = useState("USD");
    const { rates } = allCurrencies;
-   const values = ["UAH", "EUR", "PLN"];
+   const values = ["USD", "UAH", "EUR", "PLN"];
 
    useEffect(() => {
       fetch("https://openexchangerates.org/api/latest.json?app_id=4474d46addfb4df889d59789952f542b")
@@ -15,7 +17,7 @@ const Currency = () => {
 
    useEffect(() => {
       if (rates && rates[value]) {
-         setCurrencyValue(rates[value].toFixed(2));
+         dispatch(setCurrency(rates[value].toFixed(2), value));
       }
    }, [value, rates]);
 
@@ -25,8 +27,7 @@ const Currency = () => {
 
    return (
       <>
-         <p>1$ =</p>
-         <p className="currency__price">{rates ? currencyValue : <div>***</div>}</p>
+         <img className="currency__icon" src="./img/currency/currency-icon.png" alt="" />
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
