@@ -113,15 +113,7 @@ export default function useServer() {
       .catch((err) => err);
     return filters;
   }
-  // Get filters categories
-  // async function getFiltersCategories(categories, sort) {
-  //   const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-  //     ","
-  //   )}&sort=${sort}currentPrice`)
-  //     .then((res) => res.json())
-  //     .catch((err) => err);
-  //   return filteredProducts;
-  // }
+  // Get filters categoriesy
 
   async function getFiltersCategories(categories, sort) {
     const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`)
@@ -131,14 +123,7 @@ export default function useServer() {
   }
 
   // Get filters categories+price
-  // async function getFiltersCategoriesPrices(categories, min, max, sort) {
-  //   const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-  //     ","
-  //   )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
-  //     .then((res) => res.json())
-  //     .catch((err) => err);
-  //   return filteredProducts;
-  // }
+
   async function getFiltersCategoriesPrices(categories, min, max, sort) {
     const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
