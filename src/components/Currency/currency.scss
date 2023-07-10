@@ -1,0 +1,35 @@
+.currency {
+   appearance: none;
+   background-color: $secondaryLight;
+   border: none;
+   font-size: 16px;
+   color: $primary;
+   cursor: pointer;
+   position: relative;
+   width: 35px;
+
+   &:focus {
+      outline: none;
+   }
+
+   &:hover {
+      background-color: $secondaryLight;
+   }
+
+   &__img {
+      width: 35px;
+      height: 35px;
+   }
+}
+
+.currency option {
+   width: 50px;
+   text-align: center;
+   background-color: $white;
+   color: $primary;
+   font-weight: 500;
+}
+
+.currency__price {
+   font-weight: 500;
+}
