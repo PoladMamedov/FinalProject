@@ -17,8 +17,8 @@
    }
 
    &__img {
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
    }
 }
 
@@ -28,8 +28,10 @@
    background-color: $white;
    color: $primary;
    font-weight: 500;
+   font-size: 17px;
 }
 
-.currency__price {
-   font-weight: 500;
+.currency__icon {
+   width: 25px;
+   height: 25px;
 }
