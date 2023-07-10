@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { Store } from "react-notifications-component";
 import useServer from "../../../hooks/useServer";
+import "react-notifications-component/dist/scss/notification.scss";
+import "animate.css/animate.min.css";
 
-// TODO: disabled order quantity btn
+
 // TODO: show message if unauthorized
 // TODO: add favorite icon
 // TODO: use library to show message
-// https://teodosii.github.io/react-notifications-component/
 
 export default function OrderActions({
   properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
@@ -80,7 +82,18 @@ export default function OrderActions({
         };
         await updateCart(products, token);
         setOrderQuantity(1);
-        alert("Product successfully added to cart!");
+
+        Store.addNotification({
+          title: "Success!",
+          message: "Product added to cart",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-left",
+          dismiss: {
+            duration: 5000,
+            showIcon: true
+          }
+        });
       } catch (error) {
         console.error(error);
       }
@@ -96,9 +109,9 @@ export default function OrderActions({
       </div>
     </div>
     <div className="order-actions__quantity-wrap">
-      <button type="button" className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
+      <button disabled={orderQuantity === 1} type="button" className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
       <input type="text" className="order-actions__quantity-item order-actions__quantity-input" value={orderQuantity} onChange={onOrderQuantityChange} ref={inputOrderQuantityRef} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown}/>
-      <button type="button" className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick}>+</button>
+      <button disabled={orderQuantity === quantity} type="button" className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick}>+</button>
     </div>
   </div>;
 }

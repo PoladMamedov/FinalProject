@@ -181,7 +181,14 @@
 .order-actions__decrease-btn,
 .order-actions__increase-btn {
   cursor: pointer;
+
   &:hover {
     background-color: darken($secondaryLight, 5%);
+  }
+
+  &:disabled {
+    background-color: darken($secondaryLight, 10%);
+    color: darken($primaryLight, 10%);
+    cursor: not-allowed;
   }
 }
