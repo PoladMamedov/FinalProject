@@ -11,3 +11,6 @@ export function decrement() {
 export function reset() {
     return { type: counterFilterTypes.RESET_COUNTER };
   }
+export function getAllSubcategoriesCounter(data) {
+    return { type: counterFilterTypes.ALL_SUBCATEGORIES_COUNTER, payload: data };
+  }
