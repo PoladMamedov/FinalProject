@@ -96,10 +96,11 @@ async function fetchFilteredProducts(checkedCategories, subcategorie) {
           );
         } else {
           filteredProductsResponse = await server.getFiltersCategoriesPrices(
+            checkedCategories,
             valuesPrice.Min,
             valuesPrice.Max,
             sortValue,
-            checkedCategories,
+            
           );
         }
       }
