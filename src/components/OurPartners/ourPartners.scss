@@ -1,5 +1,4 @@
 .our-partners {
-   display: flex;
    @include flex(column, center, center);
    width: 100%;
 
@@ -20,21 +19,36 @@
    }
 
    &__list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
       gap: 40px 67px;
+      max-width: 300px;
+      margin: 0 auto;
       margin-bottom: 25px;
 
       @include breakpoint-mf('xxs') {
          gap: 45px 75px;
+         max-width: 330px;
+
+      }
+
+      @include breakpoint-mf('xs') {
+         gap: 50px 80px;
+         max-width: 560px;
       }
 
       @include breakpoint-mf('sm') {
          gap: 50px 80px;
+         max-width: 600px;
+
       }
 
+
       @include breakpoint-mf('md') {
-         grid-template-columns: repeat(4, 1fr);
+         flex-wrap: nowrap;
+         max-width: 100%;
          gap: 65px;
          margin-bottom: 51px;
       }
