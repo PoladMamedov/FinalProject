@@ -5,14 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Skeleton from "./Skeleton";
-import { addSubCategory, resetSubCategory } from "../../redux/actions/subcategories";
+import { addSubCategory } from "../../redux/actions/subcategories";
 
 function Categories() {
   const dispatch = useDispatch();
-
-useEffect(() => {
- dispatch(resetSubCategory());
-}, []);
 
   const { categories, loading, error } = useSelector(
     (state) => state.categories

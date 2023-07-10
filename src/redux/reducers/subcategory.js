@@ -10,7 +10,7 @@ export default function subcategoryReducer(state = initialState, action) {
         case subCategoryType.ADD_SUBCATEGORY:
             return {
                 ...state,
-                subcategory: action.payload === "All" ? "classic" : action.payload
+                subcategory: action.payload,
             };
         case subCategoryType.RESET_SUBCATEGORY:
             return {

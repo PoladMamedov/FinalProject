@@ -10,31 +10,22 @@ import React, {
 } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import useServer from "../../hooks/useServer";
-import { reset } from "../../redux/actions/counterFilter";
+import { reset, getAllSubcategoriesCounter } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
 import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent
 }, ref) => {
-  const { sortValue } = useSelector((state) => state.sortFilter);
-  const errorText = useRef();
-  const server = useServer();
-  const [filters, setFilters] = useState([]);
+const { sortValue } = useSelector((state) => state.sortFilter);
+const errorText = useRef();
+const server = useServer();
+const [filters, setFilters] = useState([]);
 
-  const { subcategory } = useSelector((state) => state.subcategory);
-  
+const { subcategory } = useSelector((state) => state.subcategory);
+const allCategories = categories.map(({name}) => name.toLowerCase()).filter((item) => item !== "all");
+
 const dispatch = useDispatch();
-
-let allSubcategories = categories.map((category) => {
-  let name = category.name.toLowerCase();
-  if (name === "all") {
-    name = "classic";
-  } else {
-    name = name.replace(/ /g, "_");
-  }
-  return name;
-});
 
 useEffect(() => {
     async function fetchFilters() {
@@ -77,8 +68,8 @@ async function fetchFilteredProducts(checkedCategories, subcategorie) {
   let filteredProductsResponse;
   try {
     if (valuesPrice.Max !== "" && valuesPrice.Min !== "") {
+      // Отправка запроса на сервер для фильтрации только по цене
       if (checkedCategories.length === 0) {
-        // Отправка запроса на сервер для фильтрации только по цене
         if (subcategorie) {
           filteredProductsResponse = await server.getFiltersPricesBySubcategory(
             subcategorieParent,
@@ -157,27 +148,37 @@ async function handleCheckboxChange(e, index) {
     category = category.replace(/es$/, "");
   }
   const isChecked = e.target.checked;
-
-  // Обновление стейта checkedItems
-  setCheckedItems([
-    ...checkedItems.slice(0, index),
-    !checkedItems[index],
-    ...checkedItems.slice(index + 1),
+ 
+  setCheckedItems((prevCheckedItems) => [
+    ...prevCheckedItems.slice(0, index),
+    !prevCheckedItems[index],
+    ...prevCheckedItems.slice(index + 1),
   ]);
 
   let updatedSelectedCategories;
 
   // Обновление массива выбранных категорий
   if (category === "all") {
-    updatedSelectedCategories = allSubcategories;
+    setCheckedItems(checkedItems.map(() => true));
+    updatedSelectedCategories = allCategories;
   } else {
     if (isChecked) {
       updatedSelectedCategories = [...selectedCategories, category];
     } else {
       updatedSelectedCategories = selectedCategories.filter((c) => c !== category);
     }
+
+    // Снятие галочки с категории "All", если все выбраны и кликаем на что-то другое.
+    if (!isChecked && selectedCategories.length === allCategories.length) {
+      const allIndex = categories.findIndex((item) => item.name === "All");
+          setCheckedItems((prev) => [
+        ...prev.slice(0, allIndex),
+        false,
+        ...prev.slice(allIndex + 1),
+      ]);
+      updatedSelectedCategories = updatedSelectedCategories.filter((c) => c !== "all");
+    }
   }
-  
   setSelectedCategories(updatedSelectedCategories);
 
   // Отправка запроса на сервер для фильтрации продуктов по категориям
@@ -193,7 +194,6 @@ function resetBtnClick() {
   dispatch(removeFilteredProducts());
 }
 
-
 const resetBtn = useRef();
 
 useEffect(() => {
@@ -206,19 +206,18 @@ resetBtn.current.disabled = true;
 
 
 useEffect(() => {
-  if (subcategory === "classic") {
-    const newCheckedItems = categories.map(() => true);
-    setCheckedItems(newCheckedItems);
-    fetchFilteredProducts(allSubcategories.join(","), subcategorieParent);
+  if (subcategorieParent) {
+    let initialSelectedCategories;
+    if (subcategory === "All") {
+    setCheckedItems(checkedItems.map(() => true));
+    initialSelectedCategories = allCategories;
   } else {
-    const newCheckedItems = categories.map((category) => subcategory.includes(category.name));
-    setCheckedItems(newCheckedItems);
-    
-    // Обновление состояния selectedCategories
-    const initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
-    setSelectedCategories(initialSelectedCategories);
-    
-    fetchFilteredProducts(initialSelectedCategories.join(","), subcategorieParent);
+    setCheckedItems(categories.map((category) => subcategory.includes(category.name)));
+    initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
+  }
+  setSelectedCategories(initialSelectedCategories);
+  fetchFilteredProducts(initialSelectedCategories, subcategorieParent);
+  dispatch(getAllSubcategoriesCounter(categories.length)); // тут исправить
   }
 }, [sortValue]);
 

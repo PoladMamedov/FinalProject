@@ -20,16 +20,13 @@ function AllProductItems() {
   const isCardView = useSelector((state) => state.toggleCard.cardView);
 
   const dispatch = useDispatch();
-  const { subcategory} = useSelector((state) => state.subcategory);
 
   useEffect(() => {
-    if (!subcategory) {
       getAllProducts()
       .then((result) => {
         dispatch(fillProducts(result));
         setAllProductState(result);
       });
-    }
   }, []);
 
   useEffect(() => {

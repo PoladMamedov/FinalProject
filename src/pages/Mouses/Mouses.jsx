@@ -19,6 +19,8 @@ const [products, setProducts] = useState([]);
 const filterFull = React.createRef();
 const filterMini = useRef();
 const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
+// const { subcategorie } = useSelector((state) => state.subcategory);
+
 
 useEffect(() => {
   setProducts(filteredProducts);
