@@ -7,6 +7,7 @@ import FilterMini from "../../components/Filter/FilterMini";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
 import { increment, decrement } from "../../redux/actions/counterFilter";
+import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const SmartWatches = () => {
 const dispatch = useDispatch();
@@ -23,6 +24,10 @@ const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
 useEffect(() => {
   setProducts(filteredProducts);
 }, [filteredProducts]);
+
+useEffect(() => {
+  dispatch(sortLowToHighPrice());
+}, []);
 
 const handleAddCountFilter = (e) => {
   addCountFilter(e, dispatch, increment, decrement);

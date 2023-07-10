@@ -7,6 +7,7 @@ import FilterMini from "../../components/Filter/FilterMini";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
 import { increment, decrement } from "../../redux/actions/counterFilter";
+import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const Mouses = () => {
 const dispatch = useDispatch();
@@ -16,12 +17,16 @@ const filterCategories = categories.filter((item) => item.level === 1 && item.pa
 const { filteredProducts } =  useSelector((state) => state.filteredProducts);
 const [products, setProducts] = useState([]);
 const filterFull = React.createRef();
-  const filterMini = useRef();
-  const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
+const filterMini = useRef();
+const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
 
 useEffect(() => {
   setProducts(filteredProducts);
 }, [filteredProducts]);
+
+useEffect(() => {
+  dispatch(sortLowToHighPrice());
+}, []);
 
 const handleAddCountFilter = (e) => {
     addCountFilter(e, dispatch, increment, decrement);

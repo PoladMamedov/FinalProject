@@ -1,9 +1,19 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Skeleton from "./Skeleton";
+import { addSubCategory, resetSubCategory } from "../../redux/actions/subcategories";
 
 function Categories() {
+  const dispatch = useDispatch();
+
+useEffect(() => {
+ dispatch(resetSubCategory());
+}, []);
+
   const { categories, loading, error } = useSelector(
     (state) => state.categories
   );
@@ -14,10 +24,14 @@ function Categories() {
       (category) => category.parentId === parentId
     );
 
+    const handleCategoryClick = (name) => {
+           dispatch(addSubCategory(name));
+    };
+
     return filteredCategories.map((category) => (
       // eslint-disable-next-line no-underscore-dangle
-      <li key={category._id} className="subcategory__list-item">
-        <NavLink to={`${category.parentId}`} className="subcategory__list-link">{category.name}</NavLink>
+      <li key={category._id} className="subcategory__list-item" onClick={() => handleCategoryClick(category.name)}>
+        <NavLink to={`${category.parentId}`} className="subcategory__list-link" name={category.name}>{category.name}</NavLink>
         {groupCategories(category.id)}
       </li>
     ));

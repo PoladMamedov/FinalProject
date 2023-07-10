@@ -12,6 +12,7 @@ import { useDispatch, useSelector} from "react-redux";
 import useServer from "../../hooks/useServer";
 import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
+import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent
@@ -21,6 +22,8 @@ const Filter = forwardRef(({
   const server = useServer();
   const [filters, setFilters] = useState([]);
 
+  const { subcategory } = useSelector((state) => state.subcategory);
+  
 const dispatch = useDispatch();
 
 let allSubcategories = categories.map((category) => {
@@ -43,6 +46,10 @@ useEffect(() => {
       }
     }
     fetchFilters();
+  }, []);
+
+  useEffect(() => {
+    dispatch(sortLowToHighPrice());
   }, []);
 
   // стейт с ценой
@@ -188,6 +195,7 @@ function resetBtnClick() {
 
 
 const resetBtn = useRef();
+
 useEffect(() => {
 if (checkedItems.every((item) => item === false) && Object.values(valuesPrice).every((item) => item === "")) {
 resetBtn.current.disabled = true;
@@ -195,6 +203,25 @@ resetBtn.current.disabled = true;
   resetBtn.current.disabled = false;
 }
 }, [checkedItems, valuesPrice]);
+
+
+useEffect(() => {
+  if (subcategory === "classic") {
+    const newCheckedItems = categories.map(() => true);
+    setCheckedItems(newCheckedItems);
+    fetchFilteredProducts(allSubcategories.join(","), subcategorieParent);
+  } else {
+    const newCheckedItems = categories.map((category) => subcategory.includes(category.name));
+    setCheckedItems(newCheckedItems);
+    
+    // Обновление состояния selectedCategories
+    const initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
+    setSelectedCategories(initialSelectedCategories);
+    
+    fetchFilteredProducts(initialSelectedCategories.join(","), subcategorieParent);
+  }
+}, [sortValue]);
+
 
     return (
       <>
