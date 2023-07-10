@@ -1,4 +1,4 @@
-import pagePathTypes from "../type/pagePathTypes";
+import pagePathTypes from "../type/pagePath";
 
 function setPagePath(path) {
    return {

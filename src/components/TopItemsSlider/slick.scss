@@ -9,26 +9,30 @@
   margin: 0 auto;
   padding-right: 10px;
   padding-left: 10px;
+
   @include breakpoint-mf("xxs") {
     padding-right: 10px;
     padding-left: 10px;
   }
+
   @include breakpoint-mf("sm") {
     padding-right: 10px;
     padding-left: 10px;
   }
+
   @include breakpoint-mf("md") {
     padding-right: 10px;
     padding-left: 10px;
   }
+
   @include breakpoint-bet(769px, 1920px) {
     padding-right: 15px;
     padding-left: 15px;
   }
- 
+
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none; 
+  -ms-user-select: none;
   user-select: none;
 
   -webkit-touch-callout: none;
@@ -56,9 +60,11 @@
   border-radius: 5px;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
 }
+
 .slick-list:focus {
   outline: none;
 }
+
 .slick-list.dragging {
   cursor: pointer;
   cursor: hand;
@@ -82,15 +88,18 @@
   margin-left: auto;
   margin-right: auto;
 }
+
 .slick-track:before,
 .slick-track:after {
   display: table;
 
   content: "";
 }
+
 .slick-track:after {
   clear: both;
 }
+
 .slick-loading .slick-track {
   visibility: hidden;
 }
@@ -102,21 +111,27 @@
   height: 100%;
   min-height: 1px;
 }
+
 [dir="rtl"] .slick-slide {
   float: right;
 }
+
 .slick-slide.slick-loading img {
   display: none;
 }
+
 .slick-slide.dragging img {
   pointer-events: none;
 }
+
 .slick-initialized .slick-slide {
   display: block;
 }
+
 .slick-loading .slick-slide {
   visibility: hidden;
 }
+
 .slick-vertical .slick-slide {
   display: block;
 
@@ -124,6 +139,41 @@
 
   border: 1px solid transparent;
 }
+
 .slick-arrow.slick-hidden {
   display: none;
+}
+
+.skeleton__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-height: 430px;
+  margin-top: 5px;
+  padding: 0;
+
+  @media (max-width: 1000px) {
+    max-height: 370px;
+  }
+
+  @media (max-width: 820px) {
+    max-height: 320px;
+  }
+
+  @media (max-width: 680px) {
+    max-height: 280px;
+  }
+
+  @media (max-width: 580px) {
+    max-height: 250px;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 230px;
+  }
+
+  @media (max-width: 380px) {
+    max-height: 215px;
+  }
 }

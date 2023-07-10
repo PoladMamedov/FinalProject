@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Skeleton from "./Skeleton";
 
 function Categories() {
   const { categories, loading, error } = useSelector(
@@ -21,16 +22,14 @@ function Categories() {
       </li>
     ));
   };
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   if (error) {
     console.log(`Error:${error}`);
   }
   return (
     <div className="category">
       <div className="container">
-        <ul className="category__list">
+        {loading ? <div className="skeleton__loader"><Skeleton /></div> : <ul className="category__list">
           {categories
             .filter((category) => category.parentId === "null")
             .map((category) => (
@@ -48,7 +47,7 @@ function Categories() {
                 )}
               </li>
             ))}
-        </ul>
+        </ul>}
       </div>
     </div >
   );

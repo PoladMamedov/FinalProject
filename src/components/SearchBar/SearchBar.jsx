@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
-import setSearchProducts from "../../redux/actions/searchBar";
+// import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
+import fillProducts from "../../redux/actions/products";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSearchOpen(false);
     navigate("/products");
   };
 
@@ -34,7 +36,7 @@ const SearchBar = () => {
       try {
         const products = await getSearchedProducts(searchPhrases);
         if (searchTerm !== "") {
-          dispatch(setSearchProducts(products));
+          dispatch(fillProducts(products));
         }
       } catch (error) {
         console.error(error);
@@ -44,7 +46,7 @@ const SearchBar = () => {
       searchProducts();
     }
     if (searchTerm === "") {
-      dispatch(setSearchProducts([]));
+      dispatch(fillProducts([]));
     }
   }, [debouncedSearchTerm]);
 
@@ -55,7 +57,7 @@ const SearchBar = () => {
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
-    dispatch(setSearchProducts([]));
+    dispatch(fillProducts([]));
 
   };
 

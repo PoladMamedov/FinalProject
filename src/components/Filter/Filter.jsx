@@ -24,6 +24,15 @@ const Filter = forwardRef((props, ref) => {
         (state) => state.categories
         );
 
+  // const price = useSelector((state) => state.filteredProducts.filteredProducts);
+  // const new_array = price.map((e) => {
+  //   return e.currentPrice;
+  // });
+  //
+  // let minArr = Math.ceil(Math.min(...new_array));
+  // let maxArr = Math.ceil(Math.max(...new_array));
+
+
 useEffect(() => {
     async function fetchFilters() {
       try {
@@ -193,6 +202,7 @@ resetBtn.current.disabled = true;
                       <input
                       key={idx}
                       className={"filter-section-inputs__item"}
+                      // placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
                       placeholder={name}
                       name={name}
                       type="number"
