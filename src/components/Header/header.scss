@@ -40,9 +40,16 @@
 
       @include breakpoint-mf('md') {
          justify-self: right;
-         @include flex(row, center, center);
-         gap: 15px;
+         @include flex(row, flex-start, center);
+         gap: 8px;
       }
+   }
+
+   &__mobile-currency {
+      @include flex(row, center, center);
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 20px;
    }
 
    &__container-bottom {
@@ -386,11 +393,9 @@
    &__nav-list {
       @include flex(column, center, flex-start);
       gap: 30px;
-      padding: 16px 0;
       margin-left: 9px;
       position: relative;
       overflow: hidden;
-      padding-bottom: 55px;
       padding-top: 30px;
 
 

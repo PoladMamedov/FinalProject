@@ -3,15 +3,17 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { pagePathReducer } from "./reducers/setPagePath";
+import { pagePathReducer } from "./reducers/pagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
-// import productsReduser from "./reducers/getProducts";
+// import productsReduser from "./reducers/products";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
 import searchReducer from "./reducers/searchBar";
-import toggleCardReduser from "./reducers/toggleCard";
+import toggleCardReduser from "./reducers/card";
+import subcategoryReducer from "./reducers/subcategory";
+import currencyReducer from "./reducers/currency";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -21,13 +23,15 @@ const rootReducer = combineReducers({
   filteredProducts: filteredProductsReducer,
   sortFilter: sortFilterReducer,
   search: searchReducer,
-  toggleCard: toggleCardReduser
+  toggleCard: toggleCardReduser,
+  subcategory: subcategoryReducer,
+  currentCurrency: currencyReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard"]
+  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

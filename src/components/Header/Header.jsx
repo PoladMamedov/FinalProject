@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { fetchCategories } from "../../redux/actions/categories";
-import setPagePath from "../../redux/actions/setPagePath";
+import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
+import Currency from "../Currency/Currency";
 
 const Header = () => {
 
@@ -85,13 +86,7 @@ const Header = () => {
               </ul>
             </nav>
             <div className="header__container-top-wrap">
-              <p
-                style={{ fontWeight: 700 }}
-                className="header__container-top-lang"
-              >
-                ENG
-              </p>
-              <p className="header__container-top-lang">UKR</p>
+              <Currency />
             </div>
           </div>
           <div className="header__container-bottom">
@@ -164,6 +159,9 @@ const Header = () => {
                   </NavLink>
                 </li>
               </ul>
+              <div className="header__mobile-currency">
+                <Currency />
+              </div>
             </nav>
             
             <div className="header__nav-btn-wrap">

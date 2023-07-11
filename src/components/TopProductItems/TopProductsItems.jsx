@@ -25,7 +25,7 @@ function TopProductItem() {
     }, [] );
 
   return (
-    <div className={"top-product__wrapper"}>
+    <section className={"top-product__wrapper"}>
       <div className="container flex_container">
         <h2 className={"top-product"}>Top Products</h2>
         <div className="top-product__card">
@@ -42,7 +42,7 @@ function TopProductItem() {
           </svg>
         </Link>
       </div>
-    </div>
+    </section>
   );
 }
 

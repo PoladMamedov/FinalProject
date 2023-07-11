@@ -113,21 +113,19 @@ export default function useServer() {
       .catch((err) => err);
     return filters;
   }
-  // Get filters categories
+  // Get filters categoriesy
+
   async function getFiltersCategories(categories, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-      ","
-    )}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
   }
 
   // Get filters categories+price
+
   async function getFiltersCategoriesPrices(categories, min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-      ","
-    )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -155,26 +153,26 @@ export default function useServer() {
     return searchResult;
   }
 
-  // Get products and added into favorites
-  async function addToFavorites({ itemNo, token}) {
-    const user = await getUser(token);
-    const {customerId} = user;
-    const response = await fetch(`${url}/wishlist`, {
-      method: "POST",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customerId,
-        products: [itemNo],
-      }),
-    });
-    if (!response.ok) {
-      throw new Error("Failed to add product to favorites");
-    }
-    console.log(`Added ${itemNo} to favorite`);
+  async function getFiltersPricesBySubcategory(subcategorieParent, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
   }
+
+  async function getFiltersCategoriesPricesBySubcategory(subcategorieParent, checkedSubcategorie, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+  async function getFiltersCategoriesBySubcategory(subcategorieParent, checkedSubcategorie, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+  
 
   return {
     registerUser,
@@ -192,6 +190,8 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
-    addToFavorites,
+    getFiltersPricesBySubcategory,
+    getFiltersCategoriesPricesBySubcategory,
+    getFiltersCategoriesBySubcategory
   };
 }
