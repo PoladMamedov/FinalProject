@@ -383,6 +383,62 @@
       height: 36px;
     }
   }
+  // favorites section button
+  &__like {
+    position: relative;
+    cursor: pointer;
+    @include breakpoint-bet(320px, 629px) {
+      width: 17px;
+      height: 17px;
+      top: -1px;
+      right: 0px;
+    }
+    @include breakpoint-bet(630px, 859px) {
+      width: 30px;
+      height: 30px;
+      top: 2px;
+      right: -5px;
+    }
+    @include breakpoint-bet(860px, 1199px) {
+      width: 35px;
+      height: 35px;
+      top: 0px;
+      right: -5px;
+    }
+    @include breakpoint-bet(1200px, 1940px) {
+      width: 45px;
+      height: 45px;
+      top: 0px;
+    }
+
+    &-btn {
+      position: relative;
+      @include breakpoint-bet(320px, 567px) {
+        width: 17px;
+        height: 17px;
+        top: -1px;
+        right: -5px;
+      }
+      @include breakpoint-bet(568px, 859px) {
+        width: 19px;
+        height: 19px;
+        top: -1px;
+        right: -4px;
+      }
+      @include breakpoint-bet(860px, 1199px) {
+        width: 35px;
+        height: 30px;
+        top: -3px;
+        right: -5px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 35px;
+        height: 30px;
+        top: -3px;
+      }
+    }
+  }
+
 
   &__block--rows{
     display: flex;

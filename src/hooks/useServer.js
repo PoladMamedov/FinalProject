@@ -155,6 +155,27 @@ export default function useServer() {
     return searchResult;
   }
 
+  // Get products and added into favorites
+  async function addToFavorites({ itemNo, token}) {
+    const user = await getUser(token);
+    const {customerId} = user;
+    const response = await fetch(`${url}/wishlist`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customerId,
+        products: [itemNo],
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to add product to favorites");
+    }
+    console.log(`Added ${itemNo} to favorite`);
+  }
+
   return {
     registerUser,
     loginUser,
@@ -171,5 +192,6 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
+    addToFavorites,
   };
 }
