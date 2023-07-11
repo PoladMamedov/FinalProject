@@ -5,7 +5,7 @@ import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 
-function AllProductItems() {
+function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
@@ -22,14 +22,13 @@ function AllProductItems() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    getAllProducts()
+      getAllProducts()
       .then((result) => {
-          setAllProductState(result);
-          if (allProducts.length === 0) {
-            dispatch(fillProducts(result));
-          }
-        });
+        setAllProductState(result);
+        if (props.products) {
+          dispatch(fillProducts(result));
+        }
+      });
   }, []);
 
   useEffect(() => {

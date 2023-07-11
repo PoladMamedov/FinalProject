@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { sortLowToHighPrice, sortHighToLowPrice } from "../../redux/actions/sortFilter";
 import { sortProducts } from "../../redux/actions/products";
 
 const SortFilter = (props) => {
 
-    const dispatch = useDispatch();
+const dispatch = useDispatch();
+    
+useEffect(() => {
+        dispatch(sortLowToHighPrice());
+    }, []);
 
     function handleSelectChange(e) {
         if (props.products.length !== 0) {
