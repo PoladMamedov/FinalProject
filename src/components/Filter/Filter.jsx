@@ -27,13 +27,13 @@ const allCategories = categories.map(({name}) => name.toLowerCase()).filter((ite
 
 const dispatch = useDispatch();
 
-  // const price = useSelector((state) => state.filteredProducts.filteredProducts);
-  // const new_array = price.map((e) => {
-  //   return e.currentPrice;
-  // });
-  //
-  // let minArr = Math.ceil(Math.min(...new_array));
-  // let maxArr = Math.ceil(Math.max(...new_array));
+  const price = useSelector((state) => state.filteredProducts.filteredProducts);
+  const new_array = price.map((e) => {
+    return e.currentPrice;
+  });
+
+  let minArr = Math.ceil(Math.min(...new_array));
+  let maxArr = Math.ceil(Math.max(...new_array));
 
 
 useEffect(() => {
@@ -137,7 +137,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie) {
 
 const min = parseInt(valuesPrice.Min, 10);
 const max = parseInt(valuesPrice.Max, 10);
-const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= 0 || max <= 0 || min > max;
+const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr || max <= maxArr || min > max;
 
 function handleSetPrice() {
     fetchFilteredProducts(selectedCategories, subcategorieParent);
@@ -157,7 +157,7 @@ async function handleCheckboxChange(e, index) {
     category = category.replace(/es$/, "");
   }
   const isChecked = e.target.checked;
- 
+
   setCheckedItems((prevCheckedItems) => [
     ...prevCheckedItems.slice(0, index),
     !prevCheckedItems[index],
@@ -262,8 +262,7 @@ useEffect(() => {
                       <input
                       key={idx}
                       className={"filter-section-inputs__item"}
-                      // placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
-                      placeholder={name}
+                      placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
                       name={name}
                       type="number"
                       step="1"
