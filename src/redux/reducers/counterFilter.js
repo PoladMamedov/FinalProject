@@ -22,6 +22,11 @@ export default function counterFilterReducer(state = initialState, action) {
                 ...state,
                 count: 0
             };
+        case counterFilterTypes.ALL_SUBCATEGORIES_COUNTER:
+            return {
+                ...state,
+                count: action.payload,
+            };
         default: return state;
     }
 }
