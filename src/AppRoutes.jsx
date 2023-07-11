@@ -14,6 +14,7 @@ import SmartWatches from "./pages/SmartWathes/SmartWatches";
 import Headphones from "./pages/Headphones/Headphones";
 import Keyboards from "./pages/Keyboards/Keyboards";
 import Mouses from "./pages/Mouses/Mouses";
+import Favorites from "./pages/Favorites/Favorites";
 
 const AppRoutes = () => {
   return (

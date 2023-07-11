@@ -84,16 +84,16 @@ export default function ProductCard(props) {
   const { currency, currencyName } = useSelector((state) => state.currentCurrency);
   const currencyValue = parseFloat(currency);
 
-  const handleAddToFavorites = async () => {
-    try {
-      await addToFavorites({ itemNo: props.item.itemNo, token: props.item.customerId });
-      console.log("Product added to favorites");
-      setIsFavorited(true); // Обновляем значение isFavorited после успешного добавления в избранное
-      // Выполните дополнительные действия после добавления в избранное
-    } catch (error) {
-      console.error("Error adding product to favorites:", error);
-    }
-  };
+  // const handleAddToFavorites = async () => {
+  //   try {
+  //     await addToFavorites({ itemNo: props.item.itemNo, token: props.item.customerId });
+  //     console.log("Product added to favorites");
+  //     setIsFavorited(true); // Обновляем значение isFavorited после успешного добавления в избранное
+  //     // Выполните дополнительные действия после добавления в избранное
+  //   } catch (error) {
+  //     console.error("Error adding product to favorites:", error);
+  //   }
+  // };
   
   return (
     <>
@@ -105,12 +105,12 @@ export default function ProductCard(props) {
           >
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <div className="all-card__like">
-                <img
+                {/* <img
                   className={props.active ? "all-card__like-btn" : "all-card__like-img"}
                   src={isFavorited ? likeIcon : unlikeIcon}
                   alt="like-icon"
                   onClick={handleAddToFavorites}
-                />
+                /> */}
               </div>
               <Link
                 className={props.active ? "all-card__btn-details" : "card__btn-details"}
@@ -151,12 +151,12 @@ export default function ProductCard(props) {
           >
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <div className="all-card__like">
-                <img
+                {/* <img
                   className={props.active ? "all-card__like-btn" : "all-card__like-img"}
                   src={isFavorited ? likeIcon : unlikeIcon}
                   alt="like-icon"
                   onClick={handleAddToFavorites}
-                />
+                /> */}
               </div>
               <Link
                 className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
