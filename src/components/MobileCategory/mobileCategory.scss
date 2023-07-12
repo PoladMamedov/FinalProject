@@ -6,6 +6,7 @@
       align-items: center;
       color: $primary;
       justify-content: space-between;
+
    }
 
    &__mobile-subcategory-list {
@@ -17,6 +18,8 @@
       margin-top: 10px;
       margin-left: 150px;
       font-size: 13px;
+
+
 
       @include breakpoint-mf('xs') {
          font-size: 15px;
@@ -40,6 +43,7 @@
    }
 
    &__mobile-subcategory-list {
+      position: relative;
       display: flex;
       align-items: flex-start;
       justify-content: center;

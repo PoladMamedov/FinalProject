@@ -5,7 +5,7 @@ import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 
-function AllProductItems() {
+function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
@@ -24,8 +24,10 @@ function AllProductItems() {
   useEffect(() => {
       getAllProducts()
       .then((result) => {
-        dispatch(fillProducts(result));
         setAllProductState(result);
+        if (props.products) {
+          dispatch(fillProducts(result));
+        }
       });
   }, []);
 
@@ -72,9 +74,7 @@ function AllProductItems() {
     <div className="all-product__wrapper">
       <div className="container flex_container">
         <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
-          {searchResults.length >= 1 ? searchResults.map((e) => (
-            <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e.itemNo} />
-          )) : paginatedProducts.map((e) => (
+          {paginatedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
             <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
           ))}
