@@ -5,14 +5,16 @@
 @import "./global";
 
 //! Pages
-@import "../pages/LoginPage/loginPage";
-@import "../pages/RegistrationPage/registrationPage";
+@import "../pages/Login/login";
+@import "../pages/Registration/registration";
 @import "../pages/UsersCabinet/usersCabinet";
-@import "../pages/NotFoundPage/notFound";
-@import "../pages/About/About";
+@import "../pages/NotFound/notFound";
+@import "../pages/About/about";
+@import "../pages/Cart/cart";
+@import "../pages/Products/products";
+
 
 //!Components
-@import "../components/ProductsSection/productsSection";
 @import "../components/ProductCard/productCard";
 @import "../components/OurBenefitsList/ourBenefits";
 @import "../components/OurPartners/ourPartners";
@@ -20,7 +22,7 @@
 @import "../components/TopItemsSlider/slick";
 @import "../components/TopItemsSlider/slick-theme";
 @import "../components/BreadCrumb/breadCrumb";
-@import "../components/BreadcrumbItem/breadCrumbItem";
+@import "../components/BreadCrumbItem/breadCrumbItem";
 @import "../components/Categories/categories";
 @import "../components/Filter/filter";
 @import "../components/Footer/footer";
@@ -32,3 +34,12 @@
 @import "../components/ReviewSlider/reviewSlider";
 @import "../components/SortFilter/sortFilter";
 @import "../components/HeaderSearch/headerSearch";
+@import "../components/PersonalDataEditForm/pesonalDataEditForm";
+@import "../components/PasswordChangeForm/passwordChangeForm";
+@import "../components/SearchBar/searchBar";
+@import "../components/FoundProduct/foundProduct";
+@import "../components/CartList/cartList";
+@import "../components/CartItems/cartItems";
+@import "../components/AllProductItems/allProductItems";
+@import "../components/PaginationAllProducts/paginationAllProducts";
+@import "../components/Currency/currency";
