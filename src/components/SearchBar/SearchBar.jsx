@@ -59,9 +59,9 @@ const SearchBar = () => {
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
-    dispatch(addFilteredProducts([]));
-    dispatch(setSearchProducts([]));
     navigate("/");
+    dispatch(setSearchProducts([]));
+    dispatch(addFilteredProducts([]));
   };
 
   return (
