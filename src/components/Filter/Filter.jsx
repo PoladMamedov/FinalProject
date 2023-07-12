@@ -152,15 +152,6 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
     }
   }
 
-  const isChecked = e.target.checked;
-
-  setCheckedItems((prevCheckedItems) => [
-    ...prevCheckedItems.slice(0, index),
-    !prevCheckedItems[index],
-    ...prevCheckedItems.slice(index + 1),
-  ]);
-
-
   async function handleCheckboxChange(e, index) {
     let category = e.target.name.toLowerCase().replace(/ /g, "_");
     if (category === "smart_watches") {
@@ -293,9 +284,8 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
              <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" onClick={apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
              </div>
-             </div>                     
+             </div>
         </div>
-      </div>
     </>
   );
 });
