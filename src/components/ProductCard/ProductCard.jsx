@@ -61,14 +61,14 @@ export default function ProductCard(props) {
             <div className={"all-card__product-name--rows"}>{props.item.name}</div>
             {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
               <p className="all-card__price--prev">
-                <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
                 {Math.floor(props.item.previousPrice * currencyValue)}</p>
               <p className="all-card__price--curr-rows">
-                <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
                 {Math.floor(props.item.currentPrice * currencyValue)}</p>
 
             </div> : <div className={"all-card__price--curr-rows"}>
-              <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+              <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>}
