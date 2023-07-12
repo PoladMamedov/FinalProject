@@ -1,37 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
- Navigation, Pagination, Scrollbar, A11y
+  Navigation, Pagination, Scrollbar, A11y
 } from "swiper";
 import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
-<<<<<<< HEAD
-import data from "./data";
-
-const ReviewSlider = () => {
-  const [people] = useState(data);
-  // console.log(data);
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const lastIndex = people.length - 1;
-    if (index < 0) {
-      setIndex(lastIndex);
-    }
-    if (index > lastIndex) {
-      setIndex(0);
-    }
-  }, [index, people]);
-
-  useEffect(() => {
-    let slider = setInterval(() => {
-      setIndex(index + 1);
-    }, 5000);
-    return () => {
-      clearInterval(slider);
-    };
-  }, [index]);
-=======
->>>>>>> main
 
 function ReviewSlider({ slides }) {
   return (
@@ -51,7 +23,7 @@ function ReviewSlider({ slides }) {
           }}
           // eslint-disable-next-line react/jsx-props-no-multi-spaces, react/jsx-boolean-value
           loop={true}
-          
+
         >
           {slides.map((slide) => (
             <SwiperSlide className="article" key={slide.image}>

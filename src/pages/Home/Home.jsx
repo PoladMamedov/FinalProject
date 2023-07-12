@@ -17,7 +17,7 @@ const Home = () => {
       <OurPartners />
       <TopProductItem />
       <Benefits content={content} />
-      <ReviewSlider slides={slides}/>
+      <ReviewSlider slides={slides} />
     </>
   );
 };

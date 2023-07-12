@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
-// import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
 import fillProducts from "../../redux/actions/products";
 
