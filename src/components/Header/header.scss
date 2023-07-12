@@ -41,13 +41,13 @@
       @include breakpoint-mf('md') {
          justify-self: right;
          @include flex(row, flex-start, center);
-         gap: 8px;
+         gap: 14px;
       }
    }
 
    &__mobile-currency {
       @include flex(row, center, center);
-      gap: 8px;
+      gap: 14px;
       margin-top: 10px;
       margin-bottom: 20px;
    }
@@ -72,7 +72,7 @@
       line-height: 30px;
       color: $primaryLight;
       margin-top: 8px;
-      margin-left: 5px;
+      margin-left: 10px;
 
       @media (min-width: 370px) {
          justify-self: center;
