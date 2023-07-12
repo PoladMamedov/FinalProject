@@ -32,7 +32,6 @@
     @media (min-width: 890px) {
       margin-top: 25px;
       grid-column-gap: 10px;
-      grid-row-gap: 35px;
     }
     @include breakpoint-mf('xl') {
       grid-column-gap: 30px;

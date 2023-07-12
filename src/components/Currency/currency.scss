@@ -8,12 +8,17 @@
    position: relative;
    width: 35px;
 
+   @media(max-width: 768px) {
+      background-color: $white;
+   }
+
    &:focus {
       outline: none;
    }
 
    &:hover {
       background-color: $secondaryLight;
+
    }
 
    &__img {

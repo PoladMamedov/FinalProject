@@ -20,7 +20,6 @@ const Header = () => {
   const allCategories = categories.filter((item) => item.parentId === "null");
 
   const handleClickOutside = (e) => {
-    // Проверяем, был ли клик вне меню
     if (
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {

@@ -10,6 +10,10 @@ import { addSubCategory } from "../../redux/actions/subcategories";
 function Categories() {
   const dispatch = useDispatch();
 
+  const allProduct = useSelector(
+    (state) => state.filteredProducts.filteredProducts
+  );
+
   const { categories, loading, error } = useSelector(
     (state) => state.categories
   );
