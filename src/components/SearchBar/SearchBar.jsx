@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
-// import setSearchProducts from "../../redux/actions/searchBar";
+import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
-import fillProducts from "../../redux/actions/products";
+import { addFilteredProducts } from "../../redux/actions/filteredProducts";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults } = useSelector((state) => state.search);
+  // const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -27,8 +28,11 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSearchOpen(false);
-    navigate("/products");
+    if (searchResults) {
+      setIsSearchOpen(false);
+      navigate("/search");
+      setSearchTerm("");
+    }
   };
 
   useEffect(() => {
@@ -36,7 +40,8 @@ const SearchBar = () => {
       try {
         const products = await getSearchedProducts(searchPhrases);
         if (searchTerm !== "") {
-          dispatch(fillProducts(products));
+          dispatch(addFilteredProducts(products));
+          dispatch(setSearchProducts(products));
         }
       } catch (error) {
         console.error(error);
@@ -44,9 +49,6 @@ const SearchBar = () => {
     }
     if (searchTerm !== "") {
       searchProducts();
-    }
-    if (searchTerm === "") {
-      dispatch(fillProducts([]));
     }
   }, [debouncedSearchTerm]);
 
@@ -57,8 +59,9 @@ const SearchBar = () => {
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
-    dispatch(fillProducts([]));
-
+    dispatch(addFilteredProducts([]));
+    dispatch(setSearchProducts([]));
+    navigate("/");
   };
 
   return (
