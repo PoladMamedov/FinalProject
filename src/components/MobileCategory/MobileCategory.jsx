@@ -26,8 +26,8 @@ const MobileCategory = ({ category }) => {
             </svg>
          </li>
          {isCategoryOpen && <ul className="header__mobile-subcategory-list">
-            {subCategories.map((item) => (
-               <NavLink to={`${item.parentId}`}><li className="header__mobile-subcategory-item" onClick={() => handleCategoryClick(item.name)}>{item.name}</li></NavLink>
+            {subCategories.map((item, id) => (
+               <NavLink key={id} to={`${item.parentId}`}><li className="header__mobile-subcategory-item" onClick={() => handleCategoryClick(item.name)}>{item.name}</li></NavLink>
             ))}
          </ul>}
       </>
