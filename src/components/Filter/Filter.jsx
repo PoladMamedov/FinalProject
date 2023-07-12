@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prefer-destructuring */
@@ -230,6 +231,17 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
       dispatch(getAllSubcategoriesCounter(categories.length)); // тут исправить
     }
   }, [sortValue]);
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    let checkedCount = 0;
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            checkedCount++;
+        }
+    });
+    dispatch(getAllSubcategoriesCounter(checkedCount));
+  });
 
 
   return (
