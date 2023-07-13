@@ -5,12 +5,18 @@ import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
+import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filteredHeadphones, setFilteredHeadphones] = useState([]);
+  const [filteredKeyboards, setFilteredKeyboards] = useState([]);
+  const [filteredSmartWatch, setFilteredSmartWatch] = useState([]);
+  const [filteredMouses, setFilteredMouses] = useState([]);
+
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
@@ -28,16 +34,33 @@ function AllProductItems(props) {
         setAllProductState(result);
         setIsLoading(false);
         if (props.products) {
+          setAllProductState(result);
           dispatch(fillProducts(result));
+        } else if (props.prodmouse) {
+          setFilteredMouses(result.filter((obj) => obj.categories === "mouses"));
+        } else if (props.prodhead) {
+          setFilteredHeadphones(result.filter((obj) => obj.categories === "headphones"));
+        } else if (props.prodkeyb) {
+          setFilteredKeyboards(result.filter((obj) => obj.categories === "keyboards"));
+        } else if (props.prodsmartwatch) {
+          setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
         }
       });
   }, []);
 
   useEffect(() => {
-    if (allProducts.length === 0) {
+    if (allProducts.length === 0 && props.products) {
       dispatch(fillProducts(allProductState));
+    } else if (allProducts.length === 0 && props.prodmouse) {
+      dispatch(fillProducts(filteredMouses));
+    } else if (allProducts.length === 0 && props.prodkeyb) {
+      dispatch(fillProducts(filteredKeyboards));
+    } else if ((allProducts.length === 0) && props.prodhead) {
+      dispatch(fillProducts(filteredHeadphones));
+    } else if (allProducts.length === 0 && props.prodsmartwatch) {
+      dispatch(fillProducts(filteredSmartWatch));
     }
-  }, [allProducts, allProductState]);
+  }, [allProducts]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -93,6 +116,7 @@ function AllProductItems(props) {
           </>
         )}
       </div>
+      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }

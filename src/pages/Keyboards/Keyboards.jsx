@@ -26,7 +26,7 @@ useEffect(() => {
 const handleAddCountFilter = (e) => {
     addCountFilter(e, dispatch, increment, decrement);
   };
-  
+
 const handleToggleFilter = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
@@ -40,7 +40,7 @@ const handleToggleFilter = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter categories={filterCategories} subcategorieParent={"keyboards"} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter} />
               <FilterMini toggle={handleToggleFilter} ref={filterMini} />
-              <AllProductItems />
+              <AllProductItems prodkeyb={"keyboards"} />
             </div>
           </div>
         </section>
