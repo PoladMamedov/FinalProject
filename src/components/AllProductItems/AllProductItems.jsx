@@ -57,7 +57,7 @@ function AllProductItems(props) {
     } else if (allProducts.length === 0 && props.prodsmartwatch) {
       dispatch(fillProducts(filteredSmartWatch));
     }
-  }, [allProducts]);
+  }, [allProducts, filteredMouses, filteredHeadphones, filteredSmartWatch, filteredKeyboards]);
 
   useEffect(() => {
     setCurrentPage(1);
