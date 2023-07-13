@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prefer-destructuring */
@@ -48,8 +49,10 @@ useEffect(() => {
     fetchFilters();
   }, []);
 
+  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
   useEffect(() => {
     dispatch(sortLowToHighPrice());
+    setIsWaitSortFilter(true);
   }, []);
 
   // стейт с ценой
@@ -216,6 +219,9 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
 
 
   useEffect(() => {
+    if (!isWaitSortFilter) {
+      return;
+    }
     if (subcategorieParent) {
       let initialSelectedCategories;
       if (subcategory === "All") {
@@ -227,9 +233,19 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
       }
       setSelectedCategories(initialSelectedCategories);
       fetchFilteredProducts(initialSelectedCategories, subcategorieParent);
-      dispatch(getAllSubcategoriesCounter(categories.length)); // тут исправить
     }
-  }, [sortValue]);
+  }, [isWaitSortFilter, sortValue]);
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    let checkedCount = 0;
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            checkedCount++;
+        }
+    });
+    dispatch(getAllSubcategoriesCounter(checkedCount));
+  });
 
 
   return (

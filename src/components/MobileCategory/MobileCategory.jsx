@@ -1,10 +1,21 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { addSubCategory } from "../../redux/actions/subcategories";
 
 const MobileCategory = ({ category }) => {
    const { categories } = useSelector((state) => state.categories);
    const [isCategoryOpen, setCategoryOpen] = useState(false);
    const subCategories = categories.filter((item) => item.parentId === category);
+
+   const dispatch = useDispatch();
+
+   const handleCategoryClick = (name) => {
+      dispatch(addSubCategory(name));
+};
 
    return (
       <>
@@ -15,8 +26,8 @@ const MobileCategory = ({ category }) => {
             </svg>
          </li>
          {isCategoryOpen && <ul className="header__mobile-subcategory-list">
-            {subCategories.map((item) => (
-               <li className="header__mobile-subcategory-item" >{item.name}</li>
+            {subCategories.map((item, id) => (
+               <NavLink key={id} to={`${item.parentId}`}><li className="header__mobile-subcategory-item" onClick={() => handleCategoryClick(item.name)}>{item.name}</li></NavLink>
             ))}
          </ul>}
       </>
