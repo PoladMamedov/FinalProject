@@ -14,6 +14,7 @@ import searchReducer from "./reducers/searchBar";
 import toggleCardReduser from "./reducers/card";
 import subcategoryReducer from "./reducers/subcategory";
 import currencyReducer from "./reducers/currency";
+import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   toggleCard: toggleCardReduser,
   subcategory: subcategoryReducer,
   currentCurrency: currencyReducer,
+  recentlyProducts: recentlyProductsReducer,
 });
 
 const persistConfig = {
