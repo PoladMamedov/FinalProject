@@ -4,22 +4,22 @@ import ProductCard from "../ProductCard/ProductCard";
 import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
+import Skeleton from "./Skeleton";
 import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [allProductState, setAllProductState] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredHeadphones, setFilteredHeadphones] = useState([]);
   const [filteredKeyboards, setFilteredKeyboards] = useState([]);
   const [filteredSmartWatch, setFilteredSmartWatch] = useState([]);
   const [filteredMouses, setFilteredMouses] = useState([]);
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
-  const { searchResults } = useSelector((state) => state.search);
   const [productsPerPage, setProductsPerPage] = useState(6);
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
-  const totalSearchedPages = Math.ceil(searchResults.length / productsPerPage);
 
   const { getAllProducts } = useServer();
 
@@ -28,8 +28,11 @@ function AllProductItems(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      getAllProducts()
+    setIsLoading(true);
+    getAllProducts()
       .then((result) => {
+        setAllProductState(result);
+        setIsLoading(false);
         if (props.products) {
           setAllProductState(result);
           dispatch(fillProducts(result));
@@ -95,15 +98,25 @@ function AllProductItems(props) {
   return (
     <div className="all-product__wrapper">
       <div className="container flex_container">
-        <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
-          {paginatedProducts.map((e) => (
-            // eslint-disable-next-line no-underscore-dangle
-            <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
-          ))}
-        </div>
-        <PaginationAllProducts currentPage={currentPage} totalPages={searchResults.length >= 1 ? totalSearchedPages : totalPages} onPageChange={handlePageChange} />
+        {isLoading ? (
+          <div className="skeleton-wrapper">
+            {[...new Array(8)].map((_, index) => (
+              <Skeleton className={"skeleton-item"} key={index} />
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
+              {paginatedProducts.map((e) => (
+                // eslint-disable-next-line no-underscore-dangle
+                <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
+              ))}
+            </div>
+            <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          </>
+        )}
       </div>
-      <RecentlyViewedProducts active={currentPage} isCardView={isCardView}/>
+      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }
