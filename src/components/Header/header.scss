@@ -367,6 +367,7 @@
       margin-bottom: 30px;
       box-shadow: 0px 6px 10px 0px #00000040;
       transition: top .6s ease;
+      z-index: 3;
 
       @include breakpoint-mf('md') {
          display: none;

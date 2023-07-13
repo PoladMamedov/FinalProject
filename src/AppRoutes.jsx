@@ -14,6 +14,7 @@ import SmartWatches from "./pages/SmartWathes/SmartWatches";
 import Headphones from "./pages/Headphones/Headphones";
 import Keyboards from "./pages/Keyboards/Keyboards";
 import Mouses from "./pages/Mouses/Mouses";
+import Search from "./pages/Search/Search";
 
 const AppRoutes = () => {
   return (
@@ -31,10 +32,11 @@ const AppRoutes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />
           </Route>
-          <Route path="/watches" element={<SmartWatches />}/>
-          <Route path="/headphones" element={<Headphones />}/>
-          <Route path="/keyboards" element={<Keyboards />}/>
-          <Route path="/mouses" element={<Mouses />}/>
+          <Route path="/search" element={<Search />} />
+          <Route path="/watches" element={<SmartWatches />} />
+          <Route path="/headphones" element={<Headphones />} />
+          <Route path="/keyboards" element={<Keyboards />} />
+          <Route path="/mouses" element={<Mouses />} />
         </Routes>
       </main>
       <Footer />
