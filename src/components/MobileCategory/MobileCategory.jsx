@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { addSubCategory } from "../../redux/actions/subcategories";
 
-const MobileCategory = ({ category }) => {
+const MobileCategory = ({ category, setIsMenuOpen }) => {
    const { categories } = useSelector((state) => state.categories);
    const [isCategoryOpen, setCategoryOpen] = useState(false);
    const subCategories = categories.filter((item) => item.parentId === category);
@@ -15,7 +15,8 @@ const MobileCategory = ({ category }) => {
 
    const handleCategoryClick = (name) => {
       dispatch(addSubCategory(name));
-};
+      setIsMenuOpen(false);
+   };
 
    return (
       <>
