@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prefer-destructuring */
@@ -48,8 +49,10 @@ useEffect(() => {
     fetchFilters();
   }, []);
 
+  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
   useEffect(() => {
     dispatch(sortLowToHighPrice());
+    setIsWaitSortFilter(true);
   }, []);
 
   // стейт с ценой
@@ -152,15 +155,6 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
     }
   }
 
-  const isChecked = e.target.checked;
-
-  setCheckedItems((prevCheckedItems) => [
-    ...prevCheckedItems.slice(0, index),
-    !prevCheckedItems[index],
-    ...prevCheckedItems.slice(index + 1),
-  ]);
-
-
   async function handleCheckboxChange(e, index) {
     let category = e.target.name.toLowerCase().replace(/ /g, "_");
     if (category === "smart_watches") {
@@ -225,6 +219,9 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
 
 
   useEffect(() => {
+    if (!isWaitSortFilter) {
+      return;
+    }
     if (subcategorieParent) {
       let initialSelectedCategories;
       if (subcategory === "All") {
@@ -236,9 +233,19 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
       }
       setSelectedCategories(initialSelectedCategories);
       fetchFilteredProducts(initialSelectedCategories, subcategorieParent);
-      dispatch(getAllSubcategoriesCounter(categories.length)); // тут исправить
     }
-  }, [sortValue]);
+  }, [isWaitSortFilter, sortValue]);
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    let checkedCount = 0;
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            checkedCount++;
+        }
+    });
+    dispatch(getAllSubcategoriesCounter(checkedCount));
+  });
 
 
   return (
@@ -293,9 +300,8 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr
              <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
              <button type="button" onClick={apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
              </div>
-             </div>                     
+             </div>
         </div>
-      </div>
     </>
   );
 });
