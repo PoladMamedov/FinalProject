@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 
 export default function ProductCard(props) {
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
   const { currency, currencyName } = useSelector((state) => state.currentCurrency);
   const currencyValue = parseFloat(currency);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -16,7 +19,8 @@ export default function ProductCard(props) {
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <Link
                 className={props.active ? "all-card__btn-details" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                to={`/products/${urlItemNumber}`}
+                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
@@ -46,7 +50,8 @@ export default function ProductCard(props) {
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <Link
                 className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                to={`/products/${urlItemNumber}`}
+                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container--rows" : "card__btn-card-container"}>
