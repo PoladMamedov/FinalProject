@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toggleCardBtn from "../../redux/actions/card";
+import { reset } from "../../redux/actions/counterFilter";
 
 const FilterMini = forwardRef((props, ref) => {
   const [isOpenWhat, setIsOpenWhat] = useState(true);
@@ -9,6 +10,10 @@ const FilterMini = forwardRef((props, ref) => {
     (state) => state.countFilter
   );
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+     dispatch(reset());
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,7 +27,6 @@ const FilterMini = forwardRef((props, ref) => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };

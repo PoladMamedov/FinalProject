@@ -20,7 +20,6 @@ const Header = () => {
   const allCategories = categories.filter((item) => item.parentId === "null");
 
   const handleClickOutside = (e) => {
-    // Проверяем, был ли клик вне меню
     if (
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {
@@ -143,10 +142,10 @@ const Header = () => {
                   </div>
                 </li>
                 {isCategoriesOpen && <ul className="header__mobile-categories">
-                  <MobileCategory category={allCategories[0].id} />
-                  <MobileCategory category={allCategories[1].id} />
-                  <MobileCategory category={allCategories[2].id} />
-                  <MobileCategory category={allCategories[3].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[0].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[1].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[2].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[3].id} />
                 </ul>}
                 <li className="header__nav-item" key={3}>
                   <NavLink
