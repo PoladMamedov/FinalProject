@@ -27,13 +27,13 @@ const Currency = () => {
 
    return (
       <>
-         <img className="currency__icon" src="./img/currency/currency-icon.png" alt="" />
+         <img className="currency__icon" src="/img/currency/currency-icon.png" alt="" />
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
             ))}
          </select>
-         <img className="currency__img" src={`./img/currency/${value}.png`} alt="ere" />
+         <img className="currency__img" src={`/img/currency/${value}.png`} alt="ere" />
       </>
    );
 

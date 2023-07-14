@@ -35,6 +35,7 @@
 
 .product-detail__price {
   @include fonts(400, 25px, 30px);
+  @include flex(row, flex-start, center);
   color: $primary;
   text-align: left;
   grid-area: 1 / 1 / 2 / 2;
@@ -52,6 +53,26 @@
     @include fonts(400, 14px, 24px);
     text-decoration: line-through;
     color: $primary;
+  }
+}
+
+.product-detail__currency-icon {
+  height: 25px;
+  width: 25px;
+
+  &-previous {
+    height: 19px;
+    width: 25px;
+  }
+
+  @include breakpoint-mf('md') {
+    height: 45px;
+    width: 45px;
+
+    &-previous {
+      height: 19px;
+      width: 45px;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "react-notifications-component";
 import useServer from "../../../hooks/useServer";
@@ -8,6 +8,8 @@ import "animate.css/animate.min.css";
 import FavoritesIcon from "../../../components/FavoritesIcon/FavoritesIcon";
 import OrderQuantity from "./OrderQuantity";
 import { addToCart, fetchCart, setCart } from "../../../redux/actions/cart";
+import notificationsSettings from "../../../constants/constants";
+import CurrencyIcon from "../../../components/CurrencyIcon/CurrencyIcon";
 
 export default function OrderActions({
   properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
@@ -20,6 +22,8 @@ export default function OrderActions({
 
   const {userInfo: {token}} = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
+  const { currency, currencyName } = useSelector((state) => state.currentCurrency);
+  const currencyValue = parseFloat(currency);
 
   const [productColor, setProductColor] = useState("");
   const [orderQuantity, setOrderQuantity] = useState(1);
@@ -35,7 +39,7 @@ export default function OrderActions({
       setFavs(wishlist);
       setIsFav(favs.length && favs.some(({_id}) => _id === productID));
     } catch (error) {
-      console.log(error);
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }
   }
 
@@ -49,21 +53,24 @@ export default function OrderActions({
   async function addToFavs() {
     try {
       setIsFav(true);
-      console.log(productID);
-      const wishlist = await addToWishlist(productID, token);
-      setFavs(wishlist);
+      if (token) {
+        const wishlist = await addToWishlist(productID, token);
+        setFavs(wishlist);
+      }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }
   }
 
   async function deleteFromFavs() {
     try {
       setIsFav(false);
-      const wishlist = await deleteFromWishlist(productID, token);
-      setFavs(wishlist);
+      if (token) {
+        const wishlist = await deleteFromWishlist(productID, token);
+        setFavs(wishlist);
+      }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }
   }
 
@@ -91,24 +98,25 @@ export default function OrderActions({
         }
         setOrderQuantity(1);
 
-        Store.addNotification({
-          title: "Success!",
-          message: "Product added to cart",
-          type: "success",
-          insert: "bottom",
-          container: "bottom-left",
-          dismiss: {
-            duration: 5000,
-            showIcon: true
-          }
-        });
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
       } catch (error) {
-        console.error(error);
+        Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
       }
     }
 
   return <div className="product-detail__order-actions">
-    {currentPrice < previousPrice ? <div className="product-detail__price-wrap">{Object.entries(price).map(([key, value], index) => <p key={index} className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__price">{currentPrice}$</p>}
+    {currentPrice < previousPrice ? <div className="product-detail__price-wrap">{Object.entries(price).map(([key, value], index) => <p
+          key={index}
+          className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}
+      >
+       <CurrencyIcon currency={currencyName} className={`product-detail__currency-icon product-detail__currency-icon-${key === "currentPrice" ? "current" : "previous"}`} color={key === "currentPrice" ? "#f84147" : "#393D45FF"}/>
+        {Math.floor(value * currencyValue)}
+      </p>)}
+    </div>
+      : <p className="product-detail__price">
+         <CurrencyIcon currency={currencyName} className={"product-detail__currency-icon"} color={"#393D45FF"}/>
+        {Math.floor(currentPrice * currencyValue)}
+      </p>}
     <div className="order-actions__btns-wrap">
       {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
         : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}

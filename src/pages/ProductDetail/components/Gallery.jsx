@@ -60,11 +60,11 @@ export default function Gallery({imageUrls}) {
   }
   return <>
     <div className="product-detail__gallery">
-    <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
-      <Slider {...sliderSettings.default}>{imageUrls.map((el, index) => <div key={index} className="product-detail__slider-img-wrap">
-          <img className="product-detail__slider-img" src={el} alt="img" onClick={onAdditionalImgClick} data-index={index}/>
-        </div>)}
-      </Slider>
+      <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
+        <Slider {...sliderSettings.default}>{imageUrls.map((el, index) => <div key={index} className="product-detail__slider-img-wrap">
+            <img className="product-detail__slider-img" src={el} alt="img" onClick={onAdditionalImgClick} data-index={index}/>
+          </div>)}
+        </Slider>
   </div>
   {isFullScreenImg && <div className="product-detail__fs-slider-wrap" onClick={close} onKeyDown={close}>
     <button type="button" className="product-detail__fs-slider-close-btn" onClick={close}>&#10006;</button>
