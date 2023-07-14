@@ -15,18 +15,19 @@ export default function ProductDetail() {
   const { itemNo } = useParams();
   const {getProduct} = useServer();
 
+  async function fetchProduct(productItemNo) {
+    try {
+      const data = await getProduct(productItemNo);
+      setProductData(data);
+      setIsLoaded(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     setIsLoaded(false);
-    async function fetchProduct() {
-      try {
-        const data = await getProduct(itemNo);
-        setProductData(data);
-        setIsLoaded(true);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchProduct();
+    fetchProduct(itemNo);
   }, [itemNo]);
 
   if (!isLoaded) return <PreLoader/>;

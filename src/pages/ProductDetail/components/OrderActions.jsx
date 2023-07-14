@@ -1,86 +1,94 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Store } from "react-notifications-component";
 import useServer from "../../../hooks/useServer";
 import "react-notifications-component/dist/scss/notification.scss";
 import "animate.css/animate.min.css";
-
-
-// TODO: show message if unauthorized
-// TODO: add favorite icon
-// TODO: use library to show message
+import FavoritesIcon from "../../../components/FavoritesIcon/FavoritesIcon";
+import OrderQuantity from "./OrderQuantity";
+import { addToCart, fetchCart, setCart } from "../../../redux/actions/cart";
 
 export default function OrderActions({
   properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
 }) {
-  const {updateCart} = useServer();
-  const {userInfo: {token}} = useSelector((state) => state.user);
+  const {
+    getWishlist, addToWishlist, deleteFromWishlist
+} = useServer();
 
-  const [orderQuantity, setOrderQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  const {userInfo: {token}} = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
+
   const [productColor, setProductColor] = useState("");
-  const inputOrderQuantityRef = useRef(null);
+  const [orderQuantity, setOrderQuantity] = useState(1);
+  const [favs, setFavs] = useState([]);
+  const [isFav, setIsFav] = useState(false);
 
   const colors = {...similarProducts, [itemNo]: color};
   const price = {currentPrice, previousPrice};
 
+  async function fetchFavs(authToken) {
+    try {
+      const wishlist = await getWishlist(authToken);
+      setFavs(wishlist);
+      setIsFav(favs.length && favs.some(({_id}) => _id === productID));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     setProductColor(color);
+    if (token) {
+      fetchFavs(token);
+    }
   }, [color]);
 
-  function onIncreaseBtnClick() {
-    if (inputOrderQuantityRef.current.value < quantity) {
-      setOrderQuantity(+inputOrderQuantityRef.current.value + 1);
-    }
-  }
-  function onDecreaseBtnClick() {
-    if (inputOrderQuantityRef.current.value > 1) {
-      setOrderQuantity(inputOrderQuantityRef.current.value - 1);
-    }
-  }
-
-  function isValidOrderQuantity(amount) {
-    return /^[0-9]*$/.test(amount) && amount > 0 && amount <= quantity;
-  }
-
-  function onOrderQuantityChange(event) {
-    if (event.target.value === "") {
-      setOrderQuantity(event.target.value);
-    } else if (isValidOrderQuantity(event.target.value)) {
-      setOrderQuantity(+event.target.value);
-    }
-  }
-  function onOrderQuantityBlur(event) {
-    if (event.target.value === "") {
-      inputOrderQuantityRef.current.focus();
+  async function addToFavs() {
+    try {
+      setIsFav(true);
+      console.log(productID);
+      const wishlist = await addToWishlist(productID, token);
+      setFavs(wishlist);
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  function onOrderQuantityKeyDown(event) {
-    if ([69, 187, 189, 190].includes(event.keyCode)) {
-      event.preventDefault();
-    }
-    if (event.keyCode === 38) {
-      event.preventDefault();
-      onIncreaseBtnClick();
-    }
-    if (event.keyCode === 40) {
-      event.preventDefault();
-      onDecreaseBtnClick();
+  async function deleteFromFavs() {
+    try {
+      setIsFav(false);
+      const wishlist = await deleteFromWishlist(productID, token);
+      setFavs(wishlist);
+    } catch (error) {
+      console.log(error);
     }
   }
 
   async function onAddButtonClick() {
       try {
-        const products = {
-          products: [
-            {
-              product: productID,
-              cartQuantity: orderQuantity
-            }
-          ]
-        };
-        await updateCart(products, token);
+        if (token) {
+          dispatch(fetchCart(token));
+          const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+          dispatch(setCart({
+            products: [
+              {
+                product: productID,
+                cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
+              }
+            ]
+          }, token));
+        } else {
+          const productInCart = cart.find(({product}) => product === productID);
+          dispatch(addToCart([
+              {
+                product: productID,
+                cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
+              }
+            ]));
+        }
         setOrderQuantity(1);
 
         Store.addNotification({
@@ -101,17 +109,17 @@ export default function OrderActions({
 
   return <div className="product-detail__order-actions">
     {currentPrice < previousPrice ? <div className="product-detail__price-wrap">{Object.entries(price).map(([key, value], index) => <p key={index} className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}>{value}$</p>)}</div> : <p className="product-detail__price">{currentPrice}$</p>}
-    <button type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+    <div className="order-actions__btns-wrap">
+      {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
+        : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
+      <button type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+    </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
       <div className="product-detail__color-list">
         {Object.entries(colors).map(([key, value], index) => <Link to={`/products/${key}`} key={index}><span className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
       </div>
     </div>
-    <div className="order-actions__quantity-wrap">
-      <button disabled={orderQuantity === 1} type="button" className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
-      <input type="text" className="order-actions__quantity-item order-actions__quantity-input" value={orderQuantity} onChange={onOrderQuantityChange} ref={inputOrderQuantityRef} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown}/>
-      <button disabled={orderQuantity === quantity} type="button" className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick}>+</button>
-    </div>
+    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity}/>
   </div>;
 }

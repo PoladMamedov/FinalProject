@@ -155,6 +155,57 @@ export default function useServer() {
     return searchResult;
   }
 
+  async function getWishlist(token) {
+    const wishlist = await fetch(`${url}/wishlist`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function addToWishlist(id, token) {
+    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function deleteFromWishlist(id, token) {
+    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function getCart(token) {
+    const cart = await fetch(`${url}/cart`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return cart;
+  }
   async function updateCart(products, token) {
     const updatedCart = await fetch(`${url}/cart`, {
       method: "PUT",
@@ -185,6 +236,10 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
+    getWishlist,
+    addToWishlist,
+    deleteFromWishlist,
+    getCart,
     updateCart,
   };
 }

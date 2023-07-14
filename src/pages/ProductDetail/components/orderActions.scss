@@ -55,6 +55,31 @@
   }
 }
 
+//-------ADD TO FAVS BUTTON-------------------------------
+.order-actions__btns-wrap {
+  grid-area: 1 / 2 / 2 / 3;
+  justify-self: flex-end;
+  align-self: center;
+  @include flex(row, flex-start, center);
+}
+
+.order-actions__favs-btn {
+  margin-right: 15px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  display: block;
+
+  @include breakpoint-mf('sm') {
+  }
+
+  @include breakpoint-mf('lg') {
+  }
+
+  @include breakpoint-mf('xl') {
+  }
+}
+
 //------ADD BUTTON----------------------------------------
 
 .order-actions__add-btn {
@@ -64,11 +89,8 @@
   background-color: $secondaryLight;
   @include fonts(400, 12px, 18px);
   cursor: pointer;
-  grid-area: 1 / 2 / 2 / 3;
   width: fit-content;
   height: fit-content;
-  justify-self: flex-end;
-  align-self: flex-end;
 
   @include breakpoint-mf('sm') {
     padding: 13px 15px;
@@ -124,71 +146,14 @@
       content: "";
       display: block;
       position: absolute;
-      top: -4px;
-      left: -4px;
-      width: 38px;
-      height: 38px;
+      top: calc(-500%/38);
+      left: calc(-500%/38);
+      width: 39px;
+      height: 39px;
       border: 1px solid green;
       border-radius: 100%;
     }
   }
 }
 
-//------QUANTITY------------------------------------------
 
-.order-actions__quantity-wrap {
-  @include flex(row, start, center);
-  gap: 10px;
-  grid-area: 3 / 1 / 4 / 3;
-  height: fit-content;
-  align-self: flex-end;
-
-  @include breakpoint-mf('xs') {
-    grid-area: 2 / 2 / 3 / 3;
-    justify-self: flex-end;
-  }
-
-  @include breakpoint-mf('sm') {
-    @include margin(25px, 25px);
-    gap: 15px;
-  }
-
-  @include breakpoint-mf('lg') {
-    @include margin(0, 0);
-  }
-
-  @include breakpoint-mf('xl') {
-    justify-self: flex-end;
-  }
-}
-
-.order-actions__quantity-item {
-  border: none;
-  text-align: center;
-  width: 35px;
-  height: 35px;
-  background-color: $secondaryLight;
-  color: $primaryLight;
-  @include fonts(400, 20px, 35px);
-
-  @include breakpoint-mf('sm') {
-    width: 55px;
-    height: 55px;
-    @include fonts(400, 30px, 55px);
-  }
-}
-
-.order-actions__decrease-btn,
-.order-actions__increase-btn {
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken($secondaryLight, 5%);
-  }
-
-  &:disabled {
-    background-color: darken($secondaryLight, 10%);
-    color: darken($primaryLight, 10%);
-    cursor: not-allowed;
-  }
-}

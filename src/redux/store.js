@@ -12,6 +12,7 @@ import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
 import searchReducer from "./reducers/searchBar";
 import toggleCardReduser from "./reducers/card";
+import cartReducer from "./reducers/cart";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   filteredProducts: filteredProductsReducer,
   sortFilter: sortFilterReducer,
   search: searchReducer,
-  toggleCard: toggleCardReduser
+  toggleCard: toggleCardReduser,
+  cart: cartReducer
 });
 
 const persistConfig = {
