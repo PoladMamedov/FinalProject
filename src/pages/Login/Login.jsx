@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import { logInUser } from "../../redux/actions/user";
 import PreLoader from "../../components/PreLoader/PreLoader";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
@@ -38,7 +40,13 @@ function Login() {
     <>
       <Breadcrumb />
       <section className="login-section">
-        <img width={450} height={470} src="./img/logInPage/loginPageImage.jpg" alt="login page" />
+        <Image
+          cloudName={cloudinaryConfig.cloudName}
+          publicId="loginPageImage_nlwakh"
+          width={450}
+          height={470}
+          alt="login page"
+        />
         <form className="login-section__form" action="login" onSubmit={formik.handleSubmit}>
           <h1 className="login-section__title">LOGIN</h1>
           <div className="login-section__form-input-wrapper">

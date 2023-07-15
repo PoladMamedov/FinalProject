@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 
 export default function ProductCard(props) {
   const [urlImg] = useState(props.item.imageUrls[0]);
@@ -20,9 +22,10 @@ export default function ProductCard(props) {
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
                   className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"}
-                  src="/img/cart-logo.png"
+                  publicId="cart-logo_tz7wza"
                   alt="cart-logo" />
               </button>
             </div>

@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import { fetchCategories } from "../../redux/actions/categories";
 import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
@@ -107,7 +109,11 @@ const Header = () => {
               to="/"
               onClick={() => handleLinkClick(0)}
             >
-              <img src="/img/main-logo.png" alt="main-logo" />
+              <Image
+                cloudName={cloudinaryConfig.cloudName}
+                publicId="main-logo_olx3ky"
+                alt="main-logo"
+              />
             </NavLink>
             <nav
               ref={menuRef}
@@ -165,9 +171,10 @@ const Header = () => {
 
             <div className="header__nav-btn-wrap">
               <NavLink to={"/cart"} key={4} className="header__nav-link--cart">
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
+                  publicId="cart-logo_tz7wza"
                   className="header__nav-cart"
-                  src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
                 <span className="header__nav-cart--count">1</span>
@@ -179,9 +186,10 @@ const Header = () => {
                 key={5}
                 className="header__nav-link--loginBtn"
               >
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
+                  publicId="login_obfqgp"
                   className="header__nav-login"
-                  src="/img/login.png"
                   alt="login-img"
                 />
               </NavLink>
