@@ -30,7 +30,7 @@ const CartPage = () => {
           </div>
           <div className="cart-buttons">
             <Link to={"/"} className={"cart-button cart-button-close"}>Close</Link>
-            <Link to={"/"} className="cart-button cart-button-checkout">Check out</Link>
+            <Link to={"/checkout"} className="cart-button cart-button-checkout">Check out</Link>
           </div>
         </div>
 

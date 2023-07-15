@@ -10,6 +10,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
 import CartPage from "./pages/Cart/Cart";
+import CheckOut from "./pages/CheckOut/CheckOut";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +28,7 @@ const AppRoutes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />
           </Route>
+          <Route path="/checkout" element={<CheckOut/>} />
         </Routes>
       </main>
       <Footer />
