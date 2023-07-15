@@ -6,10 +6,11 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFound/NotFound";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Products from "./pages/Products/Products";
 import About from "./pages/About/About";
-import CartPage from "./pages/Cart/Cart";
+import Cart from "./pages/Cart/Cart";
 import SmartWatches from "./pages/SmartWathes/SmartWatches";
 import Headphones from "./pages/Headphones/Headphones";
 import Keyboards from "./pages/Keyboards/Keyboards";
@@ -21,14 +22,15 @@ const AppRoutes = () => {
     <>
       <Header />
       <main>
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:itemNo" element={<ProductDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<Cart />} />
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />
           </Route>
