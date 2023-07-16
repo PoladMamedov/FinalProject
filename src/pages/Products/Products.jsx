@@ -19,7 +19,7 @@ const Products = () => {
         );
   const filterCategories = categories.filter((item) => item.level === 0);
 
- 
+
   const filterFull = React.createRef();
   const filterMini = useRef();
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
@@ -31,7 +31,7 @@ const Products = () => {
   const handleToggleFilter = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
-  
+
   const { filteredProducts } =  useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
 
@@ -48,7 +48,7 @@ const Products = () => {
             <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
             <Filter categories={filterCategories} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter}/>
             <FilterMini toggle={handleToggleFilter} ref={filterMini} />
-            <AllProductItems />
+            <AllProductItems products={"pageProducts"} />
           </div>
         </div>
       </section>

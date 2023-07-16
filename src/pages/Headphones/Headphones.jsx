@@ -1,4 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
@@ -7,7 +11,6 @@ import FilterMini from "../../components/Filter/FilterMini";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
 import { increment, decrement } from "../../redux/actions/counterFilter";
-import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const Headphones = () => {
 const dispatch = useDispatch();
@@ -24,14 +27,10 @@ useEffect(() => {
   setProducts(filteredProducts);
 }, [filteredProducts]);
 
-useEffect(() => {
-  dispatch(sortLowToHighPrice());
-}, []);
-
 const handleAddCountFilter = (e) => {
     addCountFilter(e, dispatch, increment, decrement);
   };
-  
+
 const handleToggleFilter = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
@@ -45,7 +44,7 @@ const handleToggleFilter = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter categories={filterCategories} subcategorieParent={"headphones"} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter} />
               <FilterMini toggle={handleToggleFilter} ref={filterMini} />
-              <AllProductItems />
+              <AllProductItems prodhead={"headphones"} />
             </div>
           </div>
         </section>

@@ -14,8 +14,9 @@ import searchReducer from "./reducers/searchBar";
 import toggleCardReduser from "./reducers/card";
 import subcategoryReducer from "./reducers/subcategory";
 import currencyReducer from "./reducers/currency";
-import favoritesReducer from "./reducers/favorites";
-import favoritesCountReducer from "./reducers/favoritesCountReducer";
+import { recentlyProductsReducer } from "./reducers/recentlyProducts";
+import cartReducer from "./reducers/cart";
+
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -28,8 +29,8 @@ const rootReducer = combineReducers({
   toggleCard: toggleCardReduser,
   subcategory: subcategoryReducer,
   currentCurrency: currencyReducer,
-  favorites: favoritesReducer,
-  favoriteCounts: favoritesCountReducer
+  recentlyProducts: recentlyProductsReducer,
+  cart: cartReducer
 });
 
 const persistConfig = {

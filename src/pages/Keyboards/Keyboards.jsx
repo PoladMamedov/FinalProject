@@ -7,7 +7,6 @@ import FilterMini from "../../components/Filter/FilterMini";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
 import { increment, decrement } from "../../redux/actions/counterFilter";
-import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const Keyboards = () => {
 const dispatch = useDispatch();
@@ -24,14 +23,10 @@ useEffect(() => {
   setProducts(filteredProducts);
 }, [filteredProducts]);
 
-useEffect(() => {
-  dispatch(sortLowToHighPrice());
-}, []);
-
 const handleAddCountFilter = (e) => {
     addCountFilter(e, dispatch, increment, decrement);
   };
-  
+
 const handleToggleFilter = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
@@ -45,7 +40,7 @@ const handleToggleFilter = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter categories={filterCategories} subcategorieParent={"keyboards"} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter} />
               <FilterMini toggle={handleToggleFilter} ref={filterMini} />
-              <AllProductItems />
+              <AllProductItems prodkeyb={"keyboards"} />
             </div>
           </div>
         </section>

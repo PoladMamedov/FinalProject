@@ -26,6 +26,7 @@
     grid-template-columns: repeat(2, 1fr);
     margin-top: 10px;
     padding-top: 10px;
+    padding-bottom: 10px;
     overflow: hidden;
     @media (min-width: 430px) {
       grid-template-columns: repeat(3, 1fr);

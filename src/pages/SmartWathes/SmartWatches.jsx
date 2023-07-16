@@ -7,7 +7,6 @@ import FilterMini from "../../components/Filter/FilterMini";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
 import { increment, decrement } from "../../redux/actions/counterFilter";
-import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 
 const SmartWatches = () => {
 const dispatch = useDispatch();
@@ -25,10 +24,6 @@ useEffect(() => {
   setProducts(filteredProducts);
 }, [filteredProducts]);
 
-useEffect(() => {
-  dispatch(sortLowToHighPrice());
-}, []);
-
 const handleAddCountFilter = (e) => {
   addCountFilter(e, dispatch, increment, decrement);
 };
@@ -36,7 +31,7 @@ const handleAddCountFilter = (e) => {
 const handleToggleFilter = () => {
   toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
 };
-    
+
     return (
         <>
         <Breadcrumb />
@@ -46,7 +41,7 @@ const handleToggleFilter = () => {
               <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
               <Filter categories={filterCategories} subcategorieParent={"smart_watch"} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter}/>
               <FilterMini toggle={handleToggleFilter} ref={filterMini}/>
-              <AllProductItems />
+              <AllProductItems prodsmartwatch={"smart"} />
             </div>
           </div>
         </section>

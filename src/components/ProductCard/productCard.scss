@@ -7,13 +7,13 @@
 
 .all-card-container {
   width: 100%;
-  height: 280px;
+  height: 260px;
   display: flex;
   justify-content: center;
 
   @media (min-width: 640px) {
     width: 100%;
-    height: 290px;
+    height: 260px;
   }
 
   @media (min-width: 860px) {
@@ -183,11 +183,18 @@
   }
 
   &__product-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 10px;
-    width: 125%;
+    width: 80%;
 
     @include breakpoint-mf('sm') {
       font-size: 10px;
+    }
+
+    @include breakpoint-mf('md') {
+      font-size: 11px;
     }
 
     @include breakpoint-mf('my') {
@@ -204,20 +211,23 @@
   }
 
   &__product-name--rows {
-    font-size: 25px;
+    font-size: 18px;
     width: 125%;
   }
 
   &__prices-wrap {
-    @include flex(row, flex-end, center);
+    @include flex(row, center ,center);
+    flex-direction: column;
     margin-left: 4px;
     font-size: 10px;
     gap: 2px;
 
-    @include breakpoint-mf("xs") {
-      width: 100%;
+    @include breakpoint-mf('xs') {
       font-size: 10px;
       gap: 4px;
+    }
+    @include breakpoint-mf('md') {
+      font-size: 11px;
     }
 
     @include breakpoint-mf("my") {
@@ -232,7 +242,6 @@
 
     @include breakpoint-mf('xl') {
       font-size: 18px;
-      gap: 10px;
     }
   }
 
@@ -240,7 +249,7 @@
     @include flex(row, flex-end, center);
     flex-direction: column;
     width: 30%;
-    margin-top: 15%;
+    margin-top: 28%;
     margin-left: 4px;
     font-size: 20px;
     gap: 2px;
@@ -254,7 +263,17 @@
     }
 
     &--curr {
+      font-size: 10px;
       @include flex(row, center, center);
+      @include breakpoint-mf('md') {
+        font-size: 11px;
+      }
+      @include breakpoint-mf('my') {
+        font-size: 14px;
+      }
+      @include breakpoint-mf('xl') {
+        font-size: 18px;
+      }
     }
 
     &--curr-rows {
@@ -404,7 +423,7 @@
 
   &__block {
     display: flex;
-    margin-top: 20px;
+    margin-top: 5px;
     justify-content: space-between;
     width: 129px;
     height: 36px;
@@ -415,7 +434,7 @@
     }
 
     @include breakpoint-mf('xl') {
-      width: 100%;
+      margin-top: 15px;
       height: 36px;
     }
   }
@@ -480,7 +499,7 @@
     display: flex;
     margin-left: 10px;
     justify-content: space-between;
-    width: 70%;
+    width: 60%;
     height: 36px;
   }
 }
@@ -490,6 +509,22 @@
 }
 
 .currency-icon {
+  width: 12px;
+  height: 10px;
+  @include breakpoint-mf('md') {
+    height: 12px;
+  }
+  @include breakpoint-mf('my') {
+    width: 14px;
+    height: 14px;
+  }
+  @include breakpoint-mf('xl') {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.currency-icon--rows {
   width: 16px;
   height: 16px;
 }
