@@ -141,7 +141,7 @@ useEffect(() => {
 
 const min = parseInt(valuesPrice.Min, 10);
 const max = parseInt(valuesPrice.Max, 10);
-const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || min <= minArr || max <= maxArr || min > max;
+const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
 
   function handleSetPrice() {
     fetchFilteredProducts(selectedCategories, subcategorieParent);
