@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import CartList from "../../components/CartList/CartList";
 
-const CartPage = () => {
+const Cart = () => {
   return (
     <section className="cart-section">
       <div className={"container"}>
@@ -39,4 +39,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default Cart;

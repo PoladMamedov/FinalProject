@@ -19,8 +19,7 @@ export default function ProductCard(props) {
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <Link
                 className={props.active ? "all-card__btn-details" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}
-                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
+                to={`/products/${urlItemNumber}`}>DETAIL</Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
@@ -66,14 +65,14 @@ export default function ProductCard(props) {
             <div className={"all-card__product-name--rows"}>{props.item.name}</div>
             {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
               <p className="all-card__price--prev">
-                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
                 {Math.floor(props.item.previousPrice * currencyValue)}</p>
               <p className="all-card__price--curr-rows">
-                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
                 {Math.floor(props.item.currentPrice * currencyValue)}</p>
 
             </div> : <div className={"all-card__price--curr-rows"}>
-              <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+              <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>}
