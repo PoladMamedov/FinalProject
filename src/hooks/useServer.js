@@ -173,7 +173,6 @@ export default function useServer() {
     return filteredProducts;
   }
   
-
   return {
     registerUser,
     loginUser,

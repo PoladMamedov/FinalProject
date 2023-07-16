@@ -18,6 +18,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
+  const {favoritesCount} = useSelector((state) => state.favoriteCounts);
 
   const handleClickOutside = (e) => {
     // Проверяем, был ли клик вне меню
@@ -30,9 +31,11 @@ const Header = () => {
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
+    console.log('fav count', favoritesCount);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+    
   }, []);
   useEffect(() => {
     dispatch(fetchCategories());
@@ -171,8 +174,7 @@ const Header = () => {
                   src="/img/heart_icon.png"
                   alt="favorites-logo"
                 />
-                <span className="header__nav-cart--count">1</span>
-
+                <span className="header__nav-cart--count">{favoritesCount}</span>
                 {/* В спан записать с редакса количество в корзине */}
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
