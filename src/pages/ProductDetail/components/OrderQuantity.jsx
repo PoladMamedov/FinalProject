@@ -1,8 +1,7 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 
-export default function OrderQuantity({productQuantity, orderQuantity, setOrderQuantity}) {
+export default function OrderQuantity({productQuantity, orderQuantity, setOrderQuantity, productID, cart}) {
   const inputOrderQuantityRef = useRef(null);
-
 
   function onIncreaseBtnClick() {
     if (inputOrderQuantityRef.current.value < productQuantity) {
@@ -15,14 +14,16 @@ export default function OrderQuantity({productQuantity, orderQuantity, setOrderQ
     }
   }
 
-  function isValidOrderQuantity(amount) {
-    return /^[0-9]*$/.test(amount) && amount > 0 && amount <= productQuantity;
+  function isValidOrderQuantity(inputQuantity, quantit) {
+    return /^[0-9]*$/.test(inputQuantity) && inputQuantity > 0 && inputQuantity <= quantity;
   }
 
   function onOrderQuantityChange(event) {
+    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+
     if (event.target.value === "") {
       setOrderQuantity(event.target.value);
-    } else if (isValidOrderQuantity(event.target.value)) {
+    } else if (isValidOrderQuantity(event.target.value, productQuantity)) {
       setOrderQuantity(+event.target.value);
     }
   }
