@@ -24,6 +24,15 @@
   }
 }
 
+.cart-list__item-title {
+  @include breakpoint-mf('sm') {
+    width: 110px;
+  }
+  @include breakpoint-mf('my') {
+    white-space: nowrap;
+  }
+}
+
 .cart-list__item-image {
   width: 100px;
   height: 100px;
