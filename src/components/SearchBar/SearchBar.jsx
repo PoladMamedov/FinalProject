@@ -93,6 +93,7 @@ const SearchBar = () => {
           placeholder="Search products..."
           name="searchInput"
           value={searchTerm}
+          autoComplete="off"
           onChange={(e) => handleSearchChange(e)}
           onFocus={() => setIsSearchOpen(true)}
         />
