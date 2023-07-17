@@ -135,6 +135,10 @@
     background-color: darken($primaryDark, 5%);
     color: $white;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 //------COLOR----------------------------------------
@@ -155,7 +159,6 @@
 }
 
 .product-detail__color-list-item {
-  position: relative;
   display: block;
   height: 32px;
   width: 32px;
@@ -163,17 +166,8 @@
   border-radius: 100%;
 
   &--active{
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: calc(-500%/38);
-      left: calc(-500%/38);
-      width: 39px;
-      height: 39px;
-      border: 1px solid green;
-      border-radius: 100%;
-    }
+    outline: 1px solid green;
+    outline-offset: 3px;
   }
 }
 
