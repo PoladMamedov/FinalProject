@@ -257,6 +257,8 @@
             font-size: 15px;
             color: $primary;
             box-shadow: 1px 3px 3px $primary;
+            -webkit-box-shadow: 1px 3px 3px $primary;
+
             transition: box-shadow .3s ease;
 
             &:focus {
@@ -366,6 +368,8 @@
       background-color: $white;
       margin-bottom: 30px;
       box-shadow: 0px 6px 10px 0px #00000040;
+      -webkit-box-shadow: 0px 6px 10px 0px #00000040;
+
       transition: top .6s ease;
       z-index: 3;
 
