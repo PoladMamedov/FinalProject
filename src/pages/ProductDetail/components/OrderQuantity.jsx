@@ -56,9 +56,9 @@ export default function OrderQuantity(
   }
 
   return <div className="order-actions__quantity-wrap">
-    <button className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick} disabled={orderQuantity === 1} title={outOfStock ? "Out of stock" : ""} type="button">-</button>
-    <input className="order-actions__quantity-item order-actions__quantity-input" ref={inputOrderQuantityRef} onChange={onOrderQuantityChange} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown} disabled={outOfStock} title={outOfStock ? "Out of stock" : ""} type="text" value={orderQuantity}/>
-    <button className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick} disabled={orderQuantity === productQuantity - inCartQuantity || outOfStock} title={outOfStock ? "Out of stock" : ""} type="button">+</button>
+    <button className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick} disabled={orderQuantity === 1} title={outOfStock ? "Max quantity of product is already in cart" : ""} type="button">-</button>
+    <input className="order-actions__quantity-item order-actions__quantity-input" ref={inputOrderQuantityRef} onChange={onOrderQuantityChange} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown} disabled={outOfStock} title={outOfStock ? "Max quantity of product is already in cart" : ""} type="text" value={orderQuantity}/>
+    <button className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick} disabled={orderQuantity === productQuantity - inCartQuantity || outOfStock} title={outOfStock ? "Max quantity of product is already in cart" : ""} type="button">+</button>
   </div>;
 }
 

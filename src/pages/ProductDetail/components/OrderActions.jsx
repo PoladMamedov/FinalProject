@@ -145,7 +145,7 @@ export default function OrderActions(props) {
     <div className="order-actions__btns-wrap">
       {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
         : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
-      <button disabled={outOfStock} title={outOfStock ? "Out of stock" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+      <button disabled={outOfStock} title={outOfStock ? "Max quantity of product is already in cart" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
