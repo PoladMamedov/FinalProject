@@ -33,6 +33,7 @@ export default function OrderActions(props) {
   const [orderQuantity, setOrderQuantity] = useState(1);
   const [favs, setFavs] = useState([]);
   const [isFav, setIsFav] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
 
   const colors = {...similarProducts, [itemNo]: color};
   const price = {currentPrice, previousPrice};
@@ -53,6 +54,11 @@ export default function OrderActions(props) {
       fetchFavs(token);
     }
     }, [color]);
+
+  useEffect(() => {
+    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+    if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
+  }, [cart]);
 
   async function addToFavs() {
     try {
@@ -139,7 +145,7 @@ export default function OrderActions(props) {
     <div className="order-actions__btns-wrap">
       {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
         : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
-      <button type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+      <button disabled={outOfStock} title={outOfStock ? "Out of stock" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
@@ -147,6 +153,6 @@ export default function OrderActions(props) {
         {Object.entries(colors).map(([key, value], index) => <Link to={`/products/${key}`} key={index}><span className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
       </div>
     </div>
-    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity}/>
+    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity} productID={productID} cart={cart} outOfStock={outOfStock}/>
   </div>;
 }

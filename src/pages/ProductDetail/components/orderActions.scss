@@ -135,6 +135,10 @@
     background-color: darken($primaryDark, 5%);
     color: $white;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 //------COLOR----------------------------------------

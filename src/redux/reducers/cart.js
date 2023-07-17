@@ -8,7 +8,6 @@ const initialState = {
 function cartReducer(state = initialState, action) {
   switch (action.type) {
     case cartTypes.FILL_CART:
-      console.log("cart after addind product", action.payload.products);
       return {
         ...state,
         cart: [...action.payload.products]

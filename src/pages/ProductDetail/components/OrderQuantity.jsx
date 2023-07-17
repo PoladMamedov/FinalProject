@@ -1,10 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
-export default function OrderQuantity({productQuantity, orderQuantity, setOrderQuantity, productID, cart}) {
+export default function OrderQuantity(
+    {
+      productQuantity, orderQuantity, setOrderQuantity, productID, cart, outOfStock
+    }
+) {
   const inputOrderQuantityRef = useRef(null);
+  const [inCartQuantity, setInCartQuantity] = useState(0);
+
+  useEffect(() => {
+    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+    if (productInCart) setInCartQuantity(productInCart.cartQuantity);
+  }, [cart]);
 
   function onIncreaseBtnClick() {
-    if (inputOrderQuantityRef.current.value < productQuantity) {
+    if (inputOrderQuantityRef.current.value < productQuantity - inCartQuantity) {
       setOrderQuantity(+inputOrderQuantityRef.current.value + 1);
     }
   }
@@ -14,16 +24,14 @@ export default function OrderQuantity({productQuantity, orderQuantity, setOrderQ
     }
   }
 
-  function isValidOrderQuantity(inputQuantity, quantit) {
-    return /^[0-9]*$/.test(inputQuantity) && inputQuantity > 0 && inputQuantity <= quantity;
+  function isValidOrderQuantity(inputQuantity, quantity, cartQuantity = 0) {
+    return /^[0-9]*$/.test(inputQuantity) && inputQuantity > 0 && inputQuantity <= quantity - cartQuantity;
   }
 
   function onOrderQuantityChange(event) {
-    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
-
     if (event.target.value === "") {
       setOrderQuantity(event.target.value);
-    } else if (isValidOrderQuantity(event.target.value, productQuantity)) {
+    } else if (isValidOrderQuantity(event.target.value, productQuantity, inCartQuantity)) {
       setOrderQuantity(+event.target.value);
     }
   }
@@ -48,8 +56,9 @@ export default function OrderQuantity({productQuantity, orderQuantity, setOrderQ
   }
 
   return <div className="order-actions__quantity-wrap">
-    <button disabled={orderQuantity === 1} type="button" className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick}>-</button>
-    <input type="text" className="order-actions__quantity-item order-actions__quantity-input" value={orderQuantity} onChange={onOrderQuantityChange} ref={inputOrderQuantityRef} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown}/>
-    <button disabled={orderQuantity === productQuantity} type="button" className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick}>+</button>
+    <button className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick} disabled={orderQuantity === 1} title={outOfStock ? "Out of stock" : ""} type="button">-</button>
+    <input className="order-actions__quantity-item order-actions__quantity-input" ref={inputOrderQuantityRef} onChange={onOrderQuantityChange} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown} disabled={outOfStock} title={outOfStock ? "Out of stock" : ""} type="text" value={orderQuantity}/>
+    <button className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick} disabled={orderQuantity === productQuantity - inCartQuantity || outOfStock} title={outOfStock ? "Out of stock" : ""} type="button">+</button>
   </div>;
 }
+

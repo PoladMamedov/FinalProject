@@ -39,12 +39,6 @@
     height: 55px;
     @include fonts(400, 30px, 55px);
   }
-}
-
-.order-actions__decrease-btn,
-.order-actions__increase-btn {
-  cursor: pointer;
-
   &:hover {
     background-color: darken($secondaryLight, 5%);
   }
@@ -54,4 +48,14 @@
     color: darken($primaryLight, 10%);
     cursor: not-allowed;
   }
+
+  &:disabled:hover {
+    background-color: darken($secondaryLight, 10%);
+    color: darken($primaryLight, 10%);
+  }
+}
+
+.order-actions__decrease-btn,
+.order-actions__increase-btn {
+  cursor: pointer;
 }

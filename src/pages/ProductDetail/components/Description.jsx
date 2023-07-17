@@ -18,7 +18,7 @@ export default function Description({
   return <div className="product-detail__info">
     <h2 className="product-detail__name">{name}</h2>
     <p className="product-detail__description">{description}</p>
-    <a href="#techSpecs" className="product-detail__specs-link" onClick={onAnchorLinkClick}>See Tech Specs...</a>
+    <a className="product-detail__specs-link" onClick={onAnchorLinkClick} href="#techSpecs">See Tech Specs...</a>
     <div className="product-detail__basic-specs-wrap">
       <div className="product-detail__basic-specs">
         {Object.entries(basicProps).map(([key, value], index) => <p key={index} className={`product-detail__basic-spec product-detail__${key}`}>{key}: <span className="product-detail__basic-spec-value">{value}</span></p>)}
