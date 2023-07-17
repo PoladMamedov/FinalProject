@@ -17,7 +17,7 @@ export default function ProductDetail() {
   const [productData, setProductData] = useState({});
 
   const { itemNo } = useParams();
-  const {getProduct} = useServer();
+  const { getProduct } = useServer();
   const dispatch = useDispatch();
 
   async function fetchProduct(productItemNo) {
@@ -26,7 +26,7 @@ export default function ProductDetail() {
       setProductData(data);
       setIsLoaded(true);
     } catch (error) {
-      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   }
 
@@ -36,21 +36,21 @@ export default function ProductDetail() {
     fetchProduct(itemNo);
   }, [itemNo]);
 
-  if (!isLoaded) return <PreLoader/>;
+  if (!isLoaded) return <PreLoader />;
 
   return (
     <>
-      <BreadCrumb/>
-    <section className="container product-detail-section">
-      <div className="product-detail__wrap">
-        <Gallery {...productData}/>
-        <div className="product-detail__info-wrap">
-          <Description {...productData}/>
-          <OrderActions {...productData}/>
+      <BreadCrumb />
+      <section className="container product-detail-section">
+        <div className="product-detail__wrap">
+          <Gallery {...productData} />
+          <div className="product-detail__info-wrap">
+            <Description {...productData} />
+            <OrderActions {...productData} />
+          </div>
         </div>
-      </div>
-       <Specifications {...productData}/>
-    </section>
+        <Specifications {...productData} />
+      </section>
     </>
   );
 }
