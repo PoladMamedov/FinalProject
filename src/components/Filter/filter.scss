@@ -7,7 +7,8 @@
     &__title {
         @include margin(0px, 33px);
         @include fonts(500, 26px, 34px);
-        @include breakpoint-mf("sm"){
+
+        @include breakpoint-mf("sm") {
             @include margin(0px, 33px);
         }
     }
@@ -21,7 +22,7 @@
             cursor: pointer;
         }
 
-        @include breakpoint-mf("sm"){
+        @include breakpoint-mf("sm") {
             display: none;
         }
 
@@ -68,6 +69,7 @@
         &__item:focus {
             background-color: $white;
         }
+
         &__error-text {
             color: red;
             @include margin(3px, 3px);
@@ -89,6 +91,7 @@
         padding: 0;
         font-family: "Roboto";
         @include fonts(400, 16px, 21px);
+
         &:disabled {
             cursor: not-allowed;
         }
@@ -108,7 +111,8 @@
 
         &--light {
             width: 140px;
-            @include breakpoint-mf("sm"){
+
+            @include breakpoint-mf("sm") {
                 width: 215px;
             }
         }
@@ -116,7 +120,8 @@
         &--apply {
             width: 140px;
             margin-top: 0;
-            @include breakpoint-mf("sm"){
+
+            @include breakpoint-mf("sm") {
                 display: none;
             }
         }
@@ -130,26 +135,30 @@
             width: 100%;
             gap: 20%;
             margin: 0 auto;
-            @include breakpoint-mf("sm"){
+
+            @include breakpoint-mf("sm") {
                 display: none;
             }
+
             &__img {
                 position: absolute;
                 right: 50%;
-              background: none;
+                background: none;
             }
         }
-        &-text{
-        color: $primaryLight;
-        padding: 0;
-        margin-left: 10%;
-        text-decoration: underline;
-        background: none;
-        @include fonts(400, 14px, 18px);
-        font-family: "Roboto", sans-serif;
-        &:hover {
-            cursor: pointer;
-        }
+
+        &-text {
+            color: $primaryLight;
+            padding: 0;
+            margin-left: 10%;
+            text-decoration: underline;
+            background: none;
+            @include fonts(400, 14px, 18px);
+            font-family: "Roboto", sans-serif;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }
@@ -167,35 +176,38 @@
     width: 200%;
     height: 100%;
     background-color: white;
-  }
+}
 
-  @keyframes filter-in {
+@keyframes filter-in {
     from {
-      transform: translateX(-100%);
+        transform: translateX(-100%);
     }
-    to {
-      transform: translateX(0);
-    }
-  }
 
-  .hidden-closed {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.hidden-closed {
+    z-index: 50;
     animation: filter-out 0.5s ease-in-out;
-  }
+}
 
-  @keyframes filter-out {
+@keyframes filter-out {
     from {
-      transform: translateX(100%);
+        transform: translateX(100%);
     }
-    to {
-      transform: translateX(0);
-    }
-  }
 
-.filter-section{
-    @include breakpoint-mf("sm"){
+    to {
+        transform: translateX(0);
+    }
+}
+
+.filter-section {
+    @include breakpoint-mf("sm") {
         position: static;
     }
-  }
+}
 
 input[type="checkbox"]:before {
     content: "";

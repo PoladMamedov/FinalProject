@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Image } from "cloudinary-react";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
+import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 
 export default function ProductCard(props) {
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
   const { currency, currencyName } = useSelector((state) => state.currentCurrency);
   const currencyValue = parseFloat(currency);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -49,13 +52,15 @@ export default function ProductCard(props) {
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <Link
                 className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                to={`/products/${urlItemNumber}`}
+                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container--rows" : "card__btn-card-container"}>
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
                   className={props.active ? "all-card__btn-svg-cart--rows" : "card__btn-svg-cart"}
-                  src="/img/cart-logo.png"
+                  publicId="cart-logo_tz7wza"
                   alt="cart-logo" />
               </button>
             </div>
@@ -64,14 +69,14 @@ export default function ProductCard(props) {
             <div className={"all-card__product-name--rows"}>{props.item.name}</div>
             {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
               <p className="all-card__price--prev">
-                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
                 {Math.floor(props.item.previousPrice * currencyValue)}</p>
               <p className="all-card__price--curr-rows">
-                <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
                 {Math.floor(props.item.currentPrice * currencyValue)}</p>
 
             </div> : <div className={"all-card__price--curr-rows"}>
-              <img className="currency-icon--rows" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+              <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>}

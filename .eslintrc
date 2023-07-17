@@ -63,6 +63,9 @@
     "react/self-closing-comp": "off", //пустые компоненты в JSX должны быть самозакрывающимися Пример:<span className="header__menu-lines"/>(правило отключено)
     "padded-blocks": "off", //блок кода не должен быть окружен пустыми строками(правило отключено)
     "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
     "react/jsx-props-no-spreading": "off",
     "react/destructuring-assignment": "off",
     "react/prop-types": ["off"],

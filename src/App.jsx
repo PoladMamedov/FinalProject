@@ -1,3 +1,4 @@
+import { ReactNotifications } from "react-notifications-component";
 import AppRoutes from "./AppRoutes";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
   return (
     <>
       <AppRoutes />
+      <ReactNotifications/>
     </>
   );
 }

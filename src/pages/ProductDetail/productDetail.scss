@@ -1,0 +1,37 @@
+.product-detail-section {
+  padding-top: 20px;
+  padding-bottom: 53px;
+
+  @include breakpoint-mf('sm') {
+    padding-top: 40px;
+    padding-bottom: 77px;
+  }
+
+  @include breakpoint-mf('my') {
+    padding-top: 42px;
+    padding-bottom: 140px;
+  }
+
+  @include breakpoint-mf('lg') {
+  }
+
+  @include breakpoint-mf('xl') {
+    padding: 42px 15px 140px;
+  }
+}
+
+.product-detail__wrap {
+  @include breakpoint-mf('xl') {
+    display: grid;
+    grid-template-columns: 540px 1fr;
+    height: fit-content;
+  }
+}
+
+.product-detail__info-wrap {
+  @include breakpoint-mf('xl') {
+    padding-left: 70px;
+    @include flex(column, space-between, flex-start);
+  }
+}
+
