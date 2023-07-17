@@ -60,14 +60,14 @@ export default function Gallery({imageUrls}) {
   }
   return <>
     <div className="product-detail__gallery">
-      <img className="product-detail__main-img" width="323px" height="222px" src={mainImgUrl} alt="main-img" onClick={onMainImgClick} />
+      <img className="product-detail__main-img" onClick={onMainImgClick} width="323px" height="222px" src={mainImgUrl} alt="main-img"/>
         <Slider {...sliderSettings.default}>{imageUrls.map((el, index) => <div key={index} className="product-detail__slider-img-wrap">
-            <img className="product-detail__slider-img" src={el} alt="img" onClick={onAdditionalImgClick} data-index={index}/>
+            <img className="product-detail__slider-img" onClick={onAdditionalImgClick} src={el} alt="img" data-index={index}/>
           </div>)}
         </Slider>
   </div>
   {isFullScreenImg && <div className="product-detail__fs-slider-wrap" onClick={close} onKeyDown={close}>
-    <button type="button" className="product-detail__fs-slider-close-btn" onClick={close}>&#10006;</button>
+    <button className="product-detail__fs-slider-close-btn" onClick={close} type="button">&#10006;</button>
     <Slider {...sliderSettings.fullSize} className="product-detail__fs-slider" id="product-detail__fs-slider">
       {imageUrls.map((el, index) => <div key={index} className="product-detail__fs-slider-img-wrap"><img className="product-detail__fs-slider-img" src={el} alt="img"/></div>)}
     </Slider>
