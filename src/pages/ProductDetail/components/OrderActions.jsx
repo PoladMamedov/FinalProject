@@ -87,24 +87,32 @@ export default function OrderActions(props) {
 
   async function onAddButtonClick() {
       try {
-        const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+        if (token) dispatch(fetchCart(token));
 
-        if (token) {
-          dispatch(fetchCart(token));
+        const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+        const productInCartIndx = cart.findIndex(({product: {_id: id}}) => id === productID);
+        const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
+
+        if (token && filteredCart.length === 0) {
           dispatch(setCart({
             products: [
-              {
-                product: productID,
-                cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-              }
+                {
+                  product: productID,
+                  cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
+                }
             ]
           }, token));
-        } else {
-          const productInCartIndx = cart.findIndex(({product: {_id: ID}}) => ID === productID);
-
-          if (productInCart) {
-            const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
-
+        } else if (token && filteredCart.length) {
+          dispatch(setCart({
+            products: [
+              ...filteredCart.map(({product: {_id: id}, cartQuantity}) => ({product: id, cartQuantity})),
+              {
+                  product: productID,
+                  cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
+                }
+            ]
+          }, token));
+        } else if (productInCart) {
             dispatch(fillCart([
                   ...filteredCart,
                 {
@@ -112,15 +120,14 @@ export default function OrderActions(props) {
                   cartQuantity: orderQuantity + productInCart.cartQuantity
                 }
               ]));
-          } else {
-            dispatch(addToCart([
-                {
-                  product: {...props},
-                  cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-                }
-              ]));
+        } else {
+          dispatch(addToCart([
+            {
+              product: {...props},
+              cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
             }
-          }
+          ]));
+        }
 
         setOrderQuantity(1);
 
