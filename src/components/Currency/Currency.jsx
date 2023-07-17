@@ -40,7 +40,7 @@ const Currency = () => {
                <option key={index} value={val}>{val}</option>
             ))}
          </select>
-         <img className="currency__img" src={`/img/currency/${value}.png`} alt="ere" />
+         <img className="currency__img" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689595259/currency/${value}.png`} alt="ere" />
       </>
    );
 

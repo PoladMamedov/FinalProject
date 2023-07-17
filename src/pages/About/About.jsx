@@ -15,7 +15,7 @@ const About = () => {
           </h1>
           <Image
             cloudName={cloudinaryConfig.cloudName}
-            publicId="istockphoto03_axxxei"
+            publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/istockphoto03_axxxei.jpg"
             className="about__img"
             alt=""
           />
@@ -25,7 +25,7 @@ const About = () => {
             <div className="about__item">
               <Image
                 cloudName={cloudinaryConfig.cloudName}
-                publicId="Icon04_le1oir"
+                publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280218/about/Icon04_le1oir.png"
                 className="about__icons"
                 alt=""
               />
@@ -51,7 +51,7 @@ const About = () => {
             <div className="about__item">
               <Image
                 cloudName={cloudinaryConfig.cloudName}
-                publicId="Icon05_uakc0d"
+                publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/Icon05_uakc0d.png"
                 className="about__icons"
                 alt=""
                 width={80}
@@ -72,7 +72,7 @@ const About = () => {
             <div className="about__item">
               <Image
                 cloudName={cloudinaryConfig.cloudName}
-                publicId="Icon06_ogqm7o"
+                publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/Icon06_ogqm7o.png"
                 className="about__icons"
                 alt=""
               />
@@ -82,7 +82,7 @@ const About = () => {
               <li className="about__list-items">
                 <Image
                   cloudName={cloudinaryConfig.cloudName}
-                  publicId="better-together_urc7gg"
+                  publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280218/about/better-together_urc7gg.png"
                   className="about__list-img"
                   alt=""
                 />
@@ -94,7 +94,7 @@ const About = () => {
               <li className="about__list-items">
                 <Image
                   cloudName={cloudinaryConfig.cloudName}
-                  publicId="results-matter_vtjmeg"
+                  publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/results-matter_vtjmeg.png"
                   className="about__list-img"
                   alt=""
                 />
@@ -106,7 +106,7 @@ const About = () => {
               <li className="about__list-items">
                 <Image
                   cloudName={cloudinaryConfig.cloudName}
-                  publicId="trust-in-data_bppc7k"
+                  publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/trust-in-data_bppc7k.png"
                   className="about__list-img"
                   alt=""
                 />
@@ -121,7 +121,7 @@ const About = () => {
             <div className="about__item">
               <Image
                 cloudName={cloudinaryConfig.cloudName}
-                publicId="Icon07_swn6xc"
+                publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280218/about/Icon07_swn6xc.png"
                 className="about__icons"
                 alt=""
               />
@@ -137,7 +137,7 @@ const About = () => {
         <div className="about__item">
           <Image
             cloudName={cloudinaryConfig.cloudName}
-            publicId="location01_saiy0u"
+            publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689280219/about/location01_saiy0u.png"
             className="about__icons"
             alt=""
           />
