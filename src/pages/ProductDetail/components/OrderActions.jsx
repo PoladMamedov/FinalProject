@@ -7,16 +7,20 @@ import "react-notifications-component/dist/scss/notification.scss";
 import "animate.css/animate.min.css";
 import FavoritesIcon from "../../../components/FavoritesIcon/FavoritesIcon";
 import OrderQuantity from "./OrderQuantity";
-import { addToCart, fetchCart, setCart } from "../../../redux/actions/cart";
+import {
+  addToCart, fetchCart, setCart, fillCart
+} from "../../../redux/actions/cart";
 import notificationsSettings from "../../../constants/constants";
 import CurrencyIcon from "../../../components/CurrencyIcon/CurrencyIcon";
 
-export default function OrderActions({
-  properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
-}) {
+export default function OrderActions(props) {
+  const {
+    properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
+  } =  props;
+
   const {
     getWishlist, addToWishlist, deleteFromWishlist
-} = useServer();
+  } = useServer();
 
   const dispatch = useDispatch();
 
@@ -29,6 +33,7 @@ export default function OrderActions({
   const [orderQuantity, setOrderQuantity] = useState(1);
   const [favs, setFavs] = useState([]);
   const [isFav, setIsFav] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
 
   const colors = {...similarProducts, [itemNo]: color};
   const price = {currentPrice, previousPrice};
@@ -48,7 +53,13 @@ export default function OrderActions({
     if (token) {
       fetchFavs(token);
     }
-  }, [color]);
+    }, [color]);
+
+  useEffect(() => {
+    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+    if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
+  }, [cart]);
+
 
   async function addToFavs() {
     try {
@@ -76,9 +87,10 @@ export default function OrderActions({
 
   async function onAddButtonClick() {
       try {
+        const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+
         if (token) {
           dispatch(fetchCart(token));
-          const productInCart = cart.find(({product: {_id: id}}) => id === productID);
           dispatch(setCart({
             products: [
               {
@@ -88,14 +100,28 @@ export default function OrderActions({
             ]
           }, token));
         } else {
-          const productInCart = cart.find(({product}) => product === productID);
-          dispatch(addToCart([
-              {
-                product: productID,
-                cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-              }
-            ]));
-        }
+          const productInCartIndx = cart.findIndex(({product: {_id: ID}}) => ID === productID);
+
+          if (productInCart) {
+            const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
+
+            dispatch(fillCart([
+                  ...filteredCart,
+                {
+                  product: {...props},
+                  cartQuantity: orderQuantity + productInCart.cartQuantity
+                }
+              ]));
+          } else {
+            dispatch(addToCart([
+                {
+                  product: {...props},
+                  cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
+                }
+              ]));
+            }
+          }
+
         setOrderQuantity(1);
 
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
@@ -120,7 +146,7 @@ export default function OrderActions({
     <div className="order-actions__btns-wrap">
       {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
         : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
-      <button type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+      <button disabled={outOfStock} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
@@ -128,6 +154,6 @@ export default function OrderActions({
         {Object.entries(colors).map(([key, value], index) => <Link to={`/products/${key}`} key={index}><span className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{backgroundColor: value}}></span></Link>)}
       </div>
     </div>
-    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity}/>
+    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity} productID={productID} cart={cart} outOfStock={outOfStock}/>
   </div>;
 }
