@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch, Provider } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { removeFromFavorites, decrementFavoritesCount } from "../../redux/actions/favorites";
-import { store } from "../../redux/store";
 
 const Favorites = () => {
   // Получение списка избранных товаров из состояния Redux
@@ -16,13 +15,11 @@ const Favorites = () => {
    };
 
   return (
-    <Provider store={store}>
     <section className="favorites">
       <div className={"container"}>
         <div className="favorites__header">
           <p className="favorites__header-list">Product</p>
           <p className="favorites__header-list">Price</p>
-          <p className="favorites__header-list">Quantity</p>
           <p className="favorites__header-list">Add to Cart</p>
           <p className="favorites__header-list">Delete</p>
         </div>
@@ -37,13 +34,12 @@ const Favorites = () => {
                 />
                 )}
                 <div className="favorites__item-details">
-                  <p className="favorites__item-title">{product.name}</p>
+                  <p className="favorites__item-title">
+                    {product.name}
+                    </p>
                   <p className="favorites__item-price">
                     ${product.currentPrice}
                   </p>
-                  <div className="favorites__item-quantity">
-                    <span className="favorites__item-quantity-no">{product.quantity}</span>
-                  </div>
                   <div className="favorites__item-add">
                     <button type="button" className="favorites__item-add-minus">
                       -
@@ -75,7 +71,6 @@ const Favorites = () => {
         </div>
       </div>
     </section>
-     </Provider>
   );
 };
 

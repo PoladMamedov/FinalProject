@@ -30,7 +30,6 @@ const Header = () => {
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    console.log('fav count', favoritesCount);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -167,14 +166,13 @@ const Header = () => {
             </nav>
             
             <div className="header__nav-btn-wrap">
-            <NavLink to={"/wishlist"} key={4} className="header__nav-link--cart">
+            <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
                 <img
-                  className="header__nav-cart"
-                  src="/img/heart_icon.png"
+                  className="header__nav-fav"
+                  src="/img/heart_icon2.png"
                   alt="favorites-logo"
                 />
-                <span className="header__nav-cart--count">{favoritesCount}</span>
-                {/* В спан записать с редакса количество в корзине */}
+                <span className="header__nav-fav--count">{favoritesCount}</span>
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
@@ -188,7 +186,7 @@ const Header = () => {
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
-                key={5}
+                key={6}
                 className="header__nav-link--loginBtn"
               >
                 <img
