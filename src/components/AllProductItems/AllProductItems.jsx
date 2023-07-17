@@ -31,20 +31,26 @@ function AllProductItems(props) {
     setIsLoading(true);
     getAllProducts()
       .then((result) => {
+        setIsLoading(false);
         if (props.products) {
+          setIsLoading(true);
           setAllProductState(result);
           dispatch(fillProducts(result));
           setIsLoading(false);
         } else if (props.prodmouse) {
+          setIsLoading(true);
           setFilteredMouses(result.filter((obj) => obj.categories === "mouses"));
           setIsLoading(false);
         } else if (props.prodhead) {
+          setIsLoading(true);
           setFilteredHeadphones(result.filter((obj) => obj.categories === "headphones"));
           setIsLoading(false);
         } else if (props.prodkeyb) {
+          setIsLoading(true);
           setFilteredKeyboards(result.filter((obj) => obj.categories === "keyboards"));
           setIsLoading(false);
         } else if (props.prodsmartwatch) {
+          setIsLoading(true);
           setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
           setIsLoading(false);
         }
@@ -53,25 +59,15 @@ function AllProductItems(props) {
 
   useEffect(() => {
     if (allProducts.length === 0 && props.products) {
-      setIsLoading(true);
       dispatch(fillProducts(allProductState));
-      setIsLoading(false);
     } else if (allProducts.length === 0 && props.prodmouse) {
-      setIsLoading(true);
       dispatch(fillProducts(filteredMouses));
-      setIsLoading(false);
     } else if (allProducts.length === 0 && props.prodkeyb) {
-      setIsLoading(true);
       dispatch(fillProducts(filteredKeyboards));
-      setIsLoading(false);
     } else if ((allProducts.length === 0) && props.prodhead) {
-      setIsLoading(true);
       dispatch(fillProducts(filteredHeadphones));
-      setIsLoading(false);
     } else if (allProducts.length === 0 && props.prodsmartwatch) {
-      setIsLoading(true);
       dispatch(fillProducts(filteredSmartWatch));
-      setIsLoading(false);
     }
   }, [allProducts, filteredMouses, filteredHeadphones, filteredSmartWatch, filteredKeyboards]);
 
@@ -125,8 +121,9 @@ function AllProductItems(props) {
                 <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
               ))}
             </div>
-            <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-          </>
+              <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+              </>
+
         )}
       </div>
       <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
