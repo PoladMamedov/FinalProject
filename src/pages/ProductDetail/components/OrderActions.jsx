@@ -60,6 +60,7 @@ export default function OrderActions(props) {
     if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
   }, [cart]);
 
+
   async function addToFavs() {
     try {
       setIsFav(true);

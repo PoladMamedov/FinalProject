@@ -61,4 +61,3 @@ export default function OrderQuantity(
     <button className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick} disabled={orderQuantity === productQuantity - inCartQuantity || outOfStock} title={outOfStock ? "Max quantity of product is already in cart" : ""} type="button">+</button>
   </div>;
 }
-
