@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
@@ -24,7 +24,7 @@ export default function ProductCard(props) {
   useEffect(() => {
     setIsFav(favorites.find((item) => item.itemNo === urlItemNumber));
   }, []);
-  
+
   const handleAddToFavorites = async () => {
     const nameWithoutLastWord = props.item.name.slice(
       0,
@@ -55,8 +55,8 @@ export default function ProductCard(props) {
         ? <div className={props.active ? "all-card-container" : "card-container"}>
           <div className={props.active ? "all-card" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
             <div className={props.active ? "all-card__btn" : "card__btn"}>
-            <div className="all-card__like">
-              <button type="button" className="all-card__like-button">
+              <div className="all-card__like">
+                <button type="button" className="all-card__like-button">
                   <img
                     className={
                       isFavorited
@@ -71,8 +71,8 @@ export default function ProductCard(props) {
                         : handleAddToFavorites
                     }
                   />
-                  </button>
-                </div>
+                </button>
+              </div>
               <Link
                 className={props.active ? "all-card__btn-details" : "card__btn-details"}
                 to={`/products/${urlItemNumber}`}>DETAIL</Link>
@@ -103,8 +103,8 @@ export default function ProductCard(props) {
         : <div className={props.active ? "all-card-container__rows" : "card-container"}>
           <div className={props.active ? "all-card__rows" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
-            <div className="all-card__likes-top">
-            <button type="button" className="all-card__likes-top-button">
+              <div className="all-card__likes-top">
+                <button type="button" className="all-card__likes-top-button">
                   <img
                     className={
                       isFavorited
@@ -119,8 +119,8 @@ export default function ProductCard(props) {
                         : handleAddToFavorites
                     }
                   />
-                  </button>
-                </div>
+                </button>
+              </div>
               <Link
                 className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
                 to={`/products/${urlItemNumber}`}
