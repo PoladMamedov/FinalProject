@@ -21,7 +21,7 @@
       gap: 50px;
     }
     @include breakpoint-mf("my") {
-      width: 390px;
+      width: 400px;
       gap: 35px;
       // position: relative;
       // top: -151px;
@@ -29,8 +29,10 @@
 
     .checkout-section__product-header {
       // styles for the product header
-      margin-bottom: 0.9375rem;
-
+      margin-bottom: 3em;
+      @include breakpoint-mf("my") {
+        margin-bottom: 0;
+      }
       .checkout-section__product-header-summary {
         // styles for the product header summary
         width: 260px;
@@ -43,11 +45,13 @@
         padding-bottom: 0.375rem;
         margin-bottom: 0.8125rem;
         border-bottom: 0.0625rem solid #bab9b9;
+        @include fonts(400, 16px, 35px);
+        color: $primaryDark;
         @include breakpoint-mf("xs") {
           width: 490px;
         }
         @include breakpoint-mf("my") {
-          width: 390px;
+          width: 400px;
         }
 
         .checkout-section__product-qty {
@@ -86,12 +90,14 @@
   background-color: #f5f7fb;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  height: 250px;
-  width: 390px;
+  height: 290px;
+  width: 400px;
   display: none;
-
+  // @include fonts(400, 16px, 35px);
+  color: $primaryDark;
   @include breakpoint-mf("my") {
     display: flex;
+    gap: 7px;
   }
   h4 {
     // styles for the order summary heading
@@ -108,7 +114,7 @@
     line-height: 1.14;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 33px;
+    margin-bottom: 30px;
     span {
       // styles for the subtotal label and value
     }
@@ -164,7 +170,7 @@
     gap: 50px;
   }
   @include breakpoint-mf("my") {
-    width: 390px;
+    width: 400px;
     gap: 35px;
   }
   .checkout-section__form-title {
@@ -320,13 +326,16 @@
   padding-left: 7px;
 }
 
-.checkout-section__product {
+.checkout-section__product-btn {
   display: block;
   margin-bottom: 10px;
   background-color: #ffffff;
+  color: $primaryDark;
+  font-family: "Roboto";
+  @include fonts(400, 16px, 35px);
 }
 
-.checkout-section__product.active {
+.checkout-section__product-btn.active {
   display: none;
 }
 

@@ -1,4 +1,4 @@
-//! Global
+// !Global
 @import "./normalize";
 @import "./constants";
 @import "./mixins";
@@ -11,8 +11,12 @@
 @import "../pages/NotFound/notFound";
 @import "../pages/About/about";
 @import "../pages/Cart/cart";
-@import "../pages/Products/products";
+@import "../pages/ProductDetail/productDetail";
 @import "../pages/CheckOut/checkout";
+@import "../pages/ThankYou/thankYou";
+
+// !Components
+@import "../pages/Products/products";
 
 
 //!Components
@@ -23,7 +27,7 @@
 @import "../components/TopItemsSlider/slick";
 @import "../components/TopItemsSlider/slick-theme";
 @import "../components/BreadCrumb/breadCrumb";
-@import "../components/BreadCrumbItem/breadCrumbItem";
+@import "../components/BreadСrumbItem/breadCrumbItem";
 @import "../components/Categories/categories";
 @import "../components/Filter/filter";
 @import "../components/Footer/footer";
@@ -42,3 +46,11 @@
 @import "../components/CartItems/cartItems";
 @import "../components/AllProductItems/allProductItems";
 @import "../components/PaginationAllProducts/paginationAllProducts";
+@import "../components/Currency/currency";
+@import "../components/RecentlyProducts/recentlyProducts";
+@import "../pages/ProductDetail/components/gallery";
+@import "../pages/ProductDetail/components/description";
+@import "../pages/ProductDetail/components/orderActions";
+@import "../pages/ProductDetail/components/orderQuantity";
+@import "../pages/ProductDetail/components/specifications";
+

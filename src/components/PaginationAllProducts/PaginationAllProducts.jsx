@@ -5,11 +5,12 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   const getPageNumbers = () => {
-    const ellipsis = <span className="ellipsis">...</span>;
+    const ellipsis = <span key="ellipsis" className="ellipsis">...</span>;
 
     if (totalPages <= MAX_VISIBLE_PAGES) {
       return pageNumbers;
     }
+
 
     const current = currentPage;
     const neighbors = Math.floor((MAX_VISIBLE_PAGES - 1) / 2); // Количество соседних страниц
@@ -28,7 +29,13 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
     const firstPage = pageNumbers.slice(0, 1);
     const lastPage = pageNumbers.slice(totalPages - 1);
 
-    return [...(startPage > 1 ? firstPage : []), ...(startPage > 1 ? [ellipsis] : []), ...visiblePages, ...(endPage < totalPages ? [ellipsis] : []), ...(endPage < totalPages ? lastPage : [])];
+    return [
+      ...(startPage > 1 ? firstPage : []),
+      ...(startPage > 1 ? [React.cloneElement(ellipsis, { key: `ellipsis_${startPage - 1}` })] : []),
+      ...visiblePages,
+      ...(endPage < totalPages ? [React.cloneElement(ellipsis, { key: `ellipsis_${endPage + 1}` })] : []),
+      ...(endPage < totalPages ? lastPage : []),
+    ];
   };
 
   return (
@@ -40,12 +47,12 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
         </button>
       )}
 
-      {getPageNumbers().map((pageNumber, index) => {
+      {getPageNumbers().map((pageNumber) => {
         if (pageNumber === currentPage) {
           return (
             // eslint-disable-next-line react/button-has-type
             <button
-              key={index} // Уникальный ключ
+              key={`page_${pageNumber}`}
               className="pagination__button pagination__button--active"
               onClick={() => onPageChange(pageNumber)}
             >
@@ -57,7 +64,7 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
           return (
             // eslint-disable-next-line react/button-has-type
             <button
-              key={index} // Уникальный ключ
+              key={`page_${pageNumber}`}
               className="pagination__button"
               onClick={() => onPageChange(pageNumber)}
             >

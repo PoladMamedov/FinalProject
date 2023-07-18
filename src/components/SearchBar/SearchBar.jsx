@@ -5,6 +5,7 @@ import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
 import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
+import { addFilteredProducts } from "../../redux/actions/filteredProducts";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults } = useSelector((state) => state.search);
+  // const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -26,7 +28,11 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/products");
+    if (searchResults) {
+      setIsSearchOpen(false);
+      navigate("/search");
+      setSearchTerm("");
+    }
   };
 
   useEffect(() => {
@@ -34,6 +40,7 @@ const SearchBar = () => {
       try {
         const products = await getSearchedProducts(searchPhrases);
         if (searchTerm !== "") {
+          dispatch(addFilteredProducts(products));
           dispatch(setSearchProducts(products));
         }
       } catch (error) {
@@ -42,9 +49,6 @@ const SearchBar = () => {
     }
     if (searchTerm !== "") {
       searchProducts();
-    }
-    if (searchTerm === "") {
-      dispatch(setSearchProducts([]));
     }
   }, [debouncedSearchTerm]);
 
@@ -55,8 +59,9 @@ const SearchBar = () => {
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
+    navigate("/");
     dispatch(setSearchProducts([]));
-
+    dispatch(addFilteredProducts([]));
   };
 
   return (

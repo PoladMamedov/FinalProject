@@ -1,16 +1,13 @@
-/* eslint-disable no-confusing-arrow */
 /* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-no-comment-textnodes */
-import { Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import PreLoader from "../../components/PreLoader/PreLoader";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
-// eslint-disable-next-line import/order
-// import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { useDispatch} from "react-redux";
+// eslint-disable-next-line spaced-comment
+//import { v4 as uuidv4 } from "uuid";
 
 // eslint-disable-next-line spaced-comment
 //import { PatternFormat } from "react-number-format";
@@ -20,25 +17,25 @@ import {
   faAngleUp,
   faLock,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import CartList from "../../components/CartList/CartList";
+import { clearCheckout } from "../../redux/actions/cart";
 
 function CheckOut() {
-  //   const [isSummaryVisible, setSummaryVisible] = useState(true);
-
-  //   const toggleSummaryVisibility = () => {
-  //     setSummaryVisible((prevState) => !prevState);
-  //     console.log(setSummaryVisible((prevState) => !prevState));
-  //   };
+  const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState(2);
+
+  // const [orderNumber, setOrderNumber] = useState("");
+
   const [selectedMethod, setSelectedMethod] = useState({
-    label: "Standart Shipping ",
+    label: "Standart Shipping",
     value: "13",
   });
-  
+
+  const navigate = useNavigate();
+
   const handleButtonClick = (buttonNumber) => {
     setActiveButton(buttonNumber);
   };
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -48,7 +45,7 @@ function CheckOut() {
       city: "",
       phoneNumber: "",
       emailAddress: "",
-      shippingMethod: "",
+      shippingMethod: "sandartShipping",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -64,26 +61,20 @@ function CheckOut() {
       city: Yup.string()
         .required("City required")
         .min(2, "Minimum length is 2 characters"),
-      phoneNumber: Yup.number()
-        .required("Phone Number required")
-        .min(10, "Minimum length is 10 characters"),
-        // .transform((value) => (Number.isNaN(value) ? null : value))
-        // .nullable(true),
-      emailAddress: Yup.string()
-        .required("Email Address required")
-        .email(),
-      shippingMethod: Yup.string()
-        .required("Shipping method required")
-        //  .oneOf(["Store Pick Up", "Standart Shipping"]),
+      phoneNumber: Yup.number().required("Phone Number required"),
+      // .min(10, "Minimum length is 10 characters"),
+      // .transform((value) => (Number.isNaN(value) ? null : value))
+      // .nullable(true),
+      emailAddress: Yup.string().required("Email Address required").email(),
+      shippingMethod: Yup.string(),
+      // .required("Shipping method required"),
+      //  .oneOf(["Store Pick Up", "Standart Shipping"]),
     }),
 
-    onSubmit: () => {
-      // const userData = {
-      //   loginOrEmail: values.loginOrEmail,
-      //   password: values.password,
-      // };
-      <Navigate to={"/products"} />;
-      console.log('click');
+    onSubmit: (values) => {
+      navigate("/thankyou");
+      console.log(values);
+      dispatch(clearCheckout());
     },
   });
   return (
@@ -116,7 +107,7 @@ function CheckOut() {
               </span>
 
               <button
-                className={`checkout-section__product ${
+                className={`checkout-section__product-btn ${
                   activeButton === 1 ? "active" : ""
                 }`}
                 onClick={() => handleButtonClick(1)}
@@ -125,7 +116,7 @@ function CheckOut() {
                 <FontAwesomeIcon icon={faAngleDown} className="icon-arrow" />
               </button>
               <button
-                className={`checkout-section__product ${
+                className={`checkout-section__product-btn ${
                   activeButton === 2 ? "active" : ""
                 }`}
                 onClick={() => handleButtonClick(2)}
@@ -140,7 +131,8 @@ function CheckOut() {
                 activeButton === 2 ? "active" : ""
               }`}
             >
-              <span className="">item component</span>
+              {/* <span className="">item component</span> */}
+              <CartList />
             </div>
           </div>
 
@@ -154,7 +146,7 @@ function CheckOut() {
               <span className="">Shipping method</span>
             </div>
             <div className="checkout-section__product-summary-computer-shipping-method">
-              <span className="">{selectedMethod.label}</span>
+              <span className="">{selectedMethod.label.split(" $")[0]}</span>
               <span className="">{selectedMethod.value}</span>
             </div>
 
@@ -183,12 +175,12 @@ function CheckOut() {
                   </span>{" "}
                   <span className="">
                     or{" "}
-                    <a
-                      href="/"
+                    <Link
+                      to={"/about"}
                       className="checkout-section__security-help-contact"
                     >
                       contact us
-                    </a>
+                    </Link>
                   </span>
                 </div>
               </div>
@@ -336,7 +328,7 @@ function CheckOut() {
               onChange={(e) => {
                 formik.handleChange(e);
                 const selectedOption = e.target.options[e.target.selectedIndex];
-                 const methodValue = selectedOption.value === "storePickUp" ? "Free" : "13";
+                const methodValue = selectedOption.value === "storePickUp" ? "Free" : "13";
                 setSelectedMethod({
                   label: selectedOption.text,
                   value: methodValue,
@@ -347,7 +339,7 @@ function CheckOut() {
             >
               <option
                 className="checkout-section__form-input-field option"
-                value="standartShipping"
+                value="sandartShipping"
               >
                 Standart Shipping $13
               </option>
@@ -366,7 +358,7 @@ function CheckOut() {
           </div>
 
           <button className="checkout-section__form-submit-btn" type="submit">
-            Continue to billing
+            Continue
           </button>
         </form>
         <div className="mobile-version">
@@ -388,12 +380,12 @@ function CheckOut() {
                 </span>{" "}
                 <span className="">
                   or{" "}
-                  <a
-                    href="/"
+                  <Link
+                    to={"/about"}
                     className="checkout-section__security-help-contact"
                   >
                     contact us
-                  </a>
+                  </Link>
                 </span>
               </div>
             </div>

@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { fetchCategories } from "../../redux/actions/categories";
-import setPagePath from "../../redux/actions/setPagePath";
+import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
+import Currency from "../Currency/Currency";
 
 const Header = () => {
 
@@ -19,7 +20,6 @@ const Header = () => {
   const allCategories = categories.filter((item) => item.parentId === "null");
 
   const handleClickOutside = (e) => {
-    // Проверяем, был ли клик вне меню
     if (
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
     ) {
@@ -85,13 +85,7 @@ const Header = () => {
               </ul>
             </nav>
             <div className="header__container-top-wrap">
-              <p
-                style={{ fontWeight: 700 }}
-                className="header__container-top-lang"
-              >
-                ENG
-              </p>
-              <p className="header__container-top-lang">UKR</p>
+              <Currency />
             </div>
           </div>
           <div className="header__container-bottom">
@@ -148,10 +142,10 @@ const Header = () => {
                   </div>
                 </li>
                 {isCategoriesOpen && <ul className="header__mobile-categories">
-                  <MobileCategory category={allCategories[0].id} />
-                  <MobileCategory category={allCategories[1].id} />
-                  <MobileCategory category={allCategories[2].id} />
-                  <MobileCategory category={allCategories[3].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[0].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[1].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[2].id} />
+                  <MobileCategory setIsMenuOpen={setIsMenuOpen} category={allCategories[3].id} />
                 </ul>}
                 <li className="header__nav-item" key={3}>
                   <NavLink
@@ -164,6 +158,9 @@ const Header = () => {
                   </NavLink>
                 </li>
               </ul>
+              <div className="header__mobile-currency">
+                <Currency />
+              </div>
             </nav>
 
             <div className="header__nav-btn-wrap">

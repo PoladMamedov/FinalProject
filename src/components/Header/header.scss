@@ -38,21 +38,27 @@
     }
   }
 
-  &__container-top-wrap {
-    display: none;
-    @include breakpoint-mf("md") {
-      justify-self: right;
-      @include flex(row, center, center);
-      gap: 15px;
-    }
-  }
+   &__container-top-wrap {
+      display: none;
 
-  &__container-bottom {
-    @include flex(row, space-between, center);
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
+      @include breakpoint-mf("md") {
+         justify-self: right;
+         @include flex(row, flex-start, center);
+         gap: 14px;
+      }
+   }
+   &__mobile-currency {
+      @include flex(row, center, center);
+      gap: 14px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+   }
+   &__container-bottom {
+      @include flex(row, space-between, center);
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
 
     @include breakpoint-mf("md") {
       display: grid;
@@ -61,13 +67,13 @@
     }
   }
 
-  &__company-logo {
-    grid-column: 3/4;
-    width: 140px;
-    line-height: 30px;
-    color: $primaryLight;
-    margin-top: 8px;
-    margin-left: 5px;
+   &__company-logo {
+      grid-column: 3/4;
+      width: 140px;
+      line-height: 30px;
+      color: $primaryLight;
+      margin-top: 8px;
+      margin-left: 10px;
 
     @media (min-width: 370px) {
       justify-self: center;
@@ -346,16 +352,17 @@
     }
   }
 
-  &__nav {
-    position: absolute;
-    overflow: hidden;
-    width: 100%;
-    top: -550px;
-    left: 0;
-    background-color: $white;
-    margin-bottom: 30px;
-    box-shadow: 0px 6px 10px 0px #00000040;
-    transition: top 0.6s ease;
+&__nav {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      top: -550px;
+      left: 0;
+      background-color: $white;
+      margin-bottom: 30px;
+      box-shadow: 0px 6px 10px 0px #00000040;
+      transition: top .6s ease;
+      z-index: 3;
 
     @include breakpoint-mf("md") {
       display: none;
@@ -377,15 +384,13 @@
     }
   }
 
-  &__nav-list {
-    @include flex(column, center, flex-start);
-    gap: 30px;
-    padding: 16px 0;
-    margin-left: 9px;
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 55px;
-    padding-top: 30px;
+   &__nav-list {
+      @include flex(column, center, flex-start);
+      gap: 30px;
+      margin-left: 9px;
+      position: relative;
+      overflow: hidden;
+      padding-top: 30px;
 
     @include breakpoint-mf("md") {
       flex-direction: row;

@@ -113,21 +113,19 @@ export default function useServer() {
       .catch((err) => err);
     return filters;
   }
-  // Get filters categories
+  // Get filters categoriesy
+
   async function getFiltersCategories(categories, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-      ","
-    )}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
   }
 
   // Get filters categories+price
+
   async function getFiltersCategoriesPrices(categories, min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories.join(
-      ","
-    )}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -155,6 +153,91 @@ export default function useServer() {
     return searchResult;
   }
 
+  async function getFiltersPricesBySubcategory(subcategorieParent, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+
+  async function getFiltersCategoriesPricesBySubcategory(subcategorieParent, checkedSubcategorie, min, max, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+  async function getFiltersCategoriesBySubcategory(subcategorieParent, checkedSubcategorie, sort) {
+    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return filteredProducts;
+  }
+
+  async function getWishlist(token) {
+    const wishlist = await fetch(`${url}/wishlist`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function addToWishlist(id, token) {
+    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function deleteFromWishlist(id, token) {
+    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return wishlist;
+  }
+
+  async function getCart(token) {
+    const cart = await fetch(`${url}/cart`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return cart;
+  }
+  async function updateCart(products, token) {
+    const updatedCart = await fetch(`${url}/cart`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(products),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updatedCart;
+  }
+
   return {
     registerUser,
     loginUser,
@@ -171,5 +254,13 @@ export default function useServer() {
     getFiltersCategoriesPrices,
     getFiltersPrices,
     getSearchedProducts,
+    getFiltersPricesBySubcategory,
+    getFiltersCategoriesPricesBySubcategory,
+    getFiltersCategoriesBySubcategory,
+    getWishlist,
+    addToWishlist,
+    deleteFromWishlist,
+    getCart,
+    updateCart,
   };
 }

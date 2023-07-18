@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import BreadcrumbItem from "../BreadCrumbItem/BreadCrumbItem";
-import setPagePath from "../../redux/actions/setPagePath";
+import BreadСrumbItem from "../BreadСrumbItem/BreadCrumbItem";
+import setPagePath from "../../redux/actions/pagePath";
 
 const Breadcrumb = () => {
    const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const Breadcrumb = () => {
       }
 
       const breadcrumb = path.map((segment, index) => (
-         <BreadcrumbItem
+         <BreadСrumbItem
             key={segment}
             to={`/${path.slice(0, index + 1).join("/")}`}
             text={segment.charAt(0).toUpperCase() + segment.slice(1)}
