@@ -452,12 +452,14 @@
         height: 13px;
       }
       @include breakpoint-bet(860px, 1199px) {
-        width: 32px;
+        width: 28px;
         height: 20px;
+        margin-top: 3px;
       }
       @include breakpoint-bet(1200px, 1940px) {
-        width: 35px;
+        width: 30px;
         height: 20px;
+        margin-top: 3px;
       }
     }
     &-img {
@@ -466,12 +468,14 @@
         height: 13px;
       }
       @include breakpoint-bet(860px, 1199px) {
-        width: 32px;
+        width: 28px;
         height: 20px;
+        margin-top: 3px;
       }
       @include breakpoint-bet(1200px, 1940px) {
-        width: 35px;
+        width: 30px;
         height: 20px;
+        margin-top: 3px;
       }
     }
   }
@@ -495,9 +499,10 @@
       @include breakpoint-bet(630px, 1199px) {
         width: 32px;
         height: 20px;
+        margin-top: 3px;
       }
       @include breakpoint-bet(1200px, 1940px) {
-        width: 45px;
+        width: 37px;
         height: 30px;
       }
     }
@@ -509,9 +514,10 @@
       @include breakpoint-bet(630px, 1199px) {
         width: 32px;
         height: 20px;
+        margin-top: 3px;
       }
       @include breakpoint-bet(1200px, 1940px) {
-        width: 45px;
+        width: 37px;
         height: 30px;
       }
     }

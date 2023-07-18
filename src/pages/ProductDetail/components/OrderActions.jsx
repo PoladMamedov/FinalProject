@@ -54,7 +54,7 @@ export default function OrderActions(props) {
       fetchFavs(token);
     }
     }, [color]);
-
+    
   useEffect(() => {
     const productInCart = cart.find(({product: {_id: id}}) => id === productID);
     if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
@@ -145,7 +145,7 @@ export default function OrderActions(props) {
       </p>}
     <div className="order-actions__btns-wrap">
       {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
-        : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
+        : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={isFav ? deleteFromFavs : addToFavs}/>}
       <button disabled={outOfStock} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
     </div>
     <div className="product-detail__color-wrap">
