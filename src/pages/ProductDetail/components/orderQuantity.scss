@@ -1,5 +1,5 @@
 .order-actions__quantity-wrap {
-  @include flex(row, start, center);
+  @include flex(row, flex-start, center);
   gap: 10px;
   grid-area: 3 / 1 / 4 / 3;
   height: fit-content;

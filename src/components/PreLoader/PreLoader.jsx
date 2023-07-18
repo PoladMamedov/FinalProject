@@ -1,6 +1,6 @@
 import { Dna } from "react-loader-spinner";
 
-function Notification({ fillScreen }) {
+function PreLoader({ fillScreen }) {
   return (
     <div className={fillScreen ? "loader-wrapper fill-screen" : "loader-wrapper"}>
       <Dna height="200" width="200" ariaLabel="dna-loading" wrapperStyle={{}} wrapperClass="" />
@@ -8,4 +8,4 @@ function Notification({ fillScreen }) {
   );
 }
 
-export default Notification;
+export default PreLoader;
