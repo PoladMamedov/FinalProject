@@ -1,11 +1,17 @@
-import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "react-notifications-component";
-import useServer from "../../../hooks/useServer";
 import "react-notifications-component/dist/scss/notification.scss";
 import "animate.css/animate.min.css";
 import FavoritesIcon from "../../../components/FavoritesIcon/FavoritesIcon";
+import {
+  addToFavorites,
+  removeFromFavorites,
+  incrementFavoritesCount,
+  decrementFavoritesCount,
+} from "../../../redux/actions/favorites";
 import OrderQuantity from "./OrderQuantity";
 import {
   addToCart, fetchCart, setCart, fillCart
@@ -18,72 +24,56 @@ export default function OrderActions(props) {
     properties: { color }, quantity, previousPrice, currentPrice, similarProducts, itemNo, _id: productID
   } =  props;
 
-  const {
-    getWishlist, addToWishlist, deleteFromWishlist
-  } = useServer();
 
   const dispatch = useDispatch();
+
 
   const {userInfo: {token}} = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
   const { currency, currencyName } = useSelector((state) => state.currentCurrency);
+  const favorites = useSelector((state) => state.favorites.favorites);
   const currencyValue = parseFloat(currency);
 
   const [productColor, setProductColor] = useState("");
   const [orderQuantity, setOrderQuantity] = useState(1);
-  const [favs, setFavs] = useState([]);
   const [isFav, setIsFav] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
 
   const colors = {...similarProducts, [itemNo]: color};
   const price = {currentPrice, previousPrice};
 
-  async function fetchFavs(authToken) {
-    try {
-      const wishlist = await getWishlist(authToken);
-      setFavs(wishlist);
-      setIsFav(favs.length && favs.some(({_id}) => _id === productID));
-    } catch (error) {
-      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
-    }
-  }
+  const handleAddToFavorites = async () => {
+    const nameWithoutLastWord = props.name.slice(
+      0,
+      props.name.lastIndexOf(" ")
+    );
+    const newItem = {
+      imageUrls: [props.imageUrls[0]],
+      name: nameWithoutLastWord,
+      currentPrice,
+      quantity,
+      itemNo,
+    };
+    dispatch(addToFavorites(newItem));
+    dispatch(incrementFavoritesCount());
+    setIsFav(true);
+
+  };
+  const handleRemoveFromFavorites = () => {
+    setIsFav(false);
+    dispatch(removeFromFavorites(itemNo));
+    dispatch(decrementFavoritesCount());
+  };
 
   useEffect(() => {
     setProductColor(color);
-    if (token) {
-      fetchFavs(token);
-    }
+    setIsFav(favorites.find((item) => item.itemNo === itemNo));
   }, [color]);
 
   useEffect(() => {
     const productInCart = cart.find(({product: {_id: id}}) => id === productID);
     if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
   }, [cart]);
-
-
-  async function addToFavs() {
-    try {
-      setIsFav(true);
-      if (token) {
-        const wishlist = await addToWishlist(productID, token);
-        setFavs(wishlist);
-      }
-    } catch (error) {
-      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
-    }
-  }
-
-  async function deleteFromFavs() {
-    try {
-      setIsFav(false);
-      if (token) {
-        const wishlist = await deleteFromWishlist(productID, token);
-        setFavs(wishlist);
-      }
-    } catch (error) {
-      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
-    }
-  }
 
   async function onAddButtonClick() {
     try {
@@ -92,7 +82,6 @@ export default function OrderActions(props) {
       const productInCart = cart.find(({product: {_id: id}}) => id === productID);
       const productInCartIndx = cart.findIndex(({product: {_id: id}}) => id === productID);
       const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
-
 
       if (token && filteredCart.length === 0) {
         dispatch(setCart({
@@ -140,21 +129,24 @@ export default function OrderActions(props) {
 
   return <div className="product-detail__order-actions">
     {currentPrice < previousPrice ? <div className="product-detail__price-wrap">{Object.entries(price).map(([key, value], index) => <p
-        key={index}
-        className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}
-      >
-        <CurrencyIcon currency={currencyName} className={`product-detail__currency-icon product-detail__currency-icon-${key === "currentPrice" ? "current" : "previous"}`} color={key === "currentPrice" ? "#f84147" : "#393D45FF"}/>
-        {Math.floor(value * currencyValue)}
-      </p>)}
-      </div>
-      : <p className="product-detail__price">
-        <CurrencyIcon currency={currencyName} className={"product-detail__currency-icon"} color={"#393D45FF"}/>
-        {Math.floor(currentPrice * currencyValue)}
-      </p>}
+            key={index}
+            className={`product-detail__price product-detail__price-${key === "currentPrice" ? "current" : "previous"}`}
+        >
+          <CurrencyIcon currency={currencyName} className={`product-detail__currency-icon product-detail__currency-icon-${key === "currentPrice" ? "current" : "previous"}`} color={key === "currentPrice" ? "#f84147" : "#393D45FF"}/>
+          {Math.floor(value * currencyValue)}
+        </p>)}
+        </div>
+        : <p className="product-detail__price">
+          <CurrencyIcon currency={currencyName} className={"product-detail__currency-icon"} color={"#393D45FF"}/>
+          {Math.floor(currentPrice * currencyValue)}
+        </p>}
     <div className="order-actions__btns-wrap">
-      {isFav ? <FavoritesIcon color={"red"} className={"order-actions__favs-btn order-actions__favs-btn--fill"} isFill clickHandler={() => deleteFromFavs()}/>
-        : <FavoritesIcon color={"red"} className={"order-actions__favs-btn"} clickHandler={() => addToFavs()}/>}
-      <button disabled={outOfStock} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}>Add to cart</button>
+      <FavoritesIcon
+        color={"red"}
+        className={isFav ? "order-actions__favs-btn order-actions__favs-btn--fill" : "order-actions__favs-btn"}
+        isFill={isFav}
+        clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
+      <button disabled={outOfStock} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>
@@ -163,5 +155,9 @@ export default function OrderActions(props) {
       </div>
     </div>
     <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity} productID={productID} cart={cart} outOfStock={outOfStock}/>
+    <Tooltip
+        id="order-actions_add-btn"
+        place="top"
+    />
   </div>;
 }
