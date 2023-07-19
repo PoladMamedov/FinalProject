@@ -6,6 +6,7 @@ import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
 import Currency from "../Currency/Currency";
+import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 const Header = () => {
 
@@ -167,10 +168,10 @@ const Header = () => {
             
             <div className="header__nav-btn-wrap">
             <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
-                <img
-                  className="header__nav-fav"
-                  src="/img/heart_icon2.png"
-                  alt="favorites-logo"
+                <FavoritesIcon
+                 className="header__nav-fav"
+                 color="#535353"
+                 isFill={false}
                 />
                 <span className="header__nav-fav--count">{favoritesCount}</span>
               </NavLink>

@@ -1,5 +1,3 @@
-// import favorites from "../type/favorites";
-
 const initialState = {
   favoritesCount: 0,
 };

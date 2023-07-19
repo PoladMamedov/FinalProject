@@ -14,7 +14,6 @@ const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults } = useSelector((state) => state.search);
-  // const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -42,6 +41,9 @@ const SearchBar = () => {
         if (searchTerm !== "") {
           dispatch(addFilteredProducts(products));
           dispatch(setSearchProducts(products));
+        } else if (searchTerm === "") {
+          dispatch(setSearchProducts([]));
+          dispatch(addFilteredProducts([]));
         }
       } catch (error) {
         console.error(error);
@@ -133,7 +135,6 @@ const SearchBar = () => {
             );
           }) : <div className="searching-preview">{
             searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>Searching...</p>
-
           }</div>}
         </ul> : null}
       </form >
