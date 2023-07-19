@@ -11,6 +11,7 @@ import OrderActions from "./components/OrderActions";
 import Description from "./components/Description";
 import notificationsSettings from "../../constants/constants";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
+import Comments from "../../components/Comments/Comments";
 
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,6 +51,7 @@ export default function ProductDetail() {
           </div>
         </div>
         <Specifications {...productData} />
+        <Comments />
       </section>
     </>
   );

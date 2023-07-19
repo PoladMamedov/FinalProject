@@ -68,7 +68,7 @@ export default function OrderActions(props) {
   useEffect(() => {
     setProductColor(color);
     setIsFav(favorites.find((item) => item.itemNo === itemNo));
-  }, [color]);
+  }, []);
 
   useEffect(() => {
     const productInCart = cart.find(({product: {_id: id}}) => id === productID);

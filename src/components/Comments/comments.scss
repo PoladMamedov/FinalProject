@@ -1,0 +1,36 @@
+.comments {
+  margin-top: 50px;
+  padding-top: 30px;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $secondary;
+  }
+}
+
+.comments__title {
+  color: $primaryLight;
+  @include fonts(400, 20px, 30px);
+  margin-top: 0;
+
+  @include breakpoint-mf('sm') {
+    color: $primary;
+    @include fonts(400, 25px, 38px);
+  }
+
+  @include breakpoint-mf('xl') {
+    color: $primaryLight;
+    @include fonts(400, 35px, 50px);
+  }
+}
+
+.comments__item {
+
+}
