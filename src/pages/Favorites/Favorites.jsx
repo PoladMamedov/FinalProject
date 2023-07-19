@@ -5,6 +5,8 @@ import {
   removeFromFavorites,
   decrementFavoritesCount,
 } from "../../redux/actions/favorites";
+// import addIcon from "./cart-icon.png";
+// import removeIcon from "./cart-logo.png";
 
 const Favorites = () => {
   // Получение списка избранных товаров из состояния Redux
@@ -51,13 +53,17 @@ const Favorites = () => {
                     {Math.floor(product.currentPrice * currencyValue)}
                   </p>
                   <div className="favorites__item-add">
-                    <button type="button" className="favorites__item-add-minus">
-                      -
-                    </button>
-                    <span className="favorites__item-add-number">0</span>
-                    <button type="button" className="favorites__item-add-plus">
-                      +
-                    </button>
+                  <button
+                    className={"favorites__item-cart-button"}
+                    // onClick={() => handleRemoveFromFavorites(product.itemNo)}
+                    type="button"
+                  >
+                    <img
+                      className={"favorites__item-cart"}
+                      src="/img/cart-icon2.png"
+                      alt="add icon"
+                    />
+                  </button>
                   </div>
                   <button
                     className={"favorites__item-icon-button"}
