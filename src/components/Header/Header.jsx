@@ -19,7 +19,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const { favoritesCount } = useSelector((state) => state.favoriteCounts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleClickOutside = (e) => {
     if (
@@ -173,7 +173,8 @@ const Header = () => {
                   color="#535353"
                   isFill={false}
                 />
-                <span className="header__nav-fav--count">{favoritesCount}</span>
+                {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
+
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
