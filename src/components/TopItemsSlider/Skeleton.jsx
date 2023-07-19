@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line import/no-unresolved
 import ContentLoader from "react-content-loader";
 
 const Skeleton = (props) => (

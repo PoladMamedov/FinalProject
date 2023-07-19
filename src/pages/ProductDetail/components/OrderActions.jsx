@@ -54,7 +54,13 @@ export default function OrderActions(props) {
     if (token) {
       fetchFavs(token);
     }
-  }, [color]);
+    }, [color]);
+
+  useEffect(() => {
+    const productInCart = cart.find(({product: {_id: id}}) => id === productID);
+    if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
+  }, [cart]);
+
 
   useEffect(() => {
     const productInCart = cart.find(({product: {_id: id}}) => id === productID);
