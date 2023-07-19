@@ -8,6 +8,7 @@ import {
   incrementFavoritesCount,
   decrementFavoritesCount,
 } from "../../redux/actions/favorites";
+import {increaseCart, increaseCartAsync} from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
@@ -16,6 +17,9 @@ export default function ProductCard(props) {
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
+  // eslint-disable-next-line no-underscore-dangle
+  const itemId = props.item._id;
+  const userToken = useSelector((state) => state.user.userInfo.token);
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
@@ -40,6 +44,17 @@ export default function ProductCard(props) {
     dispatch(addToFavorites(newItem));
     dispatch(incrementFavoritesCount());
     setIsFav(true);
+  };
+  const onAddItemToCart = async (item, token, productInfo) => {
+    try {
+      if (token) {
+        dispatch(increaseCartAsync(item, token, productInfo));
+      } else {
+        dispatch(increaseCart(item, productInfo));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRemoveFromFavorites = () => {
@@ -84,6 +99,7 @@ export default function ProductCard(props) {
                 DETAIL
               </Link>
               <button
+                onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={
                   props.active
