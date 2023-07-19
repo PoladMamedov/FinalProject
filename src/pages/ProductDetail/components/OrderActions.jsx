@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "react-notifications-component";
-import { Tooltip } from "react-tooltip";
 import useServer from "../../../hooks/useServer";
 import "react-notifications-component/dist/scss/notification.scss";
 import "animate.css/animate.min.css";
