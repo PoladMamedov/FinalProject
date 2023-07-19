@@ -1,13 +1,30 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../../../redux/actions/cart";
 
 const TotalBlock = () => {
+  const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cart);
+  const userToken = useSelector((state) => state.user.userInfo.token);
   let totalOrderPrice = cartProducts.reduce((accumulator, item) => {
     const { product, cartQuantity } = item;
     const productTotalPrice = product.currentPrice * cartQuantity;
     return accumulator + productTotalPrice;
   }, 0);
+
+  const onUpdateCart = () => {
+    if (userToken) {
+      const updatedCart = {
+        products: cartProducts.map((item) => ({
+          // eslint-disable-next-line no-underscore-dangle
+          product: item.product._id,
+          cartQuantity: item.cartQuantity
+        }))
+      };
+      dispatch(setCart(updatedCart, userToken));
+    }
+  };
+
 
   const shippingPrice = ((totalOrderPrice / 100) * 2).toFixed(1);
   return (
@@ -29,7 +46,7 @@ const TotalBlock = () => {
       </div>
       <div className="cart-buttons">
         <Link to={"/"} className={"cart-button cart-button-close"}>Close</Link>
-        <Link to={"/"} className="cart-button cart-button-checkout">Check out</Link>
+        <Link to={"/checkout"} onClick={onUpdateCart} className="cart-button cart-button-checkout">Check out</Link>
       </div>
     </div>
   );
