@@ -55,7 +55,7 @@ export default function OrderActions(props) {
       fetchFavs(token);
     }
     }, [color]);
-
+    
   useEffect(() => {
     const productInCart = cart.find(({product: {_id: id}}) => id === productID);
     if (productInCart && productInCart.cartQuantity === quantity) setOutOfStock(true);
