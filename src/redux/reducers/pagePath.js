@@ -5,7 +5,7 @@ const initialState = {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export function pagePathReducer(state = initialState, action = {}) {
+export default function pagePathReducer(state = initialState, action = {}) {
    switch (action.type) {
       case pagePathTypes.SET_PAGE_PATH:
          return {

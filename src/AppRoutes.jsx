@@ -16,6 +16,7 @@ import Headphones from "./pages/Headphones/Headphones";
 import Keyboards from "./pages/Keyboards/Keyboards";
 import Mouses from "./pages/Mouses/Mouses";
 import Search from "./pages/Search/Search";
+import Favorites from "./pages/Favorites/Favorites";
 import Compare from "./pages/Compare/Compare";
 
 const AppRoutes = () => {
@@ -23,14 +24,15 @@ const AppRoutes = () => {
     <>
       <Header />
       <main>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:itemNo" element={<ProductDetail />} />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:itemNo" element={<ProductDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/wishlist" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
           <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />

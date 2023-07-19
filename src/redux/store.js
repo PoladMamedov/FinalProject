@@ -3,7 +3,7 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { pagePathReducer } from "./reducers/pagePath";
+import pagePathReducer from "./reducers/pagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
 // import productsReduser from "./reducers/products";
@@ -18,6 +18,8 @@ import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 import cartReducer from "./reducers/cart";
 import compareProductsReducer from "./reducers/compareProducts";
 import counterCompareReducer from "./reducers/counterCompare";
+import favoritesReducer from "./reducers/favorites";
+import favoritesCountReducer from "./reducers/favoritesCountReducer";
 
 
 const rootReducer = combineReducers({
@@ -34,13 +36,16 @@ const rootReducer = combineReducers({
   recentlyProducts: recentlyProductsReducer,
   cart: cartReducer,
   compareProducts: compareProductsReducer,
-  counterCompare: counterCompareReducer
+  counterCompare: counterCompareReducer,
+  favorites: favoritesReducer,
+  favoriteCounts: favoritesCountReducer
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"]
+  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"],
+  whitelist: ["favorites", "favoriteCounts"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

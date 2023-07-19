@@ -19,6 +19,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
+  const {favoritesCount} = useSelector((state) => state.favoriteCounts);
 
   const handleClickOutside = (e) => {
     if (
@@ -33,6 +34,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+    
   }, []);
   useEffect(() => {
     dispatch(fetchCategories());
@@ -163,7 +165,7 @@ const Header = () => {
                 <Currency />
               </div>
             </nav>
-
+            
             <div className="header__nav-btn-wrap">
             <NavLink
                 to={"/compare"}
@@ -178,7 +180,15 @@ const Header = () => {
                 {count !== 0 ? <span className="header__nav-cart--count">{count}</span> : null}
               </NavLink>
 
-              <NavLink to={"/cart"} key={4} className="header__nav-link--cart">
+            <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
+                <img
+                  className="header__nav-fav"
+                  src="/img/heart_icon2.png"
+                  alt="favorites-logo"
+                />
+                <span className="header__nav-fav--count">{favoritesCount}</span>
+              </NavLink>
+              <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
                   className="header__nav-cart"
                   src="/img/cart-logo.png"
@@ -190,7 +200,7 @@ const Header = () => {
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
-                key={5}
+                key={6}
                 className="header__nav-link--loginBtn"
               >
                 <img
