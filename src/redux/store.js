@@ -16,6 +16,8 @@ import subcategoryReducer from "./reducers/subcategory";
 import currencyReducer from "./reducers/currency";
 import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 import cartReducer from "./reducers/cart";
+import compareProductsReducer from "./reducers/compareProducts";
+import counterCompareReducer from "./reducers/counterCompare";
 
 
 const rootReducer = combineReducers({
@@ -30,7 +32,9 @@ const rootReducer = combineReducers({
   subcategory: subcategoryReducer,
   currentCurrency: currencyReducer,
   recentlyProducts: recentlyProductsReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  compareProducts: compareProductsReducer,
+  counterCompare: counterCompareReducer
 });
 
 const persistConfig = {

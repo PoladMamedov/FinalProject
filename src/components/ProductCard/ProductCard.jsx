@@ -1,7 +1,12 @@
+/* eslint-disable no-alert */
 import React, { useState } from "react";
+import { Store } from "react-notifications-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
+import { addCompareProducts } from "../../redux/actions/compareProducts";
+import { incrementCompare } from "../../redux/actions/counterCompare";
+import notificationsSettings from "../../constants/constants";
 
 export default function ProductCard(props) {
   const [urlImg] = useState(props.item.imageUrls[0]);
@@ -10,6 +15,18 @@ export default function ProductCard(props) {
   const currencyValue = parseFloat(currency);
 
   const dispatch = useDispatch();
+
+  const { compareProducts } = useSelector((state) => state.compareProducts);
+
+  function addProducttoCompare() {
+    if (!compareProducts.includes(urlItemNumber)) {
+      dispatch(addCompareProducts(urlItemNumber));
+      dispatch(incrementCompare());
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
+    } else {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorCompare });
+    }
+  }
 
   return (
     <>
@@ -20,6 +37,15 @@ export default function ProductCard(props) {
               <Link
                 className={props.active ? "all-card__btn-details" : "card__btn-details"}
                 to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                <button
+                onClick={() => addProducttoCompare()}
+                type={"button"}
+                className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
+                <img
+                  className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"}
+                  src="/img/header/scales.svg"
+                  alt="compare-logo" />
+              </button>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>

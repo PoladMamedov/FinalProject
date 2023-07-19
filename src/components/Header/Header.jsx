@@ -10,6 +10,7 @@ import Currency from "../Currency/Currency";
 const Header = () => {
 
   const dispatch = useDispatch();
+  const { count } = useSelector((state) => state.counterCompare);
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -164,6 +165,19 @@ const Header = () => {
             </nav>
 
             <div className="header__nav-btn-wrap">
+            <NavLink
+                to={"/compare"}
+                key={6}
+                className="header__nav-link--cart"
+              >
+                <img
+                  className="header__nav-login"
+                  src="/img/header/scales.svg"
+                  alt="scales-img"
+                />
+                {count !== 0 ? <span className="header__nav-cart--count">{count}</span> : null}
+              </NavLink>
+
               <NavLink to={"/cart"} key={4} className="header__nav-link--cart">
                 <img
                   className="header__nav-cart"
