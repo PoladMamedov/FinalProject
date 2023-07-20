@@ -451,7 +451,7 @@
       color: $primary;
       background-color: transparent;
       transition: transform .3s ease;
-      margin-right: 6px;
+      margin-right: 17px;
 
       &--open {
          @extend .header__nav-arrow;
@@ -693,6 +693,7 @@
 }
 
 .scales-icon {
-   margin-top: 6px;
    filter: grayscale(100%) brightness(120%);
+   margin-bottom: 2px;
+
 }

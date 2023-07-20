@@ -10,6 +10,7 @@ const CompareFull = () => {
     const server = useServer();
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
+    console.log(products);
 
     useEffect(() => {
         async function fetchCompareProducts() {
