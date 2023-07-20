@@ -68,7 +68,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                    }`}
+                      }`}
                     onClick={() => handleLinkClick("home")}
                     to={"/"}
                   >
@@ -79,7 +79,7 @@ const Header = () => {
                   <li className="header__nav-item" key={index + 1}>
                     <NavLink
                       className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""
-                      }`}
+                        }`}
                       onClick={() => handleLinkClick(item.toLowerCase())}
                       to={`/${item.toLowerCase()}`}
                     >
@@ -122,7 +122,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                    }`}
+                      }`}
                     onClick={() => handleLinkClick(0)}
                     to={"/"}
                   >
@@ -133,7 +133,7 @@ const Header = () => {
                   <div className="header__products-link-wrap">
                     <NavLink
                       className={`header__nav-link${pagePath === "products" ? "--active" : ""
-                      }`}
+                        }`}
                       onClick={() => handleLinkClick(1)}
                       to={"/products"}
                     >
@@ -155,7 +155,7 @@ const Header = () => {
                 <li className="header__nav-item" key={3}>
                   <NavLink
                     className={`header__nav-link${pagePath === "about" ? "--active" : ""
-                    }`}
+                      }`}
                     onClick={() => handleLinkClick(3)}
                     to={"/about"}
                   >
@@ -197,7 +197,8 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">{cartQuantity.length}</span>
+                {cartQuantity.length >= 1 ? <span className="header__nav-fav--count">{cartQuantity.length}</span> : null}
+
 
               </NavLink>
               <NavLink
