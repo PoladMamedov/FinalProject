@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useServer from "../../hooks/useServer";
-import useDebounce from "../../hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce2";
 import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
 import { addFilteredProducts } from "../../redux/actions/filteredProducts";
@@ -14,17 +14,17 @@ const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults } = useSelector((state) => state.search);
+  // const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
+  
   const searchPhrases = {
-    query: debouncedSearchTerm
+    query: searchTerm
   };
-
+  
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchResults) {
@@ -33,28 +33,30 @@ const SearchBar = () => {
       setSearchTerm("");
     }
   };
-
-  useEffect(() => {
-    async function searchProducts() {
-      try {
-        const products = await getSearchedProducts(searchPhrases);
-        if (searchTerm !== "") {
-          dispatch(addFilteredProducts(products));
-          dispatch(setSearchProducts(products));
-        } else if (searchTerm === "") {
-          dispatch(setSearchProducts([]));
-          dispatch(addFilteredProducts([]));
-        }
-      } catch (error) {
-        console.error(error);
+  
+  async function searchProducts() {
+    console.log("searched")
+    try {
+      const products = await getSearchedProducts(searchPhrases);
+      if (searchTerm !== "") {
+        dispatch(addFilteredProducts(products));
+        dispatch(setSearchProducts(products));
       }
+    } catch (error) {
+      console.error(error);
     }
-    if (searchTerm !== "") {
-      searchProducts();
-    }
-  }, [debouncedSearchTerm]);
+  }
+  useDebounce(searchProducts, 500, [searchTerm]);
+  // useEffect(() => {
+  //   if (searchTerm !== "") {
+  //     searchProducts();
+  //   }
+  // }, [debouncedSearchTerm]);
 
   const handleSearchChange = (e) => {
+    if (e.target.value === "") {
+      searchProducts()
+    }
     const actualSearchTerm = e.currentTarget.value;
     setSearchTerm(actualSearchTerm);
   };
@@ -95,7 +97,6 @@ const SearchBar = () => {
           placeholder="Search products..."
           name="searchInput"
           value={searchTerm}
-          autoComplete="off"
           onChange={(e) => handleSearchChange(e)}
           onFocus={() => setIsSearchOpen(true)}
         />
@@ -135,6 +136,7 @@ const SearchBar = () => {
             );
           }) : <div className="searching-preview">{
             searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>Searching...</p>
+
           }</div>}
         </ul> : null}
       </form >
