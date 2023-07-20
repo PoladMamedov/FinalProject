@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromFavorites,
 } from "../../redux/actions/favorites";
-import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
-import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
@@ -61,9 +59,9 @@ const Favorites = () => {
                   </p>
                 <p className="favorites__item-price">
                   <img
-                    className="currency-icon--rows"
-                    src={`/img/currency/${currencyName}-icon.png`}
-                    alt="currency-icon"
+                    className={"favorites__item-img"}
+                    src={product.imageUrls[0]}
+                    alt="item-img"
                   />
                   {Math.floor(product.currentPrice * currencyValue)}
                 </p>
@@ -91,14 +89,14 @@ const Favorites = () => {
                     alt="delete item from favorites"
                   />
                 </button>
-                </div>
               </div>
+              </div>
+            ))}
+            <div className="favorites__button">
+              <Link to={"/"} className={"favorites__button-close"}>
+                Close
+              </Link>
             </div>
-          ))}
-          <div className="favorites__button">
-            <Link to={"/"} className={"favorites__button-close"}>
-              Close
-            </Link>
           </div>
         </div>
       </div>
