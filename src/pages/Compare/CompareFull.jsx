@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
 import { removeCompareProducts, deleteAllCompareProducts } from "../../redux/actions/compareProducts";
-import { decrementCompare, resetCompare } from "../../redux/actions/counterCompare";
 
 const CompareFull = () => {
     const { compareProducts } = useSelector((state) => state.compareProducts);
@@ -26,13 +25,10 @@ const CompareFull = () => {
 
     function removeCompareProductsfromTable(itemNo) {
         dispatch(removeCompareProducts(itemNo));
-        dispatch(decrementCompare());
     }
 
     function removeAllCompareProductsFromTable() {
         dispatch(deleteAllCompareProducts());
-        dispatch(resetCompare());
-
     }
 
     return (
