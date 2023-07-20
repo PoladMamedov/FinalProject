@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useNovaPoshta from "../../hooks/useNovaPoshta";
-import { useFuncDebounce } from "../../hooks/useFuncDebounce";
+import { useDebounce } from "../../hooks/useDebounce";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
@@ -40,7 +40,7 @@ function NovaPoshtaForm() {
     const searchResult = await findCity(value);
     setCitySearchResult(searchResult);
   }
-  useFuncDebounce(() => handleCitySearch(searchedCity), 1000, [searchedCity]);
+  useDebounce(() => handleCitySearch(searchedCity), 1000, [searchedCity]);
 
   return (
     <div className="container">
