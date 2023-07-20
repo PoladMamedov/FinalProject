@@ -565,9 +565,9 @@
       width: 24px;
       height: 25px;
 
-      @include breakpoint-bet(280px, 639px) {
-         display: none;
-      }
+      // @include breakpoint-bet(280px, 639px) {
+      //    display: none;
+      // }
 
       @include breakpoint-mf('md') {
          margin-top: 5px;
@@ -693,4 +693,8 @@
 .header__menu-btn--active .header__menu-lines:nth-child(3) {
    transform: rotateZ(-40deg);
    width: 17px;
+}
+.scales-icon {
+   margin-top: 6px;
+   filter: grayscale(100%) brightness(120%);
 }

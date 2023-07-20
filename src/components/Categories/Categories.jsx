@@ -53,7 +53,7 @@ function Categories() {
                 onMouseLeave={() => setActiveCategory(null)}
                 className="category__list-item"
               >
-                <NavLink className="category__list-link">{category.name}</NavLink>
+                <NavLink to={`/${category.name.replace("Smart watches", "watches")}`} className="category__list-link">{category.name}</NavLink>
                 {activeCategory === category.id && (
                   <ul className="subcategory__list">
                     {groupCategories(category.id)}
