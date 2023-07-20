@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
+  const cartQuantity = useSelector((state) => state.cart.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pages = ["Products", "About"];
@@ -182,9 +183,8 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">10</span>
+                <span className="header__nav-cart--count">{cartQuantity}</span>
 
-                {/* В спан записать с редакса количество в корзине */}
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
