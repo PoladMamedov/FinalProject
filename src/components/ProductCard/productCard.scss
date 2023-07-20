@@ -51,7 +51,7 @@
     box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
   }
 
-  @include breakpoint-mf('xl') {
+  @include breakpoint-mf("xl") {
     width: 269px;
     height: 418px;
     border-radius: 20px;
@@ -74,7 +74,7 @@
       gap: 12px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 205px;
       height: 36px;
       margin-top: 370px;
@@ -83,7 +83,6 @@
       gap: 15px;
     }
   }
-
   &__btn-details {
     width: 66px;
     height: 17px;
@@ -102,13 +101,12 @@
       font-size: 14px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 138px;
       height: 100%;
       border-radius: 10px;
     }
   }
-
   &__btn-card-container {
     width: 25px;
     height: 18px;
@@ -124,12 +122,11 @@
       height: 28px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 52px;
       height: 36px;
     }
   }
-
   &__btn-svg-cart {
     width: 10px;
     height: 12px;
@@ -140,11 +137,10 @@
       height: 20px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 23px;
       height: 26px;
     }
-
   }
 }
 
@@ -170,7 +166,7 @@
     box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.05);
   }
 
-  @include breakpoint-mf('xl') {
+  @include breakpoint-mf("xl") {
     width: 203px;
     height: 296px;
   }
@@ -193,23 +189,23 @@
     font-size: 10px;
     width: 80%;
 
-    @include breakpoint-mf('sm') {
+    @include breakpoint-mf("sm") {
       font-size: 10px;
     }
 
-    @include breakpoint-mf('md') {
+    @include breakpoint-mf("md") {
       font-size: 11px;
     }
 
-    @include breakpoint-mf('my') {
+    @include breakpoint-mf("my") {
       font-size: 14px;
     }
 
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       font-size: 14px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       font-size: 16px;
     }
   }
@@ -220,31 +216,31 @@
   }
 
   &__prices-wrap {
-    @include flex(row, center ,center);
+    @include flex(row, center, center);
     flex-direction: column;
     margin-left: 4px;
     font-size: 10px;
     gap: 2px;
 
-    @include breakpoint-mf('xs') {
+    @include breakpoint-mf("xs") {
       font-size: 10px;
       gap: 4px;
     }
-    @include breakpoint-mf('md') {
+    @include breakpoint-mf("md") {
       font-size: 11px;
     }
 
-    @include breakpoint-mf('my') {
+    @include breakpoint-mf("my") {
       font-size: 14px;
     }
 
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       margin-left: 8px;
       font-size: 16px;
       gap: 5px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       font-size: 18px;
     }
   }
@@ -262,20 +258,20 @@
   &__price {
     @include flex(row, center, center);
 
-    @include breakpoint-mf('lg') {
+    @include breakpoint-mf("lg") {
       font-size: 18px;
     }
 
     &--curr {
       font-size: 10px;
       @include flex(row, center, center);
-      @include breakpoint-mf('md') {
+      @include breakpoint-mf("md") {
         font-size: 11px;
       }
-      @include breakpoint-mf('my') {
+      @include breakpoint-mf("my") {
         font-size: 14px;
       }
-      @include breakpoint-mf('xl') {
+      @include breakpoint-mf("xl") {
         font-size: 18px;
       }
     }
@@ -311,7 +307,7 @@
       gap: 12px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 154px;
       height: 25px;
       margin-top: 260px;
@@ -330,9 +326,7 @@
       gap: 40px;
       //gap: 50px;
     }
-
   }
-
   &__btn-details {
     width: 66px;
     height: 17px;
@@ -351,7 +345,7 @@
       font-size: 12px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 104px;
       height: 100%;
       border-radius: 10px;
@@ -386,7 +380,7 @@
       height: 28px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 39px;
       height: 25px;
     }
@@ -413,7 +407,7 @@
       height: 20px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       width: 17px;
       height: 17px;
     }
@@ -423,7 +417,6 @@
     width: 40px;
     height: 30px;
     background-color: white;
-
   }
 
   &__block {
@@ -438,9 +431,95 @@
       height: 36px;
     }
 
-    @include breakpoint-mf('xl') {
+    @include breakpoint-mf("xl") {
       margin-top: 15px;
       height: 36px;
+    }
+  }
+  &__like {
+    display: flex;
+    &-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    &-btn {
+      @include breakpoint-bet(320px, 859px) {
+        width: 18px;
+        height: 13px;
+      }
+      @include breakpoint-bet(860px, 1199px) {
+        width: 28px;
+        height: 20px;
+        margin-top: 3px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 30px;
+        height: 20px;
+        margin-top: 3px;
+      }
+    }
+    &-img {
+      @include breakpoint-bet(320px, 859px) {
+        width: 18px;
+        height: 13px;
+      }
+      @include breakpoint-bet(860px, 1199px) {
+        width: 28px;
+        height: 20px;
+        margin-top: 3px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 30px;
+        height: 20px;
+        margin-top: 3px;
+      }
+    }
+  }
+  &__likes-top {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    &-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    &-btn {
+      @include breakpoint-bet(320px, 629px) {
+        width: 18px;
+        height: 13px;
+      }
+      @include breakpoint-bet(630px, 1199px) {
+        width: 32px;
+        height: 20px;
+        margin-top: 3px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 37px;
+        height: 30px;
+      }
+    }
+    &-img {
+      @include breakpoint-bet(320px, 629px) {
+        width: 18px;
+        height: 13px;
+      }
+      @include breakpoint-bet(630px, 1199px) {
+        width: 32px;
+        height: 20px;
+        margin-top: 3px;
+      }
+      @include breakpoint-bet(1200px, 1940px) {
+        width: 37px;
+        height: 30px;
+      }
     }
   }
 
@@ -460,14 +539,14 @@
 .currency-icon {
   width: 12px;
   height: 10px;
-  @include breakpoint-mf('md') {
+  @include breakpoint-mf("md") {
     height: 12px;
   }
-  @include breakpoint-mf('my') {
+  @include breakpoint-mf("my") {
     width: 14px;
     height: 14px;
   }
-  @include breakpoint-mf('xl') {
+  @include breakpoint-mf("xl") {
     width: 18px;
     height: 18px;
   }

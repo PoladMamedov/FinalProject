@@ -12,6 +12,7 @@
 @import "../pages/About/about";
 @import "../pages/Cart/cart";
 @import "../pages/ProductDetail/productDetail";
+@import "../pages/Favorites/favorites";
 
 // !Components
 @import "../pages/Products/products";
@@ -48,4 +49,10 @@
 @import "../pages/ProductDetail/components/orderActions";
 @import "../pages/ProductDetail/components/orderQuantity";
 @import "../pages/ProductDetail/components/specifications";
+<<<<<<< HEAD
 @import "../components/NovaPoshtaForm/novaPoshtaForm";
+=======
+@import "../pages/Cart/components/totalBlock";
+@import "../pages/Cart/components/cartHeader";
+@import "../pages/Cart/components/cartSkeleton";
+>>>>>>> main
