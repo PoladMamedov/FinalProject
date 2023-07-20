@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useNovaPoshta from "../../hooks/useNovaPoshta";
-import { useDebounce } from "../../hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
