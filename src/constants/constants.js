@@ -15,6 +15,21 @@ const notificationsSettings = {
   error: {
     title: "Error!",
     type: "danger",
+  },
+  addedToCompare: {
+    title: "Success!",
+    message: "Product added to compare list",
+    type: "success",
+  },
+  errorCompare: {
+    title: "Attn!",
+    message: "The product removed from comparison list",
+    type: "danger"
+  },
+  errorReAddToCart: {
+    title: "Attn!",
+    message: "The product is already in the cart",
+    type: "danger"
   }
 };
 

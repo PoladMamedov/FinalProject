@@ -11,6 +11,7 @@ import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 const Header = () => {
 
   const dispatch = useDispatch();
+  const { compareProducts } = useSelector((state) => state.compareProducts);
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
   const cartQuantity = useSelector((state) => state.cart.cart);
@@ -168,6 +169,19 @@ const Header = () => {
             </nav>
 
             <div className="header__nav-btn-wrap">
+            <NavLink
+                to={"/compare"}
+                key={7}
+                className="header__nav-link--fav"
+              >
+                <img
+                  className="header__nav-fav scales-icon"
+                  src="/img/header/scales2.svg"
+                  alt="scales-img"
+                />
+                {compareProducts.length !== 0 ? <span className="header__nav-fav--count">{compareProducts.length}</span> : null}
+              </NavLink>
+
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
                 <FavoritesIcon
                   className="header__nav-fav"
