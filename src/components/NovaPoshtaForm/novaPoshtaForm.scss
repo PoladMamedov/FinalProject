@@ -50,14 +50,23 @@
   border-bottom: 1px solid $secondary;
   border-radius: 5px;
 }
+.np-delivery__suggestions-loader {
+  height: 50px;
+  overflow: hidden;
+  @include flex(row, center, center);
+}
 .np-delivery__suggestions-item {
   cursor: pointer;
   padding: 5px;
   border-radius: 5px;
-  width: calc(100% - 16px);
   &:hover {
     background-color: darken($secondaryLight, $amount: 10%);
   }
+}
+.np-delivery__suggestions-error {
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
 }
 .np-delivery__btn {
   font-family: inherit;

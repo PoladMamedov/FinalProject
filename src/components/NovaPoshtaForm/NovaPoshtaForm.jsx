@@ -1,9 +1,14 @@
+/* eslint-disable react/jsx-no-bind */
 import { useState } from "react";
 import useNovaPoshta from "../../hooks/useNovaPoshta";
 import useDebounce from "../../hooks/useDebounce";
+import NPSerachLoader from "./components/NPSearchLoader";
+import NPSearchSuggestions from "./components/NPSearchSuggestions";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
+
+  const [loading, setLoading] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("+380");
@@ -25,22 +30,34 @@ function NovaPoshtaForm() {
     setSearchedWarehouse("");
   }
 
-  // function debounce(fn, delay = 1000) {
-  //   let timeout;
-  //   return (...args) => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => {
-  //       fn(...args);
-  //     }, delay);
-  //   };
-  // }
-
   async function handleCitySearch(value) {
-    console.log("request sended");
+    setLoading(true);
     const searchResult = await findCity(value);
     setCitySearchResult(searchResult);
+    setLoading(false);
   }
-  useDebounce(() => handleCitySearch(searchedCity), 1000, [searchedCity]);
+  useDebounce(() => handleCitySearch(searchedCity), 500, [searchedCity]);
+
+  function handleCitySelect(city) {
+    setSearchedCity(city);
+    setSelectedCity(city);
+    setSearchedWarehouse("");
+    setShowCitySuggestions(false);
+  }
+
+  async function handleWarehouseSearch(value) {
+    setLoading(true);
+    const searchResult = await findWarehouse(value, selectedCity);
+    setWarehouseSearchResult(searchResult);
+    setLoading(false);
+  }
+  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [searchedWarehouse]);
+
+  function handleWarehouseSelect(warehouse) {
+    setSearchedWarehouse(warehouse);
+    setSelectedWarehouse(warehouse);
+    setShowWarehouseSuggestions(false);
+  }
 
   return (
     <div className="container">
@@ -87,27 +104,15 @@ function NovaPoshtaForm() {
           <label htmlFor="city">City:</label>
           <div className="np-delivery__input-wrap">
             <input
-              onInput={
-                (e) => {
-                  if (e.target.value === "") {
-                    setSelectedCity("");
-                    setSearchedWarehouse("");
-                  }
-                  setSearchedCity(e.target.value);
-                  // debouncedCitySearch(e);
+              onInput={(e) => {
+                if (e.target.value === "") {
+                  setSelectedCity("");
+                  setSearchedWarehouse("");
                 }
-                // async (e) => {
-                // if (e.target.value === "") {
-                //   setSelectedCity("");
-                //   setSearchedWarehouse("");
-                // }
-                // setSearchedCity(e.target.value);
-                // const searchResult = await findCity(e.target.value);
-                // setCitySearchResult(searchResult);
-              }
+                setSearchedCity(e.target.value);
+              }}
               onFocus={async (e) => {
-                const searchResult = await findCity(e.target.value);
-                setCitySearchResult(searchResult);
+                handleCitySearch(e.target.value);
                 setShowCitySuggestions(true);
               }}
               onBlur={() => {
@@ -120,25 +125,10 @@ function NovaPoshtaForm() {
               value={searchedCity}
               placeholder="Search for your city"
             />
-            {showCitySuggestions ? (
-              <ul className="np-delivery__suggestions">
-                {citySearchResult.map((elem) => {
-                  return (
-                    <li
-                      className="np-delivery__suggestions-item"
-                      key={elem.CityID}
-                      onClick={() => {
-                        setSearchedCity(elem.Description);
-                        setSelectedCity(elem.Description);
-                        setSearchedWarehouse("");
-                        setShowCitySuggestions(false);
-                      }}
-                    >
-                      {elem.Description}
-                    </li>
-                  );
-                })}
-              </ul>
+
+            {showCitySuggestions && loading ? <NPSerachLoader /> : null}
+            {showCitySuggestions && !loading ? (
+              <NPSearchSuggestions searchResultArray={citySearchResult} selectHandler={handleCitySelect} />
             ) : null}
           </div>
           <label htmlFor="warehouse">Warehouse:</label>
@@ -147,12 +137,9 @@ function NovaPoshtaForm() {
               disabled={!selectedCity}
               onInput={async (e) => {
                 setSearchedWarehouse(e.target.value);
-                const searchResult = await findWarehouse(e.target.value, selectedCity);
-                setWarehouseSearchResult(searchResult);
               }}
               onFocus={async (e) => {
-                const searchResult = await findWarehouse(e.target.value, selectedCity);
-                setWarehouseSearchResult(searchResult);
+                handleWarehouseSearch(e.target.value, selectedCity);
                 setShowWarehouseSuggestions(true);
               }}
               onBlur={() => {
@@ -165,24 +152,9 @@ function NovaPoshtaForm() {
               value={searchedWarehouse}
               placeholder="Find your warehouse"
             />
-            {showWarehouseSuggestions ? (
-              <ul className="np-delivery__suggestions">
-                {warehouseSearchResult.map((elem) => {
-                  return (
-                    <li
-                      className="np-delivery__suggestions-item"
-                      key={elem.Number}
-                      onClick={() => {
-                        setSearchedWarehouse(elem.Description);
-                        setSelectedWarehouse(elem.Description);
-                        setShowWarehouseSuggestions(false);
-                      }}
-                    >
-                      {elem.Description}
-                    </li>
-                  );
-                })}
-              </ul>
+            {showWarehouseSuggestions && loading ? <NPSerachLoader /> : null}
+            {showWarehouseSuggestions && !loading ? (
+              <NPSearchSuggestions searchResultArray={warehouseSearchResult} selectHandler={handleWarehouseSelect} />
             ) : null}
           </div>
           <button className="np-delivery__btn" type="submit">
