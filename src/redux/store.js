@@ -39,7 +39,6 @@ const persistConfig = {
   key: "root",
   storage,
   blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"],
-  whitelist: ["favorites", "favoriteCounts"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
