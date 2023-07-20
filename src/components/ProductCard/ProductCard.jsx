@@ -17,7 +17,7 @@ export default function ProductCard(props) {
   );
   // eslint-disable-next-line no-underscore-dangle
   const itemId = props.item._id;
-  const userToken = useSelector((state) => state.user.userInfo.token);
+  const userToken = useSelector((state) => state.user.userInfo.token)
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
