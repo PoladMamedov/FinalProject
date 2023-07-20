@@ -28,13 +28,9 @@ export default function ProductCard(props) {
   }, []);
 
   const handleAddToFavorites = async () => {
-    const nameWithoutLastWord = props.item.name.slice(
-      0,
-      props.item.name.lastIndexOf(" ")
-    );
     const newItem = {
       imageUrls: [props.item.imageUrls[0]],
-      name: nameWithoutLastWord,
+      name: props.item.name,
       currentPrice: props.item.currentPrice,
       quantity: props.item.quantity,
       itemNo: props.item.itemNo,
@@ -52,12 +48,13 @@ export default function ProductCard(props) {
     } catch (error) {
       console.log(error);
     }
+    console.log(onAddItemToCart);
+    console.log(increaseCart);
   };
 
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(urlItemNumber));
-
   };
 
   return (

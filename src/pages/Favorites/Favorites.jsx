@@ -4,22 +4,37 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromFavorites,
 } from "../../redux/actions/favorites";
+import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
+import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 
 const Favorites = () => {
-  // Получение списка избранных товаров из состояния Redux
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
   const currencyValue = parseFloat(currency);
+  const userToken = useSelector((state) => state.user.userInfo.token);
 
-  // Обработчик удаления товара из списка избранных
   const handleRemoveFromFavorites = (product) => {
     dispatch(removeFromFavorites(product));
   };
+ 
+  const onAddItemToCart = async (item, token, productInfo) => {
+    try {
+      if (token) {
+        dispatch(increaseCartAsync(item, token, productInfo));
+      } else {
+        dispatch(increaseCart(item, productInfo));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
+    <>
+    <BreadCrumb />
     <section className="favorites">
       <div className={"container"}>
         <div className="favorites__header">
@@ -32,14 +47,18 @@ const Favorites = () => {
           {favorites && favorites.map((product) => (
             <div className="favorites__item" key={product.itemNo}>
               {product.imageUrls && product.imageUrls[0] && (
+               <Link className="cart-list__item-image-wrap" to={`/products/${product.itemNo}`}>
                 <img
                   className={"favorites__item-img"}
                   src={product.imageUrls[0]}
                   alt="item-img"
                 />
+                </Link>
               )}
               <div className="favorites__item-details">
-                <p className="favorites__item-title">{product.name}</p>
+                <p className="favorites__item-title">
+                  <Link to={`/products/${product.itemNo}`} className="cart-list__item-title">{product.name}</Link>
+                  </p>
                 <p className="favorites__item-price">
                   <img
                     className="currency-icon--rows"
@@ -49,25 +68,30 @@ const Favorites = () => {
                   {Math.floor(product.currentPrice * currencyValue)}
                 </p>
                 <div className="favorites__item-add">
-                  <button type="button" className="favorites__item-add-minus">
-                    -
-                  </button>
-                  <span className="favorites__item-add-number">0</span>
-                  <button type="button" className="favorites__item-add-plus">
-                    +
+                  <button
+                   className="favorites__item-add-cart"
+                   type="button"
+                   onClick={() => onAddItemToCart(product.itemNo, userToken, product)}>
+                    <img
+                    className={"favorites__item-add-cart-icon"}
+                    src="/img/cart-logo.png"
+                    alt="delete item from favorites"
+                  />
                   </button>
                 </div>
+                <div className="favorites__item-remove">
                 <button
-                  className={"favorites__item-icon-button"}
+                  className={"favorites__item-remove-btn"}
                   onClick={() => handleRemoveFromFavorites(product.itemNo)}
                   type="button"
                 >
                   <img
-                    className={"favorites__item-icon"}
+                    className={"favorites__item-remove-icon"}
                     src="/img/cart-trash-icon.png"
                     alt="delete item from favorites"
                   />
                 </button>
+                </div>
               </div>
             </div>
           ))}
@@ -79,6 +103,7 @@ const Favorites = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
