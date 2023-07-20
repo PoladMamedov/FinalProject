@@ -1,21 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import useTimeout from "./useTimeout";
 
-// Наш хук
-export default function useDebounce(value, delay) {
-   // Состояние и сеттер для отложенного значения
-   const [debouncedValue, setDebouncedValue] = useState(value);
-
-   useEffect(
-      () => {
-         const handler = setTimeout(() => {
-            setDebouncedValue(value);
-         }, delay);
-         return () => {
-            clearTimeout(handler);
-         };
-      },
-      [value]
-   );
-
-   return debouncedValue;
+export default function useDebounce(callback, delay, dependencies) {
+  const { reset, clear } = useTimeout(callback, delay);
+  useEffect(reset, [...dependencies, reset]);
+  useEffect(clear, []);
 }
