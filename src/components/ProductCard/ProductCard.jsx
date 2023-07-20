@@ -5,8 +5,6 @@ import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import {
   addToFavorites,
   removeFromFavorites,
-  incrementFavoritesCount,
-  decrementFavoritesCount,
 } from "../../redux/actions/favorites";
 import {increaseCart, increaseCartAsync} from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
@@ -42,7 +40,6 @@ export default function ProductCard(props) {
       itemNo: props.item.itemNo,
     };
     dispatch(addToFavorites(newItem));
-    dispatch(incrementFavoritesCount());
     setIsFav(true);
   };
   const onAddItemToCart = async (item, token, productInfo) => {
@@ -60,7 +57,7 @@ export default function ProductCard(props) {
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(urlItemNumber));
-    dispatch(decrementFavoritesCount());
+
   };
 
   return (

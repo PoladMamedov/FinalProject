@@ -13,14 +13,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
-  const productsQuantity = useSelector((state) => state.cart.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pages = ["Products", "About"];
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const {favoritesCount} = useSelector((state) => state.favoriteCounts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleClickOutside = (e) => {
     if (
@@ -35,7 +34,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-    
+
   }, []);
   useEffect(() => {
     dispatch(fetchCategories());
@@ -67,7 +66,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick("home")}
                     to={"/"}
                   >
@@ -78,7 +77,7 @@ const Header = () => {
                   <li className="header__nav-item" key={index + 1}>
                     <NavLink
                       className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""
-                        }`}
+                      }`}
                       onClick={() => handleLinkClick(item.toLowerCase())}
                       to={`/${item.toLowerCase()}`}
                     >
@@ -121,7 +120,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick(0)}
                     to={"/"}
                   >
@@ -132,7 +131,7 @@ const Header = () => {
                   <div className="header__products-link-wrap">
                     <NavLink
                       className={`header__nav-link${pagePath === "products" ? "--active" : ""
-                        }`}
+                      }`}
                       onClick={() => handleLinkClick(1)}
                       to={"/products"}
                     >
@@ -154,7 +153,7 @@ const Header = () => {
                 <li className="header__nav-item" key={3}>
                   <NavLink
                     className={`header__nav-link${pagePath === "about" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick(3)}
                     to={"/about"}
                   >
@@ -166,15 +165,16 @@ const Header = () => {
                 <Currency />
               </div>
             </nav>
-            
+
             <div className="header__nav-btn-wrap">
-            <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
+              <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
                 <FavoritesIcon
-                 className="header__nav-fav"
-                 color="#535353"
-                 isFill={false}
+                  className="header__nav-fav"
+                  color="#535353"
+                  isFill={false}
                 />
-                <span className="header__nav-fav--count">{favoritesCount}</span>
+                {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
+
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
@@ -182,7 +182,9 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">{productsQuantity.length}</span>
+                <span className="header__nav-cart--count">10</span>
+
+                {/* В спан записать с редакса количество в корзине */}
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}

@@ -10,7 +10,7 @@ const Currency = () => {
    const values = ["USD", "UAH", "EUR", "PLN"];
 
    useEffect(() => {
-      fetch("https://openexchangerates.org/api/latest.json?app_id=4474d46addfb4df889d59789952f542b")
+      fetch("https://openexchangerates.org/api/latest.json?app_id=5fb46af546ac47e288a866419999ae33")
          .then((response) => response.json())
          .then((data) => setAllCurrencies(data));
    }, [value]);
