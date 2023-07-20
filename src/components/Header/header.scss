@@ -558,51 +558,57 @@
          }
       }
    }
+
    &__nav-fav {
       position: relative;
       margin-top: 2px;
       width: 24px;
       height: 25px;
-      @include breakpoint-bet(280px, 639px) {
-         display: none;
-       }
+
+      // @include breakpoint-bet(280px, 639px) {
+      //    display: none;
+      // }
+
       @include breakpoint-mf('md') {
          margin-top: 5px;
          width: 30px;
          height: 30px;
       }
+
       @include breakpoint-mf('my') {
          width: 30px;
          height: 30px;
          margin-right: 0px;
       }
+
       &--count {
          @include flex(row, center, center);
          padding: 1px 0 0 1px;
          position: absolute;
-         font-size: 14px;
-         width: 14px;
-         height: 14px;
+         font-size: 12px;
+         font-weight: 500;
+         width: 18px;
+         height: 18px;
          bottom: 18px;
-         left: 17px;
+         left: 15px;
          border-radius: 50%;
          color: $white;
          background-color: red;
-         @include breakpoint-bet(280px, 639px) {
-            display: none;
-          }
+
          @include breakpoint-mf('md') {
             padding: 0 0 0 1px;
-            bottom: 22px;
-            left: 22px;
-            width: 17px;
-            height: 17px;
+            bottom: 20px;
+            left: 20px;
+            font-size: 14px;
+            width: 21px;
+            height: 20px;
          }
+
          @include breakpoint-mf('my') {
             width: 20px;
             height: 20px;
-            bottom: 23px;
-            left: 22px;
+            bottom: 24px;
+            left: 25px;
          }
       }
    }
@@ -687,4 +693,8 @@
 .header__menu-btn--active .header__menu-lines:nth-child(3) {
    transform: rotateZ(-40deg);
    width: 17px;
+}
+.scales-icon {
+   margin-top: 6px;
+   filter: grayscale(100%) brightness(120%);
 }
