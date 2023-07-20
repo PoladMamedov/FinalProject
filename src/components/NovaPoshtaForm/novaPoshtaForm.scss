@@ -29,6 +29,7 @@
       background-color: darken($secondaryLight, $amount: 10%);
     }
     &:disabled {
+      background-color: $secondary;
     }
   }
 }

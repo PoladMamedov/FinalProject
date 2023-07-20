@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useNovaPoshta from "../../hooks/useNovaPoshta";
+import { useFuncDebounce } from "../../hooks/useFuncDebounce";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
@@ -23,6 +24,23 @@ function NovaPoshtaForm() {
     setSearchedCity("");
     setSearchedWarehouse("");
   }
+
+  // function debounce(fn, delay = 1000) {
+  //   let timeout;
+  //   return (...args) => {
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       fn(...args);
+  //     }, delay);
+  //   };
+  // }
+
+  async function handleCitySearch(value) {
+    console.log("request sended");
+    const searchResult = await findCity(value);
+    setCitySearchResult(searchResult);
+  }
+  useFuncDebounce(() => handleCitySearch(searchedCity), 1000, [searchedCity]);
 
   return (
     <div className="container">
@@ -69,15 +87,24 @@ function NovaPoshtaForm() {
           <label htmlFor="city">City:</label>
           <div className="np-delivery__input-wrap">
             <input
-              onChange={async (e) => {
-                if (e.target.value === "") {
-                  setSelectedCity("");
-                  setSearchedWarehouse("");
+              onInput={
+                (e) => {
+                  if (e.target.value === "") {
+                    setSelectedCity("");
+                    setSearchedWarehouse("");
+                  }
+                  setSearchedCity(e.target.value);
+                  // debouncedCitySearch(e);
                 }
-                setSearchedCity(e.target.value);
-                const searchResult = await findCity(e.target.value);
-                setCitySearchResult(searchResult);
-              }}
+                // async (e) => {
+                // if (e.target.value === "") {
+                //   setSelectedCity("");
+                //   setSearchedWarehouse("");
+                // }
+                // setSearchedCity(e.target.value);
+                // const searchResult = await findCity(e.target.value);
+                // setCitySearchResult(searchResult);
+              }
               onFocus={async (e) => {
                 const searchResult = await findCity(e.target.value);
                 setCitySearchResult(searchResult);
@@ -118,7 +145,7 @@ function NovaPoshtaForm() {
           <div className="np-delivery__input-wrap">
             <input
               disabled={!selectedCity}
-              onChange={async (e) => {
+              onInput={async (e) => {
                 setSearchedWarehouse(e.target.value);
                 const searchResult = await findWarehouse(e.target.value, selectedCity);
                 setWarehouseSearchResult(searchResult);
