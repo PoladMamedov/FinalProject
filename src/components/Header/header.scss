@@ -257,6 +257,8 @@
             font-size: 15px;
             color: $primary;
             box-shadow: 1px 3px 3px $primary;
+            -webkit-box-shadow: 1px 3px 3px $primary;
+
             transition: box-shadow .3s ease;
 
             &:focus {
@@ -366,6 +368,8 @@
       background-color: $white;
       margin-bottom: 30px;
       box-shadow: 0px 6px 10px 0px #00000040;
+      -webkit-box-shadow: 0px 6px 10px 0px #00000040;
+
       transition: top .6s ease;
       z-index: 3;
 
@@ -538,7 +542,7 @@
          }
       }
 
-      &--cart {
+      &--fav {
          position: relative;
 
          @include breakpoint-mf('md') {
@@ -546,7 +550,62 @@
          }
       }
 
+      &--cart {
+         position: relative;
 
+         @include breakpoint-mf('md') {
+            width: 50px;
+         }
+      }
+   }
+   &__nav-fav {
+      position: relative;
+      margin-top: 2px;
+      width: 24px;
+      height: 25px;
+      @include breakpoint-bet(280px, 639px) {
+         display: none;
+       }
+      @include breakpoint-mf('md') {
+         margin-top: 5px;
+         width: 30px;
+         height: 30px;
+      }
+      @include breakpoint-mf('my') {
+         width: 35px;
+         height: 35px;
+         margin-right: 25px;
+      }
+      &--count {
+         @include flex(row, center, center);
+         padding: 1px 0 0 1px;
+         position: absolute;
+         font-size: 14px;
+         width: 14px;
+         height: 14px;
+         bottom: 18px;
+         left: 17px;
+         border-radius: 50%;
+         color: $white;
+         background-color: red;
+         @include breakpoint-bet(280px, 639px) {
+            display: none;
+          }
+         @include breakpoint-mf('md') {
+            padding: 0 0 0 1px;
+
+            bottom: 22px;
+            left: 22px;
+            width: 17px;
+            height: 17px;
+         }
+         @include breakpoint-mf('my') {
+            width: 20px;
+            height: 20px;
+            bottom: 23px;
+            left: 26px;
+         }
+      }
    }
 
    &__nav-cart {
@@ -565,6 +624,7 @@
       @include breakpoint-mf('my') {
          width: 35px;
          height: 35px;
+         margin-right: 25px;
       }
 
       &--count {
@@ -609,7 +669,6 @@
       }
 
       @include breakpoint-mf('my') {
-         margin-left: 25px;
          margin-top: 3px;
          width: 30px;
          height: 33px;
