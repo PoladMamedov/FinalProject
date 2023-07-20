@@ -183,7 +183,7 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">{cartQuantity}</span>
+                <span className="header__nav-cart--count">{cartQuantity.length}</span>
 
               </NavLink>
               <NavLink
