@@ -19,7 +19,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const {favoritesCount} = useSelector((state) => state.favoriteCounts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleClickOutside = (e) => {
     if (
@@ -34,7 +34,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-    
+
   }, []);
   useEffect(() => {
     dispatch(fetchCategories());
@@ -165,15 +165,16 @@ const Header = () => {
                 <Currency />
               </div>
             </nav>
-            
+
             <div className="header__nav-btn-wrap">
-            <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
+              <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
                 <FavoritesIcon
-                 className="header__nav-fav"
-                 color="#535353"
-                 isFill={false}
+                  className="header__nav-fav"
+                  color="#535353"
+                  isFill={false}
                 />
-                <span className="header__nav-fav--count">{favoritesCount}</span>
+                {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
+
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
@@ -181,7 +182,7 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">1</span>
+                <span className="header__nav-cart--count">10</span>
 
                 {/* В спан записать с редакса количество в корзине */}
               </NavLink>
