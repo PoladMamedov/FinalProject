@@ -152,7 +152,7 @@
 
       &--active {
          position: absolute;
-         z-index: 15;
+         z-index: 65;
          width: 100%;
          @include flex(row, center, center);
          top: 0px;
@@ -371,7 +371,7 @@
       -webkit-box-shadow: 0px 6px 10px 0px #00000040;
 
       transition: top .6s ease;
-      z-index: 3;
+      z-index: 65;
 
       @include breakpoint-mf('md') {
          display: none;
@@ -381,7 +381,7 @@
          @extend .header__nav;
          left: 0;
          top: 100%;
-         z-index: 2;
+         z-index: 65;
 
 
       }

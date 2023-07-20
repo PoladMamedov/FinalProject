@@ -87,6 +87,16 @@
 
     }
 
+    &__scales {
+        width: 85px;
+        height: 85px;
+
+        @include breakpoint-mf("md") {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
     &-item__closebtn {
         margin-left: 5px;
         width: 18px;

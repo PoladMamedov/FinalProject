@@ -47,4 +47,5 @@ const MobileCategory = ({ category, setIsMenuOpen }) => {
       </>
    );
 };
+
 export default MobileCategory;
