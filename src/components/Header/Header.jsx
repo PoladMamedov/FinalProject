@@ -179,7 +179,7 @@ const Header = () => {
                   src="/img/header/scales2.svg"
                   alt="scales-img"
                 />
-                {compareProducts.length !== 0 ? <span className="header__nav-cart--count">{compareProducts.length}</span> : null}
+                {compareProducts.length !== 0 ? <span className="header__nav-fav--count">{compareProducts.length}</span> : null}
               </NavLink>
 
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">

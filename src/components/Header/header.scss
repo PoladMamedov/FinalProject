@@ -565,9 +565,9 @@
       width: 24px;
       height: 25px;
 
-      @include breakpoint-bet(280px, 639px) {
-         display: none;
-      }
+      // @include breakpoint-bet(280px, 639px) {
+      //    display: none;
+      // }
 
       @include breakpoint-mf('md') {
          margin-top: 5px;

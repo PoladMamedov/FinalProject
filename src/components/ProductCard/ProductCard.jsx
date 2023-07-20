@@ -1,3 +1,5 @@
+/* eslint-disable no-lonely-if */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useRef } from "react";
 import { Store } from "react-notifications-component";
@@ -15,6 +17,7 @@ import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
   const compareBtn = useRef();
+  const cartBtn = useRef();
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
   const { currency, currencyName } = useSelector(
@@ -60,16 +63,26 @@ export default function ProductCard(props) {
     dispatch(addToFavorites(newItem));
     setIsFav(true);
   };
+
+  const { cart } = useSelector((state) => state.cart);
+
   const onAddItemToCart = async (item, token, productInfo) => {
     try {
-      if (token) {
-        dispatch(increaseCartAsync(item, token, productInfo));
+      if (cart.some((cartItem) => cartItem.product._id === productInfo._id)) {
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorReAddToCart });
       } else {
-        dispatch(increaseCart(item, productInfo));
+        if (token) {
+          dispatch(increaseCartAsync(item, token, productInfo));
+          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
+        } else {
+          dispatch(increaseCart(item, productInfo));
+          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
+        }
       }
     } catch (error) {
       console.log(error);
     }
+    cartBtn.current.classList.add("compare-btn--clicked");
   };
 
   const handleRemoveFromFavorites = () => {
@@ -125,21 +138,25 @@ export default function ProductCard(props) {
                   alt="compare-logo" />
               </button>
               <button
+                ref={cartBtn}
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
-                className={
-                  props.active
-                    ? "all-card__btn-card-container"
-                    : "card__btn-card-container"
-                }
+                className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__like-button compare-btn--clicked" : "all-card__like-button"}
+                // className={
+                //   props.active
+                //     ? "all-card__btn-card-container"
+                //     : "card__btn-card-container"
+                // }
               >
                 <img
-                  className={
-                    props.active
-                      ? "all-card__btn-svg-cart"
-                      : "card__btn-svg-cart"
-                  }
-                  src="/img/cart-logo.png"
+                className="all-card__like-img"
+                style={{marginTop: 0}}
+                  // className={
+                  //   props.active
+                  //     ? "all-card__btn-svg-cart"
+                  //     : "card__btn-svg-cart"
+                  // }
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "/img/cart1.svg" : "/img/cart.svg"}
                   alt="cart-logo"
                 />
               </button>
@@ -220,19 +237,23 @@ export default function ProductCard(props) {
               </Link>
               <button
                 type={"button"}
-                className={
-                  props.active
-                    ? "all-card__btn-card-container--rows"
-                    : "card__btn-card-container"
-                }
+                className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
+                // className={
+                //   props.active
+                //     ? "all-card__btn-card-container--rows"
+                //     : "card__btn-card-container"
+                // }
               >
                 <img
-                  className={
-                    props.active
-                      ? "all-card__btn-svg-cart--rows"
-                      : "card__btn-svg-cart"
-                  }
-                  src="/img/cart-logo.png"
+                className="all-card__likes-top-img"
+                style={{marginTop: 0}}
+                  // className={
+                  //   props.active
+                  //     ? "all-card__btn-svg-cart--rows"
+                  //     : "card__btn-svg-cart"
+                  // }
+                  // src="/img/cart-logo.png"
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "/img/cart1.svg" : "/img/cart.svg"}
                   alt="cart-logo"
                 />
               </button>

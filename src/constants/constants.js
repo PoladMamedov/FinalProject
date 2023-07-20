@@ -25,6 +25,11 @@ const notificationsSettings = {
     title: "Attn!",
     message: "The product removed from comparison list",
     type: "danger"
+  },
+  errorReAddToCart: {
+    title: "Attn!",
+    message: "The product is already in the cart",
+    type: "danger"
   }
 };
 
