@@ -17,7 +17,6 @@ import currencyReducer from "./reducers/currency";
 import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 import cartReducer from "./reducers/cart";
 import favoritesReducer from "./reducers/favorites";
-import favoritesCountReducer from "./reducers/favoritesCountReducer";
 
 
 const rootReducer = combineReducers({
@@ -34,14 +33,12 @@ const rootReducer = combineReducers({
   recentlyProducts: recentlyProductsReducer,
   cart: cartReducer,
   favorites: favoritesReducer,
-  favoriteCounts: favoritesCountReducer
 });
 
 const persistConfig = {
   key: "root",
   storage,
   blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"],
-  whitelist: ["favorites", "favoriteCounts"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
