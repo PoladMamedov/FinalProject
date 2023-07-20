@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
+  const cartQuantity = useSelector((state) => state.cart.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pages = ["Products", "About"];
@@ -66,7 +67,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick("home")}
                     to={"/"}
                   >
@@ -77,7 +78,7 @@ const Header = () => {
                   <li className="header__nav-item" key={index + 1}>
                     <NavLink
                       className={`header__nav-link${pagePath === item.toLowerCase() ? "--active" : ""
-                        }`}
+                      }`}
                       onClick={() => handleLinkClick(item.toLowerCase())}
                       to={`/${item.toLowerCase()}`}
                     >
@@ -120,7 +121,7 @@ const Header = () => {
                 <li className="header__nav-item" key={1}>
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick(0)}
                     to={"/"}
                   >
@@ -131,7 +132,7 @@ const Header = () => {
                   <div className="header__products-link-wrap">
                     <NavLink
                       className={`header__nav-link${pagePath === "products" ? "--active" : ""
-                        }`}
+                      }`}
                       onClick={() => handleLinkClick(1)}
                       to={"/products"}
                     >
@@ -153,7 +154,7 @@ const Header = () => {
                 <li className="header__nav-item" key={3}>
                   <NavLink
                     className={`header__nav-link${pagePath === "about" ? "--active" : ""
-                      }`}
+                    }`}
                     onClick={() => handleLinkClick(3)}
                     to={"/about"}
                   >
@@ -182,9 +183,8 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">10</span>
+                <span className="header__nav-cart--count">{cartQuantity.length}</span>
 
-                {/* В спан записать с редакса количество в корзине */}
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
