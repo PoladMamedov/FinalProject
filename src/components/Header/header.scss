@@ -572,9 +572,9 @@
          height: 30px;
       }
       @include breakpoint-mf('my') {
-         width: 35px;
-         height: 35px;
-         margin-right: 25px;
+         width: 30px;
+         height: 30px;
+         margin-right: 0px;
       }
       &--count {
          @include flex(row, center, center);
@@ -593,7 +593,6 @@
           }
          @include breakpoint-mf('md') {
             padding: 0 0 0 1px;
-
             bottom: 22px;
             left: 22px;
             width: 17px;
@@ -603,7 +602,7 @@
             width: 20px;
             height: 20px;
             bottom: 23px;
-            left: 26px;
+            left: 22px;
          }
       }
    }

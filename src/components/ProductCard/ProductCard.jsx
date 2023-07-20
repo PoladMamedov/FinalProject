@@ -4,36 +4,40 @@ import { Store } from "react-notifications-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
-import { addCompareProducts } from "../../redux/actions/compareProducts";
+import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
 import notificationsSettings from "../../constants/constants";
 import {
   addToFavorites,
   removeFromFavorites,
-  incrementFavoritesCount,
-  decrementFavoritesCount,
 } from "../../redux/actions/favorites";
-import unlikeIcon from "../../pages/Favorites/heart_icon2.png";
-import likeIcon from "../../pages/Favorites/like_icon2.png";
-
+import {increaseCart, increaseCartAsync} from "../../redux/actions/cart";
+import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
-  const scales = useRef();
+  const compareBtn = useRef();
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
-  const { currency, currencyName } = useSelector((state) => state.currentCurrency);
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
+  // eslint-disable-next-line no-underscore-dangle
+  const itemId = props.item._id;
+  const userToken = useSelector((state) => state.user.userInfo.token);
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
 
   const { compareProducts } = useSelector((state) => state.compareProducts);
-
+  
   function addProducttoCompare() {
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
     } else {
+      dispatch(removeCompareProducts(urlItemNumber));
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorCompare });
     }
+    compareBtn.current.classList.toggle("compare-btn--clicked");
   }
   const [isFavorited, setIsFav] = useState(false);
 
@@ -54,34 +58,46 @@ export default function ProductCard(props) {
       itemNo: props.item.itemNo,
     };
     dispatch(addToFavorites(newItem));
-    dispatch(incrementFavoritesCount());
     setIsFav(true);
+  };
+  const onAddItemToCart = async (item, token, productInfo) => {
+    try {
+      if (token) {
+        dispatch(increaseCartAsync(item, token, productInfo));
+      } else {
+        dispatch(increaseCart(item, productInfo));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(urlItemNumber));
-    dispatch(decrementFavoritesCount());
-  };
 
+  };
 
   return (
     <>
-      {props.isCardView
-        ? <div className={props.active ? "all-card-container" : "card-container"}>
-          <div className={props.active ? "all-card" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
+      {props.isCardView ? (
+        <div className={props.active ? "all-card-container" : "card-container"}>
+          <div
+            className={props.active ? "all-card" : "card"}
+            style={{ backgroundImage: `url(${urlImg})` }}
+          >
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <div className="all-card__like">
                 <button type="button" className="all-card__like-button">
-                  <img
+                  <FavoritesIcon
                     className={
                       isFavorited
                         ? "all-card__like-btn active"
                         : "all-card__like-img"
                     }
-                    src={isFavorited ? likeIcon : unlikeIcon}
-                    alt="like-icon"
-                    onClick={
+                    color="#535353"
+                    isFill={isFavorited}
+                    clickHandler={
                       isFavorited
                         ? handleRemoveFromFavorites
                         : handleAddToFavorites
@@ -90,57 +106,100 @@ export default function ProductCard(props) {
                 </button>
               </div>
               <Link
-                className={props.active ? "all-card__btn-details" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                className={
+                  props.active ? "all-card__btn-details" : "card__btn-details"
+                }
+                to={`/products/${urlItemNumber}`}
+              >
+                DETAIL
+              </Link>
                 <button
+                ref={compareBtn}
                 onClick={() => addProducttoCompare()}
                 type={"button"}
-                className={"compare-btn"}
+                className={`compare-btn ${compareProducts.includes(urlItemNumber) ? "compare-btn--clicked" : ""}`}
                 >
                 <img
-                ref={scales}
                 className="compare-btn-icon"
-                  src="/img/header/scales2.svg"
+                src={!compareProducts.includes(urlItemNumber) ? "/img/header/scales2.svg" : "/img/header/scales1.svg"}
                   alt="compare-logo" />
               </button>
               <button
+                onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
-                className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
+                className={
+                  props.active
+                    ? "all-card__btn-card-container"
+                    : "card__btn-card-container"
+                }
+              >
                 <img
-                  className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"}
+                  className={
+                    props.active
+                      ? "all-card__btn-svg-cart"
+                      : "card__btn-svg-cart"
+                  }
                   src="/img/cart-logo.png"
-                  alt="cart-logo" />
+                  alt="cart-logo"
+                />
               </button>
             </div>
           </div>
           <div className={props.active ? "all-card__block" : "unactive"}>
             <div className={"all-card__product-name"}>{props.item.name}</div>
-            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap">
-              <p className="all-card__price--prev">
-                <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
-                {Math.floor(props.item.previousPrice * currencyValue)}</p>
-              <p className="all-card__price--curr">
-                <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
-                {Math.floor(props.item.currentPrice * currencyValue)}</p>
-            </div> : <div className={"all-card__price--curr"}>
-              <img className="currency-icon" src={`./img/currency/${currencyName}-icon.png`} alt="cureency-icon" />
-              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
+            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
+              <div className="all-card__prices-wrap">
+                <p className="all-card__price--prev">
+                  <img
+                    className="currency-icon"
+                    src={`./img/currency/${currencyName}-icon.png`}
+                    alt="cureency-icon"
+                  />
+                  {Math.floor(props.item.previousPrice * currencyValue)}
+                </p>
+                <p className="all-card__price--curr">
+                  <img
+                    className="currency-icon"
+                    src={`./img/currency/${currencyName}-icon.png`}
+                    alt="cureency-icon"
+                  />
+                  {Math.floor(props.item.currentPrice * currencyValue)}
+                </p>
+              </div>
+            ) : (
+              <div className={"all-card__price--curr"}>
+                <img
+                  className="currency-icon"
+                  src={`./img/currency/${currencyName}-icon.png`}
+                  alt="cureency-icon"
+                />
+                {Math.floor(props.item.currentPrice * currencyValue)}
+              </div>
+            )}
           </div>
         </div>
-        : <div className={props.active ? "all-card-container__rows" : "card-container"}>
-          <div className={props.active ? "all-card__rows" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
+      ) : (
+        <div
+          className={
+            props.active ? "all-card-container__rows" : "card-container"
+          }
+        >
+          <div
+            className={props.active ? "all-card__rows" : "card"}
+            style={{ backgroundImage: `url(${urlImg})` }}
+          >
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <div className="all-card__likes-top">
                 <button type="button" className="all-card__likes-top-button">
-                  <img
+                  <FavoritesIcon
                     className={
                       isFavorited
                         ? "all-card__likes-top-btn active"
                         : "all-card__likes-top-img"
                     }
-                    src={isFavorited ? likeIcon : unlikeIcon}
-                    alt="like-icon"
-                    onClick={
+                    color="#535353"
+                    isFill={isFavorited}
+                    clickHandler={
                       isFavorited
                         ? handleRemoveFromFavorites
                         : handleAddToFavorites
@@ -149,34 +208,72 @@ export default function ProductCard(props) {
                 </button>
               </div>
               <Link
-                className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
+                className={
+                  props.active
+                    ? "all-card__btn-details--rows"
+                    : "card__btn-details"
+                }
                 to={`/products/${urlItemNumber}`}
-                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
+                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}
+              >
+                DETAIL
+              </Link>
               <button
                 type={"button"}
-                className={props.active ? "all-card__btn-card-container--rows" : "card__btn-card-container"}>
+                className={
+                  props.active
+                    ? "all-card__btn-card-container--rows"
+                    : "card__btn-card-container"
+                }
+              >
                 <img
-                  className={props.active ? "all-card__btn-svg-cart--rows" : "card__btn-svg-cart"}
+                  className={
+                    props.active
+                      ? "all-card__btn-svg-cart--rows"
+                      : "card__btn-svg-cart"
+                  }
                   src="/img/cart-logo.png"
-                  alt="cart-logo" />
+                  alt="cart-logo"
+                />
               </button>
             </div>
           </div>
           <div className={props.active ? "all-card__block--rows" : "unactive"}>
-            <div className={"all-card__product-name--rows"}>{props.item.name}</div>
-            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
-              <p className="all-card__price--prev">
-                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
-                {Math.floor(props.item.previousPrice * currencyValue)}</p>
-              <p className="all-card__price--curr-rows">
-                <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
-                {Math.floor(props.item.currentPrice * currencyValue)}</p>
-
-            </div> : <div className={"all-card__price--curr-rows"}>
-              <img className="currency-icon--rows" src={`/img/currency/${currencyName}-icon.png`} alt="currency-icon" />
-              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
+            <div className={"all-card__product-name--rows"}>
+              {props.item.name}
+            </div>
+            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
+              <div className="all-card__prices-wrap--rows">
+                <p className="all-card__price--prev">
+                  <img
+                    className="currency-icon--rows"
+                    src={`/img/currency/${currencyName}-icon.png`}
+                    alt="currency-icon"
+                  />
+                  {Math.floor(props.item.previousPrice * currencyValue)}
+                </p>
+                <p className="all-card__price--curr-rows">
+                  <img
+                    className="currency-icon--rows"
+                    src={`/img/currency/${currencyName}-icon.png`}
+                    alt="currency-icon"
+                  />
+                  {Math.floor(props.item.currentPrice * currencyValue)}
+                </p>
+              </div>
+            ) : (
+              <div className={"all-card__price--curr-rows"}>
+                <img
+                  className="currency-icon--rows"
+                  src={`/img/currency/${currencyName}-icon.png`}
+                  alt="currency-icon"
+                />
+                {Math.floor(props.item.currentPrice * currencyValue)}
+              </div>
+            )}
           </div>
-        </div>}
+        </div>
+      )}
     </>
   );
 }

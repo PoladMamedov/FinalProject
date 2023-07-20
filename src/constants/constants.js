@@ -22,8 +22,8 @@ const notificationsSettings = {
     type: "success",
   },
   errorCompare: {
-    title: "Error!",
-    message: "The product is already in the comparison list",
+    title: "Attn!",
+    message: "The product removed from comparison list",
     type: "danger"
   }
 };

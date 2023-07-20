@@ -18,7 +18,11 @@
       width: 45%;
       margin-left: -130px;
     }
-    @include breakpoint-bet(320px, 897px) {
+    @include breakpoint-bet(768px, 897px) {
+      width: 40%;
+      margin-left: -180px;
+    }
+    @include breakpoint-bet(280px, 767px) {
       visibility: hidden;
     }
   }
@@ -43,9 +47,9 @@
     }
     @include breakpoint-bet(768px, 897px) {
       font-size: 18px;
-      margin-left: 90px;
+      margin-left: 40px;
     }
-    @include breakpoint-bet(568px, 768px) {
+    @include breakpoint-bet(568px, 767px) {
       font-size: 16px;
       margin-left: 90px;
       width: 191px;
@@ -61,8 +65,16 @@
       border-radius: 10px;
       box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
-    @include breakpoint-bet(320px, 425px) {
+    @include breakpoint-bet(360px, 425px) {
       width: 240px;
+      height: 26px;
+      margin-left: 25px;
+      font-size: 10px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
+    }
+    @include breakpoint-bet(280px, 359px) {
+      width: 200px;
       height: 26px;
       margin-left: 25px;
       font-size: 10px;
@@ -89,10 +101,10 @@
     }
     @include breakpoint-bet(768px, 897px) {
       font-size: 40px;
-      margin-left: 90px;
+      margin-left: 40px;
       margin-top: 50px;
     }
-    @include breakpoint-bet(568px, 768px) {
+    @include breakpoint-bet(568px, 767px) {
       font-size: 32px;
       margin-left: 90px;
       margin-top: 70px;
@@ -102,8 +114,13 @@
       margin-top: 80px;
       margin-left: 50px;
     }
-    @include breakpoint-bet(320px, 425px) {
+    @include breakpoint-bet(360px, 425px) {
       font-size: 30px;
+      margin-top: 90px;
+      margin-left: 25px;
+    }
+    @include breakpoint-bet(280px, 359px) {
+      font-size: 26px;
       margin-top: 90px;
       margin-left: 25px;
     }
@@ -125,8 +142,12 @@
       font-size: 18px;
       margin-left: 50px;
     }
-    @include breakpoint-bet(568px, 897px) {
+    @include breakpoint-bet(768px, 897px) {
       font-size: 18px;
+      margin-left: 40px;
+    }
+    @include breakpoint-bet(568px, 767px) {
+      font-size: 16px;
       margin-left: 90px;
     }
     @include breakpoint-bet(425px, 568px) {
@@ -134,8 +155,13 @@
       top: 125px;
       margin-left: 50px;
     }
-    @include breakpoint-bet(320px, 425px) {
+    @include breakpoint-bet(360px, 425px) {
       font-size: 14px;
+      margin-left: 25px;
+      top: 125px;
+    }
+    @include breakpoint-bet(280px, 359px) {
+      font-size: 12px;
       margin-left: 25px;
       top: 125px;
     }
@@ -156,8 +182,12 @@
       font-size: 18px;
       margin-left: 50px;
     }
-    @include breakpoint-bet(568px, 897px) {
+    @include breakpoint-bet(768px, 897px) {
       font-size: 18px;
+      margin-left: 40px;
+    }
+    @include breakpoint-bet(568px, 767px) {
+      font-size: 16px;
       margin-left: 90px;
     }
     @include breakpoint-bet(425px, 568px) {
@@ -165,8 +195,13 @@
       top: 150px;
       margin-left: 50px;
     }
-    @include breakpoint-bet(320px, 425px) {
+    @include breakpoint-bet(360px, 425px) {
       font-size: 14px;
+      margin-left: 25px;
+      top: 150px;
+    }
+    @include breakpoint-bet(280px, 359px) {
+      font-size: 12px;
       margin-left: 25px;
       top: 150px;
     }

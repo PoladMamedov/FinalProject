@@ -24,7 +24,17 @@
   }
 }
 
+.cart-list__item-title {
+  @include breakpoint-mf('sm') {
+    width: 110px;
+  }
+  @include breakpoint-mf('my') {
+    white-space: nowrap;
+  }
+}
+
 .cart-list__item-image {
+  object-fit: cover;
   width: 100px;
   height: 100px;
   @include breakpoint-mf('md') {
@@ -34,28 +44,27 @@
 }
 
 .cart-list__item-quantity {
-  @include flex(row, center,center);
+  @include flex(row, space-between);
+  align-items: center;
   font-size: 12px;
   font-weight: 500;
+  width: 100px;
   height: 25px;
-  max-width: 90px;
-  gap: 10px;
 
   &-minus {
-    width: 100%;
-    height: 100%;
     font-size: 20px;
     background-color: $white;
     cursor: pointer;
+    width: calc(33.33% - 10px);
+    height: 100%;
   }
 
   &-number {
-    @include flex(row, center, center);
-    height: 100%;
-    width: 150px;
+    text-align: center;
     border: 1px solid black;
-    cursor: not-allowed;
     background-color: $white;
+    width: calc(33.33% - 5px);
+    height: 100%;
     @include breakpoint-mf('sm') {
       font-size: 14px;
     }
@@ -65,14 +74,16 @@
   }
 
   &-plus {
-    width: 100%;
-    height: 100%;
     font-size: 20px;
     background-color: $white;
     cursor: pointer;
+    width: calc(33.33% - 10px);
+    height: 100%;
   }
 }
-
+.cart-list__item-button {
+  background-color: inherit;
+}
 .cart-list__item-icon {
   position: absolute;
   top: 50%;
