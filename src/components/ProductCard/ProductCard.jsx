@@ -7,15 +7,15 @@ import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import {
   addToFavorites,
   removeFromFavorites,
-  incrementFavoritesCount,
-  decrementFavoritesCount,
 } from "../../redux/actions/favorites";
-
+import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
-  const { currency, currencyName } = useSelector((state) => state.currentCurrency);
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
@@ -38,34 +38,35 @@ export default function ProductCard(props) {
       itemNo: props.item.itemNo,
     };
     dispatch(addToFavorites(newItem));
-    dispatch(incrementFavoritesCount());
     setIsFav(true);
   };
 
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(urlItemNumber));
-    dispatch(decrementFavoritesCount());
+
   };
 
   return (
     <>
-      {props.isCardView
-        ? <div className={props.active ? "all-card-container" : "card-container"}>
-          <div className={props.active ? "all-card" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
+      {props.isCardView ? (
+        <div className={props.active ? "all-card-container" : "card-container"}>
+          <div
+            className={props.active ? "all-card" : "card"}
+            style={{ backgroundImage: `url(${urlImg})` }}
+          >
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <div className="all-card__like">
                 <button type="button" className="all-card__like-button">
-                  <Image
-                    cloudName={cloudinaryConfig.cloudName}
+                  <FavoritesIcon
                     className={
                       isFavorited
                         ? "all-card__like-btn active"
                         : "all-card__like-img"
                     }
-                    publicId={isFavorited ? "like_icon2_c3behn" : "heart_icon2_ecsngk"}
-                    alt="like-icon"
-                    onClick={
+                    color="#535353"
+                    isFill={isFavorited}
+                    clickHandler={
                       isFavorited
                         ? handleRemoveFromFavorites
                         : handleAddToFavorites
@@ -74,8 +75,13 @@ export default function ProductCard(props) {
                 </button>
               </div>
               <Link
-                className={props.active ? "all-card__btn-details" : "card__btn-details"}
-                to={`/products/${urlItemNumber}`}>DETAIL</Link>
+                className={
+                  props.active ? "all-card__btn-details" : "card__btn-details"
+                }
+                to={`/products/${urlItemNumber}`}
+              >
+                DETAIL
+              </Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
@@ -102,21 +108,28 @@ export default function ProductCard(props) {
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>
-        : <div className={props.active ? "all-card-container__rows" : "card-container"}>
-          <div className={props.active ? "all-card__rows" : "card"} style={{ backgroundImage: `url(${urlImg})` }}>
+      ) : (
+        <div
+          className={
+            props.active ? "all-card-container__rows" : "card-container"
+          }
+        >
+          <div
+            className={props.active ? "all-card__rows" : "card"}
+            style={{ backgroundImage: `url(${urlImg})` }}
+          >
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <div className="all-card__likes-top">
                 <button type="button" className="all-card__likes-top-button">
-                  <Image
-                    cloudName={cloudinaryConfig.cloudName}
+                  <FavoritesIcon
                     className={
                       isFavorited
                         ? "all-card__likes-top-btn active"
                         : "all-card__likes-top-img"
                     }
-                    publicId={isFavorited ? "like_icon2_c3behn" : "heart_icon2_ecsngk"}
-                    alt="like-icon"
-                    onClick={
+                    color="#535353"
+                    isFill={isFavorited}
+                    clickHandler={
                       isFavorited
                         ? handleRemoveFromFavorites
                         : handleAddToFavorites
@@ -125,9 +138,16 @@ export default function ProductCard(props) {
                 </button>
               </div>
               <Link
-                className={props.active ? "all-card__btn-details--rows" : "card__btn-details"}
+                className={
+                  props.active
+                    ? "all-card__btn-details--rows"
+                    : "card__btn-details"
+                }
                 to={`/products/${urlItemNumber}`}
-                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}>DETAIL</Link>
+                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}
+              >
+                DETAIL
+              </Link>
               <button
                 type={"button"}
                 className={props.active ? "all-card__btn-card-container--rows" : "card__btn-card-container"}>
@@ -153,7 +173,8 @@ export default function ProductCard(props) {
               <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
-        </div>}
+        </div>
+      )}
     </>
   );
 }

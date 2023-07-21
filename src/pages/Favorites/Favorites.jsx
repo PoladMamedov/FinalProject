@@ -1,17 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromFavorites, decrementFavoritesCount } from "../../redux/actions/favorites";
+import {
+  removeFromFavorites,
+} from "../../redux/actions/favorites";
 
 const Favorites = () => {
   // Получение списка избранных товаров из состояния Redux
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
+  const currencyValue = parseFloat(currency);
 
   // Обработчик удаления товара из списка избранных
   const handleRemoveFromFavorites = (product) => {
     dispatch(removeFromFavorites(product));
-    dispatch(decrementFavoritesCount());
   };
 
   return (
@@ -34,11 +39,14 @@ const Favorites = () => {
                 />
               )}
               <div className="favorites__item-details">
-                <p className="favorites__item-title">
-                  {product.name}
-                </p>
+                <p className="favorites__item-title">{product.name}</p>
                 <p className="favorites__item-price">
-                  ${product.currentPrice}
+                  <img
+                    className="currency-icon--rows"
+                    src={`/img/currency/${currencyName}-icon.png`}
+                    alt="currency-icon"
+                  />
+                  {Math.floor(product.currentPrice * currencyValue)}
                 </p>
                 <div className="favorites__item-add">
                   <button type="button" className="favorites__item-add-minus">

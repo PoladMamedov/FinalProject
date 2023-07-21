@@ -8,6 +8,7 @@ import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
 import Currency from "../Currency/Currency";
+import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 const Header = () => {
 
@@ -20,7 +21,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const { favoritesCount } = useSelector((state) => state.favoriteCounts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleClickOutside = (e) => {
     if (
@@ -173,13 +174,13 @@ const Header = () => {
 
             <div className="header__nav-btn-wrap">
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
-                <Image
-                  cloudName={cloudinaryConfig.cloudName}
+                <FavoritesIcon
                   className="header__nav-fav"
-                  publicId="heart_icon2_ecsngk"
-                  alt="favorites-logo"
+                  color="#535353"
+                  isFill={false}
                 />
-                <span className="header__nav-fav--count">{favoritesCount}</span>
+                {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
+
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <Image
@@ -188,7 +189,7 @@ const Header = () => {
                   className="header__nav-cart"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">1</span>
+                <span className="header__nav-cart--count">10</span>
 
                 {/* В спан записать с редакса количество в корзине */}
               </NavLink>
