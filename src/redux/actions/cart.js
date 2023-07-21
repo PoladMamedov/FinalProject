@@ -44,10 +44,3 @@ export function clearCart() {
     payload: true,
   };
 }
-
-export function clearCheckout() {
-  return function (dispatch) {
-    console.log(localStorage.getItem("cart"));
-    dispatch(clearCart());
-  };
-}

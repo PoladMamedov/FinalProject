@@ -38,6 +38,11 @@
       @include fonts(400, 22px, 35px);
       margin: 0 40px;
     }
+
+    span {
+      font-weight: 1000;
+      color: #000;
+    }
   }
 
   // .thankyou-section__text-home

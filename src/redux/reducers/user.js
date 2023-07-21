@@ -1,12 +1,13 @@
 import userTypes from "../type/user";
 
 const initialState = {
-  userInfo: {},
+  userInfo: {
+    customerNo: null,
+  },
   loading: false,
   error: null,
   message: null,
 };
-
 // eslint-disable-next-line default-param-last
 function userReducer(state = initialState, action) {
   switch (action.type) {

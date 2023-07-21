@@ -1,7 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { Link} from 'react-router-dom';
+// import { v4 as uuidv4 } from "uuid";
 
 function ThankYou() {
+  // const customerNo = useSelector((state) => state.user.userInfo.customerNo);
+  // const [orderNumber, setOrderNumber] = useState("");
+  // const generateOrderNumber = () => {
+  //   return uuidv4();
+  // };
+  // useEffect(() => {
+  //   const generatedOrderNumber = generateOrderNumber();
+  //   setOrderNumber(generatedOrderNumber);
+  // }, []);
+
+  // const orderNumber = useSelector((state) => state.orderNumber.orderNumber);
+   const orderNumber = localStorage.getItem("orderNumber");
+  console.log(orderNumber);
+
   return (
     <section className="thankyou-section__wrapper">
       <div className="container">
@@ -10,7 +27,12 @@ function ThankYou() {
         </div>
 
         <div className="thankyou-section__text">
-          <p>Your order#: </p>
+          <p>
+            Your order#:&nbsp;
+            <span className="thankyou-section__text-order-number">
+              {orderNumber}
+            </span>
+          </p>
           <p>Our manager will get back to you shortly.</p>
 
           <p>

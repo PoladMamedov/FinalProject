@@ -25,7 +25,12 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return loginResult;
+    // return loginResult;
+    // В хуке loginUser(userData):
+    return {
+      ...loginResult,
+      customerNo: loginResult.customerNo,
+    };
   }
 
   async function getUser(token) {
@@ -37,7 +42,11 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return user;
+    // return user;
+    return {
+      ...user,
+      customerNo: user.customerNo,
+    };
   }
 
   //* User data and password changing
@@ -238,6 +247,22 @@ export default function useServer() {
     return updatedCart;
   }
 
+
+  /* PLACE AN ORDER */
+
+    // eslint-disable-next-line no-unused-vars
+    async function placeOrder(newOrder) {
+      const addedOrder = await fetch(`${url}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newOrder),
+      })
+        .then((res) => res.json())
+        .catch((err) => err);
+      return addedOrder;
+    }
   return {
     registerUser,
     loginUser,
@@ -262,5 +287,7 @@ export default function useServer() {
     deleteFromWishlist,
     getCart,
     updateCart,
+    placeOrder,
   };
+
 }
