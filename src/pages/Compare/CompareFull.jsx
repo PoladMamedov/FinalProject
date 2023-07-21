@@ -10,6 +10,7 @@ const CompareFull = () => {
     const server = useServer();
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
+    console.log(products);
 
     useEffect(() => {
         async function fetchCompareProducts() {
@@ -41,7 +42,7 @@ const CompareFull = () => {
                 <table className="compare-section-full-table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th> <img src="./img/scales.png" alt="" className="compare-section-full__scales" /></th>
                             {products.map((item, idx) => {
                                 return (
                                     <th key={idx}>
