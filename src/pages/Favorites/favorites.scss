@@ -23,7 +23,6 @@
     @include breakpoint-bet(320px, 767px) {
     }
   }
-
   // block with items
   &__item-block {
     @include flex(column, center, center);
@@ -88,7 +87,6 @@
       @include breakpoint-bet(280px, 767px) {
         margin-top: 10px;
       }
-
       &-minus {
         width: 100%;
         height: 100%;
@@ -96,7 +94,6 @@
         background-color: $white;
         cursor: pointer;
       }
-
       &-number {
         @include flex(row, center, center);
         height: 100%;
@@ -111,7 +108,6 @@
           font-size: 20px;
         }
       }
-
       &-plus {
         width: 100%;
         height: 100%;
@@ -120,33 +116,57 @@
         cursor: pointer;
       }
     }
-    &-icon {
-      position: absolute;
-      top: 50%;
-      margin-right: 10px;
-      transform: translate(0, -50%);
-      cursor: pointer;
-      width: 35px;
-      height: 35px;
-      border: 1px solid $white;
-      border-radius: 50%;
-      background-color: $white;
-      padding: 5px 5px 5px 5px;
-      @include breakpoint-mf("sm") {
-        position: static;
-        transform: translate(0, 0);
+    &-add {
+      @include breakpoint-bet(640px, 767px) {
+        margin-top: -5px;
       }
-      @include breakpoint-bet(280px, 639px) {
-        right: 10px;
-        margin-right: 0px;
-        width: 30px;
-        height: 30px;
+      &-cart {
+        cursor: pointer;
+        border: 1px solid $white;
+        border-radius: 50%;
+        background-color: $white;
+        width: 35px;
+        height: 35px;
+        &:hover {
+          color: #fff;
+          border-color: $primary;
+          box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2509803922);
+        }
       }
+      &-cart-icon {
+        width: 24px;
+        height: 24px;
+        padding: 3px 1px 1px 1px;
+      }
+    }
+    &-remove {
       @include breakpoint-bet(640px, 767px) {
         right: 10px;
       }
-      &-button {
-        background-color: #f5f7fb;
+      @include breakpoint-bet(280px, 639px) {
+        right: 10px;
+        transform: translate(0, -50%);
+        position: absolute;
+        right: 10px;
+        top: 72%;
+      }
+      &-btn {
+        cursor: pointer;
+        border: 1px solid $white;
+        border-radius: 50%;
+        background-color: $white;
+        width: 35px;
+        height: 35px;
+        &:hover {
+          color: #fff;
+          border-color: $primary;
+          box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2509803922);
+        }
+      }
+      &-icon {
+        width: 24px;
+        height: 24px;
+        padding: 3px 1px 1px 1px;
       }
     }
   }
