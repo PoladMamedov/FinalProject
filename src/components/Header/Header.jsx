@@ -110,7 +110,7 @@ const Header = () => {
             <NavLink
               className="header__company-logo"
               to="/"
-              onClick={() => handleLinkClick(0)}
+              onClick={() => handleLinkClick("home")}
             >
               <img src="/img/main-logo.png" alt="main-logo" />
             </NavLink>

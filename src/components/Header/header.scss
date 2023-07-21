@@ -112,6 +112,7 @@
       position: absolute;
       left: 30px;
       margin-bottom: 2px;
+      cursor: pointer;
 
       @include breakpoint-mf('md') {
          margin: 0;
@@ -325,6 +326,7 @@
       border: none;
       padding: 0;
       margin-left: -7px;
+      cursor: pointer;
 
       @include breakpoint-mf('md') {
          display: none;
@@ -363,7 +365,7 @@
       position: absolute;
       overflow: hidden;
       width: 100%;
-      top: -550px;
+      top: -650px;
       left: 0;
       background-color: $white;
       margin-bottom: 30px;
@@ -452,6 +454,7 @@
       background-color: transparent;
       transition: transform .3s ease;
       margin-right: 17px;
+      cursor: pointer;
 
       &--open {
          @extend .header__nav-arrow;
