@@ -46,7 +46,7 @@ const AppRoutes = () => {
           <Route path="/headphones" element={<Headphones />} />
           <Route path="/keyboards" element={<Keyboards />} />
           <Route path="/mouses" element={<Mouses />} />
-          <Route path="/compare" element={<Compare />}/>
+          <Route path="/compare" element={<Compare />} />
         </Routes>
       </main>
       <Footer />

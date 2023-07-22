@@ -48,6 +48,7 @@ const persistConfig = {
     "subcategory",
     "currentCurrency",
     "compareProducts",
+    "currentPath",
   ],
 };
 
