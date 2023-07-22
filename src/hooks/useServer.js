@@ -224,6 +224,18 @@ export default function useServer() {
       .catch((err) => err);
     return cart;
   }
+
+  async function addItemCart(productId, token) {
+    const addedCart = await fetch(`${url}/cart/${productId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return addedCart;
+  }
   async function updateCart(products, token) {
     const updatedCart = await fetch(`${url}/cart`, {
       method: "PUT",
@@ -237,6 +249,29 @@ export default function useServer() {
       .catch((err) => err);
     return updatedCart;
   }
+  async function removeItemFromCart(productId, token) {
+    const deletedCart = await fetch(`${url}/cart/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return deletedCart;
+  }
+  async function decreaseProductQuantity(productId, token) {
+    const decreasedProduct = await fetch(`${url}/cart/product/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return decreasedProduct;
+  }
+
 
   return {
     registerUser,
@@ -262,5 +297,8 @@ export default function useServer() {
     deleteFromWishlist,
     getCart,
     updateCart,
+    removeItemFromCart,
+    addItemCart,
+    decreaseProductQuantity
   };
 }

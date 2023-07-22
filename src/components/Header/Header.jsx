@@ -11,8 +11,10 @@ import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 const Header = () => {
 
   const dispatch = useDispatch();
+  const { compareProducts } = useSelector((state) => state.compareProducts);
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
+  const cartQuantity = useSelector((state) => state.cart.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pages = ["Products", "About"];
@@ -108,7 +110,7 @@ const Header = () => {
             <NavLink
               className="header__company-logo"
               to="/"
-              onClick={() => handleLinkClick(0)}
+              onClick={() => handleLinkClick("home")}
             >
               <img src="/img/main-logo.png" alt="main-logo" />
             </NavLink>
@@ -121,7 +123,7 @@ const Header = () => {
                   <NavLink
                     className={`header__nav-link${pagePath === "home" ? "--active" : ""
                       }`}
-                    onClick={() => handleLinkClick(0)}
+                    onClick={() => handleLinkClick("home")}
                     to={"/"}
                   >
                     Home
@@ -137,11 +139,9 @@ const Header = () => {
                     >
                       Products{" "}
                     </NavLink>
-                    <button
-                      type="button"
-                      onClick={() => handleCategories()}
-                      className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}
-                    >&#9650;</button>
+                    <svg className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`} onClick={() => handleCategories()} xmlns="http://www.w3.org/2000/svg" height="1.2em" style={{ fill: "#393d45" }} viewBox="0 0 384 512">
+                      <path d="M32 64C14.3 64 0 49.7 0 32S14.3 0 32 0l96 0c53 0 96 43 96 96l0 306.7 73.4-73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-128 128c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 402.7 160 96c0-17.7-14.3-32-32-32L32 64z" />
+                    </svg>
                   </div>
                 </li>
                 {isCategoriesOpen && <ul className="header__mobile-categories">
@@ -167,6 +167,19 @@ const Header = () => {
             </nav>
 
             <div className="header__nav-btn-wrap">
+              <NavLink
+                to={"/compare"}
+                key={7}
+                className="header__nav-link--fav"
+              >
+                <img
+                  className="header__nav-fav scales-icon"
+                  src="/img/header/scales2.svg"
+                  alt="scales-img"
+                />
+                {compareProducts.length !== 0 ? <span className="header__nav-fav--count">{compareProducts.length}</span> : null}
+              </NavLink>
+
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
                 <FavoritesIcon
                   className="header__nav-fav"
@@ -182,9 +195,9 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">10</span>
+                {cartQuantity.length >= 1 ? <span className="header__nav-fav--count">{cartQuantity.length}</span> : null}
 
-                {/* В спан записать с редакса количество в корзине */}
+
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
