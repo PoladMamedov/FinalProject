@@ -5,8 +5,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Store } from "react-notifications-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { Image } from "cloudinary-react";
-// import cloudinaryConfig from "../../config/cloudinaryConfig";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
 import notificationsSettings from "../../constants/constants";
