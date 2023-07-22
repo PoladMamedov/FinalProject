@@ -33,6 +33,9 @@ const SearchBar = () => {
   };
 
   async function searchProducts() {
+    if (searchTerm === "") {
+      return;
+    }
     try {
       const products = await getSearchedProducts(searchPhrases);
       if (searchTerm !== "") {
@@ -47,12 +50,9 @@ const SearchBar = () => {
   useDebounce(searchProducts, 500, [searchTerm]);
 
   const handleSearchChange = (e) => {
-    if (e.target.value === "") {
-      searchProducts();
-    }
-    const actualSearchTerm = e.currentTarget.value;
-    setSearchTerm(actualSearchTerm);
+    setSearchTerm(e.currentTarget.value);
   };
+
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
@@ -78,7 +78,8 @@ const SearchBar = () => {
         onKeyDown={() => handleSearchCLose()}
         role="button"
         tabIndex={0}
-        className={`search-wrap${isSearchOpen ? "--active" : ""}`}>
+        className={`search-wrap${isSearchOpen ? "--active" : ""}`}
+      >
       </div>
       <form onSubmit={(e) => handleSubmit(e)} className={`header__search-form${isSearchOpen ? "--active" : ""}`}>
         <input
