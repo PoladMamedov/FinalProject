@@ -17,6 +17,7 @@ import Keyboards from "./pages/Keyboards/Keyboards";
 import Mouses from "./pages/Mouses/Mouses";
 import Search from "./pages/Search/Search";
 import Favorites from "./pages/Favorites/Favorites";
+import Compare from "./pages/Compare/Compare";
 
 const AppRoutes = () => {
   return (
@@ -41,6 +42,7 @@ const AppRoutes = () => {
           <Route path="/headphones" element={<Headphones />} />
           <Route path="/keyboards" element={<Keyboards />} />
           <Route path="/mouses" element={<Mouses />} />
+          <Route path="/compare" element={<Compare />} />
         </Routes>
       </main>
       <Footer />

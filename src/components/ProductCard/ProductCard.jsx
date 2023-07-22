@@ -1,24 +1,49 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-lonely-if */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-alert */
+import React, { useState, useEffect, useRef } from "react";
+import { Store } from "react-notifications-component";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Image } from "cloudinary-react";
-import cloudinaryConfig from "../../config/cloudinaryConfig";
+// import { Image } from "cloudinary-react";
+// import cloudinaryConfig from "../../config/cloudinaryConfig";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
+import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
+import notificationsSettings from "../../constants/constants";
 import {
   addToFavorites,
   removeFromFavorites,
 } from "../../redux/actions/favorites";
+import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
+  const compareBtn = useRef();
+  const cartBtn = useRef();
   const [urlImg] = useState(props.item.imageUrls[0]);
   const [urlItemNumber] = useState(props.item.itemNo);
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
+  // eslint-disable-next-line no-underscore-dangle
+  const itemId = props.item._id;
+  const userToken = useSelector((state) => state.user.userInfo.token);
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+
+  const { compareProducts } = useSelector((state) => state.compareProducts);
+
+  function addProducttoCompare() {
+    if (!compareProducts.includes(urlItemNumber)) {
+      dispatch(addCompareProducts(urlItemNumber));
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
+    } else {
+      dispatch(removeCompareProducts(urlItemNumber));
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorCompare });
+    }
+    compareBtn.current.classList.toggle("compare-btn--clicked");
+  }
   const [isFavorited, setIsFav] = useState(false);
 
   useEffect(() => {
@@ -26,13 +51,9 @@ export default function ProductCard(props) {
   }, []);
 
   const handleAddToFavorites = async () => {
-    const nameWithoutLastWord = props.item.name.slice(
-      0,
-      props.item.name.lastIndexOf(" ")
-    );
     const newItem = {
       imageUrls: [props.item.imageUrls[0]],
-      name: nameWithoutLastWord,
+      name: props.item.name,
       currentPrice: props.item.currentPrice,
       quantity: props.item.quantity,
       itemNo: props.item.itemNo,
@@ -41,10 +62,30 @@ export default function ProductCard(props) {
     setIsFav(true);
   };
 
+  const { cart } = useSelector((state) => state.cart);
+
+  const onAddItemToCart = async (item, token, productInfo) => {
+    try {
+      if (cart.some((cartItem) => cartItem.product._id === productInfo._id)) {
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorReAddToCart });
+      } else {
+        if (token) {
+          dispatch(increaseCartAsync(item, token, productInfo));
+          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
+        } else {
+          dispatch(increaseCart(item, productInfo));
+          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    cartBtn.current.classList.add("compare-btn--clicked");
+  };
+
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(urlItemNumber));
-
   };
 
   return (
@@ -83,12 +124,36 @@ export default function ProductCard(props) {
                 DETAIL
               </Link>
               <button
+                ref={compareBtn}
+                onClick={() => addProducttoCompare()}
                 type={"button"}
-                className={props.active ? "all-card__btn-card-container" : "card__btn-card-container"}>
-                <Image
-                  cloudName={cloudinaryConfig.cloudName}
-                  className={props.active ? "all-card__btn-svg-cart" : "card__btn-svg-cart"}
-                  publicId="cart-logo_tz7wza"
+                className={`compare-btn ${compareProducts.includes(urlItemNumber) ? "compare-btn--clicked" : ""}`}
+              >
+                <img
+                  className="compare-btn-icon"
+                  src={!compareProducts.includes(urlItemNumber) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales2_a3fxya.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales1_klxlre.svg"}
+                  alt="compare-logo" />
+              </button>
+              <button
+                ref={cartBtn}
+                onClick={() => onAddItemToCart(itemId, userToken, props.item)}
+                type={"button"}
+                className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__like-button compare-btn--clicked" : "all-card__like-button"}
+              // className={
+              //   props.active
+              //     ? "all-card__btn-card-container"
+              //     : "card__btn-card-container"
+              // }
+              >
+                <img
+                  className="all-card__like-img"
+                  style={{ marginTop: 0 }}
+                  // className={
+                  //   props.active
+                  //     ? "all-card__btn-svg-cart"
+                  //     : "card__btn-svg-cart"
+                  // }
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
               </button>
@@ -150,12 +215,25 @@ export default function ProductCard(props) {
               </Link>
               <button
                 type={"button"}
-                className={props.active ? "all-card__btn-card-container--rows" : "card__btn-card-container"}>
-                <Image
-                  cloudName={cloudinaryConfig.cloudName}
-                  className={props.active ? "all-card__btn-svg-cart--rows" : "card__btn-svg-cart"}
-                  publicId="cart-logo_tz7wza"
-                  alt="cart-logo" />
+                className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
+              // className={
+              //   props.active
+              //     ? "all-card__btn-card-container--rows"
+              //     : "card__btn-card-container"
+              // }
+              >
+                <img
+                  className="all-card__likes-top-img"
+                  style={{ marginTop: 0 }}
+                  // className={
+                  //   props.active
+                  //     ? "all-card__btn-svg-cart--rows"
+                  //     : "card__btn-svg-cart"
+                  // }
+                  // src="/img/cart-logo.png"
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
+                  alt="cart-logo"
+                />
               </button>
             </div>
           </div>

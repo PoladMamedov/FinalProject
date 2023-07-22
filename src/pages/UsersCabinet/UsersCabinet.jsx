@@ -6,6 +6,7 @@ import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
 import PersonalDataEditForm from "../../components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "../../components/PasswordChangeForm/PasswordChangeForm";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
+import { removeEntireCart } from "../../redux/actions/cart";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function UsersCabinet() {
               type="button"
               onClick={() => {
                 dispatch(setUserInfo({}));
+                dispatch(removeEntireCart());
               }}
             >
               LOG OUT

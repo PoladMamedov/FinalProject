@@ -12,6 +12,7 @@
 @import "../pages/About/about";
 @import "../pages/Cart/cart";
 @import "../pages/ProductDetail/productDetail";
+@import "../pages/Compare/compare";
 @import "../pages/Favorites/favorites";
 
 
@@ -50,3 +51,6 @@
 @import "../pages/ProductDetail/components/orderActions";
 @import "../pages/ProductDetail/components/orderQuantity";
 @import "../pages/ProductDetail/components/specifications";
+@import "../pages/Cart/components/totalBlock";
+@import "../pages/Cart/components/cartHeader";
+@import "../pages/Cart/components/cartSkeleton";

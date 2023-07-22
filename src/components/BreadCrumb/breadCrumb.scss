@@ -23,7 +23,7 @@
    }
 
    &__link {
-      padding: 10px 0 10px 13px;
+      padding: 8px 0 8px 13px;
       font-weight: 400;
       font-size: 16px;
       line-height: 19px;
@@ -37,7 +37,7 @@
       @include breakpoint-mf('md') {
          font-size: 20px;
          line-height: 24px;
-         padding: 12px 0 12px 43px;
+         padding: 10px 0 10px 43px;
       }
    }
 
