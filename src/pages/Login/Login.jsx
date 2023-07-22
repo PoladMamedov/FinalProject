@@ -13,7 +13,7 @@ function Login() {
   const dispatch = useDispatch();
   const {
     userInfo: {
-      token, password, loginOrEmail, customerNo, firstName
+      token, password, loginOrEmail, customerNo, firstName, _id
     },
     loading,
   } = useSelector((state) => state.user);
@@ -23,7 +23,7 @@ function Login() {
     if (token) {
       console.log(customerNo);
       console.log(token);
-      console.log(firstName);
+      console.log(_id);
     }
   }, [token, customerNo, firstName]);
 

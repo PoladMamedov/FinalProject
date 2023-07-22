@@ -30,24 +30,6 @@ export function clearErrorAndMessages() {
   };
 }
 
-// export const logInUser = (userData) => {
-//   return async (dispatch) => {
-//     const { loginUser, getUser } = useServer();
-//     try {
-//       dispatch(userRequest());
-//       const loginResult = await loginUser(userData);
-//       const user = await getUser(loginResult.token);
-//       const res = {
-//         ...loginResult,
-//         ...user,
-//       };
-//       dispatch(setUserInfo(res));
-//     } catch (error) {
-//       dispatch(userRequestFailure(error));
-//     }
-//   };
-// };
-
 export const logInUser = (userData) => {
   return async (dispatch) => {
     const { loginUser, getUser } = useServer();
@@ -55,17 +37,35 @@ export const logInUser = (userData) => {
       dispatch(userRequest());
       const loginResult = await loginUser(userData);
       const user = await getUser(loginResult.token);
-const res = {
-  ...loginResult,
-  ...user,
-  customerNo: user.customerNo,
-};
+      const res = {
+        ...loginResult,
+        ...user,
+      };
       dispatch(setUserInfo(res));
     } catch (error) {
       dispatch(userRequestFailure(error));
     }
   };
 };
+
+// export const logInUser = (userData) => {
+//   return async (dispatch) => {
+//     const { loginUser, getUser } = useServer();
+//     try {
+//       dispatch(userRequest());
+//       const loginResult = await loginUser(userData);
+//       const user = await getUser(loginResult.token);
+// const res = {
+//   ...loginResult,
+//   ...user,
+//   customerNo: user.customerNo,
+// };
+//       dispatch(setUserInfo(res));
+//     } catch (error) {
+//       dispatch(userRequestFailure(error));
+//     }
+//   };
+// };
 
 export const updateUser = (updatedData, token) => {
   return async (dispatch) => {

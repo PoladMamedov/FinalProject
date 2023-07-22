@@ -1,9 +1,7 @@
 import userTypes from "../type/user";
 
 const initialState = {
-  userInfo: {
-    customerNo: null,
-  },
+  userInfo: {},
   loading: false,
   error: null,
   message: null,

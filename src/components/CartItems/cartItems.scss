@@ -5,6 +5,7 @@
   padding: 10px 20px;
   background-color: $secondaryLight;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
   @include breakpoint-mf('sm') {
     align-items: center;
     padding: 30px 40px;
@@ -16,17 +17,37 @@
   @include flex(column, flex-start);
   gap: 10px;
   padding-left: 20px;
+
   @include breakpoint-mf('sm') {
     width: 100%;
-    @include flex(row, space-between,center);
+    @include flex(row, space-between, center);
     font-size: 18px;
     font-weight: 500;
   }
 }
 
+.cart-list__item-title {
+  color: $primaryDark;
+
+  @include breakpoint-mf('sm') {
+    width: 110px;
+  }
+
+  @include breakpoint-mf('my') {
+    white-space: nowrap;
+  }
+}
+
 .cart-list__item-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.cart-list__item-image-wrap {
   width: 100px;
   height: 100px;
+
   @include breakpoint-mf('md') {
     width: 130px;
     height: 130px;
@@ -34,43 +55,48 @@
 }
 
 .cart-list__item-quantity {
-  @include flex(row, center,center);
+  @include flex(row, space-between);
+  align-items: center;
   font-size: 12px;
   font-weight: 500;
+  width: 100px;
   height: 25px;
-  max-width: 90px;
-  gap: 10px;
 
   &-minus {
-    width: 100%;
-    height: 100%;
     font-size: 20px;
     background-color: $white;
     cursor: pointer;
+    width: calc(33.33% - 10px);
+    height: 100%;
   }
 
   &-number {
-    @include flex(row, center, center);
-    height: 100%;
-    width: 150px;
+    text-align: center;
     border: 1px solid black;
-    cursor: not-allowed;
     background-color: $white;
+    width: calc(33.33% - 5px);
+    height: 100%;
+
     @include breakpoint-mf('sm') {
       font-size: 14px;
     }
+
     @include breakpoint-mf('my') {
       font-size: 20px;
     }
   }
 
   &-plus {
-    width: 100%;
-    height: 100%;
     font-size: 20px;
     background-color: $white;
     cursor: pointer;
+    width: calc(33.33% - 10px);
+    height: 100%;
   }
+}
+
+.cart-list__item-button {
+  background-color: inherit;
 }
 
 .cart-list__item-icon {
@@ -85,8 +111,9 @@
   border-radius: 50%;
   background-color: $white;
   padding: 5px 5px 5px 5px;
+
   @include breakpoint-mf('sm') {
-    position:static;
+    position: static;
     transform: translate(0, 0);
   }
 }
@@ -111,6 +138,10 @@
   @include flex(column, flex-start);
   gap: 20px;
   padding-left: 20px;
+}
+
+.checkout-cart-list__item-title {
+  color: #211f1c;
 }
 
 .checkout-cart-list__item-image {
@@ -139,12 +170,18 @@
   }
 
   &-number {
-    @include flex(row, center, center);
-    height: 100%;
-    width: 150px;
+    // @include flex(row, center, center);
+    // height: 100%;
+    // width: 150px;
+    // border: 1px solid black;
+    // cursor: not-allowed;
+    // background-color: $white;
+    text-align: center;
     border: 1px solid black;
-    cursor: not-allowed;
-    background-color: $white;
+    background-color: #ffffff;
+    width: calc(155.33% - 5px);
+    height: 100%;
+
     @include breakpoint-mf('sm') {
       font-size: 14px;
     }

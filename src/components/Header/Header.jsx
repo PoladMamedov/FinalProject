@@ -6,19 +6,22 @@ import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
 import Currency from "../Currency/Currency";
+import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 const Header = () => {
 
   const dispatch = useDispatch();
+  const { compareProducts } = useSelector((state) => state.compareProducts);
   const { pagePath } = useSelector((state) => state.currentPath);
   const { token } = useSelector((state) => state.user.userInfo);
+  const cartQuantity = useSelector((state) => state.cart.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pages = ["Products", "About"];
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const {favoritesCount} = useSelector((state) => state.favoriteCounts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleClickOutside = (e) => {
     if (
@@ -33,7 +36,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-    
+
   }, []);
   useEffect(() => {
     dispatch(fetchCategories());
@@ -136,11 +139,14 @@ const Header = () => {
                     >
                       Products{" "}
                     </NavLink>
-                    <button
+                    {/* <button
                       type="button"
                       onClick={() => handleCategories()}
                       className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`}
-                    >&#9650;</button>
+                    >&#9650;</button> */}
+                    <svg className={`header__nav-arrow${isCategoriesOpen ? "--open" : ""}`} onClick={() => handleCategories()} xmlns="http://www.w3.org/2000/svg" height="1.1em" style={{ fill: "#393d45" }} viewBox="0 0 384 512">
+                      <path d="M32 64C14.3 64 0 49.7 0 32S14.3 0 32 0l96 0c53 0 96 43 96 96l0 306.7 73.4-73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-128 128c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 402.7 160 96c0-17.7-14.3-32-32-32L32 64z" />
+                    </svg>
                   </div>
                 </li>
                 {isCategoriesOpen && <ul className="header__mobile-categories">
@@ -164,15 +170,29 @@ const Header = () => {
                 <Currency />
               </div>
             </nav>
-            
+
             <div className="header__nav-btn-wrap">
-            <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
+              <NavLink
+                to={"/compare"}
+                key={7}
+                className="header__nav-link--fav"
+              >
                 <img
-                  className="header__nav-fav"
-                  src="/img/heart_icon2.png"
-                  alt="favorites-logo"
+                  className="header__nav-fav scales-icon"
+                  src="/img/header/scales2.svg"
+                  alt="scales-img"
                 />
-                <span className="header__nav-fav--count">{favoritesCount}</span>
+                {compareProducts.length !== 0 ? <span className="header__nav-fav--count">{compareProducts.length}</span> : null}
+              </NavLink>
+
+              <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
+                <FavoritesIcon
+                  className="header__nav-fav"
+                  color="#535353"
+                  isFill={false}
+                />
+                {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
+
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
                 <img
@@ -180,9 +200,9 @@ const Header = () => {
                   src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
-                <span className="header__nav-cart--count">1</span>
+                {cartQuantity.length >= 1 ? <span className="header__nav-fav--count">{cartQuantity.length}</span> : null}
 
-                {/* В спан записать с редакса количество в корзине */}
+
               </NavLink>
               <NavLink
                 to={token ? "/cabinet" : "/login"}
