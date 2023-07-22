@@ -24,8 +24,8 @@ const Filter = forwardRef(({
   const [filters, setFilters] = useState([]);
 
   const { subcategory } = useSelector((state) => state.subcategory);
-  const allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
-
+  let allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
+  allCategories = allCategories.map((item) => item.replace(/ /g, "_"));
   const dispatch = useDispatch();
 
   const price = useSelector((state) => state.filteredProducts.filteredProducts);
