@@ -55,7 +55,7 @@ export default function OrderQuantity(
     }
   }
 
-  return <div className="order-actions__quantity-wrap">
+  return <div className={`order-actions__quantity-wrap${outOfStock ? "--hidden" : ""}`}>
     <button className="order-actions__quantity-item order-actions__decrease-btn" onClick={onDecreaseBtnClick} disabled={orderQuantity === 1} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="button">-</button>
     <input className="order-actions__quantity-item order-actions__quantity-input" ref={inputOrderQuantityRef} onChange={onOrderQuantityChange} onBlur={onOrderQuantityBlur} onKeyDown={onOrderQuantityKeyDown} disabled={outOfStock} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="text" value={orderQuantity}/>
     <button className="order-actions__quantity-item order-actions__increase-btn" onClick={onIncreaseBtnClick} disabled={orderQuantity === productQuantity - inCartQuantity || outOfStock} title={outOfStock ? "Max quantity of product \n is already in cart" : ""} type="button">+</button>
