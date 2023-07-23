@@ -8,9 +8,9 @@ import { fetchCart } from "../../redux/actions/cart";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const Cart = () => {
+   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartProducts = useSelector((state) => state.cart.cart);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (cartProducts.length === 0 && userToken) {
@@ -20,7 +20,7 @@ const Cart = () => {
 
   return (
     <>
-      <BreadCrumb />
+      <BreadCrumb/>
       <section className="cart-section">
         <div className={"container"}>
           {cartProducts.length !== 0 ? (

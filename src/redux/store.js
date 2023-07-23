@@ -19,7 +19,6 @@ import cartReducer from "./reducers/cart";
 import compareProductsReducer from "./reducers/compareProducts";
 import favoritesReducer from "./reducers/favorites";
 
-
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
   categories,
@@ -40,10 +39,23 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency", "compareProducts", "currentPath"],
+  blacklist: [
+    "countFilter",
+    "filteredProducts",
+    "sortFilter",
+    "search",
+    "toggleCard",
+    "subcategory",
+    "currentCurrency",
+    "compareProducts",
+    "currentPath",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const store = createStore(
+  persistedReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 export const persistor = persistStore(store);
