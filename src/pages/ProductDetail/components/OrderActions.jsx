@@ -12,7 +12,7 @@ import {
 } from "../../../redux/actions/favorites";
 import OrderQuantity from "./OrderQuantity";
 import {
-  addToCart, fetchCart, setCart, fillCart
+  fetchCart, setCart, fillCart
 } from "../../../redux/actions/cart";
 import notificationsSettings from "../../../constants/constants";
 import CurrencyIcon from "../../../components/CurrencyIcon/CurrencyIcon";
@@ -42,11 +42,11 @@ export default function OrderActions(props) {
 
   const handleAddToFavorites = async () => {
     const newItem = {
-      imageUrls: [props.item.imageUrls[0]],
-      name: props.item.name,
-      currentPrice: props.item.currentPrice,
-      quantity: props.item.quantity,
-      itemNo: props.item.itemNo,
+      imageUrls: [props.imageUrls[0]],
+      name: props.name,
+      currentPrice: props.currentPrice,
+      quantity: props.quantity,
+      itemNo: props.itemNo,
     };
     dispatch(addToFavorites(newItem));
     setIsFav(true);
@@ -69,45 +69,28 @@ export default function OrderActions(props) {
   async function onAddButtonClick() {
     try {
       if (token) dispatch(fetchCart(token));
+      const productInCart = cart.find(({product: {_id: id}}) => id === productID);
 
-      const productInCart = cart.find(({ product: { _id: id } }) => id === productID);
-      const productInCartIndx = cart.findIndex(({ product: { _id: id } }) => id === productID);
-      const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
-
-      if (token && filteredCart.length === 0) {
-        dispatch(setCart({
-          products: [
-            {
-              product: productID,
-              cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-            }
-          ]
-        }, token));
-      } else if (token && filteredCart.length) {
-        dispatch(setCart({
-          products: [
-            ...filteredCart.map(({ product: { _id: id }, cartQuantity }) => ({ product: id, cartQuantity })),
-            {
-              product: productID,
-              cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-            }
-          ]
-        }, token));
-      } else if (productInCart) {
-        dispatch(fillCart([
-          ...filteredCart,
+      const updatedCart = productInCart ? {
+        products: cart.map((el) => {
+          // eslint-disable-next-line no-underscore-dangle
+          if (el.product._id === productID) return ({...el, cartQuantity: el.cartQuantity + orderQuantity});
+          return ({...el});
+        })
+      } : {
+        products: [
+          ...cart,
           {
-            product: { ...props },
-            cartQuantity: orderQuantity + productInCart.cartQuantity
+            product: {...props},
+            cartQuantity: orderQuantity
           }
-        ]));
+        ]
+      };
+
+      if (token) {
+        dispatch(setCart(updatedCart, token));
       } else {
-        dispatch(addToCart([
-          {
-            product: { ...props },
-            cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-          }
-        ]));
+        dispatch(fillCart(updatedCart.products));
       }
 
       setOrderQuantity(1);
