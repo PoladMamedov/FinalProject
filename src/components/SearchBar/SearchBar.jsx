@@ -13,6 +13,7 @@ const SearchBar = () => {
   const { getSearchedProducts } = useServer();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [notFound, setIsNotFound] = useState(false);
   const { searchResults } = useSelector((state) => state.search);
 
   const searchPhrases = {
@@ -25,16 +26,29 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.target.blur();
     if (searchResults) {
       setIsSearchOpen(false);
       navigate("/search");
       setSearchTerm("");
+      setIsNotFound(false);
+    }
+    if (notFound) {
+      navigate("/products");
     }
   };
 
   async function searchProducts() {
+    if (searchTerm === "") {
+      return;
+    }
     try {
       const products = await getSearchedProducts(searchPhrases);
+      if (products.length === 0) {
+        setIsNotFound(true);
+      } else {
+        setIsNotFound(false);
+      }
       if (searchTerm !== "") {
         dispatch(addFilteredProducts(products));
         dispatch(setSearchProducts(products));
@@ -47,18 +61,14 @@ const SearchBar = () => {
   useDebounce(searchProducts, 500, [searchTerm]);
 
   const handleSearchChange = (e) => {
-    if (e.target.value === "") {
-      searchProducts();
-    }
-    const actualSearchTerm = e.currentTarget.value;
-    setSearchTerm(actualSearchTerm);
+    setSearchTerm(e.currentTarget.value);
   };
+
   const handleSearchCLose = () => {
     setIsSearchOpen(false);
     setSearchTerm("");
-    navigate("/");
+    navigate("/products");
     dispatch(setSearchProducts([]));
-    dispatch(addFilteredProducts([]));
   };
 
   return (
@@ -78,7 +88,8 @@ const SearchBar = () => {
         onKeyDown={() => handleSearchCLose()}
         role="button"
         tabIndex={0}
-        className={`search-wrap${isSearchOpen ? "--active" : ""}`}>
+        className={`search-wrap${isSearchOpen ? "--active" : ""}`}
+      >
       </div>
       <form onSubmit={(e) => handleSubmit(e)} className={`header__search-form${isSearchOpen ? "--active" : ""}`}>
         <input
@@ -87,8 +98,10 @@ const SearchBar = () => {
           placeholder="Search products..."
           name="searchInput"
           value={searchTerm}
+          autoComplete="off"
           onChange={(e) => handleSearchChange(e)}
           onFocus={() => setIsSearchOpen(true)}
+          onBlur={() => setIsSearchOpen(false)}
         />
         <button className={`header__search-submit${isSearchOpen ? "--active" : ""}`} type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>
@@ -115,7 +128,7 @@ const SearchBar = () => {
               })
             ) : (
               <div className="searching-preview">
-                {searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>Searching...</p>}
+                {searchTerm.length <= 3 ? <p>Write at least 3 letters</p> : <p>{notFound ? "Nothing Found" : "Searching..."}</p>}
               </div>
             )}
           </ul>

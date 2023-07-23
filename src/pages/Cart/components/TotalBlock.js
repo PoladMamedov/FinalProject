@@ -24,24 +24,12 @@ const TotalBlock = () => {
       dispatch(setCart(updatedCart, userToken));
     }
   };
-
-
-  const shippingPrice = ((totalOrderPrice / 100) * 2).toFixed(1);
   return (
     <div className="total-block">
       <div className="total-block-wrapper">
         <div className="total-block__item">
           <span className="total-block__label total-block__label-product">Subtotal</span>
           <span className="total-block__value total-block__value-product">${totalOrderPrice}</span>
-        </div>
-        <div className="total-block__item">
-          <span className="total-block__label total-block__label-shipping ">Shipping Fee</span>
-          <span className="total-block__value total-block__value-shipping">${shippingPrice}</span>
-        </div>
-        <div className="total-block-line"></div>
-        <div className="total-block__item">
-          <span className="total-block__label total-block__label-total">Total Order </span>
-          <span className="total-block__value total-block__value-product">${totalOrderPrice + +shippingPrice}</span>
         </div>
       </div>
       <div className="cart-buttons">
