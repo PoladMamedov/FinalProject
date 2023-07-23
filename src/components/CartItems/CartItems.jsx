@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
   removeCart,
@@ -11,17 +13,17 @@ import {
 } from "../../redux/actions/cart";
 
 const CartItems = (props) => {
-    const location = useLocation();
-    const isCheckoutPage = location.pathname === "/checkout";
-    // eslint-disable-next-line no-unused-vars
-    const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
-    useEffect(() => {
-      setIsCheckout(isCheckoutPage);
-    }, [isCheckoutPage]);
-  
+  const location = useLocation();
+  const isCheckoutPage = location.pathname === "/checkout";
+  // eslint-disable-next-line no-unused-vars
+  const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
+  useEffect(() => {
+    setIsCheckout(isCheckoutPage);
+  }, [isCheckoutPage]);
+
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
-  
+
   const {
     cartQuantity,
     product: {
@@ -111,9 +113,10 @@ const CartItems = (props) => {
             className={"cart-list__item-button"}
             onClick={() => OnDeleteItem(itemId, userToken)}
           >
-            <img
+            <Image
+              cloudName={cloudinaryConfig.cloudName}
+              publicId="cart-trash-icon_mwntsr"
               className={"cart-list__item-icon"}
-              src="/img/cart-trash-icon.png"
               alt="delete item from cart"
             />
           </button>
@@ -169,9 +172,10 @@ const CartItems = (props) => {
             className={"checkout-cart-list__item-button"}
             onClick={() => OnDeleteItem(itemId, userToken)}
           >
-            <img
+            <Image
+              cloudName={cloudinaryConfig.cloudName}
+              publicId="cart-trash-icon_mwntsr"
               className={"checkout-cart-list__item-icon"}
-              src="/img/cart-trash-icon.png"
               alt="delete item from cart"
             />
           </button>

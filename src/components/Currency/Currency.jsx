@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import setCurrency from "../../redux/actions/currency";
 
 const Currency = () => {
@@ -27,13 +29,18 @@ const Currency = () => {
 
    return (
       <>
-         <img className="currency__icon" src="/img/currency/currency-icon.png" alt="" />
+         <Image
+            cloudName={cloudinaryConfig.cloudName}
+            publicId="currency-icon_hqlbjj"
+            alt=""
+            className="currency__icon"
+         />
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
             ))}
          </select>
-         <img className="currency__img" src={`/img/currency/${value}.png`} alt="ere" />
+         <img className="currency__img" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689595259/currency/${value}.png`} alt="ere" />
       </>
    );
 
