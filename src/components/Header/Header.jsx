@@ -25,6 +25,16 @@ const Header = () => {
   const allCategories = categories.filter((item) => item.parentId === "null");
   const favorites = useSelector((state) => state.favorites.favorites);
 
+  const handleResize = () => {
+    setIsMenuOpen(window.innerWidth < 768 ? isMenuOpen : false);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMenuOpen]);
+
   const handleClickOutside = (e) => {
     if (
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
@@ -43,6 +53,8 @@ const Header = () => {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+
   const handleBtnClick = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsCategoriesOpen(false);
@@ -120,7 +132,7 @@ const Header = () => {
                 alt="main-logo"
               />
             </NavLink>
-            <div className={`backgroundNav${isMenuOpen ? "--open" : ""}`}></div>
+            {isMenuOpen ? <div className="backgroundNav"></div> : null}
             <nav
               ref={menuRef}
               className={`header__nav${isMenuOpen ? "--open" : ""}`}
