@@ -31,7 +31,7 @@ export default function ProductCard(props) {
   const dispatch = useDispatch();
 
   const { compareProducts } = useSelector((state) => state.compareProducts);
-  
+
   function addProducttoCompare() {
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));

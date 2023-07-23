@@ -91,6 +91,7 @@ export default function useServer() {
       .catch((err) => err);
     return products;
   }
+
   async function getProduct(itemNo) {
     const product = await fetch(`${url}/products/${itemNo}`)
       .then((res) => res.json())
@@ -113,10 +114,13 @@ export default function useServer() {
       .catch((err) => err);
     return filters;
   }
+
   // Get filters categoriesy
 
   async function getFiltersCategories(categories, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -125,7 +129,9 @@ export default function useServer() {
   // Get filters categories+price
 
   async function getFiltersCategoriesPrices(categories, min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${categories}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -133,13 +139,16 @@ export default function useServer() {
 
   // Get filters prices
   async function getFiltersPrices(min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(
+      `${url}/products/filter?minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
   }
 
   // Get filtered products by input
+
   async function getSearchedProducts(searchPhrases) {
     const searchResult = await fetch(`${url}/products/search`, {
       method: "POST",
@@ -153,21 +162,43 @@ export default function useServer() {
     return searchResult;
   }
 
-  async function getFiltersPricesBySubcategory(subcategorieParent, min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+  async function getFiltersPricesBySubcategory(
+    subcategorieParent,
+    min,
+    max,
+    sort
+  ) {
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
   }
 
-  async function getFiltersCategoriesPricesBySubcategory(subcategorieParent, checkedSubcategorie, min, max, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`)
+  async function getFiltersCategoriesPricesBySubcategory(
+    subcategorieParent,
+    checkedSubcategorie,
+    min,
+    max,
+    sort
+  ) {
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
   }
-  async function getFiltersCategoriesBySubcategory(subcategorieParent, checkedSubcategorie, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`)
+
+  async function getFiltersCategoriesBySubcategory(
+    subcategorieParent,
+    checkedSubcategorie,
+    sort
+  ) {
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -229,13 +260,14 @@ export default function useServer() {
     const addedCart = await fetch(`${url}/cart/${productId}`, {
       method: "PUT",
       headers: {
-        Authorization: token
+        Authorization: token,
       },
     })
       .then((res) => res.json())
       .catch((err) => err);
     return addedCart;
   }
+
   async function updateCart(products, token) {
     const updatedCart = await fetch(`${url}/cart`, {
       method: "PUT",
@@ -249,22 +281,24 @@ export default function useServer() {
       .catch((err) => err);
     return updatedCart;
   }
+
   async function removeItemFromCart(productId, token) {
     const deletedCart = await fetch(`${url}/cart/${productId}`, {
       method: "DELETE",
       headers: {
-        Authorization: token
+        Authorization: token,
       },
     })
       .then((res) => res.json())
       .catch((err) => err);
     return deletedCart;
   }
+
   async function decreaseProductQuantity(productId, token) {
     const decreasedProduct = await fetch(`${url}/cart/product/${productId}`, {
       method: "DELETE",
       headers: {
-        Authorization: token
+        Authorization: token,
       },
     })
       .then((res) => res.json())
@@ -272,6 +306,21 @@ export default function useServer() {
     return decreasedProduct;
   }
 
+  /* PLACE AN ORDER */
+
+  // eslint-disable-next-line no-unused-vars
+  // async function placeOrder(newOrderData) {
+  //   const savedOrder = await fetch(`${url}/orders`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(newOrderData),
+  //   })
+  //     .then((res) => res.json())
+  //     .catch((err) => err);
+  //   return savedOrder;
+  // }
 
   return {
     registerUser,
@@ -299,6 +348,7 @@ export default function useServer() {
     updateCart,
     removeItemFromCart,
     addItemCart,
-    decreaseProductQuantity
+    decreaseProductQuantity,
+    // placeOrder,
   };
 }
