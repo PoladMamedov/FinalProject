@@ -42,7 +42,7 @@ const CompareFull = () => {
                 <table className="compare-section-full-table">
                     <thead>
                         <tr>
-                            <th> <img src="./img/scales.png" alt="" className="compare-section-full__scales" /></th>
+                            <th> <img src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690070806/scales_po4dg5.png" alt="" className="compare-section-full__scales" /></th>
                             {products.map((item, idx) => {
                                 return (
                                     <th key={idx}>

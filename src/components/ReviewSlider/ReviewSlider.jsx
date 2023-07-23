@@ -1,9 +1,11 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
- Navigation, Pagination, Scrollbar, A11y
+  Navigation, Pagination, Scrollbar, A11y
 } from "swiper";
 import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 
 function ReviewSlider({ slides }) {
   return (
@@ -23,11 +25,11 @@ function ReviewSlider({ slides }) {
           }}
           // eslint-disable-next-line react/jsx-props-no-multi-spaces, react/jsx-boolean-value
           loop={true}
-          
+
         >
           {slides.map((slide) => (
             <SwiperSlide className="article" key={slide.image}>
-              <img className="review-section__img" src={slide.image} alt="" />
+              <Image cloudName={cloudinaryConfig.cloudName} className="review-section__img" publicId={slide.image} alt="" />
               <h4 className="review-section__name">{slide.name}</h4>
               <p className="review-section__client">{slide.title}</p>
               <p className="review-section__text">{slide.text}</p>
