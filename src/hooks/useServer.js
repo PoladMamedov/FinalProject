@@ -309,18 +309,18 @@ export default function useServer() {
   /* PLACE AN ORDER */
 
   // eslint-disable-next-line no-unused-vars
-  // async function placeOrder(newOrderData) {
-  //   const savedOrder = await fetch(`${url}/orders`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newOrderData),
-  //   })
-  //     .then((res) => res.json())
-  //     .catch((err) => err);
-  //   return savedOrder;
-  // }
+  async function placeOrder(newOrderData) {
+    const savedOrder = await fetch(`${url}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newOrderData),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return savedOrder;
+  }
 
   return {
     registerUser,
@@ -349,6 +349,6 @@ export default function useServer() {
     removeItemFromCart,
     addItemCart,
     decreaseProductQuantity,
-    // placeOrder,
+    placeOrder,
   };
 }

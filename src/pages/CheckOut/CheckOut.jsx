@@ -15,13 +15,14 @@ import CartList from "../../components/CartList/CartList";
 import { fetchCart } from "../../redux/actions/cart";
 import CartSkeleton from "../Cart/components/CartSkeleton";
 // import { PatternFormat } from "react-number-format";
-// import useServer from "../../hooks/useServer";
+import useServer from "../../hooks/useServer";
 
 function CheckOut() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { placeOrder } = useServer();
-  // const [newOrder, setNewOrder] = useState({});
+  const { placeOrder } = useServer();
+  // eslint-disable-next-line no-unused-vars
+  const [newOrder, setNewOrder] = useState({});
   const [activeButton, setActiveButton] = useState(2);
   const [selectedMethod, setSelectedMethod] = useState({
     label: "Standart Shipping",
@@ -100,9 +101,9 @@ function CheckOut() {
         canceled: false,
         date: currentDate,
       };
-      // const response = await placeOrder(newOrderData);
-      // setNewOrder(response);
-      // console.log(response);
+      const response = await placeOrder(newOrderData);
+      setNewOrder(response);
+      console.log(response);
       console.log(newOrderData);
       navigate("/thankyou");
     },
