@@ -114,7 +114,7 @@ const Header = () => {
             >
               <img src="/img/main-logo.png" alt="main-logo" />
             </NavLink>
-            <div className={`backgroundNav${isMenuOpen ? "--open" : ""}`}></div>
+            {isMenuOpen ? <div className="backgroundNav"></div> : null}
             <nav
               ref={menuRef}
               className={`header__nav${isMenuOpen ? "--open" : ""}`}
