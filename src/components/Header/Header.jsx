@@ -80,9 +80,13 @@ const Header = () => {
             <NavLink
               className="header__company-logo"
               to="/"
-              onClick={() => handleLinkClick(0)}
+              onClick={() => handleLinkClick("home")}
             >
-              <img src="/img/main-logo.png" alt="main-logo" />
+              <Image
+                cloudName={cloudinaryConfig.cloudName}
+                publicId="main-logo_olx3ky"
+                alt="main-logo"
+              />
             </NavLink>
             <nav className={"header__nav-desktop"}>
               <ul className="header__nav-list">
