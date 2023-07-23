@@ -12,6 +12,7 @@ import {
   decreaseCart,
 } from "../../redux/actions/cart";
 
+
 const CartItems = (props) => {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
