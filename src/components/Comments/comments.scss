@@ -19,6 +19,7 @@
   color: $primaryLight;
   @include fonts(400, 20px, 30px);
   margin-top: 0;
+  margin-bottom: 30px;
 
   @include breakpoint-mf('sm') {
     color: $primary;
@@ -32,5 +33,14 @@
 }
 
 .comments__item {
+  @include fonts(400, 16px, 24px);
+  color: $primary;
 
+  @include breakpoint-mf('sm') {
+    @include fonts(400, 20px, 30px);
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 48px;
+  }
 }

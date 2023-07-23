@@ -1,13 +1,22 @@
 .comments__item-header {
-  border-bottom:1px solid $secondary ;
+  @include flex(row, flex-start, center);
+  margin-bottom: 16px;
 }
 
-.comments__item-title {
-  margin: 0;
+.comments__item-avatar {}
+
+.comments__item-name {
+  margin: 0 16px;
+  font-weight: 500;
 }
 
 .comments__item-date {
-  text-align: left;
+  font-size: 14px;
+  color: $primaryLight;
+
+  @include breakpoint-mf('sm') {
+    @include fonts(400, 18px, 30px);
+  }
 }
 
 .comments__item-content {
