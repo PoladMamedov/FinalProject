@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import setCurrency from "../../redux/actions/currency";
 
 const Currency = () => {
@@ -10,7 +12,7 @@ const Currency = () => {
    const values = ["USD", "UAH", "EUR", "PLN"];
 
    useEffect(() => {
-      fetch("https://openexchangerates.org/api/latest.json?app_id=4474d46addfb4df889d59789952f542b")
+      fetch("https://openexchangerates.org/api/latest.json?app_id=5fb46af546ac47e288a866419999ae33")
          .then((response) => response.json())
          .then((data) => setAllCurrencies(data));
    }, [value]);
@@ -27,13 +29,18 @@ const Currency = () => {
 
    return (
       <>
-         <img className="currency__icon" src="/img/currency/currency-icon.png" alt="" />
+         <Image
+            cloudName={cloudinaryConfig.cloudName}
+            publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/currency-icon_hqlbjj.png"
+            alt=""
+            className="currency__icon"
+         />
          <select className="currency" value={value} onChange={(e) => handleChange(e)} name="currency" id="currency">
             {values.map((val, index) => (
                <option key={index} value={val}>{val}</option>
             ))}
          </select>
-         <img className="currency__img" src={`/img/currency/${value}.png`} alt="ere" />
+         <img className="currency__img" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689595259/currency/${value}.png`} alt="ere" />
       </>
    );
 

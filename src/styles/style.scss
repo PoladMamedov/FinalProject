@@ -12,11 +12,16 @@
 @import "../pages/About/about";
 @import "../pages/Cart/cart";
 @import "../pages/ProductDetail/productDetail";
+@import "../pages/Compare/compare";
 @import "../pages/Favorites/favorites";
-
+@import "../pages/CheckOut/checkout";
+@import "../pages/ThankYou/thankYou";
 
 // !Components
 @import "../pages/Products/products";
+
+
+//!Components
 @import "../components/ProductCard/productCard";
 @import "../components/OurBenefitsList/ourBenefits";
 @import "../components/OurPartners/ourPartners";
@@ -50,6 +55,8 @@
 @import "../pages/ProductDetail/components/orderActions";
 @import "../pages/ProductDetail/components/orderQuantity";
 @import "../pages/ProductDetail/components/specifications";
+@import "../pages/Cart/components/totalBlock";
+@import "../pages/Cart/components/cartHeader";
+@import "../pages/Cart/components/cartSkeleton";
 @import "../components/Comments/comments";
 @import "../components/CommentsItem/commentsItem";
-

@@ -1,41 +1,40 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import CartList from "../../components/CartList/CartList";
+import TotalBlock from "./components/TotalBlock";
+import CartHeader from "./components/CartHeader";
+import CartSkeleton from "./components/CartSkeleton";
+import { fetchCart } from "../../redux/actions/cart";
+import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const Cart = () => {
-  return (
-    <section className="cart-section">
-      <div className={"container"}>
-        <div className="cart-list__headers">
-          <p className="cart-list__header">Product</p>
-          <p className="cart-list__header">Price</p>
-          <p className="cart-list__header">Quantity</p>
-          <p className="cart-list__header">Total</p>
-        </div>
-        <CartList/>
-        <div className="total-block">
-          <div className="total-block-wrapper">
-            <div className="total-block__item">
-              <span className="total-block__label total-block__label-product">Subtotal</span>
-              <span className="total-block__value total-block__value-product">$90</span>
-            </div>
-            <div className="total-block__item">
-              <span className="total-block__label total-block__label-shipping ">Shipping Fee</span>
-              <span className="total-block__value total-block__value-shipping">$5</span>
-            </div>
-            <div className="total-block-line"></div>
-            <div className="total-block__item">
-              <span className="total-block__label total-block__label-total">Total Order </span>
-              <span className="total-block__value total-block__value-product">$95</span>
-            </div>
-          </div>
-          <div className="cart-buttons">
-            <Link to={"/"} className={"cart-button cart-button-close"}>Close</Link>
-            <Link to={"/"} className="cart-button cart-button-checkout">Check out</Link>
-          </div>
-        </div>
+   const dispatch = useDispatch();
+  const userToken = useSelector((state) => state.user.userInfo.token);
+  const cartProducts = useSelector((state) => state.cart.cart);
 
-      </div>
-    </section>
+  useEffect(() => {
+    if (cartProducts.length === 0 && userToken) {
+      dispatch(fetchCart(userToken));
+    }
+  }, [userToken]);
+
+  return (
+    <>
+      <BreadCrumb/>
+      <section className="cart-section">
+        <div className={"container"}>
+          {cartProducts.length !== 0 ? (
+            <>
+              <CartHeader />
+              <CartList />
+              <TotalBlock />
+            </>
+          ) : (
+            <CartSkeleton />
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

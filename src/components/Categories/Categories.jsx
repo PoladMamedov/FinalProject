@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Skeleton from "./Skeleton";
@@ -53,7 +53,7 @@ function Categories() {
                 onMouseLeave={() => setActiveCategory(null)}
                 className="category__list-item"
               >
-                <NavLink className="category__list-link">{category.name}</NavLink>
+                <NavLink onClick={() => dispatch(addSubCategory("All"))} to={`/${category.name.replace("Smart watches", "watches")}`} className="category__list-link">{category.name}</NavLink>
                 {activeCategory === category.id && (
                   <ul className="subcategory__list">
                     {groupCategories(category.id)}

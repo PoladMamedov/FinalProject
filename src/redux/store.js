@@ -16,9 +16,8 @@ import subcategoryReducer from "./reducers/subcategory";
 import currencyReducer from "./reducers/currency";
 import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 import cartReducer from "./reducers/cart";
+import compareProductsReducer from "./reducers/compareProducts";
 import favoritesReducer from "./reducers/favorites";
-import favoritesCountReducer from "./reducers/favoritesCountReducer";
-
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -33,18 +32,30 @@ const rootReducer = combineReducers({
   currentCurrency: currencyReducer,
   recentlyProducts: recentlyProductsReducer,
   cart: cartReducer,
+  compareProducts: compareProductsReducer,
   favorites: favoritesReducer,
-  favoriteCounts: favoritesCountReducer
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["countFilter", "filteredProducts", "sortFilter", "search", "toggleCard", "subcategory", "currentCurrency"],
-  whitelist: ["favorites", "favoriteCounts"],
+  blacklist: [
+    "countFilter",
+    "filteredProducts",
+    "sortFilter",
+    "search",
+    "toggleCard",
+    "subcategory",
+    "currentCurrency",
+    "compareProducts",
+    "currentPath",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const store = createStore(
+  persistedReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 export const persistor = persistStore(store);
