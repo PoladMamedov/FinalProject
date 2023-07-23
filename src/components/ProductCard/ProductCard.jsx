@@ -12,7 +12,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "../../redux/actions/favorites";
-import {increaseCart, increaseCartAsync} from "../../redux/actions/cart";
+import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 export default function ProductCard(props) {
@@ -121,15 +121,15 @@ export default function ProductCard(props) {
               >
                 DETAIL
               </Link>
-                <button
+              <button
                 ref={compareBtn}
                 onClick={() => addProducttoCompare()}
                 type={"button"}
                 className={`compare-btn ${compareProducts.includes(urlItemNumber) ? "compare-btn--clicked" : ""}`}
-                >
+              >
                 <img
-                className="compare-btn-icon"
-                src={!compareProducts.includes(urlItemNumber) ? "/img/header/scales2.svg" : "/img/header/scales1.svg"}
+                  className="compare-btn-icon"
+                  src={!compareProducts.includes(urlItemNumber) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales2_a3fxya.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales1_klxlre.svg"}
                   alt="compare-logo" />
               </button>
               <button
@@ -137,21 +137,21 @@ export default function ProductCard(props) {
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__like-button compare-btn--clicked" : "all-card__like-button"}
-                // className={
-                //   props.active
-                //     ? "all-card__btn-card-container"
-                //     : "card__btn-card-container"
-                // }
+              // className={
+              //   props.active
+              //     ? "all-card__btn-card-container"
+              //     : "card__btn-card-container"
+              // }
               >
                 <img
-                className="all-card__like-img"
-                style={{marginTop: 0}}
+                  className="all-card__like-img"
+                  style={{ marginTop: 0 }}
                   // className={
                   //   props.active
                   //     ? "all-card__btn-svg-cart"
                   //     : "card__btn-svg-cart"
                   // }
-                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "/img/cart1.svg" : "/img/cart.svg"}
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
               </button>
@@ -159,35 +159,16 @@ export default function ProductCard(props) {
           </div>
           <div className={props.active ? "all-card__block" : "unactive"}>
             <div className={"all-card__product-name"}>{props.item.name}</div>
-            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
-              <div className="all-card__prices-wrap">
-                <p className="all-card__price--prev">
-                  <img
-                    className="currency-icon"
-                    src={`./img/currency/${currencyName}-icon.png`}
-                    alt="cureency-icon"
-                  />
-                  {Math.floor(props.item.previousPrice * currencyValue)}
-                </p>
-                <p className="all-card__price--curr">
-                  <img
-                    className="currency-icon"
-                    src={`./img/currency/${currencyName}-icon.png`}
-                    alt="cureency-icon"
-                  />
-                  {Math.floor(props.item.currentPrice * currencyValue)}
-                </p>
-              </div>
-            ) : (
-              <div className={"all-card__price--curr"}>
-                <img
-                  className="currency-icon"
-                  src={`./img/currency/${currencyName}-icon.png`}
-                  alt="cureency-icon"
-                />
-                {Math.floor(props.item.currentPrice * currencyValue)}
-              </div>
-            )}
+            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap">
+              <p className="all-card__price--prev">
+                <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                {Math.floor(props.item.previousPrice * currencyValue)}</p>
+              <p className="all-card__price--curr">
+                <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                {Math.floor(props.item.currentPrice * currencyValue)}</p>
+            </div> : <div className={"all-card__price--curr"}>
+              <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>
       ) : (
@@ -233,60 +214,40 @@ export default function ProductCard(props) {
               <button
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
-                // className={
-                //   props.active
-                //     ? "all-card__btn-card-container--rows"
-                //     : "card__btn-card-container"
-                // }
+              // className={
+              //   props.active
+              //     ? "all-card__btn-card-container--rows"
+              //     : "card__btn-card-container"
+              // }
               >
                 <img
-                className="all-card__likes-top-img"
-                style={{marginTop: 0}}
+                  className="all-card__likes-top-img"
+                  style={{ marginTop: 0 }}
                   // className={
                   //   props.active
                   //     ? "all-card__btn-svg-cart--rows"
                   //     : "card__btn-svg-cart"
                   // }
                   // src="/img/cart-logo.png"
-                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "/img/cart1.svg" : "/img/cart.svg"}
+                  src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
               </button>
             </div>
           </div>
           <div className={props.active ? "all-card__block--rows" : "unactive"}>
-            <div className={"all-card__product-name--rows"}>
-              {props.item.name}
-            </div>
-            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
-              <div className="all-card__prices-wrap--rows">
-                <p className="all-card__price--prev">
-                  <img
-                    className="currency-icon--rows"
-                    src={`/img/currency/${currencyName}-icon.png`}
-                    alt="currency-icon"
-                  />
-                  {Math.floor(props.item.previousPrice * currencyValue)}
-                </p>
-                <p className="all-card__price--curr-rows">
-                  <img
-                    className="currency-icon--rows"
-                    src={`/img/currency/${currencyName}-icon.png`}
-                    alt="currency-icon"
-                  />
-                  {Math.floor(props.item.currentPrice * currencyValue)}
-                </p>
-              </div>
-            ) : (
-              <div className={"all-card__price--curr-rows"}>
-                <img
-                  className="currency-icon--rows"
-                  src={`/img/currency/${currencyName}-icon.png`}
-                  alt="currency-icon"
-                />
-                {Math.floor(props.item.currentPrice * currencyValue)}
-              </div>
-            )}
+            <div className={"all-card__product-name--rows"}>{props.item.name}</div>
+            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
+              <p className="all-card__price--prev">
+                <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+                {Math.floor(props.item.previousPrice * currencyValue)}</p>
+              <p className="all-card__price--curr-rows">
+                <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+                {Math.floor(props.item.currentPrice * currencyValue)}</p>
+
+            </div> : <div className={"all-card__price--curr-rows"}>
+              <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>
       )}
