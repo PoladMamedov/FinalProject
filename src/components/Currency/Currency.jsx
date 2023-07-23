@@ -31,7 +31,7 @@ const Currency = () => {
       <>
          <Image
             cloudName={cloudinaryConfig.cloudName}
-            publicId="currency-icon_hqlbjj"
+            publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/currency-icon_hqlbjj.png"
             alt=""
             className="currency__icon"
          />
