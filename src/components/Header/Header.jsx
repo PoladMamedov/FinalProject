@@ -77,6 +77,17 @@ const Header = () => {
             <h2 className="header__container-top-title">
               Free shipping across Ukraine
             </h2>
+            <NavLink
+              className="header__company-logo"
+              to="/"
+              onClick={() => handleLinkClick("home")}
+            >
+              <Image
+                cloudName={cloudinaryConfig.cloudName}
+                publicId="main-logo_olx3ky"
+                alt="main-logo"
+              />
+            </NavLink>
             <nav className={"header__nav-desktop"}>
               <ul className="header__nav-list">
                 <li className="header__nav-item" key={1}>
