@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
+import { Image } from "cloudinary-react";
+import cloudinaryConfig from "../../config/cloudinaryConfig";
 import { fetchCategories } from "../../redux/actions/categories";
 import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
@@ -23,6 +25,16 @@ const Header = () => {
   const allCategories = categories.filter((item) => item.parentId === "null");
   const favorites = useSelector((state) => state.favorites.favorites);
 
+  const handleResize = () => {
+    setIsMenuOpen(window.innerWidth < 768 ? isMenuOpen : false);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMenuOpen]);
+
   const handleClickOutside = (e) => {
     if (
       e.target.tagName !== "SPAN" && e.target.tagName !== "BUTTON" && menuRef.current && !menuRef.current.contains(e.target)
@@ -41,6 +53,8 @@ const Header = () => {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+
   const handleBtnClick = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsCategoriesOpen(false);
@@ -112,9 +126,13 @@ const Header = () => {
               to="/"
               onClick={() => handleLinkClick("home")}
             >
-              <img src="/img/main-logo.png" alt="main-logo" />
+              <Image
+                cloudName={cloudinaryConfig.cloudName}
+                publicId="main-logo_olx3ky"
+                alt="main-logo"
+              />
             </NavLink>
-            <div className={`backgroundNav${isMenuOpen ? "--open" : ""}`}></div>
+            {isMenuOpen ? <div className="backgroundNav"></div> : null}
             <nav
               ref={menuRef}
               className={`header__nav${isMenuOpen ? "--open" : ""}`}
@@ -205,7 +223,7 @@ const Header = () => {
               >
                 <img
                   className="header__nav-fav scales-icon"
-                  src="/img/header/scales2.svg"
+                  src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales2_a3fxya.svg"
                   alt="scales-img"
                 />
                 {compareProducts.length !== 0 ? <span className="header__nav-fav--count">{compareProducts.length}</span> : null}
@@ -221,9 +239,10 @@ const Header = () => {
 
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
+                  publicId="cart-logo_tz7wza"
                   className="header__nav-cart"
-                  src="/img/cart-logo.png"
                   alt="cart-logo"
                 />
                 {cartQuantity.length >= 1 ? <span className="header__nav-fav--count">{cartQuantity.length}</span> : null}
@@ -235,9 +254,10 @@ const Header = () => {
                 key={6}
                 className="header__nav-link--loginBtn"
               >
-                <img
+                <Image
+                  cloudName={cloudinaryConfig.cloudName}
+                  publicId="login_obfqgp"
                   className="header__nav-login"
-                  src="/img/login.png"
                   alt="login-img"
                 />
               </NavLink>
