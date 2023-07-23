@@ -11,7 +11,7 @@ export function fillCart(products) {
 export function addToCart(products) {
   return {
     type: cartTypes.ADD_TO_CART,
-    payload: products,
+    payload: { products },
   };
 }
 export const removeCart = (itemId) => {
