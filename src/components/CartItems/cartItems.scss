@@ -55,6 +55,8 @@
 }
 
 .cart-list__item-quantity {
+  -webkit-appearance : none;
+  -webkit-border-radius: unset;
   @include flex(row, space-between);
   align-items: center;
   font-size: 12px;
