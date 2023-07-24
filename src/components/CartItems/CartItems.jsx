@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
-import notificationsSettings from "../../constants/constants";
+import { Store } from "react-notifications-component";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
@@ -13,6 +12,7 @@ import {
   decreaseCartAsync,
   decreaseCart, updateCartQuantity, setCart
 } from "../../redux/actions/cart";
+import notificationsSettings from "../../constants/constants";
 
 const CartItems = (props) => {
   const {
@@ -37,16 +37,14 @@ const CartItems = (props) => {
   }, [isCheckoutPage]);
 
   useEffect(() => {
-    if (userToken) {
-      const updatedCart = {
-        products: cartProducts.map((item) => ({
-          // eslint-disable-next-line no-underscore-dangle
-          product: item.product._id,
-          cartQuantity: item.cartQuantity
-        }))
-      };
-      dispatch(setCart(updatedCart, userToken));
-    }
+    const updatedCart = {
+      products: cartProducts.map((item) => ({
+        // eslint-disable-next-line no-underscore-dangle
+        product: item.product._id,
+        cartQuantity: item.cartQuantity
+      }))
+    };
+    dispatch(setCart(updatedCart, userToken));
   }, [cartQuantity]);
 
   const OnDeleteItem = async (item, token) => {
@@ -59,9 +57,8 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
       }
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDeleted });
-
+      console.log(error);
     }
   };
 
@@ -77,8 +74,8 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
       }
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotIncreased });
+      console.log(error);
     }
   };
   const onDecreaseItem = async (item, token) => {
@@ -93,7 +90,8 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
       }
     } catch (error) {
-    Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDecreased });
+      console.log(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDecreased });
     }
   };
 
@@ -121,7 +119,7 @@ const CartItems = (props) => {
     }
   };
 
-    return (
+  return (
     <>
       <li className={`cart-list__item ${isCheckout ? "none" : ""}`}>
         {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}

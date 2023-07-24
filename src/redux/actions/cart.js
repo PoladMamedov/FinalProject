@@ -1,7 +1,5 @@
-import { Store } from "react-notifications-component";
 import cartTypes from "../type/cart";
 import useServer from "../../hooks/useServer";
-import notificationsSettings from "../../constants/constants";
 
 export function fillCart(products) {
   return {
@@ -9,7 +7,6 @@ export function fillCart(products) {
     payload: { products },
   };
 }
-
 export function addToCart(products) {
   return {
     type: cartTypes.ADD_TO_CART,
@@ -30,24 +27,18 @@ export const fetchCart = (token) => {
     try {
       const cart = await getCart(token);
       dispatch(fillCart(cart.products));
-    } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
-    }
+    } catch (error) {}
   };
 };
-
 export const setCart = (products, token) => {
   return async (dispatch) => {
     const { updateCart } = useServer();
     try {
       const updatedCart = await updateCart(products, token);
       dispatch(fillCart(updatedCart.products));
-    } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
-    }
+    } catch (error) {}
   };
 };
-
 export const removeCartAsync = (itemId, token) => {
   return async (dispatch) => {
     const { removeItemFromCart } = useServer();
@@ -56,11 +47,10 @@ export const removeCartAsync = (itemId, token) => {
       const deletedCart = await removeItemFromCart(itemId, token);
       dispatch(removeCart(itemId));
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+      console.error("Failed to remove item:", error);
     }
   };
 };
-
 export const increaseCart = (itemId, productInfo) => {
   return {
     type: cartTypes.INCREASE_CART,
@@ -70,7 +60,6 @@ export const increaseCart = (itemId, productInfo) => {
     },
   };
 };
-
 export const increaseCartAsync = (itemId, token, productInfo) => {
   return async (dispatch) => {
     const { addItemCart } = useServer();
@@ -79,11 +68,10 @@ export const increaseCartAsync = (itemId, token, productInfo) => {
       const addedCart = await addItemCart(itemId, token);
       dispatch(increaseCart(itemId, productInfo));
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+      console.error("Failed to increase item:", error);
     }
   };
 };
-
 export const decreaseCart = (itemId) => {
   return {
     type: cartTypes.DECREASE_CART,
@@ -92,7 +80,6 @@ export const decreaseCart = (itemId) => {
     },
   };
 };
-
 export const decreaseCartAsync = (itemId, token) => {
   return async (dispatch) => {
     const { decreaseProductQuantity } = useServer();
@@ -101,7 +88,7 @@ export const decreaseCartAsync = (itemId, token) => {
       const decreasedCart = await decreaseProductQuantity(itemId, token);
       dispatch(decreaseCart(itemId));
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+      console.error("Failed to decrease item:", error);
     }
   };
 };
