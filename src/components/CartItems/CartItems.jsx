@@ -60,6 +60,7 @@ const CartItems = (props) => {
       }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDeleted });
     }
   };
 
@@ -76,6 +77,8 @@ const CartItems = (props) => {
       }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotIncreased });
+
     }
   };
   const onDecreaseItem = async (item, token) => {
