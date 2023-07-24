@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Store } from "react-notifications-component";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
 import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
 import { addFilteredProducts } from "../../redux/actions/filteredProducts";
+import notificationsSettings from "../../constants/constants";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -54,7 +56,7 @@ const SearchBar = () => {
         dispatch(setSearchProducts(products));
       }
     } catch (error) {
-      console.error(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   }
 

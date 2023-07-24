@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import { Store } from "react-notifications-component";
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
+import notificationsSettings from "../../constants/constants";
 
 const TopItemsSlider = () => {
   const [items, setItems] = useState([]);
@@ -17,6 +19,7 @@ const TopItemsSlider = () => {
         setIsLoading(false);
         setItems(products);
       } catch (err) {
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
       }
     };
 
