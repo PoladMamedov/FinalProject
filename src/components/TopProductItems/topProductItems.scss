@@ -54,7 +54,7 @@
     height: 32px;
     font-size: 12px;
     border-radius: 5px;
-    margin: 40px auto;
+    margin: 20px auto;
     &:hover {
       svg {
         transform: translateX(10px);
@@ -98,27 +98,27 @@
   flex-direction: column;
 }
 
-.top-product__card > div:nth-child(8) {
-  @media (max-width: 1169px) {
-    display: none;
-  }
-}
-.top-product__card > div:nth-child(7) {
-  @media (max-width: 1169px) {
-    display: none;
-  }
-}
+//.top-product__card > div:nth-child(8) {
+//  @media (max-width: 1169px) {
+//    display: none;
+//  }
+//}
+//.top-product__card > div:nth-child(7) {
+//  @media (max-width: 1169px) {
+//    display: none;
+//  }
+//}
 
-//.top-product__card > div:nth-child(5) {
-//  @media (max-width: 429px) {
-//    display: none;
-//  }
-//}
-//.top-product__card > div:nth-child(6) {
-//  @media (max-width: 429px) {
-//    display: none;
-//  }
-//}
+.top-product__card > div:nth-child(5) {
+  @media (max-width: 429px) {
+    display: none;
+  }
+}
+.top-product__card > div:nth-child(6) {
+  @media (max-width: 429px) {
+    display: none;
+  }
+}
 .top-product__card > div {
   display: flex;
   justify-content: center;
