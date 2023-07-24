@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
+import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
@@ -12,7 +13,6 @@ import {
   decreaseCartAsync,
   decreaseCart, updateCartQuantity, setCart
 } from "../../redux/actions/cart";
-import notificationsSettings from "../../constants/constants";
 
 const CartItems = (props) => {
   const {
@@ -106,6 +106,7 @@ const CartItems = (props) => {
   const handleInputBlur = async (item, value) => {
     const {quantity} = props.dataProducts.product;
     const isValidValue = +value !== 0 && +value <= quantity && +value !== cartQuantity;
+
     if (isValidValue) {
       if (userToken) {
         dispatch(updateCartQuantity(itemId, +value));
