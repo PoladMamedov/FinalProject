@@ -322,6 +322,59 @@ export default function useServer() {
   //   return savedOrder;
   // }
 
+  // eslint-disable-next-line default-param-last
+  async function getComments(target = "", id) {
+    const comments = await fetch(`${url}/comments/${target !== "" ? `${target}/${id}` : ""}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return comments;
+  }
+
+  async function addComment(comment, token) {
+    const comments = await fetch(`${url}/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(comment),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return comments;
+  }
+
+  async function deleteComment(commentID, token) {
+    const deletedCommentInfo = await fetch(`${url}/comments/${commentID}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return deletedCommentInfo;
+  }
+
+  async function updateComment(commentID, newComment, token) {
+    const updatedCommentInfo = await fetch(`${url}/comments/${commentID}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newComment)
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return updatedCommentInfo;
+  }
+
   return {
     registerUser,
     loginUser,
@@ -350,5 +403,9 @@ export default function useServer() {
     addItemCart,
     decreaseProductQuantity,
     // placeOrder,
+    getComments,
+    addComment,
+    deleteComment,
+    updateComment,
   };
 }

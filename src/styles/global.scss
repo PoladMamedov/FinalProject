@@ -39,3 +39,36 @@ main {
     @include fonts(700, 45px, 54px);
   }
 }
+
+.button {
+  padding: 10px 13px;
+  color: $primaryLight;
+  border: 2px solid $primaryLight;
+  background-color: $secondaryLight;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  @include fonts(400, 12px, 18px);
+
+  @include breakpoint-mf('sm') {
+    padding: 13px 15px;
+    @include fonts(400, 20px, 30px);
+  }
+
+  @include breakpoint-mf('lg') {
+    padding: 14px 16px;
+    @include fonts(400, 15px, 17px);
+    background-color: $primaryDark;
+    border-color: $primaryDark;
+    color: $white;
+  }
+
+  @include breakpoint-mf('xl') {
+    padding: 14px 20px;
+  }
+
+  &:hover {
+    background-color: darken($primaryDark, 5%);
+    color: $white;
+  }
+}

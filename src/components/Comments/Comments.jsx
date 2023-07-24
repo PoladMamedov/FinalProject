@@ -1,84 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CommentsItem from "../CommentsItem/CommentsItem";
+import CommentsCreateItem from "../CommentsCreateItem/CommentsCreateItem";
+import { fetchComments } from "../../redux/actions/comments";
 
+export default function Comments({targetID, target = "", productID = ""}) {
 
-const mockData = [
-  {
-    _id: "5d90e8fcea6f09306470adb9",
-    customer: {
-      isAdmin: false,
-      enabled: true,
-      _id: "5d63a92afc004f2e041179cd",
-      firstName: "Ira",
-      lastName: "Kalen",
-      login: "test12",
-      email: "test3@gmail.com",
-      password: "$2a$10$Tfnzth419TINXXQB8pjiYevZCeKdDZmlL1o43k3guhnmiLgMcUkwG",
-      date: "2019-08-26T09:40:58.667Z",
-      __v: 0
-    },
-    product: {
-      enabled: true,
-      imageUrls: ["products/itemNo2"],
-      quantity: 40,
-      _id: "5d73adb9fcad90130470f08f",
-      name: "test product 5",
-      currentPrice: 400,
-      categories: "computers",
-      someOtherFeature: "test5",
-      color: "green",
-      size: "xl",
-      ram: "600",
-      weight: "1800g",
-      itemNo: "563877",
-      __v: 0,
-      date: "2019-10-22T17:05:21.426Z"
-    },
-    content: "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.",
-    __v: 0
-  },
-  {
-    _id: "5d90e9e9ea6f09306470adbb",
-    customer: {
-      isAdmin: false,
-      enabled: true,
-      _id: "5d63a92afc004f2e041179cd",
-      firstName: "Polad",
-      lastName: "Mamedov",
-      login: "test12",
-      email: "test3@gmail.com",
-      password: "$2a$10$Tfnzth419TINXXQB8pjiYevZCeKdDZmlL1o43k3guhnmiLgMcUkwG",
-      date: "2019-08-26T09:40:58.667Z",
-      __v: 0
-    },
-    product: {
-      enabled: true,
-      imageUrls: ["products/itemNo2"],
-      quantity: 40,
-      _id: "5d73adb9fcad90130470f08f",
-      name: "test product 5",
-      currentPrice: 400,
-      categories: "computers",
-      someOtherFeature: "test5",
-      color: "green",
-      size: "xl",
-      ram: "600",
-      weight: "1800g",
-      itemNo: "563877",
-      __v: 0,
-      date: "2019-10-22T17:05:21.426Z"
-    },
-    content: "Woah, your project looks awesome! How long have you been coding for? I’m still new, but think I want to dive into React as well soon. Perhaps you can give me an insight on where I can learn React? Thanks!",
-    __v: 0
-  }
-];
+  const [showLoginLink, setShowLoginLink] = useState(false);
 
-export default function Comments() {
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.comments);
+  const { userInfo: {token} } = useSelector((state) => state.user);
 
-  return <section className="comments">
-    <h1 className="comments__title">Comments</h1>
-    <ul className="comments__list">
-      {mockData.map(({customer: {firstName, lastName, date}, content}, index) => <li key={index} className="comments__item"><CommentsItem firstName={firstName} lastName={lastName} content={content} date={date}/></li>)}
-    </ul>
-  </section>;
+  useEffect(() => {
+    dispatch(fetchComments(target, targetID));
+  }, [targetID]);
+
+  return <>
+    <section className="comments">
+      <div className="container">
+        <h1 className="comments__title">Reviews</h1>
+        {
+          comments.length
+            ? <ul className="comments__list">
+          {comments.map((comment, index) => <li
+            key={index}
+            className="comments__item">
+            <CommentsItem {...comment}/>
+          </li>)}
+        </ul> : <p className="comments__item">Write the first review...</p>
+        }
+        {token
+          ? <CommentsCreateItem
+            productID={target === "product" ? targetID : productID}/>
+          : <>
+            {showLoginLink && <p className="comments__login-message">Only authorized user can add review. <br/> Please, <Link to={"/login"} className="comments__login-message-link">log in</Link> first!</p>}
+            {!showLoginLink && <button
+              type="button"
+              className="button comments__add-btn"
+              onClick={() => setShowLoginLink(true)}
+            >
+              Add review
+            </button>}
+          </>}
+      </div>
+    </section>
+  </>;
 }

@@ -122,7 +122,7 @@ export default function OrderActions(props) {
           isFill={isFav}
           clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
       </button>
-      <button disabled={outOfStock} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
+      <button disabled={outOfStock} type="button" className="button order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>

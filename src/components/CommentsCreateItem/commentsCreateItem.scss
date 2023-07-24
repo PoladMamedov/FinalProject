@@ -1,0 +1,50 @@
+.comments__create-item {
+  margin-top: 70px;
+  display: grid;
+  background: $white;
+  border-radius: 8px;
+  padding: 20px;
+  grid-template-areas:
+    "content content"
+    "avatar btn"
+  ;
+  gap: 16px;
+
+  @include breakpoint-mf("md") {
+    padding: 25px;
+    grid-template-areas:
+    "avatar content btn";
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+.comments__create-item-avatar {
+  grid-area: avatar;
+  align-self: center;
+
+  @include breakpoint-mf("md") {
+    align-self: flex-start;
+  }
+}
+
+.comments__create-item-content {
+  grid-area: content;
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  border: 2px solid $secondary;
+
+  &:focus,
+  &:focus-visible {
+    border: 2px solid $primaryLight;
+    outline: unset;
+  }
+}
+
+.comments__send-btn {
+  grid-area: btn;
+  border-radius: 8px;
+  justify-self: flex-end;
+}
