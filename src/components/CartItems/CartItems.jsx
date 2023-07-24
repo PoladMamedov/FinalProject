@@ -13,7 +13,6 @@ import {
   decreaseCartAsync,
   decreaseCart, updateCartQuantity, setCart
 } from "../../redux/actions/cart";
-import notificationsSettings from "../../constants/constants";
 
 const CartItems = (props) => {
   const {
