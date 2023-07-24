@@ -24,7 +24,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     display: grid;
-    -webkit-column-gap: 10px;
+    -webkit-column-gap: 0;
     grid-column-gap: 10px;
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
