@@ -45,14 +45,8 @@
   }
   &__btn-allProduct {
     font-family: "Roboto", sans-serif;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     background-color: $primary;
     color: white;
@@ -63,13 +57,10 @@
     margin: 40px auto;
     &:hover {
       svg {
-        -ms-transform: translateX(10px);
         transform: translateX(10px);
       }
     }
     svg {
-      -webkit-transition: 0.15s ease-in-out;
-      -o-transition: 0.15s ease-in-out;
       transition: 0.15s ease-in-out;
     }
 
@@ -103,12 +94,7 @@
 }
 
 .flex_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -134,10 +120,6 @@
   }
 }
 .top-product__card > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
