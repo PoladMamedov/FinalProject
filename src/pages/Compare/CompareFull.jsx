@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Store } from "react-notifications-component";
+import notificationsSettings from "../../constants/constants";
+
 import useServer from "../../hooks/useServer";
 import { removeCompareProducts, deleteAllCompareProducts } from "../../redux/actions/compareProducts";
 
@@ -17,7 +20,7 @@ const CompareFull = () => {
                 const resultCompareProducts = await Promise.all(compareProducts.map((product) => server.getProduct(product)));
                 setProducts(resultCompareProducts);
             } catch (err) {
-                console.log(err);
+                Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
             }
         }
         fetchCompareProducts();

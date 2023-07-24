@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
+import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
@@ -41,7 +43,7 @@ const CartItems = (props) => {
         dispatch(removeCart(item));
       }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 
@@ -53,7 +55,7 @@ const CartItems = (props) => {
         dispatch(increaseCart(item));
       }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
   const onDecreaseItem = async (item, token) => {
@@ -64,7 +66,7 @@ const CartItems = (props) => {
         dispatch(decreaseCart(item));
       }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 
