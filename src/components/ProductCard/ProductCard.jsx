@@ -77,7 +77,7 @@ export default function ProductCard(props) {
         }
       }
     } catch (error) {
-      console.log(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
     cartBtn.current.classList.add("compare-btn--clicked");
   };

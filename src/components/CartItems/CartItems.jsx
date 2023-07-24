@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
-import { Store } from "react-notifications-component";
+import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
@@ -59,8 +60,9 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
       }
     } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDeleted });
-      console.log(error);
+
     }
   };
 
@@ -76,8 +78,8 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
       }
     } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotIncreased });
-      console.log(error);
     }
   };
   const onDecreaseItem = async (item, token) => {
@@ -92,8 +94,7 @@ const CartItems = (props) => {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
       }
     } catch (error) {
-      console.log(error);
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDecreased });
+    Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDecreased });
     }
   };
 
