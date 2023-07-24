@@ -10,6 +10,7 @@
     width: 520px;
     height: 326px;
     border-radius: 15px;
+    object-fit: cover;
     @include breakpoint-bet(1020px, 1199px) {
       width: 46%;
       margin-left: -70px;

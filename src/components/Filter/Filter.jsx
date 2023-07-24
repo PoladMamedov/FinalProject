@@ -9,11 +9,13 @@ import React, {
   forwardRef,
   useRef
 } from "react";
+import { Store } from "react-notifications-component";
 import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
 import { reset, getAllSubcategoriesCounter } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
 import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
+import notificationsSettings from "../../constants/constants";
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent
@@ -24,8 +26,8 @@ const Filter = forwardRef(({
   const [filters, setFilters] = useState([]);
 
   const { subcategory } = useSelector((state) => state.subcategory);
-  const allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
-
+  let allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
+  allCategories = allCategories.map((item) => item.replace(/ /g, "_"));
   const dispatch = useDispatch();
 
   const price = useSelector((state) => state.filteredProducts.filteredProducts);
@@ -37,13 +39,14 @@ const Filter = forwardRef(({
   let maxArr = Math.ceil(Math.max(...new_array));
 
 
-useEffect(() => {
+  useEffect(() => {
     async function fetchFilters() {
       try {
         const filterResponse = await server.getFilters();
         setFilters(filterResponse);
       } catch (err) {
-        console.log(err);
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
+
       }
     }
     fetchFilters();
@@ -135,13 +138,13 @@ useEffect(() => {
       const firstArray = products[0];
       dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
     } catch (err) {
-      console.log(err);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
   }
 
-const min = parseInt(valuesPrice.Min, 10);
-const max = parseInt(valuesPrice.Max, 10);
-const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
+  const min = parseInt(valuesPrice.Min, 10);
+  const max = parseInt(valuesPrice.Max, 10);
+  const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
 
   function handleSetPrice() {
     fetchFilteredProducts(selectedCategories, subcategorieParent);
@@ -240,9 +243,9 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
     let checkedCount = 0;
     checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            checkedCount++;
-        }
+      if (checkbox.checked) {
+        checkedCount++;
+      }
     });
     dispatch(getAllSubcategoriesCounter(checkedCount));
   });
@@ -262,46 +265,46 @@ const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr
                   <div key={item.name} className="filter-section-list__item">
                     <label htmlFor={item.name}>{item.name}</label>
                     <input
-                    id={item.name}
-                    name={item.name}
-                    type="checkbox"
-                    checked={checkedItems[index]}
-                    onChange={(e) =>  handleCheckboxChange(e, index)}
-                    onClick={addCounter}
-                    className="filter-section-list__item-checkbox"></input>
-                    </div>))
-                 }
-                 </form>
-             <h4 className="filter-section__subtitle">Price range</h4>
-             <form className="filter-section-inputs">
-                 {
-                  filters.length !== 0 ? filters.map(({name}, idx) => (
-                      <input
-                      key={idx}
-                      className={"filter-section-inputs__item"}
-                      placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
-                      name={name}
-                      type="number"
-                      step="1"
-                      min="0"
-                      value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
-                      onChange={handleSetValue}
-                      onBlur={handlePriceBlur}></input>
-                  )) : <p>loading...</p>
-                 }
-             </form>
-             <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
-             <button
-             type="button"
-             className={`filter-section-btn ${isButtonDisabled ? "filter-section-btn--disabled" : "filter-section-btn--dark"}`}
-             onClick={handleSetPrice}
-             disabled={isButtonDisabled}>Set Price</button>
-             <div className="filter-section-btn-container">
-             <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
-             <button type="button" onClick={apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
-             </div>
-             </div>
+                      id={item.name}
+                      name={item.name}
+                      type="checkbox"
+                      checked={checkedItems[index]}
+                      onChange={(e) => handleCheckboxChange(e, index)}
+                      onClick={addCounter}
+                      className="filter-section-list__item-checkbox"></input>
+                  </div>))
+            }
+          </form>
+          <h4 className="filter-section__subtitle">Price range</h4>
+          <form className="filter-section-inputs">
+            {
+              filters.length !== 0 ? filters.map(({ name }, idx) => (
+                <input
+                  key={idx}
+                  className={"filter-section-inputs__item"}
+                  placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
+                  name={name}
+                  type="number"
+                  step="1"
+                  min="0"
+                  value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
+                  onChange={handleSetValue}
+                  onBlur={handlePriceBlur}></input>
+              )) : <p>loading...</p>
+            }
+          </form>
+          <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
+          <button
+            type="button"
+            className={`filter-section-btn ${isButtonDisabled ? "filter-section-btn--disabled" : "filter-section-btn--dark"}`}
+            onClick={handleSetPrice}
+            disabled={isButtonDisabled}>Set Price</button>
+          <div className="filter-section-btn-container">
+            <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
+            <button type="button" onClick={apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
+          </div>
         </div>
+      </div>
     </>
   );
 });

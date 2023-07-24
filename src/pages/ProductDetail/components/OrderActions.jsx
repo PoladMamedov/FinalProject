@@ -12,7 +12,7 @@ import {
 } from "../../../redux/actions/favorites";
 import OrderQuantity from "./OrderQuantity";
 import {
-  addToCart, fetchCart, setCart, fillCart
+  fetchCart, setCart, fillCart
 } from "../../../redux/actions/cart";
 import notificationsSettings from "../../../constants/constants";
 import CurrencyIcon from "../../../components/CurrencyIcon/CurrencyIcon";
@@ -26,7 +26,7 @@ export default function OrderActions(props) {
   const dispatch = useDispatch();
 
 
-  const { userInfo: { token } } = useSelector((state) => state.user);
+  const {userInfo: {token}} = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
   const { currency, currencyName } = useSelector((state) => state.currentCurrency);
   const favorites = useSelector((state) => state.favorites.favorites);
@@ -41,26 +41,19 @@ export default function OrderActions(props) {
   const price = { currentPrice, previousPrice };
 
   const handleAddToFavorites = async () => {
-    const nameWithoutLastWord = props.name.slice(
-      0,
-      props.name.lastIndexOf(" ")
-    );
     const newItem = {
       imageUrls: [props.imageUrls[0]],
-      name: nameWithoutLastWord,
-      currentPrice,
-      quantity,
-      itemNo,
+      name: props.name,
+      currentPrice: props.currentPrice,
+      quantity: props.quantity,
+      itemNo: props.itemNo,
     };
     dispatch(addToFavorites(newItem));
-
     setIsFav(true);
-
   };
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
     dispatch(removeFromFavorites(itemNo));
-
   };
 
   useEffect(() => {
@@ -76,45 +69,28 @@ export default function OrderActions(props) {
   async function onAddButtonClick() {
     try {
       if (token) dispatch(fetchCart(token));
+      const productInCart = cart.find(({product: {_id: id}}) => id === productID);
 
-      const productInCart = cart.find(({ product: { _id: id } }) => id === productID);
-      const productInCartIndx = cart.findIndex(({ product: { _id: id } }) => id === productID);
-      const filteredCart = cart.filter((product, index) => index !== productInCartIndx);
-
-      if (token && filteredCart.length === 0) {
-        dispatch(setCart({
-          products: [
-            {
-              product: productID,
-              cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-            }
-          ]
-        }, token));
-      } else if (token && filteredCart.length) {
-        dispatch(setCart({
-          products: [
-            ...filteredCart.map(({ product: { _id: id }, cartQuantity }) => ({ product: id, cartQuantity })),
-            {
-              product: productID,
-              cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-            }
-          ]
-        }, token));
-      } else if (productInCart) {
-        dispatch(fillCart([
-          ...filteredCart,
+      const updatedCart = productInCart ? {
+        products: cart.map((el) => {
+          // eslint-disable-next-line no-underscore-dangle
+          if (el.product._id === productID) return ({...el, cartQuantity: el.cartQuantity + orderQuantity});
+          return ({...el});
+        })
+      } : {
+        products: [
+          ...cart,
           {
-            product: { ...props },
-            cartQuantity: orderQuantity + productInCart.cartQuantity
+            product: {...props},
+            cartQuantity: orderQuantity
           }
-        ]));
+        ]
+      };
+
+      if (token) {
+        dispatch(setCart(updatedCart, token));
       } else {
-        dispatch(addToCart([
-          {
-            product: { ...props },
-            cartQuantity: productInCart ? orderQuantity + productInCart.cartQuantity : orderQuantity
-          }
-        ]));
+        dispatch(fillCart(updatedCart.products));
       }
 
       setOrderQuantity(1);
@@ -143,7 +119,7 @@ export default function OrderActions(props) {
         color={"red"}
         className={isFav ? "order-actions__favs-btn order-actions__favs-btn--fill" : "order-actions__favs-btn"}
         isFill={isFav}
-        clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites} />
+        clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
       <button disabled={outOfStock} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
     </div>
     <div className="product-detail__color-wrap">
@@ -152,7 +128,7 @@ export default function OrderActions(props) {
         {Object.entries(colors).map(([key, value], index) => <Link to={`/products/${key}`} key={index}><span className={`product-detail__color-list-item ${productColor === value ? "product-detail__color-list-item--active" : ""}`} style={{ backgroundColor: value }}></span></Link>)}
       </div>
     </div>
-    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity} productID={productID} cart={cart} outOfStock={outOfStock} />
+    <OrderQuantity productQuantity={quantity} orderQuantity={orderQuantity} setOrderQuantity={setOrderQuantity} productID={productID} cart={cart} outOfStock={outOfStock}/>
     <Tooltip
       id="order-actions_add-btn"
       place="top"

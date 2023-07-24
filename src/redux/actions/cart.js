@@ -1,5 +1,7 @@
+import { Store } from "react-notifications-component";
 import cartTypes from "../type/cart";
 import useServer from "../../hooks/useServer";
+import notificationsSettings from "../../constants/constants";
 
 export function fillCart(products) {
   return {
@@ -18,8 +20,8 @@ export const removeCart = (itemId) => {
   return {
     type: cartTypes.REMOVE_CART,
     payload: {
-      id: itemId
-    }
+      id: itemId,
+    },
   };
 };
 export const fetchCart = (token) => {
@@ -29,6 +31,7 @@ export const fetchCart = (token) => {
       const cart = await getCart(token);
       dispatch(fillCart(cart.products));
     } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
@@ -40,20 +43,22 @@ export const setCart = (products, token) => {
       const updatedCart = await updateCart(products, token);
       dispatch(fillCart(updatedCart.products));
     } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
+
 export const removeCartAsync = (itemId, token) => {
   return async (dispatch) => {
-    const {removeItemFromCart} = useServer();
+    const { removeItemFromCart } = useServer();
     try {
       // eslint-disable-next-line no-unused-vars
       const deletedCart = await removeItemFromCart(itemId, token);
       dispatch(removeCart(itemId));
     } catch (error) {
-      console.error("Failed to remove item:", error);
-  }
-};
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
+  };
 };
 
 export const increaseCart = (itemId, productInfo) => {
@@ -61,20 +66,20 @@ export const increaseCart = (itemId, productInfo) => {
     type: cartTypes.INCREASE_CART,
     payload: {
       id: itemId,
-      product: productInfo
-    }
+      product: productInfo,
+    },
   };
 };
 
 export const increaseCartAsync = (itemId, token, productInfo) => {
   return async (dispatch) => {
-    const {addItemCart} = useServer();
+    const { addItemCart } = useServer();
     try {
       // eslint-disable-next-line no-unused-vars
       const addedCart = await addItemCart(itemId, token);
       dispatch(increaseCart(itemId, productInfo));
     } catch (error) {
-      console.error("Failed to increase item:", error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
@@ -83,26 +88,36 @@ export const decreaseCart = (itemId) => {
   return {
     type: cartTypes.DECREASE_CART,
     payload: {
-      id: itemId
-    }
+      id: itemId,
+    },
   };
 };
 
 export const decreaseCartAsync = (itemId, token) => {
   return async (dispatch) => {
-    const {decreaseProductQuantity} = useServer();
+    const { decreaseProductQuantity } = useServer();
     try {
       // eslint-disable-next-line no-unused-vars
       const decreasedCart = await decreaseProductQuantity(itemId, token);
       dispatch(decreaseCart(itemId));
     } catch (error) {
-      console.error("Failed to decrease item:", error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
+  };
+};
+
+export const updateCartQuantity = (itemId, cartQuantity) => {
+  return {
+    type: cartTypes.UPDATE_CART_QUANTITY,
+    payload: {
+      id: itemId,
+      cartQuantity
     }
   };
 };
 
 export const removeEntireCart = () => {
   return {
-    type: cartTypes.REMOVE_ENTIRE_CART
+    type: cartTypes.REMOVE_ENTIRE_CART,
   };
 };

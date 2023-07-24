@@ -1,0 +1,347 @@
+.checkout-section__wrapper {
+  @include flex(column, center, center);
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 70px;
+
+  @include breakpoint-mf("my") {
+    @include flex(row, space-around, flex-start);
+    gap: 100px;
+    max-width: 1200px;
+  }
+
+  .checkout-section__product-wrapper {
+    // styles for the wrapper
+
+    @include flex(column, center, center);
+    width: 260px;
+    gap: 30px;
+    @include breakpoint-mf("md") {
+      width: 490px;
+      gap: 50px;
+    }
+    @include breakpoint-mf("my") {
+      width: 400px;
+      gap: 35px;
+      // position: relative;
+      // top: -151px;
+    }
+
+    .checkout-section__product-header {
+      // styles for the product header
+      margin-bottom: 3em;
+      @include breakpoint-mf("my") {
+        margin-bottom: 0;
+      }
+      .checkout-section__product-header-summary {
+        // styles for the product header summary
+        width: 260px;
+        font-size: 13px;
+        padding: 0 0 0.625rem;
+        margin: 0 0 0.625rem;
+        display: flex;
+        justify-content: space-between;
+        line-height: 1.75rem;
+        padding-bottom: 0.375rem;
+        margin-bottom: 0.8125rem;
+        border-bottom: 0.0625rem solid #bab9b9;
+        @include fonts(400, 16px, 35px);
+        color: $primaryDark;
+        @include breakpoint-mf("xs") {
+          width: 490px;
+        }
+        @include breakpoint-mf("my") {
+          width: 400px;
+        }
+
+        .checkout-section__product-qty {
+          // styles for the product quantity
+        }
+
+        .checkout-section__product-dropdown {
+          // .checkout-section__product-dropdown
+
+          .checkout-section__product-value {
+            // styles for the value in the show order summary section
+          }
+        }
+
+        .checkout-section__product-value {
+          // styles for the value in the hide order summary section
+        }
+      }
+    }
+  }
+
+  .checkout-section__product-item-wrapper {
+    // styles for the product item wrapper
+    // display: none;
+
+    span {
+      // styles for the item component
+    }
+  }
+}
+
+.checkout-section__product-summary-computer {
+  // styles for the product summary on computer
+  flex-direction: column;
+  padding: 1.25rem 0.9375rem;
+  background-color: #f5f7fb;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  height: 290px;
+  width: 400px;
+  display: none;
+  // @include fonts(400, 16px, 35px);
+  color: $primaryDark;
+  @include breakpoint-mf("my") {
+    display: flex;
+    gap: 7px;
+  }
+  h4 {
+    // styles for the order summary heading
+    line-height: 1.75rem;
+    padding-bottom: 0.375rem;
+    margin-bottom: 0.8125rem;
+    border-bottom: 0.0625rem solid #979797;
+  }
+
+  .checkout-section__product-summary-computer-subtotal {
+    // styles for the subtotal section
+    font-size: 1rem;
+    margin: 0 0 0.6875rem;
+    line-height: 1.14;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    span {
+      // styles for the subtotal label and value
+    }
+  }
+
+  .checkout-section__product-summary-computer-shipping {
+    // styles for the shipping section
+    font-size: 1rem;
+    margin: 0 0 0.6875rem;
+    line-height: 1.14;
+
+    span {
+      // styles for the shipping method
+      max-width: 70%;
+    }
+  }
+  .checkout-section__product-summary-computer-shipping-method {
+    font-size: 0.8125rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+
+    //styles for the shipping method value
+    line-height: 1.75rem;
+    padding-bottom: 0.375rem;
+    margin-bottom: 0.8125rem;
+    border-bottom: 0.0625rem solid #979797;
+  }
+
+  .checkout-section__product-summary-computer-total {
+    // styles for the estimated total section
+    font-size: 0.8125rem;
+    color: #000000;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 700;
+
+    span {
+      // styles for the estimated total label and value
+    }
+  }
+}
+
+.checkout-section__form {
+  // Стили для .checkout-section__form
+  @include flex(column, center, center);
+  width: 260px;
+  gap: 30px;
+  //was for md
+  @include breakpoint-mf("xs") {
+    width: 490px;
+    gap: 50px;
+  }
+  @include breakpoint-mf("my") {
+    width: 400px;
+    gap: 35px;
+  }
+  .checkout-section__form-title {
+    // Стили для .checkout-section__form-title
+    color: $primaryBlue;
+    text-align: center;
+    margin: 0;
+    font-size: 25px;
+    @include breakpoint-mf("md") {
+      font-size: 32px;
+    }
+    @include breakpoint-mf("my") {
+      margin-bottom: 20px;
+    }
+  }
+
+  .checkout-section__form-input-wrapper {
+    position: relative;
+    width: 100%;
+    // Стили для .checkout-section__form-input-wrapper
+
+    .checkout-section__form-input-field {
+      // Стили для .checkout-section__form-input-field
+      font-family: inherit;
+      color: $primaryBlue;
+      background-color: $secondaryLight;
+      width: 100%;
+      height: 40px;
+      border: 0;
+      border-radius: 30px;
+      padding: 20px 20px 20px 40px;
+      transition: background-color 0.2s ease-in-out;
+      &:focus {
+        background-color: darken($secondaryLight, $amount: 10%);
+      }
+      @include breakpoint-mf("xs") {
+        padding: 20px 20px 20px 65px;
+        font-size: 25px;
+        height: 70px;
+      }
+      @include breakpoint-mf("my") {
+        padding: 20px 20px 20px 50px;
+        font-size: 22px;
+        height: 50px;
+      }
+    }
+    .select {
+      padding: 0;
+      padding-left: 30px;
+    }
+    .checkout-section__form-input-error {
+      // Стили для .checkout-section__form-input-error
+      font-size: 11px;
+      position: absolute;
+      right: 15px;
+      bottom: -15px;
+      @include breakpoint-mf("md") {
+        font-size: 15px;
+        right: 20px;
+        bottom: -20px;
+      }
+      @include breakpoint-mf("my") {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .checkout-section__form-submit-btn {
+    // Стили для .checkout-section__form-btn
+    font-family: inherit;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    background-color: $primaryDark;
+    color: $secondaryLight;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    border-radius: 50px;
+    transition: background-color 0.1s ease-in-out;
+    &:hover {
+      background-color: $primaryBlue;
+    }
+    @include breakpoint-mf("xs") {
+      font-size: 26px;
+      height: 70px;
+    }
+    @include breakpoint-mf("my") {
+      font-size: 20px;
+      height: 50px;
+    }
+  }
+}
+
+.computer-version {
+  display: none;
+  @include breakpoint-mf("my") {
+    display: block;
+  }
+}
+
+.mobile-version {
+  width: 260px;
+  padding: 10px;
+  @include breakpoint-mf("my") {
+    display: none;
+  }
+  @include breakpoint-mf("xs") {
+    width: 490px;
+  }
+}
+
+.checkout-section__security {
+  // styles for the security section
+
+  .checkout-section__security-title {
+    // styles for the security title
+    p {
+      margin: 30px 0 30px 0;
+      display: flex;
+      align-items: center;
+    }
+    span {
+      // styles for the security text
+
+      i {
+        // styles for the security icon
+      }
+    }
+
+    .checkout-section__security-help {
+      // styles for the security help section
+
+      span {
+        // styles for the help text
+      }
+
+      .checkout-section__security-help-cell {
+        // styles for the help contact number
+      }
+
+      a.checkout-section__security-help-contact {
+        // styles for the help contact link
+        text-decoration: underline;
+        font-weight: 500;
+        color: #000;
+      }
+    }
+  }
+}
+
+.icon-arrow {
+  padding-left: 7px;
+}
+
+.checkout-section__product-btn {
+  display: block;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  color: $primaryDark;
+  font-family: "Roboto";
+  @include fonts(400, 16px, 35px);
+}
+
+.checkout-section__product-btn.active {
+  display: none;
+}
+
+.checkout-section__product-item-wrapper.active {
+  display: none;
+}
+.checkout-section__product-item-wrapper {
+  display: block;
+}
