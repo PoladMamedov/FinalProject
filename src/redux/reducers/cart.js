@@ -74,6 +74,20 @@ function cartReducer(state = initialState, action) {
         cart: []
       };
     }
+    case cartTypes.UPDATE_CART_QUANTITY: {
+      // eslint-disable-next-line no-underscore-dangle
+      const findItem = state.cart.find((item) => item.product._id === action.payload.id);
+      const updatedItem = {
+        ...findItem,
+        cartQuantity: action.payload.cartQuantity
+      };
+      // eslint-disable-next-line no-underscore-dangle
+      const updatedItems = state.cart.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
+      return {
+        ...state,
+        cart: updatedItems
+      };
+    }
     default:
       return state;
   }

@@ -40,6 +40,7 @@
     &-table {
         margin: 20px auto;
         font-size: 12px;
+        border-collapse: collapse;
 
         @include breakpoint-mf("sm") {
             font-size: 16px;
@@ -48,6 +49,15 @@
         @include breakpoint-mf("md") {
             font-size: 18px;
         }
+
+        tbody tr:nth-child(odd) {
+            background-color: $secondaryLight;
+          }
+
+        tbody td {
+            border: 1px solid #ddd;
+            border-top: none;
+          }
 
         & table {
             width: 100%;
@@ -59,7 +69,7 @@
             padding: 10px 10px;
             margin-right: 5px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+           // border-bottom: 1px solid #ddd;
             min-width: 120px;
 
             &:first-child {

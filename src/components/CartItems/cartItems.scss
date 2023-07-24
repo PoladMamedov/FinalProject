@@ -23,6 +23,7 @@
     @include flex(row, space-between, center);
     font-size: 18px;
     font-weight: 500;
+    padding-left: 60px;
   }
 }
 
@@ -55,44 +56,51 @@
 }
 
 .cart-list__item-quantity {
-  @include flex(row, space-between);
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  width: 100px;
-  height: 25px;
+  @include flex(row, flex-start, center);
+  gap: 10px;
+  height: fit-content;
+  align-self: flex-start;
 
-  &-minus {
-    font-size: 20px;
-    background-color: $white;
+  @include breakpoint-mf('xs') {
+    grid-area: 2 / 2 / 3 / 3;
+    justify-self: flex-end;
+  }
+
+  @include breakpoint-mf('sm') {
+    gap: 15px;
+  }
+
+  &--hidden {
+    display: none;
+  }
+}
+.cart-list__item-quantity-item{
+  -webkit-appearance : none;
+  -webkit-border-radius: unset;
+  padding: unset;
+  border: none;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  background-color: $white;
+  color: $primaryLight;
+  @include fonts(400, 10px, 20px);
+
+  @include breakpoint-mf('sm') {
+    width: 30px;
+    height: 30px;
+    @include fonts(400, 17px, 17px);
+  }
+
+  &-minus, &-plus {
     cursor: pointer;
-    width: calc(33.33% - 10px);
-    height: 100%;
   }
 
   &-number {
-    text-align: center;
     border: 1px solid black;
-    background-color: $white;
-    width: calc(33.33% - 5px);
-    height: 100%;
-
-    @include breakpoint-mf('sm') {
-      font-size: 14px;
-    }
-
-    @include breakpoint-mf('my') {
-      font-size: 20px;
-    }
   }
 
-  &-plus {
-    font-size: 20px;
-    background-color: $white;
-    cursor: pointer;
-    width: calc(33.33% - 10px);
-    height: 100%;
-  }
+
 }
 
 .cart-list__item-button {
