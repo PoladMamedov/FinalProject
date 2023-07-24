@@ -20,15 +20,14 @@
   }
   &__card {
     width: 100%;
-    display: -ms-grid;
-    display: grid;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-    -ms-grid-columns: 1fr 10px 1fr;
-    grid-template-columns: repeat(2, 1fr);
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    overflow: hidden;
+
     @media (min-width: 430px) {
       grid-template-columns: repeat(3, 1fr);
     }
