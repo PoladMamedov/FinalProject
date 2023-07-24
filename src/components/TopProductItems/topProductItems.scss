@@ -19,6 +19,7 @@
     background-color: $secondaryLight;
   }
   &__card {
+    -webkit-align-items: flex-start;
     width: 100%;
     margin-top: 10px;
     padding-top: 10px;
