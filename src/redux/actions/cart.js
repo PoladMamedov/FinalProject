@@ -106,6 +106,16 @@ export const decreaseCartAsync = (itemId, token) => {
   };
 };
 
+export const updateCartQuantity = (itemId, cartQuantity) => {
+  return {
+    type: cartTypes.UPDATE_CART_QUANTITY,
+    payload: {
+      id: itemId,
+      cartQuantity
+    }
+  };
+};
+
 export const removeEntireCart = () => {
   return {
     type: cartTypes.REMOVE_ENTIRE_CART,
