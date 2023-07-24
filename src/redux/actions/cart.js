@@ -1,5 +1,7 @@
+import { Store } from "react-notifications-component";
 import cartTypes from "../type/cart";
 import useServer from "../../hooks/useServer";
+import notificationsSettings from "../../constants/constants";
 
 export function fillCart(products) {
   return {
@@ -22,7 +24,9 @@ export const fetchCart = (token) => {
     try {
       const cart = await getCart(token);
       dispatch(fillCart(cart.products));
-    } catch (error) {}
+    } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
   };
 };
 
@@ -32,7 +36,9 @@ export const setCart = (products, token) => {
     try {
       const updatedCart = await updateCart(products, token);
       dispatch(fillCart(updatedCart.products));
-    } catch (error) {}
+    } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
   };
 };
 
@@ -44,7 +50,7 @@ export const removeCartAsync = (itemId, token) => {
       const deletedCart = await removeItemFromCart(itemId, token);
       dispatch(removeCart(itemId));
     } catch (error) {
-      console.error("Failed to remove item:", error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
@@ -67,7 +73,7 @@ export const increaseCartAsync = (itemId, token, productInfo) => {
       const addedCart = await addItemCart(itemId, token);
       dispatch(increaseCart(itemId, productInfo));
     } catch (error) {
-      console.error("Failed to increase item:", error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
@@ -89,7 +95,7 @@ export const decreaseCartAsync = (itemId, token) => {
       const decreasedCart = await decreaseProductQuantity(itemId, token);
       dispatch(decreaseCart(itemId));
     } catch (error) {
-      console.error("Failed to decrease item:", error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   };
 };
