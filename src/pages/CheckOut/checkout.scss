@@ -5,7 +5,7 @@
   margin-bottom: 70px;
 
   @include breakpoint-mf("my") {
-    @include flex(row, space-around, start);
+    @include flex(row, space-around, flex-start);
     gap: 100px;
     max-width: 1200px;
   }
