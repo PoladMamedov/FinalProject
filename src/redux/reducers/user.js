@@ -6,7 +6,6 @@ const initialState = {
   error: null,
   message: null,
 };
-
 // eslint-disable-next-line default-param-last
 function userReducer(state = initialState, action) {
   switch (action.type) {

@@ -1,7 +1,7 @@
 import cartTypes from "../type/cart";
 
 const initialState = {
-  cart: []
+  cart: [],
 };
 
 // eslint-disable-next-line default-param-last
@@ -10,12 +10,17 @@ function cartReducer(state = initialState, action) {
     case cartTypes.FILL_CART:
       return {
         ...state,
-        cart: [...action.payload.products]
+        cart: [...action.payload.products],
       };
     case cartTypes.ADD_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, ...action.payload.products]
+        cart: [...state.cart, ...action.payload.products],
+      };
+    case cartTypes.CLEAR_CART:
+      return {
+        ...state,
+        cart: action.payload ? [] : state.cart
       };
     case cartTypes.REMOVE_CART: {
       // eslint-disable-next-line no-underscore-dangle
@@ -67,6 +72,20 @@ function cartReducer(state = initialState, action) {
       return {
         ...state,
         cart: []
+      };
+    }
+    case cartTypes.UPDATE_CART_QUANTITY: {
+      // eslint-disable-next-line no-underscore-dangle
+      const findItem = state.cart.find((item) => item.product._id === action.payload.id);
+      const updatedItem = {
+        ...findItem,
+        cartQuantity: action.payload.cartQuantity
+      };
+      // eslint-disable-next-line no-underscore-dangle
+      const updatedItems = state.cart.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
+      return {
+        ...state,
+        cart: updatedItems
       };
     }
     default:
