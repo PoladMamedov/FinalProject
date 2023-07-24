@@ -8,18 +8,26 @@ export default function CommentsItem({
  customer: {
   firstName, lastName, date, _id: customerID
  },
- content
+ content,
+ maxContentLen = 500
 }) {
   const [editMode, setEditMode] = useState(false);
   const [editedComment, setEditedComment] = useState(content);
+  const [commentOverLength, setCommentOverLength] = useState(content.length > maxContentLen);
 
   const dispatch = useDispatch();
   const  {userInfo: {token, _id: userID}} = useSelector((state) => state.user);
   const editTextareaRef = useRef(null);
 
   function onConfirmBtnClick() {
-    if (content !== editedComment) dispatch(editCommentAsync(commentID, {content: editedComment}, token));
-    setEditMode(false);
+    if (commentOverLength) {
+      editTextareaRef.current.focus();
+    } else if (content !== editedComment) {
+      dispatch(editCommentAsync(commentID, { content: editedComment }, token));
+      setEditMode(false);
+    } else {
+      setEditMode(false);
+    }
   }
 
   return <>
@@ -36,15 +44,25 @@ export default function CommentsItem({
       </span>
     </div>
     {editMode
-      ? <textarea
-        className="comments__edited-comment"
-        name="comment-content--edited"
-        id="comment-content--edited"
-        ref={editTextareaRef}
-        onChange={() => setEditedComment(editTextareaRef.current.value)}
-        onBlur={onConfirmBtnClick}
-        value={editedComment}
-      ></textarea>
+      ? <div className="comments__create-content-wrap">
+        <textarea
+          className="comments__edited-comment"
+          name="comment-content--edited"
+          id="comment-content--edited"
+          ref={editTextareaRef}
+          onChange={() => {
+            setCommentOverLength(editTextareaRef.current.value.length > maxContentLen);
+            setEditedComment(editTextareaRef.current.value);
+          }}
+          onBlur={onConfirmBtnClick}
+          value={editedComment}
+        ></textarea>
+        <span
+          className={`comments__length-counter ${commentOverLength ? "comments__length-counter--overlength" : ""}`}
+        >
+        {editTextareaRef.current ? editTextareaRef.current.value.length : content.length}/{maxContentLen}
+      </span>
+      </div>
       : <p className="comments__item-content">{content}</p>}
     {userID === customerID && !editMode
       ? <div className="comments__actions">

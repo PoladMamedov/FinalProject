@@ -27,19 +27,35 @@
   }
 }
 
+.comments__create-content-wrap {
+  position: relative;
+}
+
 .comments__create-item-content {
   grid-area: content;
   width: 100%;
   height: 100px;
   resize: none;
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 24px;
   border: 2px solid $secondary;
 
   &:focus,
   &:focus-visible {
     border: 2px solid $primaryLight;
     outline: unset;
+  }
+}
+
+.comments__length-counter {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  @include fonts(400, 14px, 14px);
+  background: rgba(255, 255, 255, 0.7);
+
+  &--overlength {
+    color: red;
   }
 }
 

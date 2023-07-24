@@ -46,6 +46,10 @@
   }
 }
 
+.comments__editing-length-counter{
+
+}
+
 .comments__actions {
   @include flex(row, flex-end, center);
   gap: 16px;
