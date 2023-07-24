@@ -3,8 +3,8 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useRef } from "react";
 import { Store } from "react-notifications-component";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
 import notificationsSettings from "../../constants/constants";
@@ -25,10 +25,11 @@ export default function ProductCard(props) {
   );
   // eslint-disable-next-line no-underscore-dangle
   const itemId = props.item._id;
-  const userToken = useSelector((state) => state.user.userInfo.token)
+  const userToken = useSelector((state) => state.user.userInfo.token);
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { compareProducts } = useSelector((state) => state.compareProducts);
 
@@ -86,10 +87,20 @@ export default function ProductCard(props) {
     dispatch(removeFromFavorites(urlItemNumber));
   };
 
+  const handleCardClick = (event) => {
+    // Проверяем, было ли нажатие на кнопку сравнения или избранного
+    if (!event.target.closest(".compare-btn") && !event.target.closest(".all-card__like-button") && !event.target.closest(".all-card__likes-top-button")) {
+      navigate(`/products/${urlItemNumber}`);
+      dispatch(getRecentlyProducts(urlItemNumber));
+    }
+  };
+
   return (
     <>
       {props.isCardView ? (
-        <div className={props.active ? "all-card-container" : "card-container"}>
+        <div
+          className={props.active ? "all-card-container" : "card-container"}
+             onClick={handleCardClick}>
           <div
             className={props.active ? "all-card" : "card"}
             style={{ backgroundImage: `url(${urlImg})` }}
@@ -113,14 +124,6 @@ export default function ProductCard(props) {
                   />
                 </button>
               </div>
-              <Link
-                className={
-                  props.active ? "all-card__btn-details" : "card__btn-details"
-                }
-                to={`/products/${urlItemNumber}`}
-              >
-                DETAIL
-              </Link>
               <button
                 ref={compareBtn}
                 onClick={() => addProducttoCompare()}
@@ -176,6 +179,7 @@ export default function ProductCard(props) {
           className={
             props.active ? "all-card-container__rows" : "card-container"
           }
+          onClick={handleCardClick}
         >
           <div
             className={props.active ? "all-card__rows" : "card"}
@@ -200,17 +204,6 @@ export default function ProductCard(props) {
                   />
                 </button>
               </div>
-              <Link
-                className={
-                  props.active
-                    ? "all-card__btn-details--rows"
-                    : "card__btn-details"
-                }
-                to={`/products/${urlItemNumber}`}
-                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}
-              >
-                DETAIL
-              </Link>
               <button
                 ref={cartBtn}
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
