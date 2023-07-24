@@ -140,20 +140,10 @@ export default function ProductCard(props) {
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__like-button compare-btn--clicked" : "all-card__like-button"}
-              // className={
-              //   props.active
-              //     ? "all-card__btn-card-container"
-              //     : "card__btn-card-container"
-              // }
               >
                 <img
                   className="all-card__like-img"
                   style={{ marginTop: 0 }}
-                  // className={
-                  //   props.active
-                  //     ? "all-card__btn-svg-cart"
-                  //     : "card__btn-svg-cart"
-                  // }
                   src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
@@ -209,21 +199,10 @@ export default function ProductCard(props) {
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
-              // className={
-              //   props.active
-              //     ? "all-card__btn-card-container--rows"
-              //     : "card__btn-card-container"
-              // }
               >
                 <img
                   className="all-card__likes-top-img"
                   style={{ marginTop: 0 }}
-                  // className={
-                  //   props.active
-                  //     ? "all-card__btn-svg-cart--rows"
-                  //     : "card__btn-svg-cart"
-                  // }
-                  // src="/img/cart-logo.png"
                   src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
