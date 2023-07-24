@@ -37,14 +37,16 @@ const CartItems = (props) => {
   }, [isCheckoutPage]);
 
   useEffect(() => {
-    const updatedCart = {
-      products: cartProducts.map((item) => ({
-        // eslint-disable-next-line no-underscore-dangle
-        product: item.product._id,
-        cartQuantity: item.cartQuantity
-      }))
-    };
-    dispatch(setCart(updatedCart, userToken));
+    if (userToken) {
+      const updatedCart = {
+        products: cartProducts.map((item) => ({
+          // eslint-disable-next-line no-underscore-dangle
+          product: item.product._id,
+          cartQuantity: item.cartQuantity
+        }))
+      };
+      dispatch(setCart(updatedCart, userToken));
+    }
   }, [cartQuantity]);
 
   const OnDeleteItem = async (item, token) => {
