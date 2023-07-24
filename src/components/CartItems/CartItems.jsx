@@ -105,8 +105,7 @@ const CartItems = (props) => {
 
   const handleInputBlur = async (item, value) => {
     const {quantity} = props.dataProducts.product;
-    const isValidValue = +value !== 0 && +value <= quantity;
-
+    const isValidValue = +value !== 0 && +value <= quantity && +value !== cartQuantity;
     if (isValidValue) {
       if (userToken) {
         dispatch(updateCartQuantity(itemId, +value));
@@ -115,6 +114,8 @@ const CartItems = (props) => {
         dispatch(updateCartQuantity(itemId, +value));
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChanged });
       }
+    } else if (+value === cartQuantity) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChangedOnSameValue });
     } else {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityNotChanged });
       setInputValue(cartQuantity);
