@@ -11,36 +11,52 @@ import {
   increaseCart,
   increaseCartAsync,
   decreaseCartAsync,
-  decreaseCart,
+  decreaseCart, updateCartQuantity, setCart
 } from "../../redux/actions/cart";
 
 const CartItems = (props) => {
-  const location = useLocation();
-  const isCheckoutPage = location.pathname === "/checkout";
-  // eslint-disable-next-line no-unused-vars
-  const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
-  useEffect(() => {
-    setIsCheckout(isCheckoutPage);
-  }, [isCheckoutPage]);
-
-  const dispatch = useDispatch();
-  const userToken = useSelector((state) => state.user.userInfo.token);
-
   const {
     cartQuantity,
     product: {
       name, currentPrice, imageUrls, itemNo
     },
   } = props.dataProducts;
+  const location = useLocation();
+  const isCheckoutPage = location.pathname === "/checkout";
+  // eslint-disable-next-line no-unused-vars
+  const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
+  const [inputValue, setInputValue] = useState(cartQuantity);
+  const dispatch = useDispatch();
+  const userToken = useSelector((state) => state.user.userInfo.token);
+  const cartProducts = useSelector((state) => state.cart.cart);
   // eslint-disable-next-line no-underscore-dangle
   const itemId = props.dataProducts.product._id;
+  // const cartProducts = useSelector((state) => state.cart.cart);
+  useEffect(() => {
+    setIsCheckout(isCheckoutPage);
+  }, [isCheckoutPage]);
+
+  useEffect(() => {
+    if (userToken) {
+      const updatedCart = {
+        products: cartProducts.map((item) => ({
+          // eslint-disable-next-line no-underscore-dangle
+          product: item.product._id,
+          cartQuantity: item.cartQuantity
+        }))
+      };
+      dispatch(setCart(updatedCart, userToken));
+    }
+  }, [cartQuantity]);
 
   const OnDeleteItem = async (item, token) => {
     try {
       if (token) {
         dispatch(removeCartAsync(item, token));
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
       } else {
         dispatch(removeCart(item));
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
       }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
@@ -51,8 +67,12 @@ const CartItems = (props) => {
     try {
       if (token) {
         dispatch(increaseCartAsync(item, token));
+        setInputValue((prevState) => +prevState + 1);
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
       } else {
         dispatch(increaseCart(item));
+        setInputValue((prevState) => +prevState + 1);
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
       }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
@@ -62,11 +82,41 @@ const CartItems = (props) => {
     try {
       if (token) {
         dispatch(decreaseCartAsync(item, token));
+        setInputValue((prevState) => prevState - 1);
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
       } else {
         dispatch(decreaseCart(item));
+        setInputValue((prevState) => prevState - 1);
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
       }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
+  };
+
+  const handleInputChange = (value) => {
+    if (/^\d{0,2}$/.test(value) && !(value.length > 1 && value === "0")) {
+      setInputValue(value);
+    }
+  };
+
+  const handleInputBlur = async (item, value) => {
+    const { quantity } = props.dataProducts.product;
+    const isValidValue = +value !== 0 && +value <= quantity && +value !== cartQuantity;
+
+    if (isValidValue) {
+      if (userToken) {
+        dispatch(updateCartQuantity(itemId, +value));
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChanged });
+      } else {
+        dispatch(updateCartQuantity(itemId, +value));
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChanged });
+      }
+    } else if (+value === cartQuantity) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChangedOnSameValue });
+    } else {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityNotChanged });
+      setInputValue(cartQuantity);
     }
   };
 
@@ -90,7 +140,7 @@ const CartItems = (props) => {
           <div className="cart-list__item-quantity">
             <button
               type={"button"}
-              className="cart-list__item-quantity-minus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-minus"
               onClick={() => onDecreaseItem(itemId, userToken)}
               disabled={cartQuantity <= 1}
             >
@@ -98,12 +148,14 @@ const CartItems = (props) => {
             </button>
             <input
               type={"text"}
-              className="cart-list__item-quantity-number"
-              value={cartQuantity}
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-number"
+              value={inputValue}
+              onChange={(event) => handleInputChange(event.target.value)}
+              onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}
-              className="cart-list__item-quantity-plus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-plus"
               onClick={() => onIncreaseItem(itemId, userToken)}
               disabled={cartQuantity === props.dataProducts.product.quantity}
             >
@@ -158,7 +210,7 @@ const CartItems = (props) => {
             <input
               type={"text"}
               className="checkout-cart-list__item-quantity-number"
-              value={cartQuantity}
+              onChange={(event) => handleInputChange(event)}
             />
             <button
               type={"button"}

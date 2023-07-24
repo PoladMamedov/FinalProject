@@ -212,6 +212,8 @@ export default function ProductCard(props) {
                 DETAIL
               </Link>
               <button
+                ref={cartBtn}
+                onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
               // className={
