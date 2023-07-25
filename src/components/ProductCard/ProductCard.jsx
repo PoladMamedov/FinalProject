@@ -3,8 +3,8 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useRef } from "react";
 import { Store } from "react-notifications-component";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
 import notificationsSettings from "../../constants/constants";
@@ -29,6 +29,7 @@ export default function ProductCard(props) {
   const currencyValue = parseFloat(currency);
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { compareProducts } = useSelector((state) => state.compareProducts);
 
@@ -86,10 +87,20 @@ export default function ProductCard(props) {
     dispatch(removeFromFavorites(urlItemNumber));
   };
 
+  const handleCardClick = (event) => {
+    // Проверяем, было ли нажатие на кнопку сравнения или избранного
+    if (!event.target.closest(".compare-btn") && !event.target.closest(".all-card__like-button") && !event.target.closest(".all-card__likes-top-button")) {
+      navigate(`/products/${urlItemNumber}`);
+      dispatch(getRecentlyProducts(urlItemNumber));
+    }
+  };
+
   return (
     <>
       {props.isCardView ? (
-        <div className={props.active ? "all-card-container" : "card-container"}>
+        <div
+          className={props.active ? "all-card-container" : "card-container"}
+             onClick={handleCardClick}>
           <div
             className={props.active ? "all-card" : "card"}
             style={{ backgroundImage: `url(${urlImg})` }}
@@ -113,14 +124,6 @@ export default function ProductCard(props) {
                   />
                 </button>
               </div>
-              <Link
-                className={
-                  props.active ? "all-card__btn-details" : "card__btn-details"
-                }
-                to={`/products/${urlItemNumber}`}
-              >
-                DETAIL
-              </Link>
               <button
                 ref={compareBtn}
                 onClick={() => addProducttoCompare()}
@@ -137,20 +140,10 @@ export default function ProductCard(props) {
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__like-button compare-btn--clicked" : "all-card__like-button"}
-              // className={
-              //   props.active
-              //     ? "all-card__btn-card-container"
-              //     : "card__btn-card-container"
-              // }
               >
                 <img
                   className="all-card__like-img"
                   style={{ marginTop: 0 }}
-                  // className={
-                  //   props.active
-                  //     ? "all-card__btn-svg-cart"
-                  //     : "card__btn-svg-cart"
-                  // }
                   src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
@@ -176,6 +169,7 @@ export default function ProductCard(props) {
           className={
             props.active ? "all-card-container__rows" : "card-container"
           }
+          onClick={handleCardClick}
         >
           <div
             className={props.active ? "all-card__rows" : "card"}
@@ -200,37 +194,15 @@ export default function ProductCard(props) {
                   />
                 </button>
               </div>
-              <Link
-                className={
-                  props.active
-                    ? "all-card__btn-details--rows"
-                    : "card__btn-details"
-                }
-                to={`/products/${urlItemNumber}`}
-                onClick={() => dispatch(getRecentlyProducts(urlItemNumber))}
-              >
-                DETAIL
-              </Link>
               <button
                 ref={cartBtn}
                 onClick={() => onAddItemToCart(itemId, userToken, props.item)}
                 type={"button"}
                 className={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "all-card__likes-top-button compare-btn--clicked" : "all-card__likes-top-button"}
-              // className={
-              //   props.active
-              //     ? "all-card__btn-card-container--rows"
-              //     : "card__btn-card-container"
-              // }
               >
                 <img
                   className="all-card__likes-top-img"
                   style={{ marginTop: 0 }}
-                  // className={
-                  //   props.active
-                  //     ? "all-card__btn-svg-cart--rows"
-                  //     : "card__btn-svg-cart"
-                  // }
-                  // src="/img/cart-logo.png"
                   src={cart.some((cartItem) => cartItem.product._id === props.item._id) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart1_f0ynp2.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040581/cart_ktpd3c.svg"}
                   alt="cart-logo"
                 />
