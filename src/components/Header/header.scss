@@ -648,17 +648,17 @@
   }
 
   &__nav-login {
-    width: 23px;
+    width: 25px;
     height: 28px;
 
     @include breakpoint-mf("md") {
       margin-top: 2px;
-      width: 34px;
+      width: 36px;
       height: 38px;
     }
 
     @include breakpoint-mf("my") {
-      width: 38px;
+      width: 40px;
       height: 42px;
     }
   }
