@@ -1,7 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 
 function ThankYou() {
+=======
+import { useDispatch } from "react-redux";
+import setPagePath from "../../redux/actions/pagePath";
+
+
+function ThankYou() {
+  const dispatch = useDispatch();
+
+  const handleClick = (path) => {
+    dispatch(setPagePath(`${path}`));
+  };
+
+>>>>>>> main
   return (
     <section className="thankyou-section__wrapper">
       <div className="container">
@@ -18,14 +32,14 @@ function ThankYou() {
 
           <p>
             Please{" "}
-            <Link to={"/about"} className="thankyou-section__text-link">
+            <Link onClick={() => handleClick("about")} to={"/about"} className="thankyou-section__text-link">
               contact us
             </Link>{" "}
             if you have any questions.
           </p>
           <p>
             Return to &nbsp;
-            <Link to={"/"} className="thankyou-section__text-link">
+            <Link onClick={() => handleClick("home")} to={"/"} className="thankyou-section__text-link">
               home page.
             </Link>
           </p>
