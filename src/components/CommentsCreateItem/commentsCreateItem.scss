@@ -1,0 +1,67 @@
+.comments__create-item {
+  margin-top: 70px;
+  display: grid;
+  background: $white;
+  border-radius: 4px;
+  padding: 20px;
+  grid-template-areas:
+    "content content"
+    "avatar btn"
+  ;
+  gap: 16px;
+
+  @include breakpoint-mf("md") {
+    padding: 25px;
+    grid-template-areas:
+    "avatar content btn";
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+.comments__create-item-avatar {
+  grid-area: avatar;
+  align-self: center;
+
+  @include breakpoint-mf("md") {
+    align-self: flex-start;
+  }
+}
+
+.comments__create-content-wrap {
+  position: relative;
+}
+
+.comments__create-item-content {
+  font-family: "Roboto", sans-serif;
+  grid-area: content;
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border-radius: 4px;
+  padding: 24px;
+  border: 2px solid $secondary;
+
+  &:focus,
+  &:focus-visible {
+    border: 2px solid $primaryLight;
+    outline: unset;
+  }
+}
+
+.comments__length-counter {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  @include fonts(400, 14px, 14px);
+  background: rgba(255, 255, 255, 0.7);
+
+  &--overlength {
+    color: red;
+  }
+}
+
+.comments__send-btn {
+  grid-area: btn;
+  border-radius: 4px;
+  justify-self: flex-end;
+}

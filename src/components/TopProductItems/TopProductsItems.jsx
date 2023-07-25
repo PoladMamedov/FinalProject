@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import ProductCard from "../ProductCard/ProductCard";
@@ -46,4 +46,4 @@ function TopProductItem() {
   );
 }
 
-export default memo(TopProductItem);
+export default TopProductItem;
