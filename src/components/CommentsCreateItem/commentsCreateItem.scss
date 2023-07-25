@@ -4,36 +4,39 @@
   background: $white;
   border-radius: 4px;
   padding: 20px;
-  grid-template-areas:
-    "content content"
-    "avatar btn"
-  ;
+  grid-template-columns: repeat(2, 1fr);
+  //grid-template-rows: repeat(2, 1fr);
   gap: 16px;
 
   @include breakpoint-mf("md") {
     padding: 25px;
-    grid-template-areas:
-    "avatar content btn";
     grid-template-columns: auto 1fr auto;
+    grid-template-rows: unset;
   }
 }
 
 .comments__create-item-avatar {
-  grid-area: avatar;
-  align-self: center;
+  grid-area: 2 / 1 / 3 / 2;
+  align-self: flex-start;
 
   @include breakpoint-mf("md") {
+    grid-area: 1 / 1 / 2 / 2;
     align-self: flex-start;
   }
 }
 
 .comments__create-content-wrap {
   position: relative;
+  width: 100%;
+  grid-area: 1 / 1 / 2 / 3;
+
+  @include breakpoint-mf("md") {
+    grid-area: 1 / 2 / 2 / 3;
+  }
 }
 
 .comments__create-item-content {
   font-family: "Roboto", sans-serif;
-  grid-area: content;
   width: 100%;
   height: 100px;
   resize: none;
@@ -61,7 +64,11 @@
 }
 
 .comments__send-btn {
-  grid-area: btn;
+  grid-area: 2 / 2 / 3 / 3;
   border-radius: 4px;
   justify-self: flex-end;
+
+  @include breakpoint-mf("md") {
+    grid-area: 1 / 3 / 2 / 4;
+  }
 }
