@@ -1,4 +1,4 @@
-import PreLoader from "../../PreLoader/PreLoader";
+import PreLoader from "../../../../../components/PreLoader/PreLoader";
 
 function NPSerachLoader() {
   return (
