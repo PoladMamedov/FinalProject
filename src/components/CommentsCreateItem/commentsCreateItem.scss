@@ -71,19 +71,4 @@
   @include breakpoint-mf("md") {
     grid-area: 1 / 3 / 2 / 4;
   }
-
-  //color: $primaryLight;
-  //background-color: $secondaryLight;
-
-  //@include breakpoint-mf('lg') {
-  //  padding: 14px 16px;
-  //  @include fonts(400, 15px, 17px);
-  //  background-color: $primaryDark;
-  //  border-color: $primaryDark;
-  //  color: $white;
-  //}
-
-  //@include breakpoint-mf('xl') {
-  //  padding: 14px 20px;
-  //}
 }
