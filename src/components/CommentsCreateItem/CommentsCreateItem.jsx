@@ -29,7 +29,8 @@ export default function CommentsCreateItem({
     textareaRef.current.value = "";
     dispatch(addNewCommentAsync({
       product: productID,
-      content: comment
+      content: comment,
+      date: Date.now()
     }, token));
 
   }

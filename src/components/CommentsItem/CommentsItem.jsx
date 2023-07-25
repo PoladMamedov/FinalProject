@@ -6,8 +6,9 @@ import { deleteCommentAsync, editCommentAsync } from "../../redux/actions/commen
 export default function CommentsItem({
  _id: commentID,
  customer: {
-  firstName, lastName, date, _id: customerID
+  firstName, lastName, _id: customerID
  },
+ date,
  content, disableActionBtns, setDisableActionBtns, maxContentLen = 500
 }) {
   const [editMode, setEditMode] = useState(false);
