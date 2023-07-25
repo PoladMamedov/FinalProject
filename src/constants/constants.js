@@ -61,6 +61,11 @@ const notificationsSettings = {
     message: "Product quantity didn't changed.The entered number is invalid ",
     type: "danger"
   },
+  cartQuantityChangedOnSameValue: {
+    title: "Attn!",
+    message: "Product quantity didn't changed. Enter new value!",
+    type: "danger"
+  },
   cartDeleted: {
     title: "Success!",
     message: "Product deleted",
@@ -70,8 +75,22 @@ const notificationsSettings = {
     title: "Atthn!",
     message: "Product didn't deleted",
     type: "danger"
+  },
+  commentAdded: {
+    title: "Success!",
+    message: "Your comment added",
+    type: "success",
+  },
+  commentDeleted: {
+    title: "Success!",
+    message: "Your comment deleted",
+    type: "success",
+  },
+  commentEdited: {
+    title: "Success!",
+    message: "Your comment edited",
+    type: "success",
   }
-
 };
 
 export default notificationsSettings;
