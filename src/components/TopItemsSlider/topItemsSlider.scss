@@ -23,7 +23,15 @@
       width: 40%;
       margin-left: -180px;
     }
-    @include breakpoint-bet(280px, 767px) {
+    @include breakpoint-bet(568px, 767px) {
+      width: 40%;
+      margin-left: -240px;
+    }
+    @include breakpoint-bet(425px, 568px) {
+      width: 30%;
+      margin-left: -260px;
+    }
+    @include breakpoint-bet(280px, 424px) {
       visibility: hidden;
     }
   }
@@ -52,21 +60,21 @@
     }
     @include breakpoint-bet(568px, 767px) {
       font-size: 16px;
-      margin-left: 90px;
+      margin-left: 40px;
       width: 191px;
       height: 39px;
       border-radius: 10px;
       box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
     @include breakpoint-bet(425px, 568px) {
-      width: 312px;
+      width: 255px;
       height: 26px;
-      margin-left: 50px;
+      margin-left: 30px;
       font-size: 10px;
       border-radius: 10px;
       box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2509803922);
     }
-    @include breakpoint-bet(360px, 425px) {
+    @include breakpoint-bet(360px, 424px) {
       width: 240px;
       height: 26px;
       margin-left: 25px;
@@ -107,15 +115,15 @@
     }
     @include breakpoint-bet(568px, 767px) {
       font-size: 32px;
-      margin-left: 90px;
+      margin-left: 40px;
       margin-top: 70px;
     }
     @include breakpoint-bet(425px, 568px) {
       font-size: 30px;
       margin-top: 80px;
-      margin-left: 50px;
+      margin-left: 30px;
     }
-    @include breakpoint-bet(360px, 425px) {
+    @include breakpoint-bet(360px, 424px) {
       font-size: 30px;
       margin-top: 90px;
       margin-left: 25px;
@@ -149,14 +157,14 @@
     }
     @include breakpoint-bet(568px, 767px) {
       font-size: 16px;
-      margin-left: 90px;
+      margin-left: 40px;
     }
     @include breakpoint-bet(425px, 568px) {
       font-size: 16px;
       top: 125px;
-      margin-left: 50px;
+      margin-left: 30px
     }
-    @include breakpoint-bet(360px, 425px) {
+    @include breakpoint-bet(360px, 424px) {
       font-size: 14px;
       margin-left: 25px;
       top: 125px;
@@ -189,14 +197,14 @@
     }
     @include breakpoint-bet(568px, 767px) {
       font-size: 16px;
-      margin-left: 90px;
+      margin-left: 40px;
     }
     @include breakpoint-bet(425px, 568px) {
       font-size: 16px;
       top: 150px;
-      margin-left: 50px;
+      margin-left: 30px;
     }
-    @include breakpoint-bet(360px, 425px) {
+    @include breakpoint-bet(360px, 424px) {
       font-size: 14px;
       margin-left: 25px;
       top: 150px;

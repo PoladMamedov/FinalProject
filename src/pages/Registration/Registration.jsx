@@ -53,7 +53,6 @@ function Registration() {
       setLoading(false);
       if (response.enabled) formik.resetForm();
       setNewUser(response);
-      console.log(response);
     },
   });
 
