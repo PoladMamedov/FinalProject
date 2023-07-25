@@ -17,7 +17,7 @@
 .searched {
    &__list {
       position: absolute;
-      top: 60px;
+      top: 53px;
       @include flex(row, center, initial);
       flex-wrap: wrap;
       width: 100%;
@@ -40,7 +40,7 @@
 
       @include breakpoint-mf('md') {
          left: 7px;
-         top: 34px;
+         top: 35px;
          width: 97%;
          @include flex(column, flex-start, flex-start);
          flex-wrap: nowrap;
