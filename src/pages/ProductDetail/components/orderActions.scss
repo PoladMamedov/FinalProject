@@ -85,7 +85,14 @@
 }
 
 .order-actions__favs-btn {
+  background-color: unset;
   margin-right: 15px;
+  cursor: default;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.order-actions__favs-icon {
   cursor: pointer;
   width: 35px;
   height: 35px;
