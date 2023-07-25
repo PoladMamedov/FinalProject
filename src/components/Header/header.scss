@@ -5,23 +5,28 @@
    &__container-top {
       @media (max-width: 640px) {
          @include flex(row, center);
+
          .header__container-top-title {
-           display: none;
+            display: none;
          }
+
          .header__company-logo {
-           display: block;
-           margin-left: 10px;
-         };
-       }
-       
-       @media (min-width: 641px) {
+            display: block;
+            margin-left: 10px;
+         }
+
+         ;
+      }
+
+      @media (min-width: 641px) {
          .header__container-top-title {
-           display: block;
+            display: block;
          }
+
          .header__company-logo {
-           display: none;
+            display: none;
          }
-       }
+      }
 
       max-width: 1200px;
       width: 100%;
@@ -90,6 +95,7 @@
       @media (max-width:640px) {
          display: none;
       }
+
       grid-column: 3/4;
       width: 140px;
       line-height: 30px;
