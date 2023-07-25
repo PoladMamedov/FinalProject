@@ -29,7 +29,9 @@ export const fetchCart = (token) => {
     const { getCart } = useServer();
     try {
       const cart = await getCart(token);
-      dispatch(fillCart(cart.products));
+      if (cart !== null) {
+        dispatch(fillCart(cart.products));
+      }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
