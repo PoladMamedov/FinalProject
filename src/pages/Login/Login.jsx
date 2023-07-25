@@ -1,7 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Image } from "cloudinary-react";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
@@ -14,21 +14,9 @@ function Login() {
 
   const dispatch = useDispatch();
   const {
-    userInfo: {
-      token, password, loginOrEmail, customerNo, firstName, _id
-    },
+    userInfo: { token, password, loginOrEmail },
     loading,
   } = useSelector((state) => state.user);
-
-  
-  useEffect(() => {
-    if (token) {
-      console.log(customerNo);
-      console.log(token);
-      console.log(_id);
-    }
-  }, [token, customerNo, firstName]);
-
 
   const formik = useFormik({
     initialValues: {

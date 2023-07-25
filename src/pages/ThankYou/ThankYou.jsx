@@ -1,8 +1,7 @@
-import React from 'react'
-import { Link} from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 function ThankYou() {
-
   return (
     <section className="thankyou-section__wrapper">
       <div className="container">
@@ -13,9 +12,7 @@ function ThankYou() {
         <div className="thankyou-section__text">
           <p>
             Your order#:&nbsp;
-            <span className="thankyou-section__text-order-number">
-              order#
-            </span>
+            <span className="thankyou-section__text-order-number">order#</span>
           </p>
           <p>Our manager will get back to you shortly.</p>
 
