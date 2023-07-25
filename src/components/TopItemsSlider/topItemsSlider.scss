@@ -23,15 +23,23 @@
       width: 40%;
       margin-left: -180px;
     }
-    @include breakpoint-bet(568px, 767px) {
-      width: 40%;
+    @include breakpoint-bet(620px, 767px) {
+      width: 38%;
       margin-left: -240px;
     }
-    @include breakpoint-bet(425px, 568px) {
+    @include breakpoint-bet(568px, 619px) {
+      width: 35%;
+      margin-left: -250px;
+    }
+    @include breakpoint-bet(520px, 567px) {
       width: 30%;
       margin-left: -260px;
     }
-    @include breakpoint-bet(280px, 424px) {
+    @include breakpoint-bet(480px, 519px) {
+      width: 28%;
+      margin-left: -275px;
+    }
+    @include breakpoint-bet(280px, 479px) {
       visibility: hidden;
     }
   }
