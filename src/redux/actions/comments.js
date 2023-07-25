@@ -50,6 +50,7 @@ export const fetchComments = (targetPoint, id) => {
     try {
       const comment = await addComment(newComment, token);
       dispatch(addNewComment(comment));
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.commentAdded});
     } catch (error) {
       Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }
@@ -63,6 +64,7 @@ export const fetchComments = (targetPoint, id) => {
       const { deletedCommentInfo: {_id: ID} } = await deleteComment(commentID, token);
 
       dispatch(removeComment(ID));
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.commentDeleted});
     } catch (error) {
       Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }
@@ -75,6 +77,7 @@ export const fetchComments = (targetPoint, id) => {
     try {
       const updatedComment = await updateComment(commentID, newComment, token);
       dispatch(editComment(commentID, updatedComment));
+      Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.commentEdited});
     } catch (error) {
       Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
     }

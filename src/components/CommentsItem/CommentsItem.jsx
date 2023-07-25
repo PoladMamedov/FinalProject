@@ -8,8 +8,7 @@ export default function CommentsItem({
  customer: {
   firstName, lastName, date, _id: customerID
  },
- content,
- maxContentLen = 500
+ content, disableActionBtns, setDisableActionBtns, maxContentLen = 500
 }) {
   const [editMode, setEditMode] = useState(false);
   const [editedComment, setEditedComment] = useState(content);
@@ -19,15 +18,31 @@ export default function CommentsItem({
   const  {userInfo: {token, _id: userID}} = useSelector((state) => state.user);
   const editTextareaRef = useRef(null);
 
-  function onConfirmBtnClick() {
+  function onTextareaChange() {
+    const overLength = editTextareaRef.current.value.length > maxContentLen;
+    setCommentOverLength(overLength);
+    setDisableActionBtns(overLength);
+    setEditedComment(editTextareaRef.current.value);
+  }
+
+  function onTextareaBlur() {
     if (commentOverLength) {
       editTextareaRef.current.focus();
-    } else if (content !== editedComment) {
-      dispatch(editCommentAsync(commentID, { content: editedComment }, token));
+    } else if (content === editedComment) {
       setEditMode(false);
     } else {
+      dispatch(editCommentAsync(commentID, { content: editedComment }, token));
       setEditMode(false);
     }
+  }
+
+  function onDeleteBtnClick() {
+    dispatch(deleteCommentAsync(commentID, token));
+  }
+
+  function onEditBtnClick() {
+    setEditMode(true);
+    setTimeout(() => editTextareaRef.current.focus(), 10);
   }
 
   return <>
@@ -43,46 +58,48 @@ export default function CommentsItem({
        })}
       </span>
     </div>
-    {editMode
+    {
+      editMode
       ? <div className="comments__create-content-wrap">
-        <textarea
-          className="comments__edited-comment"
-          name="comment-content--edited"
-          id="comment-content--edited"
-          ref={editTextareaRef}
-          onChange={() => {
-            setCommentOverLength(editTextareaRef.current.value.length > maxContentLen);
-            setEditedComment(editTextareaRef.current.value);
-          }}
-          onBlur={onConfirmBtnClick}
-          value={editedComment}
-        ></textarea>
-        <span
-          className={`comments__length-counter ${commentOverLength ? "comments__length-counter--overlength" : ""}`}
-        >
-        {editTextareaRef.current ? editTextareaRef.current.value.length : content.length}/{maxContentLen}
-      </span>
-      </div>
-      : <p className="comments__item-content">{content}</p>}
-    {userID === customerID && !editMode
+          <textarea
+            className="comments__edited-comment"
+            name="comment-content--edited"
+            id="comment-content--edited"
+            ref={editTextareaRef}
+            onChange={onTextareaChange}
+            onBlur={onTextareaBlur}
+            value={editedComment}
+          >
+          </textarea>
+          <span
+            className={`comments__length-counter ${commentOverLength ? "comments__length-counter--overlength" : ""}`}
+          >
+            {editTextareaRef.current ? editTextareaRef.current.value.length : content.length}/{maxContentLen}
+          </span>
+        </div>
+      : <p className="comments__item-content">{content}</p>
+    }
+    {
+      userID === customerID && !editMode
       ? <div className="comments__actions">
-        <button
-          type="button"
-          className="button comments__action-btn"
-          onClick={() => dispatch(deleteCommentAsync(commentID, token))}
-        >
-          Delete
-        </button>
-        <button
-          type="button"
-          className="button comments__action-btn"
-          onClick={() => {
-            setEditMode(true);
-            setTimeout(() => editTextareaRef.current.focus(), 10);
-          }}
-        >
-          Edit
-        </button>
-      </div> : null}
+          <button
+            type="button"
+            className="button comments__action-btn"
+            disabled={disableActionBtns}
+            onClick={onDeleteBtnClick}
+          >
+            Delete
+          </button>
+          <button
+            type="button"
+            className="button comments__action-btn"
+            disabled={disableActionBtns}
+            onClick={onEditBtnClick}
+          >
+            Edit
+          </button>
+        </div>
+      : null
+    }
   </>;
 }

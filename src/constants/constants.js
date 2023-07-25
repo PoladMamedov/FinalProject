@@ -70,8 +70,22 @@ const notificationsSettings = {
     title: "Atthn!",
     message: "Product didn't deleted",
     type: "danger"
+  },
+  commentAdded: {
+    title: "Success!",
+    message: "Your comment added",
+    type: "success",
+  },
+  commentDeleted: {
+    title: "Success!",
+    message: "Your comment deleted",
+    type: "success",
+  },
+  commentEdited: {
+    title: "Success!",
+    message: "Your comment edited",
+    type: "success",
   }
-
 };
 
 export default notificationsSettings;

@@ -3,7 +3,9 @@ import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCommentAsync } from "../../redux/actions/comments";
 
-export default function CommentsCreateItem({productID, maxContentLen = 500}) {
+export default function CommentsCreateItem({
+ productID, disableActionBtns, setDisableActionBtns, maxContentLen = 500
+}) {
   const textareaRef = useRef(null);
   const [comment, setComment] = useState("");
   const [commentOverLength, setCommentOverLength] = useState(false);
@@ -11,12 +13,25 @@ export default function CommentsCreateItem({productID, maxContentLen = 500}) {
   const { userInfo: { token, firstName, lastName } } = useSelector((state) => state.user );
   const dispatch = useDispatch();
 
-  function onBtnClick() {
+  function onTextareaChange() {
+    const overLength = textareaRef.current.value.length > maxContentLen;
+    setCommentOverLength(overLength);
+    setDisableActionBtns(overLength);
+    if (commentOverLength) textareaRef.current.focus();
+    setComment(textareaRef.current.value);
+  }
+
+  function onTextareaBlur() {
+    if (commentOverLength) textareaRef.current.focus();
+  }
+
+  function onSendBtnClick() {
     textareaRef.current.value = "";
     dispatch(addNewCommentAsync({
       product: productID,
       content: comment
     }, token));
+
   }
 
   return <div className="comments__create-item">
@@ -28,13 +43,10 @@ export default function CommentsCreateItem({productID, maxContentLen = 500}) {
         id="comment-content"
         placeholder="Add a review…"
         ref={textareaRef}
-        onBlur={() => { if (commentOverLength) textareaRef.current.focus(); }}
-        onChange={() => {
-          setCommentOverLength(textareaRef.current.value.length > maxContentLen);
-          if (commentOverLength) textareaRef.current.focus();
-          setComment(textareaRef.current.value);
-        }}
-      ></textarea>
+        onBlur={onTextareaBlur}
+        onChange={onTextareaChange}
+      >
+      </textarea>
       <span
         className={`comments__length-counter ${commentOverLength ? "comments__length-counter--overlength" : ""}`}
       >
@@ -42,10 +54,10 @@ export default function CommentsCreateItem({productID, maxContentLen = 500}) {
       </span>
     </div>
     <button
-      disabled={comment === "" || commentOverLength}
+      disabled={comment === "" || commentOverLength || disableActionBtns}
       type="button"
       className="button comments__send-btn"
-      onClick={onBtnClick}
+      onClick={onSendBtnClick}
     >
       Send
     </button>

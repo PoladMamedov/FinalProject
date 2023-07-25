@@ -5,9 +5,11 @@ import CommentsItem from "../CommentsItem/CommentsItem";
 import CommentsCreateItem from "../CommentsCreateItem/CommentsCreateItem";
 import { fetchComments } from "../../redux/actions/comments";
 
+
 export default function Comments({targetID, target = "", productID = ""}) {
 
   const [showLoginLink, setShowLoginLink] = useState(false);
+  const [disableActionBtns, setDisableActionBtns] = useState(false);
 
   const dispatch = useDispatch();
   const { comments } = useSelector((state) => state.comments);
@@ -17,6 +19,10 @@ export default function Comments({targetID, target = "", productID = ""}) {
     dispatch(fetchComments(target, targetID));
   }, [targetID]);
 
+  function onAddReviewClick() {
+    setShowLoginLink(true);
+  }
+
   return <>
     <section className="comments">
       <div className="container">
@@ -24,26 +30,36 @@ export default function Comments({targetID, target = "", productID = ""}) {
         {
           comments.length
             ? <ul className="comments__list">
-          {comments.map((comment, index) => <li
-            key={index}
-            className="comments__item">
-            <CommentsItem {...comment}/>
-          </li>)}
-        </ul> : <p className="comments__item">Write the first review...</p>
+                {comments.map((comment, index) => <li
+                  key={index}
+                  className="comments__item">
+                  <CommentsItem
+                    {...comment}
+                    disableActionBtns={disableActionBtns}
+                    setDisableActionBtns={setDisableActionBtns}
+                  />
+                </li>)}
+              </ul>
+            : <p className="comments__item">Write the first review...</p>
         }
-        {token
+        {
+          token
           ? <CommentsCreateItem
-            productID={target === "product" ? targetID : productID}/>
+              productID={target === "product" ? targetID : productID}
+              disableActionBtns={disableActionBtns}
+              setDisableActionBtns={setDisableActionBtns}
+            />
           : <>
             {showLoginLink && <p className="comments__login-message">Only authorized user can add review. <br/> Please, <Link to={"/login"} className="comments__login-message-link">log in</Link> first!</p>}
             {!showLoginLink && <button
               type="button"
               className="button comments__add-btn"
-              onClick={() => setShowLoginLink(true)}
+              onClick={onAddReviewClick}
             >
               Add review
             </button>}
-          </>}
+          </>
+        }
       </div>
     </section>
   </>;

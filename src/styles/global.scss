@@ -71,4 +71,9 @@ main {
     background-color: darken($primaryDark, 5%);
     color: $white;
   }
+
+  &:disabled {
+    cursor: default;
+    background-color: darken($primaryDark, 5%);
+  }
 }
