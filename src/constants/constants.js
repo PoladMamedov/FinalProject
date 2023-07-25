@@ -61,6 +61,11 @@ const notificationsSettings = {
     message: "Product quantity didn't changed.The entered number is invalid ",
     type: "danger"
   },
+  cartQuantityChangedOnSameValue: {
+    title: "Attn!",
+    message: "Product quantity didn't changed. Enter new value!",
+    type: "danger"
+  },
   cartDeleted: {
     title: "Success!",
     message: "Product deleted",
