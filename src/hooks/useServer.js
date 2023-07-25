@@ -217,8 +217,8 @@ export default function useServer() {
     return wishlist;
   }
 
-  async function addToWishlist(id, token) {
-    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+  async function addToWishlist(productId, token) {
+    const wishlist = await fetch(`${url}/wishlist/${productId}`, {
       method: "PUT",
       headers: {
         Authorization: token,
@@ -230,8 +230,22 @@ export default function useServer() {
     return wishlist;
   }
 
-  async function deleteFromWishlist(id, token) {
-    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+  async function updateWishlist(products, token) {
+    const updatedFav = await fetch(`${url}/wishlist`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(products),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return updatedFav;
+  }
+
+  async function removeFromWishlist(productId, token) {
+    const wishlist = await fetch(`${url}/wishlist/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization: token,
@@ -396,7 +410,8 @@ export default function useServer() {
     getFiltersCategoriesBySubcategory,
     getWishlist,
     addToWishlist,
-    deleteFromWishlist,
+    updateWishlist,
+    removeFromWishlist,
     getCart,
     updateCart,
     removeItemFromCart,
