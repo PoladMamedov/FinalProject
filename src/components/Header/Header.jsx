@@ -8,7 +8,6 @@ import setPagePath from "../../redux/actions/pagePath";
 import MobileCategory from "../MobileCategory/MobileCategory";
 import SearchBar from "../SearchBar/SearchBar";
 import Currency from "../Currency/Currency";
-import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 
 const Header = () => {
 
@@ -241,18 +240,19 @@ const Header = () => {
               </NavLink>
 
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
-                <FavoritesIcon
+              <Image
+                  cloudName={cloudinaryConfig.cloudName}
+                  publicId="favorite_FILL0_eypcuo"
                   className="header__nav-fav"
-                  color="#535353"
-                  isFill={false}
+                  alt="fav-logo"
                 />
                 {favorites.length >= 1 ? <span className="header__nav-fav--count">{favorites.length}</span> : null}
 
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
-                <Image
+              <Image
                   cloudName={cloudinaryConfig.cloudName}
-                  publicId="cart-logo_tz7wza"
+                  publicId="shopping-cart_zfrcys"
                   className="header__nav-cart"
                   alt="cart-logo"
                 />
@@ -267,10 +267,11 @@ const Header = () => {
               >
                 <Image
                   cloudName={cloudinaryConfig.cloudName}
-                  publicId="login_obfqgp"
+                  publicId="icons8-account-64_emvkms"
                   className="header__nav-login"
                   alt="login-img"
                 />
+
               </NavLink>
             </div>
           </div>
