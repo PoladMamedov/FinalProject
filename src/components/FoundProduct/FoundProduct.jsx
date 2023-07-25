@@ -13,7 +13,9 @@ const FoundProduct = ({
 
    return (
       <li className="searched-product">
-         <img className="searched-product__photo" src={imageUrls[1]} alt="product_photo" />
+         <NavLink onClick={() => handleLinkClick()} to={`/products/${itemNo}`} >
+            <img className="searched-product__photo" src={imageUrls[1]} alt="product_photo" />
+         </NavLink>
          <div className="searched-product__description">
             <NavLink onClick={() => handleLinkClick()} className="searched-product__name" to={`/products/${itemNo}`}>
                {name}

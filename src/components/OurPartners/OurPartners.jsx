@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Store } from "react-notifications-component";
+import notificationsSettings from "../../constants/constants";
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
 
@@ -15,7 +17,7 @@ const OurPartners = () => {
             setPartners(ourPartners);
             setIsLoading(false);
          } catch (error) {
-            console.error(error);
+            Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
          }
       }
       fetchPartners();

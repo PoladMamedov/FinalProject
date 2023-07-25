@@ -18,6 +18,7 @@ import { recentlyProductsReducer } from "./reducers/recentlyProducts";
 import cartReducer from "./reducers/cart";
 import compareProductsReducer from "./reducers/compareProducts";
 import favoritesReducer from "./reducers/favorites";
+import commentsReducer from "./reducers/comments";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   compareProducts: compareProductsReducer,
   favorites: favoritesReducer,
+  comments: commentsReducer,
 });
 
 const persistConfig = {
@@ -49,6 +51,7 @@ const persistConfig = {
     "currentCurrency",
     "compareProducts",
     "currentPath",
+    "comments",
   ],
 };
 
