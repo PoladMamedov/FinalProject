@@ -271,6 +271,21 @@
       height: 52px;
       border: 1px solid $primary;
       border-radius: 10px;
+
+      @include breakpoint-mf("md") {
+        display: block;
+        width: 100%;
+        margin-left: 5px;
+        padding: 7px 38px 7px 10px;
+        border: 2px solid $primary;
+        border-radius: 30px;
+        grid-column: 3/4;
+        place-self: center;
+        height: 100%;
+        font-size: 15px;
+        color: $primary;
+        transition: box-shadow 0.3s ease;
+      }
     }
 
     @include breakpoint-mf("md") {
