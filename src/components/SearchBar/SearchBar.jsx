@@ -103,7 +103,6 @@ const SearchBar = () => {
           autoComplete="off"
           onChange={(e) => handleSearchChange(e)}
           onFocus={() => setIsSearchOpen(true)}
-          onBlur={() => setIsSearchOpen(false)}
         />
         <button className={`header__search-submit${isSearchOpen ? "--active" : ""}`} type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>

@@ -26,13 +26,14 @@ export default function CommentsCreateItem({
   }
 
   function onSendBtnClick() {
-    textareaRef.current.value = "";
-    dispatch(addNewCommentAsync({
+    const newComment = {
       product: productID,
       content: comment,
       date: Date.now()
-    }, token));
-
+    };
+    textareaRef.current.value = "";
+    setComment("");
+    dispatch(addNewCommentAsync(newComment, token));
   }
 
   return <div className="comments__create-item">
