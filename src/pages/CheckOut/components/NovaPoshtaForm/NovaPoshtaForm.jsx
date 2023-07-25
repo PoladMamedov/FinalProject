@@ -130,11 +130,6 @@ function NovaPoshtaForm() {
               handleCitySearch(e.target.value);
               setShowCitySuggestions(true);
             }}
-            onBlur={() => {
-              setTimeout(() => {
-                setShowCitySuggestions(false);
-              }, 100);
-            }}
             type="text"
             id="city"
             value={searchedCity}
@@ -143,7 +138,11 @@ function NovaPoshtaForm() {
 
           {showCitySuggestions && loading ? <NPSerachLoader /> : null}
           {showCitySuggestions && !loading ? (
-            <NPSearchSuggestions searchResultArray={citySearchResult} selectHandler={handleCitySelect} />
+            <NPSearchSuggestions
+              searchResultArray={citySearchResult}
+              selectHandler={handleCitySelect}
+              closeHandler={setShowCitySuggestions}
+            />
           ) : null}
         </div>
         <div className="np-delivery__input-wrap">
@@ -156,11 +155,6 @@ function NovaPoshtaForm() {
               handleWarehouseSearch(e.target.value, selectedCity);
               setShowWarehouseSuggestions(true);
             }}
-            onBlur={() => {
-              setTimeout(() => {
-                setShowWarehouseSuggestions(false);
-              }, 100);
-            }}
             type="text"
             id="warehouse"
             value={searchedWarehouse}
@@ -168,7 +162,11 @@ function NovaPoshtaForm() {
           />
           {showWarehouseSuggestions && loading ? <NPSerachLoader /> : null}
           {showWarehouseSuggestions && !loading ? (
-            <NPSearchSuggestions searchResultArray={warehouseSearchResult} selectHandler={handleWarehouseSelect} />
+            <NPSearchSuggestions
+              searchResultArray={warehouseSearchResult}
+              selectHandler={handleWarehouseSelect}
+              closeHandler={setShowWarehouseSuggestions}
+            />
           ) : null}
         </div>
         <button className="checkout-section__form-submit-btn" type="submit">
