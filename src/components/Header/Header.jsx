@@ -240,7 +240,7 @@ const Header = () => {
               </NavLink>
 
               <NavLink to={"/wishlist"} key={4} className="header__nav-link--fav">
-              <Image
+                <Image
                   cloudName={cloudinaryConfig.cloudName}
                   publicId="favorite_FILL0_eypcuo"
                   className="header__nav-fav"
@@ -250,7 +250,7 @@ const Header = () => {
 
               </NavLink>
               <NavLink to={"/cart"} key={5} className="header__nav-link--cart">
-              <Image
+                <Image
                   cloudName={cloudinaryConfig.cloudName}
                   publicId="shopping-cart_zfrcys"
                   className="header__nav-cart"
