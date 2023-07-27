@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { clearErrorAndMessages, updateUser } from "../../redux/actions/user";
-import PreLoader from "../PreLoader/PreLoader";
+import PreLoader from "../../../../components/PreLoader/PreLoader";
+import { clearErrorAndMessages, updateUser } from "../../../../redux/actions/user";
 
 function PersonalDataEditForm() {
   const {

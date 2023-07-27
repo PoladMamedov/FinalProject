@@ -10,15 +10,14 @@ import PreLoader from "../../../../components/PreLoader/PreLoader";
 
 function StorePickUpForm() {
   const { placeOrder, deleteCart } = useServer();
-  const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     userInfo: { _id, token },
   } = useSelector((state) => state.user);
-
   const cartProducts = useSelector((state) => state.cart.cart);
-  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
