@@ -1,19 +1,20 @@
 /* eslint-disable react/jsx-no-bind */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useNovaPoshta from "../../../../hooks/useNovaPoshta";
 import useDebounce from "../../../../hooks/useDebounce";
 import NPSerachLoader from "./components/NPSearchLoader";
 import NPSearchSuggestions from "./components/NPSearchSuggestions";
+import createOrder from "../../functions/createOrder";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
 
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("+380");
 
   const [showCitySuggestions, setShowCitySuggestions] = useState(false);
@@ -56,33 +57,43 @@ function NovaPoshtaForm() {
   }
 
   const {
-    userInfo: { _id, email },
+    userInfo: { _id },
   } = useSelector((state) => state.user);
 
   const cartProducts = useSelector((state) => state.cart.cart);
 
-  const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
-    const { product, cartQuantity } = item;
-    const productTotalPrice = product.currentPrice * cartQuantity;
-    return accumulator + productTotalPrice;
-  }, 0);
+  // const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
+  //   const { product, cartQuantity } = item;
+  //   const productTotalPrice = product.currentPrice * cartQuantity;
+  //   return accumulator + productTotalPrice;
+  // }, 0);
 
   function handleSubmit() {
-    if (fullName === "" || phoneNumber === "" || selectedCity === "" || selectedWarehouse === "") return;
-    const newOrderData = {
-      customerId: _id || "customer unauthorized",
+    if (email === "" || phoneNumber === "" || selectedCity === "" || selectedWarehouse === "") return;
+    // const newOrderData = {
+    //   customerId: _id || "customer unauthorized",
+    //   products: cartProducts,
+    //   email: email || "no email",
+    //   mobile: phoneNumber,
+    //   letterSubject: "Thank you for order! You are welcome!",
+    //   letterHtml: "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
+    //   deliveryAddress: { city: selectedCity, address: selectedWarehouse },
+    //   totalSum: totalOrderPrice,
+    //   canceled: false,
+    //   date: new Date(),
+    // };
+    // console.log(newOrderData);
+    const newOrderInfo = {
+      customerId: _id,
       products: cartProducts,
-      email: email || "no email",
-      mobile: phoneNumber,
-      letterSubject: "Thank you for order! You are welcome!",
-      letterHtml: "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
       deliveryAddress: { city: selectedCity, address: selectedWarehouse },
-      totalSum: totalOrderPrice,
-      canceled: false,
-      date: new Date(),
+      email,
+      mobile: phoneNumber,
+      delivery: true,
     };
-    console.log(newOrderData);
-    navigate("/thankyou");
+    const orderData = createOrder(newOrderInfo);
+    console.log(orderData);
+    // navigate("/thankyou");
   }
 
   return (
@@ -101,12 +112,12 @@ function NovaPoshtaForm() {
       >
         <input
           onChange={(e) => {
-            setFullName(e.target.value);
+            setEmail(e.target.value);
           }}
           type="text"
           id="fullName"
-          value={fullName}
-          placeholder="Enter your full name"
+          value={email}
+          placeholder="Enter your email"
         />
         <input
           onChange={(e) => {

@@ -1,9 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-
-function ThankYou() {
-=======
 import { useDispatch } from "react-redux";
 import setPagePath from "../../redux/actions/pagePath";
 
@@ -15,7 +11,6 @@ function ThankYou() {
     dispatch(setPagePath(`${path}`));
   };
 
->>>>>>> main
   return (
     <section className="thankyou-section__wrapper">
       <div className="container">

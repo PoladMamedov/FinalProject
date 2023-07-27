@@ -2,17 +2,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
-import useServer from "../../../../hooks/useServer";
+// import useServer from "../../../../hooks/useServer";
+import createOrder from "../../functions/createOrder";
 
 function StorePickUpForm() {
-  const { placeOrder } = useServer();
+  // const { placeOrder } = useServer();
 
   // const navigate = useNavigate();
   const {
-    userInfo: { _id, token },
+    userInfo: { _id },
   } = useSelector((state) => state.user);
 
-  // const cartProducts = useSelector((state) => state.cart.cart);
+  const cartProducts = useSelector((state) => state.cart.cart);
 
   // const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
   //   const { product, cartQuantity } = item;
@@ -21,13 +22,10 @@ function StorePickUpForm() {
   // }, 0);
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      address: "",
-      appartment: "",
-      city: "",
-      phoneNumber: "+380",
       emailAddress: "",
+      phoneNumber: "+380",
+      city: "",
+      address: "",
     },
     validationSchema: Yup.object({
       emailAddress: Yup.string().required("Email Address required").email(),
@@ -37,20 +35,17 @@ function StorePickUpForm() {
     }),
 
     onSubmit: async (values) => {
-      // products: cartProducts,
-      const newOrderData = {
+      const newOrderInfo = {
         customerId: _id,
+        products: cartProducts,
         deliveryAddress: { city: values.city, address: values.address },
         email: values.emailAddress,
         mobile: values.phoneNumber,
-        letterSubject: "Thank you for order! You are welcome!",
-        letterHtml:
-          "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
-        canceled: false,
-        date: new Date(),
+        delivery: false,
       };
-      const res = await placeOrder(newOrderData, token);
-      console.log(res);
+      const orderData = createOrder(newOrderInfo);
+      console.log(orderData);
+      // const res = await placeOrder(newOrderData, token);
       // navigate("/thankyou");
     },
   });
