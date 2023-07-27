@@ -1,30 +1,30 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { removeEntireCart } from "../../../../redux/actions/cart";
+import useServer from "../../../../hooks/useServer";
+import createOrder from "../../functions/createOrder";
+import PreLoader from "../../../../components/PreLoader/PreLoader";
 
 function StorePickUpForm() {
+  const { placeOrder, deleteCart } = useServer();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    userInfo: { _id },
+    userInfo: { _id, token },
   } = useSelector((state) => state.user);
-
   const cartProducts = useSelector((state) => state.cart.cart);
 
-  const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
-    const { product, cartQuantity } = item;
-    const productTotalPrice = product.currentPrice * cartQuantity;
-    return accumulator + productTotalPrice;
-  }, 0);
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      address: "",
-      appartment: "",
-      city: "",
-      phoneNumber: "+380",
       emailAddress: "",
+      phoneNumber: "+380",
+      city: "",
+      address: "",
     },
     validationSchema: Yup.object({
       emailAddress: Yup.string().required("Email Address required").email(),
@@ -33,21 +33,21 @@ function StorePickUpForm() {
       city: Yup.string().required("City required").min(2, "Minimum length is 2 characters"),
     }),
 
-    onSubmit: (values) => {
-      const newOrderData = {
-        customerId: _id || "customer unauthorized",
+    onSubmit: async (values) => {
+      setLoading(true);
+      const newOrderInfo = {
+        customerId: _id,
         products: cartProducts,
+        deliveryAddress: { city: values.city, address: values.address },
         email: values.emailAddress,
         mobile: values.phoneNumber,
-        letterSubject: "Thank you for order! You are welcome!",
-        letterHtml:
-          "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
-        deliveryAddress: { city: values.city, address: values.address },
-        totalSum: totalOrderPrice,
-        canceled: false,
-        date: new Date(),
+        delivery: false,
       };
-      console.log(newOrderData);
+      const orderData = createOrder(newOrderInfo);
+      await placeOrder(orderData, token);
+      await deleteCart(token);
+      dispatch(removeEntireCart());
+      setLoading(false);
       navigate("/thankyou");
     },
   });
@@ -115,6 +115,7 @@ function StorePickUpForm() {
       <button className="checkout-section__form-submit-btn" type="submit">
         Submit
       </button>
+      {loading ? <PreLoader fillScreen /> : null}
     </form>
   );
 }
