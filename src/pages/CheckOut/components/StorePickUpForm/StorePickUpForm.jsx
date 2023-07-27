@@ -1,21 +1,24 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import useServer from "../../../../hooks/useServer";
 
 function StorePickUpForm() {
-  const navigate = useNavigate();
+  const { placeOrder } = useServer();
+
+  // const navigate = useNavigate();
   const {
-    userInfo: { _id },
+    userInfo: { _id, token },
   } = useSelector((state) => state.user);
 
-  const cartProducts = useSelector((state) => state.cart.cart);
+  // const cartProducts = useSelector((state) => state.cart.cart);
 
-  const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
-    const { product, cartQuantity } = item;
-    const productTotalPrice = product.currentPrice * cartQuantity;
-    return accumulator + productTotalPrice;
-  }, 0);
+  // const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
+  //   const { product, cartQuantity } = item;
+  //   const productTotalPrice = product.currentPrice * cartQuantity;
+  //   return accumulator + productTotalPrice;
+  // }, 0);
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -33,22 +36,22 @@ function StorePickUpForm() {
       city: Yup.string().required("City required").min(2, "Minimum length is 2 characters"),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      // products: cartProducts,
       const newOrderData = {
-        customerId: _id || "customer unauthorized",
-        products: cartProducts,
+        customerId: _id,
+        deliveryAddress: { city: values.city, address: values.address },
         email: values.emailAddress,
         mobile: values.phoneNumber,
         letterSubject: "Thank you for order! You are welcome!",
         letterHtml:
           "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
-        deliveryAddress: { city: values.city, address: values.address },
-        totalSum: totalOrderPrice,
         canceled: false,
         date: new Date(),
       };
-      console.log(newOrderData);
-      navigate("/thankyou");
+      const res = await placeOrder(newOrderData, token);
+      console.log(res);
+      // navigate("/thankyou");
     },
   });
   return (
