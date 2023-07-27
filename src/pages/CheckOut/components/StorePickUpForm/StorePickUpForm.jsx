@@ -1,25 +1,25 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import useServer from "../../../../hooks/useServer";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeEntireCart } from "../../../../redux/actions/cart";
+import useServer from "../../../../hooks/useServer";
 import createOrder from "../../functions/createOrder";
+import PreLoader from "../../../../components/PreLoader/PreLoader";
 
 function StorePickUpForm() {
-  // const { placeOrder } = useServer();
+  const { placeOrder, deleteCart } = useServer();
+  const [loading, setLoading] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
-    userInfo: { _id },
+    userInfo: { _id, token },
   } = useSelector((state) => state.user);
 
   const cartProducts = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
-  // const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
-  //   const { product, cartQuantity } = item;
-  //   const productTotalPrice = product.currentPrice * cartQuantity;
-  //   return accumulator + productTotalPrice;
-  // }, 0);
   const formik = useFormik({
     initialValues: {
       emailAddress: "",
@@ -35,6 +35,7 @@ function StorePickUpForm() {
     }),
 
     onSubmit: async (values) => {
+      setLoading(true);
       const newOrderInfo = {
         customerId: _id,
         products: cartProducts,
@@ -44,9 +45,11 @@ function StorePickUpForm() {
         delivery: false,
       };
       const orderData = createOrder(newOrderInfo);
-      console.log(orderData);
-      // const res = await placeOrder(newOrderData, token);
-      // navigate("/thankyou");
+      await placeOrder(orderData, token);
+      await deleteCart(token);
+      dispatch(removeEntireCart());
+      setLoading(false);
+      navigate("/thankyou");
     },
   });
   return (
@@ -113,6 +116,7 @@ function StorePickUpForm() {
       <button className="checkout-section__form-submit-btn" type="submit">
         Submit
       </button>
+      {loading ? <PreLoader fillScreen /> : null}
     </form>
   );
 }

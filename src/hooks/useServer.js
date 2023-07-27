@@ -289,9 +289,20 @@ export default function useServer() {
     return decreasedProduct;
   }
 
+  async function deleteCart(token) {
+    const result = await fetch(`${url}/cart`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return result;
+  }
+
   /* PLACE AN ORDER */
 
-  // eslint-disable-next-line no-unused-vars
   async function placeOrder(newOrderData, token) {
     const savedOrder = await fetch(`${url}/orders`, {
       method: "POST",
@@ -383,6 +394,7 @@ export default function useServer() {
     deleteFromWishlist,
     getCart,
     updateCart,
+    deleteCart,
     removeItemFromCart,
     addItemCart,
     decreaseProductQuantity,

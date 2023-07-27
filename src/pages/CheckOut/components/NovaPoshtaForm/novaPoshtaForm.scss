@@ -22,6 +22,7 @@
   @include flex(column, center, flex-start);
   gap: 30px;
   input {
+    position: relative;
     font-size: 16px;
     color: $primaryBlue;
     background-color: $secondaryLight;
@@ -33,6 +34,7 @@
     transition: background-color 0.2s ease-in-out;
     &:focus {
       background-color: darken($secondaryLight, $amount: 10%);
+      z-index: 2;
     }
     @include breakpoint-mf("xs") {
       padding: 30px;
