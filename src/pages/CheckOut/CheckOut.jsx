@@ -84,8 +84,29 @@ function CheckOut() {
               }`}
             >
               {cartProducts.length !== 0 ? <CartList /> : <CartSkeleton />}
+
+              <div className="checkout-section__product-summary-mobile">
+
+                <div className="checkout-section__product-summary-mobile-shipping-method">
+                  <span className="">
+                    {isNovaPoshtaDelivery
+                      ? "Nova Poshta shipping"
+                      : "Store pickup"}
+                  </span>
+                  <span className="">
+                    {isNovaPoshtaDelivery ? "$13" : "Free"}
+                  </span>
+                </div>
+                <div className="checkout-section__product-summary-mobile-total">
+                  <span className="">Total</span>
+                  <span className="">{totalWithDelivery}</span>
+                </div>
+              </div>
+
+
             </div>
           </div>
+
           <div className="checkout-section__product-summary-computer">
             <h4 className="">Order summary</h4>
             <div className="checkout-section__product-summary-computer-subtotal">
@@ -99,7 +120,8 @@ function CheckOut() {
               <span className="">
                 {isNovaPoshtaDelivery ? "Nova Poshta shipping" : "Store pickup"}
               </span>
-              <span className="">{isNovaPoshtaDelivery ? "13$" : "Free"}</span>
+
+              <span className="">{isNovaPoshtaDelivery ? "$13" : "Free"}</span>
             </div>
 
             <div className="checkout-section__product-summary-computer-total">
