@@ -1,8 +1,8 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../../redux/actions/user";
-import PreLoader from "../PreLoader/PreLoader";
+import { changePassword } from "../../../../redux/actions/user";
+import PreLoader from "../../../../components/PreLoader/PreLoader";
 
 function PasswordChangeForm() {
   const dispatch = useDispatch();

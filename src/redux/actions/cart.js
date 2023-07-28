@@ -107,8 +107,8 @@ export const updateCartQuantity = (itemId, cartQuantity) => {
     type: cartTypes.UPDATE_CART_QUANTITY,
     payload: {
       id: itemId,
-      cartQuantity
-    }
+      cartQuantity,
+    },
   };
 };
 
