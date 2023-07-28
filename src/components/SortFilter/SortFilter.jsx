@@ -10,8 +10,6 @@ useEffect(() => {
         dispatch(sortLowToHighPrice());
     }, []);
 
-// const sortValue = useSelector((state) => state.sortValue);
-
     function handleSelectChange(e) {
         if (products.length !== 0) {
             if (e.target.value === "1") {

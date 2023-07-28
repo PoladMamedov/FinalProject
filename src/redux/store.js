@@ -43,8 +43,8 @@ const persistConfig = {
   storage,
   blacklist: [
     "countFilter",
-    "filteredProducts",
-    "sortFilter",
+   "filteredProducts",
+   "sortFilter",
     "search",
     "toggleCard",
     "subcategory",

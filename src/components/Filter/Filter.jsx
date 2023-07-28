@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
@@ -15,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { Store } from "react-notifications-component";
 import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
-import { reset, getAllSubcategoriesCounter } from "../../redux/actions/counterFilter";
+import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
 import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 import notificationsSettings from "../../constants/constants";
@@ -59,19 +60,15 @@ const Filter = forwardRef(({
   // стейт для хранения выбранных категорий
   const [selectedCategories, setSelectedCategories] = useState([]);
 
+  // функция для обновления url
   function updateUrl(path) {
     const params = new URLSearchParams(path);
     const queryString = `?${params.toString()}`;
     navigate(`${queryString}`);
   }
 
-  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
-  useEffect(() => {
-    dispatch(sortLowToHighPrice());
-    setIsWaitSortFilter(true);
-  }, []);
-
-    async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort ) {
+  // для отправки на сервер запросов
+async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort ) {
     let filteredProductsResponse;
     try {
       if (maxPrice !== "" && minPrice !== "") {
@@ -85,7 +82,10 @@ const Filter = forwardRef(({
               sort
             );
             updateUrl({
-              categories: subcategorieParent, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+              categories: subcategorieParent,
+              minPrice: valuesPrice.Min,
+              maxPrice: valuesPrice.Max,
+              sort: `${sortValue}currentPrice`
             });
 
           } else {
@@ -95,7 +95,9 @@ const Filter = forwardRef(({
               sort
             );
             updateUrl({
-              minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+              minPrice: valuesPrice.Min,
+              maxPrice: valuesPrice.Max,
+              sort: `${sortValue}currentPrice`
             });
           }
         } else {
@@ -109,7 +111,11 @@ const Filter = forwardRef(({
               sort
             );
             updateUrl({
-              categories: subcategorieParent, filtertype: checkedCategories, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+              categories: subcategorieParent,
+              filtertype: checkedCategories,
+              minPrice: valuesPrice.Min,
+              maxPrice: valuesPrice.Max,
+              sort: `${sortValue}currentPrice`
             });
           } else {
             filteredProductsResponse = await server.getFiltersCategoriesPrices(
@@ -119,7 +125,10 @@ const Filter = forwardRef(({
               sort
             );
             updateUrl({
-              categories: checkedCategories, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+              categories: checkedCategories,
+              minPrice: valuesPrice.Min,
+              maxPrice: valuesPrice.Max,
+              sort: `${sortValue}currentPrice`
             });
           }
         }
@@ -132,7 +141,9 @@ const Filter = forwardRef(({
             sort
           );
           updateUrl({
-            categories: subcategorieParent, filtertype: checkedCategories, sort: `${sortValue}currentPrice`
+            categories: subcategorieParent,
+            filtertype: checkedCategories,
+            sort: `${sortValue}currentPrice`
           });
         } else {
           filteredProductsResponse = await server.getFiltersCategories(
@@ -140,7 +151,8 @@ const Filter = forwardRef(({
             sort
           );
           updateUrl({
-            categories: checkedCategories, sort: `${sortValue}currentPrice`
+            categories: checkedCategories,
+            sort: `${sortValue}currentPrice`
           });
         }
       }
@@ -152,31 +164,11 @@ const Filter = forwardRef(({
     }
   }
 
-  // function applyFiltersFromQueryString(queryString) {
-  //   // Разбор строки запроса
-  //   const params = new URLSearchParams(queryString);
-  //   const path = Object.fromEntries(params.entries());
-  
-  //   // Извлечение параметров фильтра из объекта filters
-  //   const checkedCategories = path.categories;
-  //   const subcategorie = path.subcategorie;
-  //   const minPrice = path.minPrice;
-  //   const maxPrice = path.maxPrice;
-  //   const sort = path.sort;
-  
-  //   // Вызов функции fetchFilteredProducts с выбранными фильтрами
-  //   fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort);
-  // }
-
-  // useEffect(() => {
-  //   const queryString = location.search;
-  //   applyFiltersFromQueryString(queryString);
-  // }, []);
-
   const min = parseInt(valuesPrice.Min, 10);
   const max = parseInt(valuesPrice.Max, 10);
   const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
 
+  // для отправки запроса при нажатии на кнопку устанить цену
   function handleSetPrice() {
     fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
@@ -227,7 +219,6 @@ const Filter = forwardRef(({
       }
     }
     setSelectedCategories(updatedSelectedCategories);
-
     // Отправка запроса на сервер для фильтрации продуктов по категориям
     fetchFilteredProducts(updatedSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
@@ -252,6 +243,12 @@ const Filter = forwardRef(({
     }
   }, [checkedItems, valuesPrice]);
 
+  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
+  
+  useEffect(() => {
+    dispatch(sortLowToHighPrice());
+    setIsWaitSortFilter(true);
+  }, []);
 
   useEffect(() => {
     if (!isWaitSortFilter) {
@@ -269,7 +266,7 @@ const Filter = forwardRef(({
       setSelectedCategories(initialSelectedCategories);
       fetchFilteredProducts(initialSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
     }
-  }, [isWaitSortFilter, sortValue]);
+  }, [isWaitSortFilter]);
 
   useEffect(() => {
     if (sortValue !== undefined) {
@@ -278,17 +275,6 @@ const Filter = forwardRef(({
       window.history.pushState({}, "", url);
     }
   }, [sortValue]);
-
-  useEffect(() => {
-    const checkboxes = document.querySelectorAll("input[type='checkbox']");
-    let checkedCount = 0;
-    checkboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        checkedCount++;
-      }
-    });
-    dispatch(getAllSubcategoriesCounter(checkedCount));
-  });
 
   const propsProductsCategoriesForm = {
       categories,
@@ -315,6 +301,17 @@ const Filter = forwardRef(({
     apply
   };
 
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  // useEffect(() => {
+  // const categ = searchParams.getAll('categories');
+  // const minPrice = searchParams.get('minPrice');
+  // const maxPrice = searchParams.get('maxPrice');
+  // console.log(categ);
+  //   setValuesPrice({ Min: minPrice, Max: maxPrice });
+  //   setSelectedCategories(categ);
+  //   fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+  // });
 
   return (
     <>
