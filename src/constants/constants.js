@@ -30,7 +30,48 @@ const notificationsSettings = {
     title: "Attn!",
     message: "The product is already in the cart",
     type: "danger"
+  },
+  cartIncreased: {
+    title: "Success!",
+    message: "Product quantity increased",
+    type: "success",
+  },
+  cartNotIncreased: {
+    title: "Attn!",
+    message: "The product not increased",
+    type: "danger"
+  },
+  cartDecreased: {
+    title: "Success!",
+    message: "Product quantity decreased",
+    type: "success",
+  },
+  cartNotDecreased: {
+    title: "Attn!",
+    message: "The product not decreased",
+    type: "danger"
+  },
+  cartQuantityChanged: {
+    title: "Success!",
+    message: "Product quantity changed",
+    type: "success",
+  },
+  cartQuantityNotChanged: {
+    title: "Attn!",
+    message: "Product quantity didn't changed.The entered number is invalid ",
+    type: "danger"
+  },
+  cartDeleted: {
+    title: "Success!",
+    message: "Product deleted",
+    type: "success",
+  },
+  cartNotDeleted: {
+    title: "Atthn!",
+    message: "Product didn't deleted",
+    type: "danger"
   }
+
 };
 
 export default notificationsSettings;

@@ -1,6 +1,6 @@
 import {
    MapContainer, TileLayer, Marker, Popup
-// eslint-disable-next-line import/no-unresolved
+   // eslint-disable-next-line import/no-unresolved
 } from "react-leaflet";
 // eslint-disable-next-line import/no-unresolved
 import L from "leaflet";
@@ -10,7 +10,7 @@ import { useMemo } from "react";
 
 const Map = () => {
    const icon = L.icon({
-      iconUrl: "./img/mapMarker/marker-icon.png",
+      iconUrl: "https://res.cloudinary.com/dfinki0p4/image/upload/v1689285830/marker-icon-2x_cymjwb.png",
       iconSize: [25, 41],
       iconAnchor: [12, 41],
    });

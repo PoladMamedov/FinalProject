@@ -11,7 +11,7 @@ export function fillCart(products) {
 export function addToCart(products) {
   return {
     type: cartTypes.ADD_TO_CART,
-    payload: products,
+    payload: { products },
   };
 }
 export const removeCart = (itemId) => {
@@ -97,6 +97,16 @@ export const decreaseCartAsync = (itemId, token) => {
     } catch (error) {
       console.error("Failed to decrease item:", error);
     }
+  };
+};
+
+export const updateCartQuantity = (itemId, cartQuantity) => {
+  return {
+    type: cartTypes.UPDATE_CART_QUANTITY,
+    payload: {
+      id: itemId,
+      cartQuantity,
+    },
   };
 };
 

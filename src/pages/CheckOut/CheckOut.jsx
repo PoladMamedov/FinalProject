@@ -1,5 +1,6 @@
 /* eslint-disable react/button-has-type */
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
@@ -15,14 +16,19 @@ import CartList from "../../components/CartList/CartList";
 import { fetchCart } from "../../redux/actions/cart";
 import CartSkeleton from "../Cart/components/CartSkeleton";
 // import { PatternFormat } from "react-number-format";
+// eslint-disable-next-line import/no-named-as-default, import/no-named-as-default-member
 import useServer from "../../hooks/useServer";
 
 function CheckOut() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { placeOrder } = useServer();
+  // const navigate = useNavigate();
+ // const { placeOrder } = useServer();
+  // eslint-disable-next-line no-unused-vars
+  const { productionConfig } = useServer();
   // eslint-disable-next-line no-unused-vars
   const [newOrder, setNewOrder] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [newConfig, setNewConfig] = useState({});
   const [activeButton, setActiveButton] = useState(2);
   const [selectedMethod, setSelectedMethod] = useState({
     label: "Standart Shipping",
@@ -41,11 +47,13 @@ function CheckOut() {
   const handleButtonClick = (buttonNumber) => {
     setActiveButton(buttonNumber);
   };
-  const currentDate = new Date();
+  // const currentDate = new Date();
 
   const {
-    userInfo: { _id },
+    // eslint-disable-next-line no-unused-vars
+    userInfo: { _id, token },
   } = useSelector((state) => state.user);
+  console.log(token);
 
   // useEffect(() => {
   //   if (token) {
@@ -88,24 +96,78 @@ function CheckOut() {
     }),
 
     onSubmit: async (values) => {
-      const newOrderData = {
-        customerId: _id,
-        products: cartProducts,
-        email: values.emailAddress,
-        mobile: values.phoneNumber,
-        letterSubject: "Thank you for order! You are welcome!",
-        letterHtml:
-          "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
-        deliveryAddress: { city: values.city, address: values.address },
-        totalSum: totalOrderPrice,
-        canceled: false,
-        date: currentDate,
-      };
-      const response = await placeOrder(newOrderData);
-      setNewOrder(response);
-      console.log(response);
-      console.log(newOrderData);
-      navigate("/thankyou");
+      // const newOrderData = {
+      //   customerId: _id,
+      //   products: cartProducts,
+      //   email: values.emailAddress,
+      //   mobile: values.phoneNumber,
+      //   letterSubject: "Thank you for order! You are welcome!",
+      //   letterHtml:
+      //     "<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>",
+      //   deliveryAddress: { city: values.city, address: values.address },
+      //   totalSum: totalOrderPrice,
+      //   canceled: false,
+      //   date: currentDate,
+      // };
+
+      // const response = await placeOrder(newOrderData);
+      // setNewOrder(response);
+      // console.log(response);
+      // console.log(newOrderData);
+      // navigate("/thankyou");
+      // 1. Сначала отправляем запрос для сохранения конфигурации "production"
+      try {
+        const newConfigs = {
+          customId: _id,
+          development: {
+            database: {
+              uri: "mongodb+srv://oasisinnovat:admin@cluster0.9grqccg.mongodb.net/api",
+            },
+            email: {
+              mailUser: "innovationoasis25@gmail.com",
+              mailPassword: "oasis228",
+              mailService: "gmail",
+            },
+            auth: {
+              secretOrKey:
+                "f56cd48db9b9be1a676fbad9aa1ac74e91b7077a53dadf45f2d70a7034957237",
+            },
+            infinitScrollEnabled: true,
+            minOrderValue: 100,
+          },
+          production: {
+            database: {
+              uri: "mongodb+srv://oasisinnovat:admin@cluster0.9grqccg.mongodb.net/api",
+            },
+            email: {
+              mailUser: "innovationoasis25@gmail.com",
+              mailPassword: "oasis228",
+              mailService: "gmail",
+            },
+            auth: {
+              secretOrKey:
+                "f56cd48db9b9be1a676fbad9aa1ac74e91b7077a53dadf45f2d70a7034957237",
+            },
+            infinitScrollEnabled: true,
+            minOrderValue: 100,
+          },
+        };
+
+        const savedProduction = await productionConfig(newConfigs, token);
+       
+        setNewConfig(savedProduction);
+         console.log(savedProduction);
+        console.log(values);
+        // 2. Затем, когда конфигурация успешно сохранена, отправляем запрос на оформление заказа
+        // const response = await placeOrder(newOrderData);
+        // setNewOrder(response);
+        // console.log(response);
+        // Перенаправление на страницу благодарности или другие действия по завершении заказа
+        // navigate("/thankyou");
+      } catch (error) {
+        console.error("Error during checkout:", error);
+        // Обработка ошибок, если не удалось сохранить конфигурацию или оформить заказ
+      }
     },
   });
   return (

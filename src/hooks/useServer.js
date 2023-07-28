@@ -306,6 +306,7 @@ export default function useServer() {
     return decreasedProduct;
   }
 
+  
   /* PLACE AN ORDER */
 
   // eslint-disable-next-line no-unused-vars
@@ -320,6 +321,23 @@ export default function useServer() {
       .then((res) => res.json())
       .catch((err) => err);
     return savedOrder;
+  }
+
+  /* GLOBAL CONFIG */
+
+  // eslint-disable-next-line no-unused-vars
+  async function productionConfig(newConfigs, token) {
+    const savedProduction = await fetch(`${url}/configs`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newConfigs),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return savedProduction;
   }
 
   return {
@@ -350,5 +368,6 @@ export default function useServer() {
     addItemCart,
     decreaseProductQuantity,
     placeOrder,
+    productionConfig,
   };
 }
