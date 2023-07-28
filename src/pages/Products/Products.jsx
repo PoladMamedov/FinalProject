@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../../components/Filter/Filter";
 import FilterMini from "../../components/Filter/FilterMini";

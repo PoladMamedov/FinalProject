@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/jsx-no-bind */
@@ -9,6 +11,7 @@ import React, {
   forwardRef,
   useRef
 } from "react";
+import { useNavigate } from "react-router-dom";
 import { Store } from "react-notifications-component";
 import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
@@ -16,6 +19,9 @@ import { reset, getAllSubcategoriesCounter } from "../../redux/actions/counterFi
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
 import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 import notificationsSettings from "../../constants/constants";
+import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
+import ProductsPricesForm from "./components/ProductsPricesForm";
+import ButtonsInFilter from "./components/ButtonsInFilter";
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent
@@ -23,7 +29,8 @@ const Filter = forwardRef(({
   const { sortValue } = useSelector((state) => state.sortFilter);
   const errorText = useRef();
   const server = useServer();
-  const [filters, setFilters] = useState([]);
+
+  const navigate = useNavigate();
 
   const { subcategory } = useSelector((state) => state.subcategory);
   let allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
@@ -38,26 +45,6 @@ const Filter = forwardRef(({
   let minArr = Math.ceil(Math.min(...new_array));
   let maxArr = Math.ceil(Math.max(...new_array));
 
-
-  useEffect(() => {
-    async function fetchFilters() {
-      try {
-        const filterResponse = await server.getFilters();
-        setFilters(filterResponse);
-      } catch (err) {
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
-
-      }
-    }
-    fetchFilters();
-  }, []);
-
-  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
-  useEffect(() => {
-    dispatch(sortLowToHighPrice());
-    setIsWaitSortFilter(true);
-  }, []);
-
   // стейт с ценой
   const [valuesPrice, setValuesPrice] = useState({
     Max: "",
@@ -69,35 +56,47 @@ const Filter = forwardRef(({
     categories.map(() => false)
   );
 
-  // функция для cохранения значений инпутов цены в стейте
-  function handleSetValue(e) {
-    const { name, value } = e.target;
-    const onlyDigits = value.replace(/\D/g, "");
-    setValuesPrice((prevState) => ({ ...prevState, [name]: onlyDigits }));
-  }
-
   // стейт для хранения выбранных категорий
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  async function fetchFilteredProducts(checkedCategories, subcategorie) {
+  function updateUrl(path) {
+    const params = new URLSearchParams(path);
+    const queryString = `?${params.toString()}`;
+    navigate(`${queryString}`);
+  }
+
+  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
+  useEffect(() => {
+    dispatch(sortLowToHighPrice());
+    setIsWaitSortFilter(true);
+  }, []);
+
+    async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort ) {
     let filteredProductsResponse;
     try {
-      if (valuesPrice.Max !== "" && valuesPrice.Min !== "") {
+      if (maxPrice !== "" && minPrice !== "") {
         // Отправка запроса на сервер для фильтрации только по цене
         if (checkedCategories.length === 0) {
           if (subcategorie) {
             filteredProductsResponse = await server.getFiltersPricesBySubcategory(
               subcategorieParent,
-              valuesPrice.Min,
-              valuesPrice.Max,
-              sortValue
+              minPrice,
+              maxPrice,
+              sort
             );
+            updateUrl({
+              categories: subcategorieParent, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+            });
+
           } else {
             filteredProductsResponse = await server.getFiltersPrices(
-              valuesPrice.Min,
-              valuesPrice.Max,
-              sortValue
+              minPrice,
+              maxPrice,
+              sort
             );
+            updateUrl({
+              minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+            });
           }
         } else {
           // Отправка запроса на сервер для фильтрации по категориям и цене
@@ -105,18 +104,23 @@ const Filter = forwardRef(({
             filteredProductsResponse = await server.getFiltersCategoriesPricesBySubcategory(
               subcategorieParent,
               checkedCategories,
-              valuesPrice.Min,
-              valuesPrice.Max,
-              sortValue
+              minPrice,
+              maxPrice,
+              sort
             );
+            updateUrl({
+              categories: subcategorieParent, filtertype: checkedCategories, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+            });
           } else {
             filteredProductsResponse = await server.getFiltersCategoriesPrices(
               checkedCategories,
-              valuesPrice.Min,
-              valuesPrice.Max,
-              sortValue,
-
+              minPrice,
+              maxPrice,
+              sort
             );
+            updateUrl({
+              categories: checkedCategories, minPrice: valuesPrice.Min, maxPrice: valuesPrice.Max, sort: `${sortValue}currentPrice`
+            });
           }
         }
       } else {
@@ -125,13 +129,19 @@ const Filter = forwardRef(({
           filteredProductsResponse = await server.getFiltersCategoriesBySubcategory(
             subcategorieParent,
             checkedCategories,
-            sortValue
+            sort
           );
+          updateUrl({
+            categories: subcategorieParent, filtertype: checkedCategories, sort: `${sortValue}currentPrice`
+          });
         } else {
           filteredProductsResponse = await server.getFiltersCategories(
             checkedCategories,
-            sortValue
+            sort
           );
+          updateUrl({
+            categories: checkedCategories, sort: `${sortValue}currentPrice`
+          });
         }
       }
       const products = Object.values(filteredProductsResponse);
@@ -142,12 +152,33 @@ const Filter = forwardRef(({
     }
   }
 
+  // function applyFiltersFromQueryString(queryString) {
+  //   // Разбор строки запроса
+  //   const params = new URLSearchParams(queryString);
+  //   const path = Object.fromEntries(params.entries());
+  
+  //   // Извлечение параметров фильтра из объекта filters
+  //   const checkedCategories = path.categories;
+  //   const subcategorie = path.subcategorie;
+  //   const minPrice = path.minPrice;
+  //   const maxPrice = path.maxPrice;
+  //   const sort = path.sort;
+  
+  //   // Вызов функции fetchFilteredProducts с выбранными фильтрами
+  //   fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort);
+  // }
+
+  // useEffect(() => {
+  //   const queryString = location.search;
+  //   applyFiltersFromQueryString(queryString);
+  // }, []);
+
   const min = parseInt(valuesPrice.Min, 10);
   const max = parseInt(valuesPrice.Max, 10);
   const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
 
   function handleSetPrice() {
-    fetchFilteredProducts(selectedCategories, subcategorieParent);
+    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
 
   function handlePriceBlur() {
@@ -198,7 +229,7 @@ const Filter = forwardRef(({
     setSelectedCategories(updatedSelectedCategories);
 
     // Отправка запроса на сервер для фильтрации продуктов по категориям
-    fetchFilteredProducts(updatedSelectedCategories, subcategorieParent);
+    fetchFilteredProducts(updatedSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
 
   // для сброса всех фильтров
@@ -208,6 +239,7 @@ const Filter = forwardRef(({
     setSelectedCategories([]);
     dispatch(reset());
     dispatch(removeFilteredProducts());
+    navigate("");
   }
 
   const resetBtn = useRef();
@@ -235,9 +267,17 @@ const Filter = forwardRef(({
         initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
       }
       setSelectedCategories(initialSelectedCategories);
-      fetchFilteredProducts(initialSelectedCategories, subcategorieParent);
+      fetchFilteredProducts(initialSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
     }
   }, [isWaitSortFilter, sortValue]);
+
+  useEffect(() => {
+    if (sortValue !== undefined) {
+      const url = new URL(window.location);
+      url.searchParams.set("sort", `${sortValue}currentPrice`);
+      window.history.pushState({}, "", url);
+    }
+  }, [sortValue]);
 
   useEffect(() => {
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -250,6 +290,31 @@ const Filter = forwardRef(({
     dispatch(getAllSubcategoriesCounter(checkedCount));
   });
 
+  const propsProductsCategoriesForm = {
+      categories,
+      checkedItems,
+      handleCheckboxChange,
+      addCounter
+  };
+
+  const propsProductsPricesForm = {
+        minArr,
+        maxArr,
+        minPrice: valuesPrice.Min,
+        maxPrice: valuesPrice.Max,
+        setValuesPrice,
+        handlePriceBlur
+  };
+
+  const propsButtonsInFilter = {
+    errorText,
+    isButtonDisabled,
+    handleSetPrice,
+    resetBtn,
+    resetBtnClick,
+    apply
+  };
+
 
   return (
     <>
@@ -257,52 +322,9 @@ const Filter = forwardRef(({
         <h3 className="filter-section__title">Filter</h3>
         <svg onClick={toggle} className="filter-section-btn-close" width={25} height={25} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24" id="close"><path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M15.7,14.3c0.4,0.4,0.4,1,0,1.4c-0.4,0.4-1,0.4-1.4,0L12,13.4l-2.3,2.3c-0.4,0.4-1,0.4-1.4,0c-0.4-0.4-0.4-1,0-1.4l2.3-2.3L8.3,9.7c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0l2.3,2.3l2.3-2.3c0.4-0.4,1-0.4,1.4,0c0.4,0.4,0.4,1,0,1.4L13.4,12L15.7,14.3z"></path></svg>
         <div className="filter-section-container">
-          <h4 className="filter-section__subtitle">Product Category</h4>
-          <form className="filter-section-list">
-            {
-              categories
-                .map((item, index) => (
-                  <div key={item.name} className="filter-section-list__item">
-                    <label htmlFor={item.name}>{item.name}</label>
-                    <input
-                      id={item.name}
-                      name={item.name}
-                      type="checkbox"
-                      checked={checkedItems[index]}
-                      onChange={(e) => handleCheckboxChange(e, index)}
-                      onClick={addCounter}
-                      className="filter-section-list__item-checkbox"></input>
-                  </div>))
-            }
-          </form>
-          <h4 className="filter-section__subtitle">Price range</h4>
-          <form className="filter-section-inputs">
-            {
-              filters.length !== 0 ? filters.map(({ name }, idx) => (
-                <input
-                  key={idx}
-                  className={"filter-section-inputs__item"}
-                  placeholder={(name === "Min") ? `${name} ${minArr}` : `${name} ${maxArr}`}
-                  name={name}
-                  type="number"
-                  step="1"
-                  min="0"
-                  value={name === "Max" ? valuesPrice.Max : valuesPrice.Min}
-                  onChange={handleSetValue}
-                  onBlur={handlePriceBlur}></input>
-              )) : <p>loading...</p>
-            }
-          </form>
-          <p ref={errorText} className="filter-section-inputs__error-text">Min price cannot be higher than max.</p>
-          <button
-            type="button"
-            className={`filter-section-btn ${isButtonDisabled ? "filter-section-btn--disabled" : "filter-section-btn--dark"}`}
-            onClick={handleSetPrice}
-            disabled={isButtonDisabled}>Set Price</button>
-          <div className="filter-section-btn-container">
-            <button type="button" ref={resetBtn} onClick={resetBtnClick} className="filter-section-btn filter-section-btn--light">Clear Filter</button>
-            <button type="button" onClick={apply} className="filter-section-btn filter-section-btn--dark filter-section-btn--apply">Apply</button>
-          </div>
+        <ProductsCategoriesForm {...propsProductsCategoriesForm}/>
+        <ProductsPricesForm {...propsProductsPricesForm}/>
+        <ButtonsInFilter {...propsButtonsInFilter}/>
         </div>
       </div>
     </>

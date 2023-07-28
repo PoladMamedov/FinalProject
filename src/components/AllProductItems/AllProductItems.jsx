@@ -126,7 +126,7 @@ function AllProductItems(props) {
 
         )}
       </div>
-      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
+    <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }
