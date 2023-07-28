@@ -120,6 +120,7 @@ function CheckOut() {
               <span className="">
                 {isNovaPoshtaDelivery ? "Nova Poshta shipping" : "Store pickup"}
               </span>
+
               <span className="">{isNovaPoshtaDelivery ? "$13" : "Free"}</span>
             </div>
 

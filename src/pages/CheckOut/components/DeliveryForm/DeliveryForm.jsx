@@ -36,3 +36,4 @@ function DeliveryForm({ isNovaPoshtaDelivery, setIsNovaPoshtaDelivery }) {
 }
 
 export default DeliveryForm;
+
