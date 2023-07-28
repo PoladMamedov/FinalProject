@@ -97,8 +97,8 @@ export const updateFavQuantity = (itemId, cartQuantity) => {
     type: favoritesTypes.UPDATE_FAV_QUANTITY,
     payload: {
       id: itemId,
-      cartQuantity
-    }
+      cartQuantity,
+    },
   };
 };
 
