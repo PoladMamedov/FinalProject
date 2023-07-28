@@ -73,6 +73,7 @@
     "react/no-unescaped-entities": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
+    "no-underscore-dangle": "off",
     "eslint-disable-next-line": "off"
   },
   "settings": {

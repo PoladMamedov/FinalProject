@@ -17,6 +17,7 @@ export const removeFromFavorites = (itemId) => {
   };
 };
 
+// Создает действие для заполнения (fav) продуктами.
 export function fillFav(products) {
   return {
     type: favoritesTypes.FILL_FAV,
