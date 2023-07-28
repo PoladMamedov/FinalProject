@@ -59,7 +59,7 @@ export default function OrderActions(props) {
   useEffect(() => {
     setProductColor(color);
     setIsFav(favorites.find((item) => item.itemNo === itemNo));
-  }, [color]);
+  }, []);
 
   useEffect(() => {
     const productInCart = cart.find(({ product: { _id: id } }) => id === productID);
@@ -115,12 +115,14 @@ export default function OrderActions(props) {
         {Math.floor(currentPrice * currencyValue)}
       </p>}
     <div className="order-actions__btns-wrap">
-      <FavoritesIcon
-        color={"red"}
-        className={isFav ? "order-actions__favs-btn order-actions__favs-btn--fill" : "order-actions__favs-btn"}
-        isFill={isFav}
-        clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
-      <button disabled={outOfStock} type="button" className="order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
+      <button type="button" className="order-actions__favs-btn">
+        <FavoritesIcon
+          color={"red"}
+          className={isFav ? "order-actions__favs-icon order-actions__favs-icon--fill" : "order-actions__favs-icon"}
+          isFill={isFav}
+          clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
+      </button>
+      <button disabled={outOfStock} type="button" className="button order-actions__add-btn" onClick={onAddButtonClick}><span className={"order-actions__add-btn-inner"} data-tooltip-id={outOfStock ? "order-actions_add-btn" : ""} data-tooltip-content={"Max quantity is already in cart"}>Add to cart</span></button>
     </div>
     <div className="product-detail__color-wrap">
       <p className="product-detail__basic-spec">Color: <span className="product-detail__basic-spec-value">{productColor}</span></p>

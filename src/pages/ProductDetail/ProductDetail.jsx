@@ -11,10 +11,12 @@ import OrderActions from "./components/OrderActions";
 import Description from "./components/Description";
 import notificationsSettings from "../../constants/constants";
 import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
+import Comments from "../../components/Comments/Comments";
 
 export default function ProductDetail() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [productData, setProductData] = useState({});
+  const { _id: productID } = productData;
 
   const { itemNo } = useParams();
   const { getProduct } = useServer();
@@ -41,16 +43,19 @@ export default function ProductDetail() {
   return (
     <>
       <BreadCrumb />
-      <section className="container product-detail-section">
-        <div className="product-detail__wrap">
-          <Gallery {...productData} />
-          <div className="product-detail__info-wrap">
-            <Description {...productData} />
-            <OrderActions {...productData} />
+      <section className="product-detail-section">
+        <div className="container">
+          <div className="product-detail__wrap">
+            <Gallery {...productData} />
+            <div className="product-detail__info-wrap">
+              <Description {...productData} />
+              <OrderActions {...productData} />
+            </div>
           </div>
+          <Specifications {...productData} />
         </div>
-        <Specifications {...productData} />
       </section>
+      <Comments target={"product"} targetID={productID} />
     </>
   );
 }

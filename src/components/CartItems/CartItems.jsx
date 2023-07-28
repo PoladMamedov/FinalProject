@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-// eslint-disable-next-line import/no-unresolved
-import { Image } from "cloudinary-react";
 import { Store } from "react-notifications-component";
+import React, { useEffect, useState } from "react";
+import { Image } from "cloudinary-react";
+import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
   removeCartAsync,
@@ -15,23 +15,20 @@ import {
   updateCartQuantity,
   setCart,
 } from "../../redux/actions/cart";
-import notificationsSettings from "../../constants/constants";
 
 const CartItems = (props) => {
-    const dispatch = useDispatch();
-      const location = useLocation();
-      const isCheckoutPage = location.pathname === "/checkout";
-      // eslint-disable-next-line no-unused-vars
-      const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
-      useEffect(() => {
-        setIsCheckout(isCheckoutPage);
-      }, [isCheckoutPage]);
   const {
-    cartQuantity, product: {
+    cartQuantity,
+    product: {
       name, currentPrice, imageUrls, itemNo
     },
   } = props.dataProducts;
+  const location = useLocation();
+  const isCheckoutPage = location.pathname === "/checkout";
+  // eslint-disable-next-line no-unused-vars
+  const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
   const [inputValue, setInputValue] = useState(cartQuantity);
+  const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartProducts = useSelector((state) => state.cart.cart);
   // eslint-disable-next-line no-underscore-dangle
@@ -40,15 +37,18 @@ const CartItems = (props) => {
   useEffect(() => {
     setIsCheckout(isCheckoutPage);
   }, [isCheckoutPage]);
+
   useEffect(() => {
-    const updatedCart = {
-      products: cartProducts.map((item) => ({
-        // eslint-disable-next-line no-underscore-dangle
-        product: item.product._id,
-        cartQuantity: item.cartQuantity,
-      })),
-    };
-    dispatch(setCart(updatedCart, userToken));
+    if (userToken) {
+      const updatedCart = {
+        products: cartProducts.map((item) => ({
+          // eslint-disable-next-line no-underscore-dangle
+          product: item.product._id,
+          cartQuantity: item.cartQuantity,
+        })),
+      };
+      dispatch(setCart(updatedCart, userToken));
+    }
   }, [cartQuantity]);
 
   const OnDeleteItem = async (item, token) => {
@@ -69,9 +69,13 @@ const CartItems = (props) => {
     } catch (error) {
       Store.addNotification({
         ...notificationsSettings.basic,
+        ...notificationsSettings.error,
+        message: error.message,
+      });
+      Store.addNotification({
+        ...notificationsSettings.basic,
         ...notificationsSettings.cartNotDeleted,
       });
-      console.log(error);
     }
   };
 
@@ -95,9 +99,13 @@ const CartItems = (props) => {
     } catch (error) {
       Store.addNotification({
         ...notificationsSettings.basic,
+        ...notificationsSettings.error,
+        message: error.message,
+      });
+      Store.addNotification({
+        ...notificationsSettings.basic,
         ...notificationsSettings.cartNotIncreased,
       });
-      console.log(error);
     }
   };
   const onDecreaseItem = async (item, token) => {
@@ -118,7 +126,6 @@ const CartItems = (props) => {
         });
       }
     } catch (error) {
-      console.log(error);
       Store.addNotification({
         ...notificationsSettings.basic,
         ...notificationsSettings.cartNotDecreased,
@@ -134,7 +141,7 @@ const CartItems = (props) => {
 
   const handleInputBlur = async (item, value) => {
     const { quantity } = props.dataProducts.product;
-    const isValidValue = +value !== 0 && +value <= quantity;
+    const isValidValue = +value !== 0 && +value <= quantity && +value !== cartQuantity;
 
     if (isValidValue) {
       if (userToken) {
@@ -150,6 +157,11 @@ const CartItems = (props) => {
           ...notificationsSettings.cartQuantityChanged,
         });
       }
+    } else if (+value === cartQuantity) {
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartQuantityChangedOnSameValue,
+      });
     } else {
       Store.addNotification({
         ...notificationsSettings.basic,
@@ -179,7 +191,7 @@ const CartItems = (props) => {
           <div className="cart-list__item-quantity">
             <button
               type={"button"}
-              className="cart-list__item-quantity-minus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-minus"
               onClick={() => onDecreaseItem(itemId, userToken)}
               disabled={cartQuantity <= 1}
             >
@@ -187,14 +199,14 @@ const CartItems = (props) => {
             </button>
             <input
               type={"text"}
-              className="cart-list__item-quantity-number"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-number"
               value={inputValue}
               onChange={(event) => handleInputChange(event.target.value)}
               onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}
-              className="cart-list__item-quantity-plus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-plus"
               onClick={() => onIncreaseItem(itemId, userToken)}
               disabled={cartQuantity === props.dataProducts.product.quantity}
             >
@@ -249,7 +261,9 @@ const CartItems = (props) => {
             <input
               type={"text"}
               className="checkout-cart-list__item-quantity-number"
-              onChange={(event) => handleInputChange(event)}
+              value={inputValue}
+              onChange={(event) => handleInputChange(event.target.value)}
+              onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}

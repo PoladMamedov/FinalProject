@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Store } from "react-notifications-component";
 import useServer from "../../hooks/useServer";
 import useDebounce from "../../hooks/useDebounce";
 import setSearchProducts from "../../redux/actions/searchBar";
 import FoundProduct from "../FoundProduct/FoundProduct";
 import { addFilteredProducts } from "../../redux/actions/filteredProducts";
+import notificationsSettings from "../../constants/constants";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -54,7 +56,7 @@ const SearchBar = () => {
         dispatch(setSearchProducts(products));
       }
     } catch (error) {
-      console.error(error);
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
   }
 
@@ -101,7 +103,6 @@ const SearchBar = () => {
           autoComplete="off"
           onChange={(e) => handleSearchChange(e)}
           onFocus={() => setIsSearchOpen(true)}
-          onBlur={() => setIsSearchOpen(false)}
         />
         <button className={`header__search-submit${isSearchOpen ? "--active" : ""}`} type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 512 512" style={{ fill: "#393d45" }}>

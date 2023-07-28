@@ -1,7 +1,16 @@
-import React from 'react'
-import { Link} from 'react-router-dom';
+import React from "react";
+import { Link} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import setPagePath from "../../redux/actions/pagePath";
+
 
 function ThankYou() {
+  const dispatch = useDispatch();
+  const orderNumber = useSelector((state) => state.orders.orderNumber);
+  
+  const handleClick = (path) => {
+    dispatch(setPagePath(`${path}`));
+  };
 
   return (
     <section className="thankyou-section__wrapper">
@@ -14,21 +23,29 @@ function ThankYou() {
           <p>
             Your order#:&nbsp;
             <span className="thankyou-section__text-order-number">
-              order#
+              {orderNumber}
             </span>
           </p>
           <p>Our manager will get back to you shortly.</p>
 
           <p>
             Please{" "}
-            <Link to={"/about"} className="thankyou-section__text-link">
+            <Link
+              onClick={() => handleClick("about")}
+              to={"/about"}
+              className="thankyou-section__text-link"
+            >
               contact us
             </Link>{" "}
             if you have any questions.
           </p>
           <p>
             Return to &nbsp;
-            <Link to={"/"} className="thankyou-section__text-link">
+            <Link
+              onClick={() => handleClick("home")}
+              to={"/"}
+              className="thankyou-section__text-link"
+            >
               home page.
             </Link>
           </p>
