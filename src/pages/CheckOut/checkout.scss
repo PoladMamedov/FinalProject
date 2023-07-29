@@ -153,12 +153,23 @@
 }
 
 .checkout-section__product-btn {
-  display: block;
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
   background-color: #ffffff;
   color: $primaryDark;
   font-family: "Roboto";
   @include fonts(400, 16px, 35px);
+}
+
+.checkout-section__product-subtotal {
+  @include flex (row, center, center);
+  margin-right: 10px;
+  margin-left: 5px;
+  img {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .checkout-section__product-btn.active {
@@ -217,4 +228,31 @@
     font-size: 17px;
     font-weight: 700;
   }
+}
+
+
+.checkout-section__product-summary-computer-total-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+    font-size: 17px;
+    font-weight: 700;
+img {
+    width: 16px;
+    height: 16px;
+
+    @include breakpoint-mf("my") {
+    width: 16px;
+    height: 16px;
+  }
+} 
+}
+
+.checkout-section__product-summary-computer-shipping-value {
+@include flex (row, center, center);
+img {
+    width: 13px;
+    height: 13px;
+} 
 }

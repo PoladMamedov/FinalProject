@@ -89,21 +89,18 @@
 }
 
 .category__list-item:hover .subcategory__list {
+  @include flex (row, space-around, center);
   background-color: white;
-  display: flex;
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
   padding: 0;
   list-style: none;
-  justify-content: space-around;
   max-width: 1200px;
   height: 60px;
-  padding-top: 15px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 5px;
-
   @media (min-width: 768px) {
     position: absolute;
   }
