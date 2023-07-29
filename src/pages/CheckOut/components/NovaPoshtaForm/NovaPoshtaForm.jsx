@@ -89,12 +89,11 @@ function NovaPoshtaForm() {
     const orderData = createOrder(newOrderInfo);
     const response = await placeOrder(orderData, token);
     const orderNumber = response.order.orderNo;
-
     await deleteCart(token);
     dispatch(removeEntireCart());
     setLoading(false);
-    navigate("/thankyou");
     dispatch(setOrderNumber(orderNumber));
+    navigate("/thankyou");
   }
 
   return (

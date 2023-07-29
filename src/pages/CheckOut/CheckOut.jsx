@@ -18,20 +18,24 @@ import DeliveryForm from "./components/DeliveryForm/DeliveryForm";
 function CheckOut() {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState(2);
-  // const [isNovaPoshtaDelivery] = useState(true);
-
   const [isNovaPoshtaDelivery, setIsNovaPoshtaDelivery] = useState(true);
-  
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
+  const currencyValue = parseFloat(currency);
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartQuantity = useSelector((state) => state.cart.cart);
   const cartProducts = useSelector((state) => state.cart.cart);
   const totalOrderPrice = cartProducts.reduce((accumulator, item) => {
     const { product, cartQuantity } = item;
-    const productTotalPrice = product.currentPrice * cartQuantity;
+    const productTotalPrice = product.currentPrice * cartQuantity * currencyValue;
     return accumulator + productTotalPrice;
   }, 0);
 
-  const deliveryCost = isNovaPoshtaDelivery ? 13 : 0;
+  const baseDeliveryCost = 13;
+  const deliveryCost = isNovaPoshtaDelivery
+    ? baseDeliveryCost * currencyValue
+    : 0;
   const totalWithDelivery = totalOrderPrice + deliveryCost;
 
   const handleButtonClick = (buttonNumber) => {
@@ -64,7 +68,6 @@ function CheckOut() {
                 onClick={() => handleButtonClick(1)}
               >
                 Show order summary &nbsp;
-                <span className="">${totalOrderPrice}</span>
                 <FontAwesomeIcon icon={faAngleDown} className="icon-arrow" />
               </button>
               <button
@@ -74,7 +77,6 @@ function CheckOut() {
                 onClick={() => handleButtonClick(2)}
               >
                 Hide order summary &nbsp;
-                <span className="">${totalOrderPrice}</span>
                 <FontAwesomeIcon icon={faAngleUp} className="icon-arrow" />
               </button>
             </div>
@@ -84,13 +86,37 @@ function CheckOut() {
               }`}
             >
               {cartProducts.length !== 0 ? <CartList /> : <CartSkeleton />}
+
+              <div className="checkout-section__product-summary-mobile">
+                <div className="checkout-section__product-summary-mobile-shipping-method">
+                  <span className="">
+                    {isNovaPoshtaDelivery
+                      ? "Nova Poshta shipping"
+                      : "Store pickup"}
+                  </span>
+                  <span className="">
+                    {isNovaPoshtaDelivery ? "$13" : "Free"}
+                  </span>
+                </div>
+                <div className="checkout-section__product-summary-mobile-total">
+                  <span className="">Total</span>
+                  <span className="">{totalWithDelivery}</span>
+                </div>
+              </div>
             </div>
           </div>
+
           <div className="checkout-section__product-summary-computer">
             <h4 className="">Order summary</h4>
             <div className="checkout-section__product-summary-computer-subtotal">
               <span className="">Subtotal</span>
-              <span className="">${totalOrderPrice}</span>
+              <span className="checkout-section__product-subtotal">
+                <img
+                  src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                  alt="cureency-icon"
+                />
+                <span>{Math.floor(totalOrderPrice)}</span>
+              </span>
             </div>
             <div className="checkout-section__product-summary-computer-shipping">
               <span className="">Shipping method</span>
@@ -99,12 +125,28 @@ function CheckOut() {
               <span className="">
                 {isNovaPoshtaDelivery ? "Nova Poshta shipping" : "Store pickup"}
               </span>
-              <span className="">{isNovaPoshtaDelivery ? "13$" : "Free"}</span>
+              {isNovaPoshtaDelivery ? (
+                <span className="checkout-section__product-summary-computer-shipping-value">
+                  <img
+                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                    alt="cureency-icon"
+                  />
+                  <span>{Math.floor(deliveryCost)}</span>
+                </span>
+              ) : (
+                <span>Free</span>
+              )}
             </div>
 
             <div className="checkout-section__product-summary-computer-total">
               <span className="">Total</span>
-              <span className="">{totalWithDelivery}</span>
+              <div className="checkout-section__product-summary-computer-total-price">
+                <img
+                  src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                  alt="cureency-icon"
+                />
+                <span>{Math.floor(totalWithDelivery)}</span>
+              </div>
             </div>
           </div>
           <div className="computer-version">
@@ -138,7 +180,6 @@ function CheckOut() {
             </div>
           </div>
         </div>
-        {/* <DeliveryForm /> */}
         <DeliveryForm
           isNovaPoshtaDelivery={isNovaPoshtaDelivery}
           setIsNovaPoshtaDelivery={setIsNovaPoshtaDelivery}

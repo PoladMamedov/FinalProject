@@ -6,11 +6,18 @@ const TotalBlock = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cart);
   const userToken = useSelector((state) => state.user.userInfo.token);
+
+    const { currency, currencyName } = useSelector(
+      (state) => state.currentCurrency
+    );
+  const currencyValue = parseFloat(currency);
+  
   let totalOrderPrice = cartProducts.reduce((accumulator, item) => {
     const { product, cartQuantity } = item;
-    const productTotalPrice = product.currentPrice * cartQuantity;
+    const productTotalPrice = product.currentPrice * cartQuantity * currencyValue;
     return accumulator + productTotalPrice;
   }, 0);
+
 
   const onUpdateCart = () => {
     if (userToken) {
@@ -28,13 +35,33 @@ const TotalBlock = () => {
     <div className="total-block">
       <div className="total-block-wrapper">
         <div className="total-block__item">
-          <span className="total-block__label total-block__label-product">Subtotal</span>
-          <span className="total-block__value total-block__value-product">${totalOrderPrice}</span>
+          <span className="total-block__label total-block__label-product">
+            Subtotal
+          </span>
+          {/* <span className="total-block__value total-block__value-product">
+            ${totalOrderPrice}
+          </span> */}
+
+          <div className="total-block__value total-block__value-product">
+            <img
+              src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+              alt="cureency-icon"
+            />
+            <span>{Math.floor(totalOrderPrice)}</span>
+          </div>
         </div>
       </div>
       <div className="cart-buttons">
-        <Link to={"/"} className={"cart-button cart-button-close"}>Close</Link>
-        <Link to={"/checkout"} onClick={onUpdateCart} className="cart-button cart-button-checkout">Check out</Link>
+        <Link to={"/"} className={"cart-button cart-button-close"}>
+          Close
+        </Link>
+        <Link
+          to={"/checkout"}
+          onClick={onUpdateCart}
+          className="cart-button cart-button-checkout"
+        >
+          Check out
+        </Link>
       </div>
     </div>
   );
