@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
+import { Store } from "react-notifications-component";
 import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
@@ -25,7 +25,6 @@ const CartItems = (props) => {
   } = props.dataProducts;
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
-  // eslint-disable-next-line no-unused-vars
   const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
   const [inputValue, setInputValue] = useState(cartQuantity);
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const CartItems = (props) => {
     if (userToken) {
       const updatedCart = {
         products: cartProducts.map((item) => ({
-          // eslint-disable-next-line no-underscore-dangle
           product: item.product._id,
           cartQuantity: item.cartQuantity,
         })),

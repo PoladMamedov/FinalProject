@@ -10,13 +10,6 @@ export const addToFavorites = (products) => {
   };
 };
 
-export const removeFromFavorites = (itemId) => {
-  return {
-    type: favoritesTypes.REMOVE_FROM_FAV,
-    payload: itemId,
-  };
-};
-
 // Создает действие для заполнения (fav) продуктами.
 export function fillFav(products) {
   return {
@@ -25,12 +18,35 @@ export function fillFav(products) {
   };
 }
 
+export const removeFromFavorites = (itemId) => {
+  return {
+    type: favoritesTypes.REMOVE_FROM_FAVORITES,
+    payload: {
+      id: itemId,
+    },
+  };
+};
+
+export const removeFromFavAsync = (itemId, token) => {
+  return async (dispatch) => {
+    const { removeFromWishlist } = useServer();
+    try {
+      const deleteFav = await removeFromWishlist(itemId, token);
+      dispatch(removeFromFavorites(itemId));
+    } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
+  };
+};
+
 export const fetchFav = (token) => {
   return async (dispatch) => {
-    const { getFavorites } = useServer();
+    const { getWishlist } = useServer();
     try {
-      const fav = await getFavorites(token);
-      dispatch(fillFav(fav.products));
+      const fav = await getWishlist(token);
+      if (fav !== null) {
+        dispatch(fillFav(fav.products));
+      }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
@@ -39,9 +55,9 @@ export const fetchFav = (token) => {
 
 export const setFav = (products, token) => {
   return async (dispatch) => {
-    const { updateFavorites } = useServer();
+    const { updateWishlist } = useServer();
     try {
-      const updateFav = await updateFavorites(products, token);
+      const updateFav = await updateWishlist(products, token);
       dispatch(fillFav(updateFav.products));
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
@@ -61,9 +77,9 @@ export const increaseFav = (itemId, productInfo) => {
 
 export const increaseFavAsync = (itemId, token, productInfo) => {
   return async (dispatch) => {
-    const { addItemFav } = useServer();
+    const { addToWishlist } = useServer();
     try {
-      const addedFav = await addItemFav(itemId, token);
+      const addedCart = await addToWishlist(itemId, token);
       dispatch(increaseFav(itemId, productInfo));
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
@@ -82,9 +98,9 @@ export const decreaseFav = (itemId) => {
 
 export const decreaseFavAsync = (itemId, token) => {
   return async (dispatch) => {
-    const { decreaseProductQuantity } = useServer();
+    const { decreaseItemQuantity } = useServer();
     try {
-      const decreasedFav = await decreaseProductQuantity(itemId, token);
+      const decreasedFav = await decreaseItemQuantity(itemId, token);
       dispatch(decreaseFav(itemId));
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
@@ -92,12 +108,12 @@ export const decreaseFavAsync = (itemId, token) => {
   };
 };
 
-export const updateFavQuantity = (itemId, cartQuantity) => {
+export const updateFavQuantity = (itemId, favQuantity) => {
   return {
     type: favoritesTypes.UPDATE_FAV_QUANTITY,
     payload: {
       id: itemId,
-      cartQuantity,
+      favQuantity,
     },
   };
 };

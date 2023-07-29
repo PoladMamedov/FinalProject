@@ -48,7 +48,6 @@ export const removeCartAsync = (itemId, token) => {
   return async (dispatch) => {
     const { removeItemFromCart } = useServer();
     try {
-      // eslint-disable-next-line no-unused-vars
       const deletedCart = await removeItemFromCart(itemId, token);
       dispatch(removeCart(itemId));
     } catch (error) {
@@ -71,7 +70,6 @@ export const increaseCartAsync = (itemId, token, productInfo) => {
   return async (dispatch) => {
     const { addItemCart } = useServer();
     try {
-      // eslint-disable-next-line no-unused-vars
       const addedCart = await addItemCart(itemId, token);
       dispatch(increaseCart(itemId, productInfo));
     } catch (error) {
@@ -93,7 +91,6 @@ export const decreaseCartAsync = (itemId, token) => {
   return async (dispatch) => {
     const { decreaseProductQuantity } = useServer();
     try {
-      // eslint-disable-next-line no-unused-vars
       const decreasedCart = await decreaseProductQuantity(itemId, token);
       dispatch(decreaseCart(itemId));
     } catch (error) {
