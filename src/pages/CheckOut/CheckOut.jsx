@@ -68,14 +68,6 @@ function CheckOut() {
                 onClick={() => handleButtonClick(1)}
               >
                 Show order summary &nbsp;
-                {/* <span className="">${totalOrderPrice}</span> */}
-                {/* <span className="checkout-section__product-subtotal">
-                  <img
-                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
-                    alt="cureency-icon"
-                  />
-                  <span>{Math.floor(totalOrderPrice)}</span>
-                </span> */}
                 <FontAwesomeIcon icon={faAngleDown} className="icon-arrow" />
               </button>
               <button
@@ -85,14 +77,6 @@ function CheckOut() {
                 onClick={() => handleButtonClick(2)}
               >
                 Hide order summary &nbsp;
-                {/* <span className="">${totalOrderPrice}</span> */}
-                {/* <span className="checkout-section__product-subtotal">
-                  <img
-                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
-                    alt="cureency-icon"
-                  />
-                  <span>{Math.floor(totalOrderPrice)}</span>
-                </span> */}
                 <FontAwesomeIcon icon={faAngleUp} className="icon-arrow" />
               </button>
             </div>
