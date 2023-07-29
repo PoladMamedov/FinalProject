@@ -33,6 +33,11 @@ const CartItems = (props) => {
   // eslint-disable-next-line no-underscore-dangle
   const itemId = props.dataProducts.product._id;
   // const cartProducts = useSelector((state) => state.cart.cart);
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
+const currencyValue = parseFloat(currency);
+
   useEffect(() => {
     setIsCheckout(isCheckoutPage);
   }, [isCheckoutPage]);
@@ -185,7 +190,16 @@ const CartItems = (props) => {
           <Link to={`/products/${itemNo}`} className="cart-list__item-title">
             {name}
           </Link>
-          <p className="cart-list__item-price">${currentPrice}</p>
+          {/* <p className="cart-list__item-price">${currentPrice}</p> */}
+
+          <div className="cart-list__item-price">
+            <img
+              src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+              alt="cureency-icon"
+            />
+            <span>{Math.floor(currentPrice * currencyValue)}</span>
+          </div>
+
           <div className="cart-list__item-quantity">
             <button
               type={"button"}
@@ -246,7 +260,13 @@ const CartItems = (props) => {
           >
             {name}
           </Link>
-          <p className="checkout-cart-list__item-price">${currentPrice}</p>
+          <div className="checkout-cart-list__item-price">
+            <img
+              src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+              alt="cureency-icon"
+            />
+            <span>{Math.floor(currentPrice * currencyValue)}</span>
+          </div>
           <div className="checkout-cart-list__item-quantity">
             <button
               type={"button"}
