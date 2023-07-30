@@ -60,6 +60,23 @@ const Filter = forwardRef(({
   // стейт для хранения выбранных категорий
   const [selectedCategories, setSelectedCategories] = useState([]);
 
+  const [urlParams, setUrlParams] = useState({});
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const newUrlParams = {};
+    for (const [key, value] of params.entries()) {
+      newUrlParams[key] = value;
+    }
+    setUrlParams(newUrlParams);
+    console.log(newUrlParams);
+    setValuesPrice({
+      Max: newUrlParams.maxPrice ||  "",
+      Min: newUrlParams.minPrice || "",
+    });
+    setSelectedCategories(newUrlParams.categories ? newUrlParams.categories.split(",") : []);
+  }, []);
+
   // функция для обновления url
   function updateUrl(path) {
     const params = new URLSearchParams(path);
