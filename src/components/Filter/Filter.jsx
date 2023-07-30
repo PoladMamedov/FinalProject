@@ -62,9 +62,12 @@ const Filter = forwardRef(({
   // стейт для хранения выбранных категорий
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const [urlParams, setUrlParams] = useState({});
+ const [urlParams, setUrlParams] = useState({});
 
   useEffect(() => {
+    if (subcategorieParent) {
+      return;
+    }
     const params = new URLSearchParams(window.location.search);
     const newUrlParams = {};
     for (const [key, value] of params.entries()) {
@@ -72,14 +75,17 @@ const Filter = forwardRef(({
     }
     setUrlParams(newUrlParams);
     console.log(newUrlParams);
-    setValuesPrice({
+    setValuesPrice((prev) => ({
       Max: newUrlParams.maxPrice ||  "",
       Min: newUrlParams.minPrice || "",
-    });
+    }) );
     setSelectedCategories(newUrlParams.categories ? newUrlParams.categories.split(",") : []);
   }, []);
 
   useEffect(() => {
+    if (subcategorieParent) {
+      return;
+    }
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
     console.log(arr);
@@ -328,18 +334,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     resetBtnClick,
     apply
   };
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-
-  // useEffect(() => {
-  // const categ = searchParams.getAll('categories');
-  // const minPrice = searchParams.get('minPrice');
-  // const maxPrice = searchParams.get('maxPrice');
-  // console.log(categ);
-  //   setValuesPrice({ Min: minPrice, Max: maxPrice });
-  //   setSelectedCategories(categ);
-  //   fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
-  // });
 
   return (
     <>
