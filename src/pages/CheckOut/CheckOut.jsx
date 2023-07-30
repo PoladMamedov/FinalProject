@@ -32,12 +32,6 @@ function CheckOut() {
     return accumulator + productTotalPrice;
   }, 0);
 
-  const baseDeliveryCost = 13;
-  const deliveryCost = isNovaPoshtaDelivery
-    ? baseDeliveryCost * currencyValue
-    : 0;
-  const totalWithDelivery = totalOrderPrice + deliveryCost;
-
   const handleButtonClick = (buttonNumber) => {
     setActiveButton(buttonNumber);
   };
@@ -95,12 +89,12 @@ function CheckOut() {
                       : "Store pickup"}
                   </span>
                   <span className="">
-                    {isNovaPoshtaDelivery ? "$13" : "Free"}
+                    {isNovaPoshtaDelivery ? "" : <span>Free</span>}
                   </span>
                 </div>
                 <div className="checkout-section__product-summary-mobile-total">
                   <span className="">Total</span>
-                  <span className="">{totalWithDelivery}</span>
+                  <span className="">{totalOrderPrice}</span>
                 </div>
               </div>
             </div>
@@ -108,16 +102,6 @@ function CheckOut() {
 
           <div className="checkout-section__product-summary-computer">
             <h4 className="">Order summary</h4>
-            <div className="checkout-section__product-summary-computer-subtotal">
-              <span className="">Subtotal</span>
-              <span className="checkout-section__product-subtotal">
-                <img
-                  src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
-                  alt="cureency-icon"
-                />
-                <span>{Math.floor(totalOrderPrice)}</span>
-              </span>
-            </div>
             <div className="checkout-section__product-summary-computer-shipping">
               <span className="">Shipping method</span>
             </div>
@@ -125,17 +109,7 @@ function CheckOut() {
               <span className="">
                 {isNovaPoshtaDelivery ? "Nova Poshta shipping" : "Store pickup"}
               </span>
-              {isNovaPoshtaDelivery ? (
-                <span className="checkout-section__product-summary-computer-shipping-value">
-                  <img
-                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
-                    alt="cureency-icon"
-                  />
-                  <span>{Math.floor(deliveryCost)}</span>
-                </span>
-              ) : (
-                <span>Free</span>
-              )}
+              {isNovaPoshtaDelivery ? "" : <span>Free</span>}
             </div>
 
             <div className="checkout-section__product-summary-computer-total">
@@ -145,7 +119,7 @@ function CheckOut() {
                   src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
                   alt="cureency-icon"
                 />
-                <span>{Math.floor(totalWithDelivery)}</span>
+                <span>{Math.floor(totalOrderPrice)}</span>
               </div>
             </div>
           </div>
@@ -164,7 +138,7 @@ function CheckOut() {
                   </span>
                   <br />
                   <span className="checkout-section__security-help-cell">
-                    +358295938
+                    +380674106214
                   </span>{" "}
                   <span className="">
                     or{" "}
