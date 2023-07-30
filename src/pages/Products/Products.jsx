@@ -10,10 +10,12 @@ import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
+import { sortProducts } from "../../redux/actions/products";
 
 
 const Products = () => {
  const dispatch = useDispatch();
+ const { sortValue } = useSelector((state) => state.sortFilter);
 
   const {categories} = useSelector(
         (state) => state.categories
@@ -35,6 +37,17 @@ const Products = () => {
 
   const { filteredProducts } =  useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //   if (sortValue === "+") {
+  //     const sortHigh = filteredProducts.sort((a, b) => a.currentPrice - b.currentPrice);
+  //     dispatch(sortProducts(sortHigh));
+  //     console.log(filteredProducts.currentPrice);
+  // } else if (sortValue === "-") {
+  //     const sortLow = filteredProducts.sort((a, b) => b.currentPrice - a.currentPrice);
+  //     dispatch(sortProducts(sortLow));
+  // }
+  // }, []);
 
   useEffect(() => {
     setProducts(filteredProducts);

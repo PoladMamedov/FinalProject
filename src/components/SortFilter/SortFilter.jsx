@@ -1,14 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sortLowToHighPrice, sortHighToLowPrice } from "../../redux/actions/sortFilter";
 import { sortProducts } from "../../redux/actions/products";
 
-const SortFilter = ( {products, isFilterCollapsed} ) => {
-const dispatch = useDispatch();
+const SortFilter = ({ products, isFilterCollapsed }) => {
+    const dispatch = useDispatch();
 
-useEffect(() => {
-        dispatch(sortLowToHighPrice());
-    }, []);
+    const { sortValue } = useSelector((state) => state.sortFilter);
 
     function handleSelectChange(e) {
         if (products.length !== 0) {
@@ -23,15 +20,23 @@ useEffect(() => {
             }
         }
     }
-
     return (
         <div className={`filter-section-sort ${isFilterCollapsed ? "filter-section-sort--position" : ""}`}>
             <p className="filter-section-sort-text">Sort by</p>
             <select
                 className="filter-section-sort-select"
                 onChange={handleSelectChange}>
-                <option value="1">Price(Low to High)</option>
-                <option value="2">Price(High to Low)</option>
+                {sortValue === "+" ? (
+                    <>
+                        <option value="1" selected>Price(Low to High)</option>
+                        <option value="2">Price(High to Low)</option>
+                    </>
+                ) : (
+                    <>
+                        <option value="1">Price(Low to High)</option>
+                        <option value="2" selected>Price(High to Low)</option>
+                    </>
+                )}
             </select>
         </div>
 

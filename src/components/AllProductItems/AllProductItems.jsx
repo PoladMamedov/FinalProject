@@ -26,11 +26,17 @@ function AllProductItems(props) {
   const isCardView = useSelector((state) => state.toggleCard.cardView);
 
   const dispatch = useDispatch();
-
+  const { sortValue } = useSelector((state) => state.sortFilter);
+  
   useEffect(() => {
     setIsLoading(true);
     getAllProducts()
       .then((result) => {
+        if (sortValue === "+") {
+          result.sort((a, b) => a.currentPrice - b.currentPrice);
+        } else if (sortValue === "-") {
+          result.sort((a, b) => b.currentPrice - a.currentPrice);
+        }
         setIsLoading(false);
         if (props.products) {
           setIsLoading(true);

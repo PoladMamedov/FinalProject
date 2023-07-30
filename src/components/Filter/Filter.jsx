@@ -74,11 +74,10 @@ const Filter = forwardRef(({
       newUrlParams[key] = value;
     }
     setUrlParams(newUrlParams);
-    console.log(newUrlParams);
-    setValuesPrice((prev) => ({
-      Max: newUrlParams.maxPrice ||  "",
+    setValuesPrice({
+      Max: newUrlParams.maxPrice || "",
       Min: newUrlParams.minPrice || "",
-    }) );
+    });
     setSelectedCategories(newUrlParams.categories ? newUrlParams.categories.split(",") : []);
   }, []);
 
@@ -88,9 +87,7 @@ const Filter = forwardRef(({
     }
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
-    console.log(arr);
     setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
-    console.log(valuesPrice.Min, valuesPrice.Max);
     fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }, [selectedCategories]);
 
@@ -277,17 +274,17 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     }
   }, [checkedItems, valuesPrice]);
 
-  const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
+  // const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
   
-  useEffect(() => {
-    dispatch(sortLowToHighPrice());
-    setIsWaitSortFilter(true);
-  }, []);
+  // useEffect(() => {
+  //   // dispatch(sortLowToHighPrice());
+  //   setIsWaitSortFilter(true);
+  // }, []);
 
   useEffect(() => {
-    if (!isWaitSortFilter) {
-      return;
-    }
+    // if (!isWaitSortFilter) {
+    //   return;
+    // }
     if (subcategorieParent) {
       let initialSelectedCategories;
       if (subcategory === "All") {
@@ -300,7 +297,8 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       setSelectedCategories(initialSelectedCategories);
       fetchFilteredProducts(initialSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
     }
-  }, [isWaitSortFilter]);
+  }, []);
+  
 
   useEffect(() => {
     if (sortValue !== undefined) {
