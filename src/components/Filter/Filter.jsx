@@ -1,3 +1,5 @@
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-restricted-syntax */
@@ -76,6 +78,15 @@ const Filter = forwardRef(({
     });
     setSelectedCategories(newUrlParams.categories ? newUrlParams.categories.split(",") : []);
   }, []);
+
+  useEffect(() => {
+    let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
+    arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
+    console.log(arr);
+    setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
+    console.log(valuesPrice.Min, valuesPrice.Max);
+    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+  }, [selectedCategories]);
 
   // функция для обновления url
   function updateUrl(path) {
