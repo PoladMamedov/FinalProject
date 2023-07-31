@@ -57,7 +57,7 @@
   background-color: #f5f7fb;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  height: 290px;
+  height: 225px;
   width: 400px;
   display: none;
   color: $primaryDark;
@@ -71,20 +71,13 @@
     padding-bottom: 0.375rem;
     margin-bottom: 0.8125rem;
     border-bottom: 0.0625rem solid #979797;
+    margin-top: 5px;
   }
 
-  .checkout-section__product-summary-computer-subtotal {
-    font-size: 1rem;
-    margin: 0 0 0.6875rem;
-    line-height: 1.14;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
 
   .checkout-section__product-summary-computer-shipping {
     font-size: 1rem;
-    margin: 0 0 0.6875rem;
+    margin: 0px 0 0.979rem;
     line-height: 1.14;
     span {
       max-width: 70%;
@@ -109,6 +102,7 @@
     justify-content: space-between;
     font-size: 17px;
     font-weight: 700;
+    margin-top: 7px;
   }
 }
 
@@ -163,7 +157,7 @@
 }
 
 .checkout-section__product-subtotal {
-  @include flex (row, center, center);
+  @include flex(row, center, center);
   margin-right: 10px;
   margin-left: 5px;
   img {
@@ -230,29 +224,28 @@
   }
 }
 
-
 .checkout-section__product-summary-computer-total-price {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-    font-size: 17px;
-    font-weight: 700;
-img {
+  font-size: 17px;
+  font-weight: 700;
+  img {
     width: 16px;
     height: 16px;
 
     @include breakpoint-mf("my") {
-    width: 16px;
-    height: 16px;
+      width: 16px;
+      height: 16px;
+    }
   }
-} 
 }
 
 .checkout-section__product-summary-computer-shipping-value {
-@include flex (row, center, center);
-img {
+  @include flex(row, center, center);
+  img {
     width: 13px;
     height: 13px;
-} 
+  }
 }
