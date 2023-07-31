@@ -8,10 +8,10 @@ export default function createOrder({ customerId, products, deliveryAddress, ema
       email,
       mobile,
       shipping: delivery ? "Nova Poshta delivery" : "Store pickup",
-      letterSubject: "Thank you for order! You are welcome!",
+      letterSubject: "Thank You for your order!",
       letterHtml: delivery
-        ? "<h1>Your order is placed. Thank you for choosing Innovation Oasis</h1><p>Your order will be shipped to you as fast as possible! If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>"
-        : "<h1>Your order is placed. Thank you for choosing Innovation Oasis</h1><p>Your order will be waiting for you in our store, reservation period is 3 days. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>",
+        ? "<h1>Thank you for choosing Innovation Oasis</h1><p>Your order has been placed. It will be shipped as soon as possible. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>"
+        : "<h1>Thank you for choosing Innovation Oasis</h1><p>Your order has been placed. It will be waiting for you in our store. Reservation period is 3 days. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>",
     };
     return order;
   } else {
@@ -21,10 +21,10 @@ export default function createOrder({ customerId, products, deliveryAddress, ema
       email,
       mobile,
       shipping: delivery ? "Nova Poshta delivery" : "Store pickup",
-      letterSubject: "Thank you for order! You are welcome!",
+      letterSubject: "Thank You for your order!",
       letterHtml: delivery
-        ? "<h1>Your order is placed. Thank you for choosing Innovation Oasis</h1><p>Your order will be shipped to  as fast as possible! If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>"
-        : "<h1>Your order is placed. Thank you for choosing Innovation Oasis</h1><p>Your order will be waiting for you in our store, reservation period is 3 days. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>",
+        ? "<h1>Thank you for choosing Innovation Oasis</h1><p>Your order has been placed. It will be shipped as soon as possible. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>"
+        : "<h1>Thank you for choosing Innovation Oasis</h1><p>Your order has been placed. It will be waiting for you in our store. Reservation period is 3 days. If you have any questions please <a href='https://final-project-mauve-seven.vercel.app/about'>contact us</a></p>",
     };
     return order;
   }

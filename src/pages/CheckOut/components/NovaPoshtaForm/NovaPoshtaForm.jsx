@@ -10,6 +10,7 @@ import createOrder from "../../functions/createOrder";
 import useServer from "../../../../hooks/useServer";
 import { removeEntireCart } from "../../../../redux/actions/cart";
 import PreLoader from "../../../../components/PreLoader/PreLoader";
+import setOrderNumber from "../../../../redux/actions/orders";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
@@ -53,7 +54,9 @@ function NovaPoshtaForm() {
     setWarehouseSearchResult(searchResult);
     setLoading(false);
   }
-  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [searchedWarehouse]);
+  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [
+    searchedWarehouse,
+  ]);
 
   function handleWarehouseSelect(warehouse) {
     setSearchedWarehouse(warehouse);
@@ -69,7 +72,12 @@ function NovaPoshtaForm() {
 
   async function handleSubmit() {
     setLoading(true);
-    if (email === "" || phoneNumber === "" || selectedCity === "" || selectedWarehouse === "") return;
+    if (
+      email === ""
+      || phoneNumber === ""
+      || selectedCity === ""
+      || selectedWarehouse === ""
+    ) return;
     const newOrderInfo = {
       customerId: _id,
       products: cartProducts,
@@ -79,10 +87,12 @@ function NovaPoshtaForm() {
       delivery: true,
     };
     const orderData = createOrder(newOrderInfo);
-    await placeOrder(orderData, token);
+    const response = await placeOrder(orderData, token);
+    const orderNumber = response.order.orderNo;
     await deleteCart(token);
     dispatch(removeEntireCart());
     setLoading(false);
+    dispatch(setOrderNumber(orderNumber));
     navigate("/thankyou");
   }
 
@@ -174,7 +184,9 @@ function NovaPoshtaForm() {
           Submit
         </button>
       </form>
-      {!showWarehouseSuggestions && !showCitySuggestions && loading ? <PreLoader fillScreen /> : null}
+      {!showWarehouseSuggestions && !showCitySuggestions && loading ? (
+        <PreLoader fillScreen />
+      ) : null}
     </div>
   );
 }

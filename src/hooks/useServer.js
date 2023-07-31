@@ -118,7 +118,9 @@ export default function useServer() {
   // Get filters categoriesy
 
   async function getFiltersCategories(categories, sort) {
-    const filteredProducts = await fetch(`${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`)
+    const filteredProducts = await fetch(
+      `${url}/products/filter?categories=${categories}&sort=${sort}currentPrice`
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return filteredProducts;
@@ -160,7 +162,12 @@ export default function useServer() {
     return searchResult;
   }
 
-  async function getFiltersPricesBySubcategory(subcategorieParent, min, max, sort) {
+  async function getFiltersPricesBySubcategory(
+    subcategorieParent,
+    min,
+    max,
+    sort
+  ) {
     const filteredProducts = await fetch(
       `${url}/products/filter?categories=${subcategorieParent}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
     )
@@ -169,7 +176,13 @@ export default function useServer() {
     return filteredProducts;
   }
 
-  async function getFiltersCategoriesPricesBySubcategory(subcategorieParent, checkedSubcategorie, min, max, sort) {
+  async function getFiltersCategoriesPricesBySubcategory(
+    subcategorieParent,
+    checkedSubcategorie,
+    min,
+    max,
+    sort
+  ) {
     const filteredProducts = await fetch(
       `${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&minPrice=${min}&maxPrice=${max}&sort=${sort}currentPrice`
     )
@@ -178,7 +191,11 @@ export default function useServer() {
     return filteredProducts;
   }
 
-  async function getFiltersCategoriesBySubcategory(subcategorieParent, checkedSubcategorie, sort) {
+  async function getFiltersCategoriesBySubcategory(
+    subcategorieParent,
+    checkedSubcategorie,
+    sort
+  ) {
     const filteredProducts = await fetch(
       `${url}/products/filter?categories=${subcategorieParent}&filtertype=${checkedSubcategorie}&sort=${sort}currentPrice`
     )
@@ -288,7 +305,6 @@ export default function useServer() {
       .catch((err) => err);
     return decreasedProduct;
   }
-
   async function deleteCart(token) {
     const result = await fetch(`${url}/cart`, {
       method: "DELETE",
@@ -319,9 +335,12 @@ export default function useServer() {
 
   // eslint-disable-next-line default-param-last
   async function getComments(target = "", id) {
-    const comments = await fetch(`${url}/comments/${target !== "" ? `${target}/${id}` : ""}`, {
-      method: "GET",
-    })
+    const comments = await fetch(
+      `${url}/comments/${target !== "" ? `${target}/${id}` : ""}`,
+      {
+        method: "GET",
+      }
+    )
       .then((res) => res.json())
       .catch((err) => err);
     return comments;
