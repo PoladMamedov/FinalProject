@@ -19,6 +19,7 @@ import cartReducer from "./reducers/cart";
 import compareProductsReducer from "./reducers/compareProducts";
 import favoritesReducer from "./reducers/favorites";
 import commentsReducer from "./reducers/comments";
+import ordersReducer from "./reducers/orders";
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   compareProducts: compareProductsReducer,
   favorites: favoritesReducer,
   comments: commentsReducer,
+  orders: ordersReducer,
 });
 
 const persistConfig = {
