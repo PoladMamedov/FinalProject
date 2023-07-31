@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
 import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
-import { sortLowToHighPrice } from "../../redux/actions/sortFilter";
 import notificationsSettings from "../../constants/constants";
 import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
 import ProductsPricesForm from "./components/ProductsPricesForm";
@@ -63,6 +62,7 @@ const Filter = forwardRef(({
   const [selectedCategories, setSelectedCategories] = useState([]);
 
  const [urlParams, setUrlParams] = useState({});
+const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
 
   useEffect(() => {
     if (subcategorieParent) {
@@ -79,17 +79,19 @@ const Filter = forwardRef(({
       Min: newUrlParams.minPrice || "",
     });
     setSelectedCategories(newUrlParams.categories ? newUrlParams.categories.split(",") : []);
+    setIsFirstEffectComplete(true);
   }, []);
 
   useEffect(() => {
-    if (subcategorieParent) {
+    if (!isFirstEffectComplete || subcategorieParent) {
       return;
     }
+    console.log(isFirstEffectComplete);
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
     setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
     fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
-  }, [selectedCategories]);
+  }, [isFirstEffectComplete, selectedCategories, valuesPrice]);
 
   // функция для обновления url
   function updateUrl(path) {
@@ -213,6 +215,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
   }
 
   async function handleCheckboxChange(e, index) {
+    setIsFirstEffectComplete(false);
     let category = e.target.name.toLowerCase().replace(/ /g, "_");
     if (category === "smart_watches") {
       category = category.replace(/es$/, "");
