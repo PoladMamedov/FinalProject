@@ -49,7 +49,9 @@ const CompareFull = () => {
                                 return (
                                     <th key={idx}>
                                         <div className="compare-section-full-item__header">
-                                            <NavLink to={`/products/${item.itemNo}`}>
+                                            <NavLink
+                                                to={`/products/${item.itemNo}`}
+                                                className="compare-section-full-item__img--wrap">
                                                 <img
                                                     className="compare-section-full-item__img"
                                                     src={item.imageUrls[0]}

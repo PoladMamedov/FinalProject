@@ -94,6 +94,17 @@
             max-width: 100%;
         }
 
+        &--wrap {
+            max-width: 85%;
+
+            @include breakpoint-mf("sm") {
+                max-width: 90%;
+            }
+
+            @include breakpoint-mf("md") {
+                max-width: 100%;
+            }
+        }
     }
 
     &__scales {
