@@ -260,8 +260,13 @@ const Header = () => {
 
 
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to={token ? "/cabinet" : "/login"}
+                key={6}
+                className="header__nav-link--loginBtn"
+              > */}
+                <NavLink
+                to={token ? "/userdetails" : "/login"}
                 key={6}
                 className="header__nav-link--loginBtn"
               >

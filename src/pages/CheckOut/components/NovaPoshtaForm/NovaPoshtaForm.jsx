@@ -14,7 +14,7 @@ import setOrderNumber from "../../../../redux/actions/orders";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
-  const { placeOrder, deleteCart } = useServer();
+const { placeOrder, deleteCart } = useServer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -88,6 +88,7 @@ function NovaPoshtaForm() {
     };
     const orderData = createOrder(newOrderInfo);
     const response = await placeOrder(orderData, token);
+    console.log(response);
     const orderNumber = response.order.orderNo;
     await deleteCart(token);
     dispatch(removeEntireCart());

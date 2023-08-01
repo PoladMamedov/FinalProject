@@ -1,0 +1,57 @@
+.orders-section-sub-list {
+  display: none;
+
+}
+
+.orders-section-sub-list.active {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.orders-section-sub-list-item {
+  // margin-bottom: 50px;
+  @include flex(row);
+  gap: 50px;
+  position: relative;
+  background-color: $secondaryLight;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  width: 800px;
+      @include breakpoint-mf("sm") {
+            align-items: center;
+            padding: 30px 40px;
+          }
+
+}
+
+
+.orders-section-sub-list-item-img-wrap {
+  width: 100px;
+  height: 100px;
+
+  @include breakpoint-mf("md") {
+    width: 200px;
+    height: 150px;
+  }
+}
+
+.orders-section-sub-list-item-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.orders-section-sub-list-item-details {
+  font-size: 12px;
+  @include flex(column, flex-start);
+  gap: 10px;
+  padding-left: 20px;
+
+  @include breakpoint-mf("sm") {
+    width: 100%;
+    @include flex(row, space-between, center);
+    font-size: 18px;
+    font-weight: 500;
+  }
+}

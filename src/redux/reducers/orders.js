@@ -2,6 +2,9 @@ import ordersTypes from "../type/orders";
 
 const initialState = {
   orderNumber: null,
+  orders: [],
+  loading: false,
+  error: null,
 };
 
 // eslint-disable-next-line default-param-last
@@ -11,6 +14,13 @@ const ordersReducer = (state = initialState, action) => {
       return {
         ...state,
         orderNumber: action.payload,
+      };
+    case ordersTypes.GET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+        loading: false,
+        error: null,
       };
     default:
       return state;

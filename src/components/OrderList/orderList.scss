@@ -1,0 +1,96 @@
+.orders-section {
+    margin-bottom: 50px;
+}
+
+.orders-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    text-align: center;
+    margin-bottom: 4rem;
+    @include fonts(400, 20px, 23px);
+    color: #211f1c;
+
+    @include breakpoint-mf("xl") {
+        @include fonts(400, 32px, 38px);
+    }
+}
+
+.orders-section-main-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.orders-section-main-list-item-content {
+    // margin-bottom: 50px;
+    @include flex(row, space-between, center);
+    width: 100%;
+    padding: 18px;
+    background-color: #f5f7fb;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.orders-section-main-list-item-content-order-number {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+///
+.orders-section-main-list-item-content-total {
+    @include flex(column, flex-start);
+    gap: 10px;
+}
+
+.orders-section-main-list-item-content-total.active {
+    display: none;
+}
+
+
+.orders-section-total-wrap {
+    @include flex(column, flex-start);
+    gap: 10px;
+    // background-color: $secondaryLight;
+    // box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    //     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    width: 800px;
+
+    @include breakpoint-mf("sm") {
+        padding: 30px 40px;
+    }
+
+}
+
+.orders-section-sub-address {}
+
+.orders-section-main-list-btn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f5f7fb;
+    color: $primaryDark;
+    font-family: "Roboto";
+    @include fonts(400, 16px, 35px);
+
+}
+
+.orders-section-main-list-btn.active {
+    display: none;
+}
+
+.orders-section-total-wrap-p {
+    @include flex(row, space-between);
+    width: 100%;
+    @include fonts(400, 16px, 35px);
+}
+
+.orders-section-total-wrap-p:nth-child(1) {
+    @include fonts(700, 20px, 35px);
+    border-bottom: 0.015rem solid #979797;
+    padding-bottom: 12px;
+}
