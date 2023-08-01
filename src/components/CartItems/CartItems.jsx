@@ -11,9 +11,10 @@ import {
   increaseCart,
   increaseCartAsync,
   decreaseCartAsync,
-  decreaseCart, updateCartQuantity, setCart
+  decreaseCart,
+  updateCartQuantity,
+  setCart,
 } from "../../redux/actions/cart";
-import notificationsSettings from "../../constants/constants";
 
 const CartItems = (props) => {
   const {
@@ -33,6 +34,11 @@ const CartItems = (props) => {
   // eslint-disable-next-line no-underscore-dangle
   const itemId = props.dataProducts.product._id;
   // const cartProducts = useSelector((state) => state.cart.cart);
+  const { currency, currencyName } = useSelector(
+    (state) => state.currentCurrency
+  );
+const currencyValue = parseFloat(currency);
+
   useEffect(() => {
     setIsCheckout(isCheckoutPage);
   }, [isCheckoutPage]);
@@ -43,8 +49,8 @@ const CartItems = (props) => {
         products: cartProducts.map((item) => ({
           // eslint-disable-next-line no-underscore-dangle
           product: item.product._id,
-          cartQuantity: item.cartQuantity
-        }))
+          cartQuantity: item.cartQuantity,
+        })),
       };
       dispatch(setCart(updatedCart, userToken));
     }
@@ -54,15 +60,27 @@ const CartItems = (props) => {
     try {
       if (token) {
         dispatch(removeCartAsync(item, token));
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartDeleted,
+        });
       } else {
         dispatch(removeCart(item));
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDeleted });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartDeleted,
+        });
       }
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDeleted });
-
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.error,
+        message: error.message,
+      });
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartNotDeleted,
+      });
     }
   };
 
@@ -71,15 +89,28 @@ const CartItems = (props) => {
       if (token) {
         dispatch(increaseCartAsync(item, token));
         setInputValue((prevState) => +prevState + 1);
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartIncreased,
+        });
       } else {
         dispatch(increaseCart(item));
         setInputValue((prevState) => +prevState + 1);
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartIncreased });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartIncreased,
+        });
       }
     } catch (error) {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotIncreased });
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.error,
+        message: error.message,
+      });
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartNotIncreased,
+      });
     }
   };
   const onDecreaseItem = async (item, token) => {
@@ -87,14 +118,23 @@ const CartItems = (props) => {
       if (token) {
         dispatch(decreaseCartAsync(item, token));
         setInputValue((prevState) => prevState - 1);
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartDecreased,
+        });
       } else {
         dispatch(decreaseCart(item));
         setInputValue((prevState) => prevState - 1);
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartDecreased });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartDecreased,
+        });
       }
     } catch (error) {
-    Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartNotDecreased });
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartNotDecreased,
+      });
     }
   };
 
@@ -105,24 +145,38 @@ const CartItems = (props) => {
   };
 
   const handleInputBlur = async (item, value) => {
-    const {quantity} = props.dataProducts.product;
-    const isValidValue = +value !== 0 && +value <= quantity;
+    const { quantity } = props.dataProducts.product;
+    const isValidValue = +value !== 0 && +value <= quantity && +value !== cartQuantity;
 
     if (isValidValue) {
       if (userToken) {
         dispatch(updateCartQuantity(itemId, +value));
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChanged });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartQuantityChanged,
+        });
       } else {
         dispatch(updateCartQuantity(itemId, +value));
-        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityChanged });
+        Store.addNotification({
+          ...notificationsSettings.basic,
+          ...notificationsSettings.cartQuantityChanged,
+        });
       }
+    } else if (+value === cartQuantity) {
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartQuantityChangedOnSameValue,
+      });
     } else {
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.cartQuantityNotChanged });
+      Store.addNotification({
+        ...notificationsSettings.basic,
+        ...notificationsSettings.cartQuantityNotChanged,
+      });
       setInputValue(cartQuantity);
     }
   };
 
-    return (
+  return (
     <>
       <li className={`cart-list__item ${isCheckout ? "none" : ""}`}>
         {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}
@@ -138,11 +192,20 @@ const CartItems = (props) => {
           <Link to={`/products/${itemNo}`} className="cart-list__item-title">
             {name}
           </Link>
-          <p className="cart-list__item-price">${currentPrice}</p>
+          {/* <p className="cart-list__item-price">${currentPrice}</p> */}
+
+          <div className="cart-list__item-price">
+            <img
+              src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+              alt="cureency-icon"
+            />
+            <span>{Math.floor(currentPrice * currencyValue)}</span>
+          </div>
+
           <div className="cart-list__item-quantity">
             <button
               type={"button"}
-              className="cart-list__item-quantity-minus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-minus"
               onClick={() => onDecreaseItem(itemId, userToken)}
               disabled={cartQuantity <= 1}
             >
@@ -150,14 +213,14 @@ const CartItems = (props) => {
             </button>
             <input
               type={"text"}
-              className="cart-list__item-quantity-number"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-number"
               value={inputValue}
               onChange={(event) => handleInputChange(event.target.value)}
               onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}
-              className="cart-list__item-quantity-plus"
+              className="cart-list__item-quantity-item cart-list__item-quantity-item-plus"
               onClick={() => onIncreaseItem(itemId, userToken)}
               disabled={cartQuantity === props.dataProducts.product.quantity}
             >
@@ -199,7 +262,13 @@ const CartItems = (props) => {
           >
             {name}
           </Link>
-          <p className="checkout-cart-list__item-price">${currentPrice}</p>
+          <div className="checkout-cart-list__item-price">
+            <img
+              src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+              alt="cureency-icon"
+            />
+            <span>{Math.floor(currentPrice * currencyValue)}</span>
+          </div>
           <div className="checkout-cart-list__item-quantity">
             <button
               type={"button"}
@@ -212,7 +281,9 @@ const CartItems = (props) => {
             <input
               type={"text"}
               className="checkout-cart-list__item-quantity-number"
-              onChange={(event) => handleInputChange(event)}
+              value={inputValue}
+              onChange={(event) => handleInputChange(event.target.value)}
+              onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}

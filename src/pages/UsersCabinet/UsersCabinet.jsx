@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Image } from "cloudinary-react";
-import cloudinaryConfig from "../../config/cloudinaryConfig";
+import Avatar from "react-avatar";
 import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
-import PersonalDataEditForm from "../../components/PersonalDataEditForm/PersonalDataEditForm";
-import PasswordChangeForm from "../../components/PasswordChangeForm/PasswordChangeForm";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import { removeEntireCart } from "../../redux/actions/cart";
+import PersonalDataEditForm from "./components/PersonalDataEditForm/PersonalDataEditForm";
+import PasswordChangeForm from "./components/PasswordChangeForm/PasswordChangeForm";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
@@ -24,13 +23,7 @@ function UsersCabinet() {
         <h2 className="section-title">My account</h2>
         <div className="container users-cabinet__content-wrapper">
           <aside className="users-cabinet__info">
-            <Image
-              cloudName={cloudinaryConfig.cloudName}
-              publicId="profile_fuov07"
-              width={150}
-              height={150}
-              alt=""
-            />
+            <Avatar name={`${firstName} ${lastName}`} size="150" round />
             <p>{`${firstName} ${lastName}`}</p>
             <p>{email}</p>
             <button

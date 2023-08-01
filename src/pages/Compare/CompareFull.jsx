@@ -49,11 +49,15 @@ const CompareFull = () => {
                                 return (
                                     <th key={idx}>
                                         <div className="compare-section-full-item__header">
-                                            <img
-                                                className="compare-section-full-item__img"
-                                                src={item.imageUrls[0]}
-                                                alt={"product"}
-                                            ></img>
+                                            <NavLink
+                                                to={`/products/${item.itemNo}`}
+                                                className="compare-section-full-item__img--wrap">
+                                                <img
+                                                    className="compare-section-full-item__img"
+                                                    src={item.imageUrls[0]}
+                                                    alt={"product"}
+                                                ></img>
+                                            </NavLink>
                                             <button
                                                 className="compare-section-full-item__closebtn"
                                                 onClick={() => removeCompareProductsfromTable(item.itemNo)}
@@ -69,7 +73,9 @@ const CompareFull = () => {
                         <tr>
                             <td>Name</td>
                             {products.map((item, idx) => {
-                                return <td key={idx}>{item.name}</td>;
+                                return <td key={idx}>
+                                    <NavLink className="compare-section__item-name" to={`/products/${item.itemNo}`}>{item.name}</NavLink>
+                                </td>;
                             })}
                         </tr>
                         <tr>

@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .all-card-container {
@@ -10,6 +11,7 @@
   height: 260px;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 
   @media (min-width: 640px) {
     width: 100%;
@@ -64,6 +66,7 @@
     margin-top: 176px;
     margin-left: 16px;
     display: flex;
+    justify-content: space-between;
     gap: 7px;
 
     @media (min-width: 630px) {
@@ -83,30 +86,7 @@
       gap: 15px;
     }
   }
-  &__btn-details {
-    width: 66px;
-    height: 17px;
-    font-size: 10px;
-    border-radius: 10px;
-    background-color: $primary;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Josefin Sans", sans-serif;
 
-    @media (min-width: 630px) {
-      width: 111px;
-      height: 28px;
-      font-size: 14px;
-    }
-
-    @include breakpoint-mf("xl") {
-      width: 138px;
-      height: 100%;
-      border-radius: 10px;
-    }
-  }
   &__btn-card-container {
     width: 25px;
     height: 18px;
@@ -297,6 +277,7 @@
     margin-top: 176px;
     margin-left: 16px;
     display: flex;
+    justify-content: space-between;
     gap: 7px;
 
     @media (min-width: 860px) {
@@ -324,45 +305,7 @@
       margin-top: 65px;
       margin-left: 35%;
       gap: 40px;
-      //gap: 50px;
     }
-  }
-  &__btn-details {
-    width: 66px;
-    height: 17px;
-    font-size: 10px;
-    border-radius: 10px;
-    background-color: $primary;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Josefin Sans", sans-serif;
-
-    @media (min-width: 860px) {
-      width: 111px;
-      height: 28px;
-      font-size: 12px;
-    }
-
-    @include breakpoint-mf("xl") {
-      width: 104px;
-      height: 100%;
-      border-radius: 10px;
-    }
-  }
-
-  &__btn-details--rows {
-    width: 200px;
-    height: 30px;
-    font-size: 10px;
-    border-radius: 10px;
-    background-color: $primary;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Josefin Sans", sans-serif;
   }
 
   &__btn-card-container {
@@ -566,7 +509,8 @@
   position: absolute;
   top: -168px;
   right: -2px;
-@include breakpoint-bet(860px, 1199px) {
+
+  @include breakpoint-bet(860px, 1199px) {
   width: 32px;
   height: 28px;
   top: -230px;
