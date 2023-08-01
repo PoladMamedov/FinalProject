@@ -99,7 +99,7 @@ function NovaPoshtaForm() {
   return (
     <div className="np-delivery">
       <h3 className="np-delivery__title">
-        <img width={50} height={50} src="./img/nova-poshta/np.png" alt="" />
+        <img width={50} height={50} src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690295247/np_sykefc.png" alt="" />
         Nova Poshta delivery information:
       </h3>
       <form
