@@ -305,22 +305,89 @@ export default function useServer() {
       .catch((err) => err);
     return decreasedProduct;
   }
+  async function deleteCart(token) {
+    const result = await fetch(`${url}/cart`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return result;
+  }
 
   /* PLACE AN ORDER */
 
-  // eslint-disable-next-line no-unused-vars
-  // async function placeOrder(newOrderData) {
-  //   const savedOrder = await fetch(`${url}/orders`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newOrderData),
-  //   })
-  //     .then((res) => res.json())
-  //     .catch((err) => err);
-  //   return savedOrder;
-  // }
+  async function placeOrder(newOrderData, token) {
+    const savedOrder = await fetch(`${url}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(newOrderData),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return savedOrder;
+  }
+
+  // eslint-disable-next-line default-param-last
+  async function getComments(target = "", id) {
+    const comments = await fetch(
+      `${url}/comments/${target !== "" ? `${target}/${id}` : ""}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .catch((err) => err);
+    return comments;
+  }
+
+  async function addComment(comment, token) {
+    const comments = await fetch(`${url}/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return comments;
+  }
+
+  async function deleteComment(commentID, token) {
+    const deletedCommentInfo = await fetch(`${url}/comments/${commentID}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return deletedCommentInfo;
+  }
+
+  async function updateComment(commentID, newComment, token) {
+    const updatedCommentInfo = await fetch(`${url}/comments/${commentID}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return updatedCommentInfo;
+  }
 
   return {
     registerUser,
@@ -346,9 +413,14 @@ export default function useServer() {
     deleteFromWishlist,
     getCart,
     updateCart,
+    deleteCart,
     removeItemFromCart,
     addItemCart,
     decreaseProductQuantity,
-    // placeOrder,
+    placeOrder,
+    getComments,
+    addComment,
+    deleteComment,
+    updateComment,
   };
 }

@@ -99,31 +99,6 @@
   flex-direction: column;
 }
 
-.top-product__card > div:nth-child(8) {
-  @media (max-width: 1169px) {
-    height: 0;
-    visibility: hidden;
-  }
-}
-.top-product__card > div:nth-child(7) {
-  @media (max-width: 1169px) {
-    height: 0;
-    visibility: hidden;
-  }
-}
-
-.top-product__card > div:nth-child(5) {
-  @media (max-width: 429px) {
-    height: 0;
-    visibility: hidden;
-  }
-}
-.top-product__card > div:nth-child(6) {
-  @media (max-width: 429px) {
-    height: 0;
-    visibility: hidden;
-  }
-}
 .top-product__card > div {
   display: flex;
   justify-content: center;

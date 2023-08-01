@@ -12,11 +12,6 @@ function cartReducer(state = initialState, action) {
         ...state,
         cart: [...action.payload.products],
       };
-    case cartTypes.ADD_TO_CART:
-      return {
-        ...state,
-        cart: [...state.cart, ...action.payload.products],
-      };
     case cartTypes.CLEAR_CART:
       return {
         ...state,

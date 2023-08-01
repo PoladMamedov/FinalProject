@@ -1,6 +1,6 @@
 .total-block {
   @include flex(column, center, center);
-  @include breakpoint-mf('md') {
+  @include breakpoint-mf("md") {
     align-items: flex-end;
   }
 }
@@ -13,11 +13,12 @@
   min-width: 300px;
   margin-top: 50px;
   background-color: $secondaryLight;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  @include breakpoint-mf('sm') {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  @include breakpoint-mf("sm") {
     min-width: 450px;
   }
-  @include breakpoint-mf('md') {
+  @include breakpoint-mf("md") {
     padding: 50px 55px;
     min-width: 500px;
   }
@@ -36,7 +37,7 @@
   &:nth-child(1) {
     font-size: 14px;
     font-weight: 700;
-    @include breakpoint-mf('xs') {
+    @include breakpoint-mf("xs") {
       font-size: 18px;
     }
   }
@@ -44,7 +45,7 @@
   &:nth-child(2) {
     font-size: 12px;
     font-weight: 400;
-    @include breakpoint-mf('xs') {
+    @include breakpoint-mf("xs") {
       font-size: 18px;
     }
   }
@@ -52,15 +53,14 @@
   &:nth-child(4) {
     font-size: 16px;
     font-weight: 700;
-    @include breakpoint-mf('xs') {
+    @include breakpoint-mf("xs") {
       font-size: 20px;
     }
-    @include breakpoint-mf('md') {
+    @include breakpoint-mf("md") {
       font-size: 25px;
     }
   }
 }
-
 
 .total-block-line {
   width: 100%;
@@ -83,7 +83,7 @@
   width: 100px;
   height: 25px;
   white-space: nowrap;
-  @include breakpoint-mf('sm') {
+  @include breakpoint-mf("sm") {
     font-size: 20px;
     width: 125px;
     height: 35px;
@@ -96,5 +96,19 @@
   &-checkout {
     color: white;
     background-color: $primary;
+  }
+}
+
+.total-block__value-product {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 10px;
+  font-weight: 700;
+  @include breakpoint-mf("xs") {
+    width: 18px;
+    height: 18px;
   }
 }

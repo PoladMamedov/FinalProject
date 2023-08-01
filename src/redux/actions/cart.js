@@ -10,12 +10,6 @@ export function fillCart(products) {
   };
 }
 
-export function addToCart(products) {
-  return {
-    type: cartTypes.ADD_TO_CART,
-    payload: { products },
-  };
-}
 export const removeCart = (itemId) => {
   return {
     type: cartTypes.REMOVE_CART,
@@ -29,7 +23,9 @@ export const fetchCart = (token) => {
     const { getCart } = useServer();
     try {
       const cart = await getCart(token);
-      dispatch(fillCart(cart.products));
+      if (cart !== null) {
+        dispatch(fillCart(cart.products));
+      }
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
@@ -111,8 +107,8 @@ export const updateCartQuantity = (itemId, cartQuantity) => {
     type: cartTypes.UPDATE_CART_QUANTITY,
     payload: {
       id: itemId,
-      cartQuantity
-    }
+      cartQuantity,
+    },
   };
 };
 
