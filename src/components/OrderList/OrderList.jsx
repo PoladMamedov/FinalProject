@@ -9,7 +9,7 @@ import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProduct
 import Skeleton from "./Skeleton";
 
 function OrdersList() {
-  const {orders, loading} = useSelector((state) => state.orders);
+  const { orders, loading } = useSelector((state) => state.orders);
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
 
@@ -19,7 +19,7 @@ function OrdersList() {
 
   const currencyValue = parseFloat(currency);
 
-    const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [productsPerPage, setProductsPerPage] = useState(4);
@@ -80,8 +80,8 @@ function OrdersList() {
                   </div>
 
                   <div
-                    // eslint-disable-next-line no-underscore-dangle
                     className={`orders-section-main-list-item-content-total ${
+                      // eslint-disable-next-line no-underscore-dangle
                       activeItemIds.includes(order._id) ? "active" : ""
                     }`}
                   >
@@ -130,7 +130,7 @@ function OrdersList() {
                   }`}
                 >
                   <div className="orders-section-sub-list-total-wrap">
-                    <div className="orders-section-sub-list-total-wrap-p total" >
+                    <div className="orders-section-sub-list-total-wrap-p total">
                       <span className="">Total</span>
                       <div className="checkout-section__product-summary-computer-total-price">
                         <img
