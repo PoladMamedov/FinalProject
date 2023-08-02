@@ -36,10 +36,8 @@ export default function ProductCard(props) {
   function addProducttoCompare() {
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
     } else {
       dispatch(removeCompareProducts(urlItemNumber));
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorCompare });
     }
     compareBtn.current.classList.toggle("compare-btn--clicked");
   }
@@ -70,10 +68,8 @@ export default function ProductCard(props) {
       } else {
         if (token) {
           dispatch(increaseCartAsync(item, token, productInfo));
-          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
         } else {
           dispatch(increaseCart(item, productInfo));
-          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
         }
       }
     } catch (error) {
