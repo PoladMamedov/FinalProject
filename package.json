@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-input-mask": "^3.0.0-alpha.2",
+    "react-intersection-observer": "^9.5.2",
     "react-leaflet": "^4.2.1",
     "react-loader-spinner": "^5.3.4",
     "react-notifications-component": "^4.0.1",
