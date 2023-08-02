@@ -153,7 +153,6 @@ function OrdersList() {
                   </div>
 
                   {order.products.map((product) => (
-                    // eslint-disable-next-line no-underscore-dangle
                     <OrderItem
                       // eslint-disable-next-line no-underscore-dangle
                       key={product._id}
