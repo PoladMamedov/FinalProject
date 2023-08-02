@@ -17,7 +17,7 @@ function UsersCabinet() {
   }, []);
   return (
       <section className="users-cabinet">
-        <h2 className="section-title">My account</h2>
+        {/* <h2 className="section-title">My account</h2> */}
         <div className="container users-cabinet__content-wrapper">
           <aside className="users-cabinet__info">
             <Avatar name={`${firstName} ${lastName}`} size="150" round />

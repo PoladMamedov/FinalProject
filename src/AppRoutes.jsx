@@ -20,7 +20,7 @@ import CheckOut from "./pages/CheckOut/CheckOut";
 import ThankYou from "./pages/ThankYou/ThankYou";
 import Favorites from "./pages/Favorites/Favorites";
 import Compare from "./pages/Compare/Compare";
-import UserDetails from "./pages/UserDetails/UserDetails";
+import UserAccount from "./pages/UserAccount/UserAccount";
 
 const AppRoutes = () => {
   return (
@@ -50,7 +50,7 @@ const AppRoutes = () => {
           <Route path="/compare" element={<Compare />} />
 
           <Route element={<RequireAuth />}>
-            <Route path="/userdetails" element={<UserDetails />} />
+            <Route path="/account" element={<UserAccount />} />
           </Route>
         </Routes>
       </main>

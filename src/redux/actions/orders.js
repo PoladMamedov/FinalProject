@@ -15,10 +15,17 @@ export function showOrders(orders) {
   };
 }
 
+export function loadingOrders() {
+  return {
+    type: ordersTypes.LOADING_ORDERS,
+  };
+}
+
 export const fetchOrders = (token) => {
   return async (dispatch) => {
     const { getOrders } = useServer();
     try {
+      dispatch(loadingOrders());
       const orders = await getOrders(token);
       if (orders !== null) {
         dispatch(showOrders(orders));

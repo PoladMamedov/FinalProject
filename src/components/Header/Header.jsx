@@ -266,7 +266,7 @@ const Header = () => {
                 className="header__nav-link--loginBtn"
               > */}
                 <NavLink
-                to={token ? "/userdetails" : "/login"}
+                to={token ? "/account" : "/login"}
                 key={6}
                 className="header__nav-link--loginBtn"
               >

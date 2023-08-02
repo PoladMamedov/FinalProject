@@ -22,6 +22,12 @@ const ordersReducer = (state = initialState, action) => {
         loading: false,
         error: null,
       };
+    case ordersTypes.LOADING_ORDERS:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
     default:
       return state;
   }
