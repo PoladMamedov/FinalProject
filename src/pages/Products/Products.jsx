@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { increment, decrement } from "../../redux/actions/counterFilter";
 import Filter from "../../components/Filter/Filter";
 import FilterMini from "../../components/Filter/FilterMini";
@@ -9,10 +10,12 @@ import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
 import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
+import { sortProducts } from "../../redux/actions/products";
 
 
 const Products = () => {
  const dispatch = useDispatch();
+ const { sortValue } = useSelector((state) => state.sortFilter);
 
   const {categories} = useSelector(
         (state) => state.categories
