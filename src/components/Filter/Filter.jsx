@@ -136,7 +136,12 @@ const Filter = forwardRef(({
       }
       const products = Object.values(filteredProductsResponse);
       const firstArray = products[0];
-      dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
+      if (firstArray.length === 0) {
+        setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.productNotFound });
+      } else {
+        dispatch(addFilteredProducts(firstArray));
+      }// добавляю фильтрованные продукты в редакс
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
