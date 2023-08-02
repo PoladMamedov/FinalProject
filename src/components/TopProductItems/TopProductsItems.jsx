@@ -7,7 +7,7 @@ function TopProductItem() {
   const { getAllProducts } = useServer();
   const [storedProducts, setStoredProducts] = useState([]);
   const [storedProductsPage, setStoredProductsPage] = useState([]);
-  const [numberProducts, setNumberProducts] = useState(8);
+  const [numberProducts, setNumberProducts] = useState(4);
 
 
   useEffect(() => {
