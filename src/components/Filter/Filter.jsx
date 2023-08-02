@@ -87,8 +87,8 @@ const Filter = forwardRef(({
 
   const [isFirstEffectSubcategoryComplete, setIsFirstEffectSubcategoryComplete] = useState(false);
  const [isReadyToFetch, setIsReadyToFetch] = useState(false);
-  
- useEffect(() => {
+
+useEffect(() => {
   if (!subcategorieParent) {
     return;
   }
@@ -98,20 +98,29 @@ const Filter = forwardRef(({
     newUrlParams[key] = value;
   }
   setValuesPrice({ Max: newUrlParams.maxPrice || "", Min: newUrlParams.minPrice || "" });
+  const savedCategories = JSON.parse(localStorage.getItem("selectedCategories"));
   let initialSelectedCategories;
-  if (subcategory === "All") {
-    setCheckedItems(checkedItems.map(() => true));
-    initialSelectedCategories = allCategories;
+  if (savedCategories) {
+    setCheckedItems(categories.map((category) => savedCategories.includes(category.name.toLowerCase().replace(/ /g, "_"))));
+    initialSelectedCategories = savedCategories;
   } else {
-    setCheckedItems(categories.map((category) => subcategory.includes(category.name)));
-    initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
+    if (subcategory === "All") {
+      setCheckedItems(checkedItems.map(() => true));
+      initialSelectedCategories = allCategories;
+    } else {
+      setCheckedItems(categories.map((category) => subcategory.includes(category.name)));
+      initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
+    }
   }
-  // Update URL with selected category
   params.set("filtertype", initialSelectedCategories.join(","));
   window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
   setSelectedCategories(initialSelectedCategories);
   setIsFirstEffectSubcategoryComplete(true);
 }, []);
+
+useEffect(() => {
+  localStorage.removeItem("selectedCategories");
+}, [subcategory]);
 
 useEffect(() => {
   if (!isFirstEffectSubcategoryComplete || !subcategorieParent || isReadyToFetch) {
@@ -271,6 +280,12 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     setHasFetched(false);
     setIsReadyToFetch(false);
     fetchFilteredProducts(updatedSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+    const params = new URLSearchParams(window.location.search);
+    params.set("filtertype", updatedSelectedCategories.join(","));
+    window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+    if (subcategorieParent) {
+      localStorage.setItem("selectedCategories", JSON.stringify(updatedSelectedCategories));
+    }
   }
 
   function resetBtnClick() {
