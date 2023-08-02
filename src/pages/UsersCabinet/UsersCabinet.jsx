@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "react-avatar";
 import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
-import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import { removeEntireCart } from "../../redux/actions/cart";
 import PersonalDataEditForm from "./components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "./components/PasswordChangeForm/PasswordChangeForm";
-
+ 
 function UsersCabinet() {
   const dispatch = useDispatch();
   // eslint-disable-next-line object-curly-newline
@@ -17,10 +16,8 @@ function UsersCabinet() {
     };
   }, []);
   return (
-    <>
-      <Breadcrumb />
       <section className="users-cabinet">
-        <h2 className="section-title">My account</h2>
+        {/* <h2 className="section-title">My account</h2> */}
         <div className="container users-cabinet__content-wrapper">
           <aside className="users-cabinet__info">
             <Avatar name={`${firstName} ${lastName}`} size="150" round />
@@ -41,7 +38,6 @@ function UsersCabinet() {
           <PasswordChangeForm />
         </div>
       </section>
-    </>
   );
 }
 

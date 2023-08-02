@@ -37,11 +37,8 @@ export default function ProductCard(props) {
     console.log(addProducttoCompare);
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));
-      console.log(addCompareProducts(urlItemNumber));
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
     } else {
       dispatch(removeCompareProducts(urlItemNumber));
-      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorCompare });
     }
     compareBtn.current.classList.toggle("compare-btn--clicked");
   }
@@ -125,11 +122,8 @@ export default function ProductCard(props) {
       } else {
         if (token) {
           dispatch(increaseCartAsync(item, token, productInfo));
-          console.log(increaseCartAsync(item, token, productInfo));
-          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
         } else {
           dispatch(increaseCart(item, productInfo));
-          Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
         }
       }
     } catch (error) {
@@ -151,7 +145,7 @@ export default function ProductCard(props) {
       {props.isCardView ? (
         <div
           className={props.active ? "all-card-container" : "card-container"}
-             onClick={handleCardClick}>
+          onClick={handleCardClick}>
           <div
             className={props.active ? "all-card" : "card"}
             style={{ backgroundImage: `url(${urlImg})` }}
@@ -182,7 +176,7 @@ export default function ProductCard(props) {
                 className={`compare-btn ${compareProducts.includes(urlItemNumber) ? "compare-btn--clicked" : ""}`}
               >
                 <img
-                  className="compare-btn-icon"
+                  className="all-card__like-img"
                   src={!compareProducts.includes(urlItemNumber) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales2_a3fxya.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales1_klxlre.svg"}
                   alt="compare-logo" />
               </button>

@@ -175,28 +175,9 @@
          color: red;
       }
    }
+
+   &__skeleton {
+      @extend .searched-product__photo;
+      background-color: $secondary;
+   }
 }
-
-// @include breakpoint-mf('xxs') {
-//    display: none;
-// }
-
-// @include breakpoint-mf('xs') {
-//    display: none;
-// }
-
-// @include breakpoint-mf('sm') {
-//    display: none;
-// }
-
-// @include breakpoint-mf('my') {
-//    display: none;
-// }
-
-// @include breakpoint-mf('lg') {
-//    display: none;
-// }
-
-// @include breakpoint-mf('xl') {
-//    display: none;
-// }

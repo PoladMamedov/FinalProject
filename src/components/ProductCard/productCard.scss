@@ -107,6 +107,7 @@
       height: 36px;
     }
   }
+
   &__btn-svg-cart {
     width: 10px;
     height: 12px;
@@ -206,6 +207,7 @@
       font-size: 10px;
       gap: 4px;
     }
+
     @include breakpoint-mf("md") {
       font-size: 11px;
     }
@@ -245,12 +247,15 @@
     &--curr {
       font-size: 10px;
       @include flex(row, center, center);
+
       @include breakpoint-mf("md") {
         font-size: 11px;
       }
+
       @include breakpoint-mf("my") {
         font-size: 14px;
       }
+
       @include breakpoint-mf("xl") {
         font-size: 18px;
       }
@@ -379,8 +384,10 @@
       height: 36px;
     }
   }
+
   &__like {
     display: flex;
+
     &-button {
       display: flex;
       justify-content: center;
@@ -389,32 +396,38 @@
       border-radius: 10px;
       cursor: pointer;
     }
+
     &-btn {
       @include breakpoint-bet(320px, 859px) {
         width: 18px;
         height: 13px;
       }
+
       @include breakpoint-bet(860px, 1199px) {
         width: 28px;
         height: 20px;
         margin-top: 3px;
       }
+
       @include breakpoint-bet(1200px, 1940px) {
         width: 30px;
         height: 20px;
         margin-top: 3px;
       }
     }
+
     &-img {
       @include breakpoint-bet(320px, 859px) {
         width: 18px;
         height: 13px;
       }
+
       @include breakpoint-bet(860px, 1199px) {
         width: 28px;
         height: 20px;
         margin-top: 3px;
       }
+
       @include breakpoint-bet(1200px, 1940px) {
         width: 30px;
         height: 20px;
@@ -422,10 +435,12 @@
       }
     }
   }
+
   &__likes-top {
     display: flex;
     background-color: white;
     border-radius: 10px;
+
     &-button {
       display: flex;
       justify-content: center;
@@ -434,31 +449,37 @@
       border-radius: 10px;
       cursor: pointer;
     }
+
     &-btn {
       @include breakpoint-bet(320px, 629px) {
         width: 18px;
         height: 13px;
       }
+
       @include breakpoint-bet(630px, 1199px) {
         width: 32px;
         height: 20px;
         margin-top: 3px;
       }
+
       @include breakpoint-bet(1200px, 1940px) {
         width: 37px;
         height: 30px;
       }
     }
+
     &-img {
       @include breakpoint-bet(320px, 629px) {
         width: 18px;
         height: 13px;
       }
+
       @include breakpoint-bet(630px, 1199px) {
         width: 32px;
         height: 20px;
         margin-top: 3px;
       }
+
       @include breakpoint-bet(1200px, 1940px) {
         width: 37px;
         height: 30px;
@@ -482,13 +503,16 @@
 .currency-icon {
   width: 12px;
   height: 10px;
+
   @include breakpoint-mf("md") {
     height: 12px;
   }
+
   @include breakpoint-mf("my") {
     width: 14px;
     height: 14px;
   }
+
   @include breakpoint-mf("xl") {
     width: 18px;
     height: 18px;
@@ -504,27 +528,23 @@
   background-color: $white;
   cursor: pointer;
   border-radius: 10px;
-  width: 20px;
-  height: 18px;
   position: absolute;
   top: -168px;
   right: -2px;
 
   @include breakpoint-bet(860px, 1199px) {
-  width: 32px;
-  height: 28px;
-  top: -230px;
-}
-@include breakpoint-bet(1200px, 1940px) {
-  width: 30px;
-  height: 25px;
-  top: -250px;
-}
-&-icon {
-  background-color: transparent;
-  filter: grayscale(100%) brightness(150%);
-}
-&--clicked {
-  background-color: #535353;
-}
+    width: 32px;
+    height: 28px;
+    top: -230px;
+  }
+
+  @include breakpoint-bet(1200px, 1940px) {
+    width: 30px;
+    height: 25px;
+    top: -250px;
+  }
+
+  &--clicked {
+    background-color: #535353;
+  }
 }
