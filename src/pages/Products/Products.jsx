@@ -38,17 +38,6 @@ const Products = () => {
   const { filteredProducts } =  useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   if (sortValue === "+") {
-  //     const sortHigh = filteredProducts.sort((a, b) => a.currentPrice - b.currentPrice);
-  //     dispatch(sortProducts(sortHigh));
-  //     console.log(filteredProducts.currentPrice);
-  // } else if (sortValue === "-") {
-  //     const sortLow = filteredProducts.sort((a, b) => b.currentPrice - a.currentPrice);
-  //     dispatch(sortProducts(sortLow));
-  // }
-  // }, []);
-
   useEffect(() => {
     setProducts(filteredProducts);
   }, [filteredProducts]);
