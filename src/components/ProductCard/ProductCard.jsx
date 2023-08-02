@@ -18,8 +18,8 @@ import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
 export default function ProductCard(props) {
   const compareBtn = useRef();
   const cartBtn = useRef();
-  const [urlImg] = useState(props.item.imageUrls[0]);
-  const [urlItemNumber] = useState(props.item.itemNo);
+  const urlImg = props.item.imageUrls[0];
+  const urlItemNumber = props.item.itemNo;
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
