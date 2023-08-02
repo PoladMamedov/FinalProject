@@ -100,7 +100,7 @@ export default function ProductCard(props) {
       {props.isCardView ? (
         <div
           className={props.active ? "all-card-container" : "card-container"}
-             onClick={handleCardClick}>
+          onClick={handleCardClick}>
           <div
             className={props.active ? "all-card" : "card"}
             style={{ backgroundImage: `url(${urlImg})` }}
@@ -131,7 +131,7 @@ export default function ProductCard(props) {
                 className={`compare-btn ${compareProducts.includes(urlItemNumber) ? "compare-btn--clicked" : ""}`}
               >
                 <img
-                  className="compare-btn-icon"
+                  className="all-card__like-img"
                   src={!compareProducts.includes(urlItemNumber) ? "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales2_a3fxya.svg" : "https://res.cloudinary.com/dfinki0p4/image/upload/v1690040128/scales1_klxlre.svg"}
                   alt="compare-logo" />
               </button>
