@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Store } from "react-notifications-component";
 import {
-  removeFromFavorites, removeFromFavAsync,
+  removeFromFavorites, removeFromFavAsync, setFav,
 //  increaseFav, increaseFavAsync, decreaseFav, decreaseFavAsync, updateFavQuantity, setFav
 } from "../../../redux/actions/favorites";
 import { increaseCart, increaseCartAsync, setCart } from "../../../redux/actions/cart";
@@ -11,7 +11,7 @@ import notificationsSettings from "../../../constants/constants";
 
 const FavoritesFull = (props) => {
   const {
-    cartQuantity,
+    favQuantity,
     product: {
       imageUrls, name, currentPrice, itemNo
     },
@@ -27,6 +27,21 @@ const FavoritesFull = (props) => {
   );
   const currencyValue = parseFloat(currency);
   const cartProducts = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+
+    if (userToken) {
+      const updatedFav = {
+        products: favItems.map((item) => ({
+          product: item.product._id,
+          favQuantity: item.favQuantity,
+        })),
+      };
+      dispatch(setFav(updatedFav, userToken));
+      console.log('....updated fav', updatedFav);
+    }
+  }, [favQuantity]);
+  console.log('....favQ', favQuantity);
 
   const handleRemoveFromFavorites = async (item, token) => {
     try {
@@ -44,17 +59,17 @@ const FavoritesFull = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (userToken) {
-      const updatedCart = {
-        products: cartProducts.map((item) => ({
-          product: item.product._id,
-          cartQuantity: item.cartQuantity,
-        })),
-      };
-      dispatch(setCart(updatedCart, userToken));
-    }
-  }, [cartQuantity]);
+  // useEffect(() => {
+  //   if (userToken) {
+  //     const updatedCart = {
+  //       products: cartProducts.map((item) => ({
+  //         product: item.product._id,
+  //         cartQuantity: item.cartQuantity,
+  //       })),
+  //     };
+  //     dispatch(setCart(updatedCart, userToken));
+  //   }
+  // }, [cartQuantity]);
 
   const onAddItemToCart = async (item, token) => {
     try {

@@ -76,10 +76,11 @@ export const increaseFav = (itemId, productInfo) => {
 };
 
 export const increaseFavAsync = (itemId, token, productInfo) => {
+  console.log('Before req 1>', itemId, productInfo);
   return async (dispatch) => {
     const { addToWishlist } = useServer();
     try {
-      const addedCart = await addToWishlist(itemId, token);
+      const addToFav = await addToWishlist(itemId, token);
       dispatch(increaseFav(itemId, productInfo));
     } catch (error) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });

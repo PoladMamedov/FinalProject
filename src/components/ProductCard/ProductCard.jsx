@@ -9,8 +9,8 @@ import { getRecentlyProducts } from "../../redux/actions/recentlyProducts";
 import { addCompareProducts, removeCompareProducts } from "../../redux/actions/compareProducts";
 import notificationsSettings from "../../constants/constants";
 import {
-  addToFavorites,
-  removeFromFavorites,
+  increaseFav, increaseFavAsync,
+  removeFromFavorites, removeFromFavAsync
 } from "../../redux/actions/favorites";
 import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
@@ -23,19 +23,21 @@ export default function ProductCard(props) {
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
-  // eslint-disable-next-line no-underscore-dangle
   const itemId = props.item._id;
   const userToken = useSelector((state) => state.user.userInfo.token);
   const currencyValue = parseFloat(currency);
-  const favorites = useSelector((state) => state.favorites.favorites);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { compareProducts } = useSelector((state) => state.compareProducts);
+  // console.log(compareProducts);
 
   function addProducttoCompare() {
+    console.log(addProducttoCompare);
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));
+      console.log(addCompareProducts(urlItemNumber));
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCompare });
     } else {
       dispatch(removeCompareProducts(urlItemNumber));
@@ -43,33 +45,87 @@ export default function ProductCard(props) {
     }
     compareBtn.current.classList.toggle("compare-btn--clicked");
   }
+
+  // const favorites = useSelector((state) => state.favorites.favorites);
+  const { favorites } = useSelector((state) => state.favorites);
+  console.log("favs", favorites);
   const [isFavorited, setIsFav] = useState(false);
 
-  useEffect(() => {
-    setIsFav(favorites.find((item) => item.itemNo === urlItemNumber));
-  }, []);
+  // useEffect(() => {
+  //   setIsFav(favorites.find((item) => item.itemNo === urlItemNumber));
+  // }, [favorites]);
 
-  const handleAddToFavorites = async () => {
-    const newItem = {
-      imageUrls: [props.item.imageUrls[0]],
-      name: props.item.name,
-      currentPrice: props.item.currentPrice,
-      quantity: props.item.quantity,
-      itemNo: props.item.itemNo,
-    };
-    dispatch(addToFavorites(newItem));
-    setIsFav(true);
+  const handleAddToFavorites = async (item, token, productInfo) => {
+    // const newItem = {
+    //   imageUrls: [props.item.imageUrls[0]],
+    //   name: props.item.name,
+    //   currentPrice: props.item.currentPrice,
+    //   itemNo: props.item.itemNo,
+    // };
+    console.warn("itemid", item, 'Token', token, 'productinfo', productInfo);
+
+    try {
+      if (favorites.some((fav) => fav.product._id === productInfo._id)) {
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorReAddToCart });
+      } else {
+        if (token) {
+          dispatch(increaseFavAsync(item, token, productInfo));
+          // console.log(increaseFavAsync(item, token, productInfo));
+        } else {
+          dispatch(increaseFav(item, productInfo));
+          // console.log(increaseFav(item, productInfo));
+        }
+      }
+      setIsFav(true);
+    } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
   };
 
+  const handleRemoveFromFavorites = async (item, token, productInfo) => {
+    console.log(handleRemoveFromFavorites);
+    if (favorites.some((favItem) => favItem.product._id === productInfo._id)) {
+      setIsFav(false);
+    } else {
+      if (token) {
+        dispatch(removeFromFavAsync(item, token, productInfo));
+        console.log(removeFromFavAsync(item, token, productInfo));
+      } else {
+        dispatch(removeFromFavorites(item, productInfo));
+        console.log(removeFromFavorites(item, productInfo));
+      }
+    }
+  };
+
+    // const handleAddToFavorites = async () => {
+  //   const newItem = {
+  //     imageUrls: [props.item.imageUrls[0]],
+  //     name: props.item.name,
+  //     currentPrice: props.item.currentPrice,
+  //     quantity: props.item.quantity,
+  //     itemNo: props.item.itemNo,
+  //   };
+  //   dispatch(addToFavorites(newItem));
+  //   setIsFav(true);
+  // };
+
+  // const handleRemoveFromFavorites = () => {
+  //   setIsFav(false);
+  //   dispatch(removeFromFavorites(urlItemNumber));
+  // };
+
   const { cart } = useSelector((state) => state.cart);
+  console.log('cart', cart);
 
   const onAddItemToCart = async (item, token, productInfo) => {
+    console.log(onAddItemToCart);
     try {
       if (cart.some((cartItem) => cartItem.product._id === productInfo._id)) {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.errorReAddToCart });
       } else {
         if (token) {
           dispatch(increaseCartAsync(item, token, productInfo));
+          console.log(increaseCartAsync(item, token, productInfo));
           Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.addedToCart });
         } else {
           dispatch(increaseCart(item, productInfo));
@@ -80,11 +136,6 @@ export default function ProductCard(props) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
     }
     cartBtn.current.classList.add("compare-btn--clicked");
-  };
-
-  const handleRemoveFromFavorites = () => {
-    setIsFav(false);
-    dispatch(removeFromFavorites(urlItemNumber));
   };
 
   const handleCardClick = (event) => {
@@ -107,7 +158,7 @@ export default function ProductCard(props) {
           >
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <div className="all-card__like">
-                <button type="button" className="all-card__like-button">
+                <button type="button" onClick={() => handleAddToFavorites(itemId, userToken, props.item)} className="all-card__like-button">
                   <FavoritesIcon
                     className={
                       isFavorited
@@ -116,11 +167,11 @@ export default function ProductCard(props) {
                     }
                     color="#535353"
                     isFill={isFavorited}
-                    clickHandler={
-                      isFavorited
-                        ? handleRemoveFromFavorites
-                        : handleAddToFavorites
-                    }
+                    // clickHandler={
+                    //   isFavorited
+                    //     ? handleRemoveFromFavorites
+                    //     : handleAddToFavorites
+                    // }
                   />
                 </button>
               </div>

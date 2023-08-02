@@ -205,7 +205,7 @@ export default function useServer() {
   }
 
   async function getWishlist(token) {
-    const wishlist = await fetch(`${url}/wishlist`, {
+    const getFav = await fetch(`${url}/wishlist`, {
       method: "GET",
       headers: {
         Authorization: token,
@@ -214,11 +214,11 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return wishlist;
+    return getFav;
   }
 
   async function addToWishlist(productId, token) {
-    const wishlist = await fetch(`${url}/wishlist/${productId}`, {
+    const addToFav = await fetch(`${url}/wishlist/${productId}`, {
       method: "PUT",
       headers: {
         Authorization: token,
@@ -227,7 +227,7 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return wishlist;
+    return addToFav;
   }
 
   async function updateWishlist(products, token) {
