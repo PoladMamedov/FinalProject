@@ -11,7 +11,7 @@ const TotalBlock = () => {
       (state) => state.currentCurrency
     );
   const currencyValue = parseFloat(currency);
-  
+
   let totalOrderPrice = cartProducts.reduce((accumulator, item) => {
     const { product, cartQuantity } = item;
     const productTotalPrice = product.currentPrice * cartQuantity * currencyValue;
@@ -41,6 +41,7 @@ const TotalBlock = () => {
           {/* <span className="total-block__value total-block__value-product">
             ${totalOrderPrice}
           </span> */}
+          <span>:</span>
 
           <div className="total-block__value total-block__value-product">
             <img

@@ -8,7 +8,7 @@
 .total-block-wrapper {
   position: relative;
   @include flex(column, center, center);
-  gap: 15px;
+  text-align: center;
   padding: 25px 30px;
   min-width: 300px;
   margin-top: 50px;
@@ -25,39 +25,16 @@
 }
 
 .total-block__item {
-  @include flex(row, space-between);
+  @include flex(row, center);
   width: 100%;
+  gap: 60px;
 
-  &::after {
-    content: ":";
-    position: absolute;
-    left: 50%;
-  }
 
   &:nth-child(1) {
     font-size: 14px;
     font-weight: 700;
     @include breakpoint-mf("xs") {
       font-size: 18px;
-    }
-  }
-
-  &:nth-child(2) {
-    font-size: 12px;
-    font-weight: 400;
-    @include breakpoint-mf("xs") {
-      font-size: 18px;
-    }
-  }
-
-  &:nth-child(4) {
-    font-size: 16px;
-    font-weight: 700;
-    @include breakpoint-mf("xs") {
-      font-size: 20px;
-    }
-    @include breakpoint-mf("md") {
-      font-size: 25px;
     }
   }
 }
