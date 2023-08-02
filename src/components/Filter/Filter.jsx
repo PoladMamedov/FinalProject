@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
 import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
-import { addSubCategory, resetSubCategory } from "../../redux/actions/subcategories";
+import { resetSubCategory } from "../../redux/actions/subcategories";
 import notificationsSettings from "../../constants/constants";
 import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
 import ProductsPricesForm from "./components/ProductsPricesForm";
