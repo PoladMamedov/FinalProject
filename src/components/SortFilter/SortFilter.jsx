@@ -25,18 +25,11 @@ const SortFilter = ({ products, isFilterCollapsed }) => {
             <p className="filter-section-sort-text">Sort by</p>
             <select
                 className="filter-section-sort-select"
-                onChange={handleSelectChange}>
-                {sortValue === "+" ? (
-                    <>
-                        <option value="1" selected>Price(Low to High)</option>
-                        <option value="2">Price(High to Low)</option>
-                    </>
-                ) : (
-                    <>
-                        <option value="1">Price(Low to High)</option>
-                        <option value="2" selected>Price(High to Low)</option>
-                    </>
-                )}
+                onChange={handleSelectChange}
+                value={sortValue === "+" ? "1" : "2"}
+            >
+                <option value="1">Price(Low to High)</option>
+                <option value="2">Price(High to Low)</option>
             </select>
         </div>
 

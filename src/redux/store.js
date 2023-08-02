@@ -46,12 +46,10 @@ const persistConfig = {
   blacklist: [
     "countFilter",
    "filteredProducts",
-    // "sortFilter",
     "search",
     "toggleCard",
-    "subcategory",
+    // "subcategory",
     "currentCurrency",
-    "compareProducts",
     "currentPath",
     "comments",
   ],

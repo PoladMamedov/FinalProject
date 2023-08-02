@@ -20,25 +20,24 @@ import { useDispatch, useSelector } from "react-redux";
 import useServer from "../../hooks/useServer";
 import { reset } from "../../redux/actions/counterFilter";
 import { addFilteredProducts, removeFilteredProducts } from "../../redux/actions/filteredProducts";
+import { addSubCategory, resetSubCategory } from "../../redux/actions/subcategories";
 import notificationsSettings from "../../constants/constants";
 import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
 import ProductsPricesForm from "./components/ProductsPricesForm";
 import ButtonsInFilter from "./components/ButtonsInFilter";
+import updateUrl from "../../handlers/updateUrl";
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent
 }, ref) => {
   const { sortValue } = useSelector((state) => state.sortFilter);
+  const { subcategory } = useSelector((state) => state.subcategory);
   const errorText = useRef();
   const server = useServer();
-
   const navigate = useNavigate();
-
-  const { subcategory } = useSelector((state) => state.subcategory);
+  const dispatch = useDispatch();
   let allCategories = categories.map(({ name }) => name.toLowerCase()).filter((item) => item !== "all");
   allCategories = allCategories.map((item) => item.replace(/ /g, "_"));
-  const dispatch = useDispatch();
-
   const price = useSelector((state) => state.filteredProducts.filteredProducts);
   const new_array = price.map((e) => {
     return e.currentPrice;
@@ -47,22 +46,16 @@ const Filter = forwardRef(({
   let minArr = Math.ceil(Math.min(...new_array));
   let maxArr = Math.ceil(Math.max(...new_array));
 
-  // стейт с ценой
   const [valuesPrice, setValuesPrice] = useState({
     Max: "",
     Min: "",
   });
-
-  // стейт чексбоксов
   const [checkedItems, setCheckedItems] = useState(
     categories.map(() => false)
   );
-
-  // стейт для хранения выбранных категорий
   const [selectedCategories, setSelectedCategories] = useState([]);
-
- const [urlParams, setUrlParams] = useState({});
-const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
+  const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   useEffect(() => {
     if (subcategorieParent) {
@@ -73,7 +66,6 @@ const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
     for (const [key, value] of params.entries()) {
       newUrlParams[key] = value;
     }
-    setUrlParams(newUrlParams);
     setValuesPrice({
       Max: newUrlParams.maxPrice || "",
       Min: newUrlParams.minPrice || "",
@@ -83,24 +75,52 @@ const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
   }, []);
 
   useEffect(() => {
-    if (!isFirstEffectComplete || subcategorieParent) {
+    if (!isFirstEffectComplete || subcategorieParent || hasFetched) {
       return;
     }
-    console.log(isFirstEffectComplete);
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
     setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
     fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+    setHasFetched(true);
   }, [isFirstEffectComplete, selectedCategories, valuesPrice]);
 
-  // функция для обновления url
-  function updateUrl(path) {
-    const params = new URLSearchParams(path);
-    const queryString = `?${params.toString()}`;
-    navigate(`${queryString}`);
+  const [isFirstEffectSubcategoryComplete, setIsFirstEffectSubcategoryComplete] = useState(false);
+ const [isReadyToFetch, setIsReadyToFetch] = useState(false);
+  
+ useEffect(() => {
+  if (!subcategorieParent) {
+    return;
   }
+  const params = new URLSearchParams(window.location.search);
+  const newUrlParams = {};
+  for (const [key, value] of params.entries()) {
+    newUrlParams[key] = value;
+  }
+  setValuesPrice({ Max: newUrlParams.maxPrice || "", Min: newUrlParams.minPrice || "" });
+  let initialSelectedCategories;
+  if (subcategory === "All") {
+    setCheckedItems(checkedItems.map(() => true));
+    initialSelectedCategories = allCategories;
+  } else {
+    setCheckedItems(categories.map((category) => subcategory.includes(category.name)));
+    initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
+  }
+  // Update URL with selected category
+  params.set("filtertype", initialSelectedCategories.join(","));
+  window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+  setSelectedCategories(initialSelectedCategories);
+  setIsFirstEffectSubcategoryComplete(true);
+}, []);
 
-  // для отправки на сервер запросов
+useEffect(() => {
+  if (!isFirstEffectSubcategoryComplete || !subcategorieParent || isReadyToFetch) {
+    return;
+  }
+  fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+  setIsReadyToFetch(true);
+}, [isFirstEffectSubcategoryComplete, valuesPrice, selectedCategories, checkedItems]);
+  
 async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort ) {
     let filteredProductsResponse;
     try {
@@ -119,7 +139,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
               minPrice: valuesPrice.Min,
               maxPrice: valuesPrice.Max,
               sort: `${sortValue}currentPrice`
-            });
+            }, navigate);
 
           } else {
             filteredProductsResponse = await server.getFiltersPrices(
@@ -131,7 +151,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
               minPrice: valuesPrice.Min,
               maxPrice: valuesPrice.Max,
               sort: `${sortValue}currentPrice`
-            });
+            }, navigate);
           }
         } else {
           // Отправка запроса на сервер для фильтрации по категориям и цене
@@ -149,7 +169,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
               minPrice: valuesPrice.Min,
               maxPrice: valuesPrice.Max,
               sort: `${sortValue}currentPrice`
-            });
+            }, navigate);
           } else {
             filteredProductsResponse = await server.getFiltersCategoriesPrices(
               checkedCategories,
@@ -162,7 +182,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
               minPrice: valuesPrice.Min,
               maxPrice: valuesPrice.Max,
               sort: `${sortValue}currentPrice`
-            });
+            }, navigate);
           }
         }
       } else {
@@ -177,7 +197,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
             categories: subcategorieParent,
             filtertype: checkedCategories,
             sort: `${sortValue}currentPrice`
-          });
+          }, navigate);
         } else {
           filteredProductsResponse = await server.getFiltersCategories(
             checkedCategories,
@@ -186,12 +206,12 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
           updateUrl({
             categories: checkedCategories,
             sort: `${sortValue}currentPrice`
-          });
+          }, navigate);
         }
       }
       const products = Object.values(filteredProductsResponse);
       const firstArray = products[0];
-      dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
+      dispatch(addFilteredProducts(firstArray));
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
@@ -201,7 +221,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
   const max = parseInt(valuesPrice.Max, 10);
   const isButtonDisabled = Number.isNaN(min) || Number.isNaN(max) || (min < minArr || max > maxArr) || min > max;
 
-  // для отправки запроса при нажатии на кнопку устанить цену
   function handleSetPrice() {
     fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
@@ -215,7 +234,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
   }
 
   async function handleCheckboxChange(e, index) {
-    setIsFirstEffectComplete(false);
     let category = e.target.name.toLowerCase().replace(/ /g, "_");
     if (category === "smart_watches") {
       category = category.replace(/es$/, "");
@@ -229,8 +247,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     ]);
 
     let updatedSelectedCategories;
-
-    // Обновление массива выбранных категорий
     if (category === "all") {
       setCheckedItems(checkedItems.map(() => true));
       updatedSelectedCategories = allCategories;
@@ -241,7 +257,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
         updatedSelectedCategories = selectedCategories.filter((c) => c !== category);
       }
 
-      // Снятие галочки с категории "All", если все выбраны и кликаем на что-то другое.
       if (!isChecked && selectedCategories.length === allCategories.length) {
         const allIndex = categories.findIndex((item) => item.name === "All");
         setCheckedItems((prev) => [
@@ -253,17 +268,18 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       }
     }
     setSelectedCategories(updatedSelectedCategories);
-    // Отправка запроса на сервер для фильтрации продуктов по категориям
+    setHasFetched(false);
+    setIsReadyToFetch(false);
     fetchFilteredProducts(updatedSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   }
 
-  // для сброса всех фильтров
   function resetBtnClick() {
     setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
     setCheckedItems(checkedItems.map(() => false));
     setSelectedCategories([]);
     dispatch(reset());
     dispatch(removeFilteredProducts());
+    dispatch(resetSubCategory());
     navigate("");
   }
 
@@ -276,31 +292,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       resetBtn.current.disabled = false;
     }
   }, [checkedItems, valuesPrice]);
-
-  // const [isWaitSortFilter, setIsWaitSortFilter] = useState(false);
-  
-  // useEffect(() => {
-  //   // dispatch(sortLowToHighPrice());
-  //   setIsWaitSortFilter(true);
-  // }, []);
-
-  useEffect(() => {
-    // if (!isWaitSortFilter) {
-    //   return;
-    // }
-    if (subcategorieParent) {
-      let initialSelectedCategories;
-      if (subcategory === "All") {
-        setCheckedItems(checkedItems.map(() => true));
-        initialSelectedCategories = allCategories;
-      } else {
-        setCheckedItems(categories.map((category) => subcategory.includes(category.name)));
-        initialSelectedCategories = categories.filter((category) => subcategory.includes(category.name)).map((category) => category.name.toLowerCase().replace(/ /g, "_"));
-      }
-      setSelectedCategories(initialSelectedCategories);
-      fetchFilteredProducts(initialSelectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
-    }
-  }, []);
   
 
   useEffect(() => {
@@ -324,7 +315,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
         minPrice: valuesPrice.Min,
         maxPrice: valuesPrice.Max,
         setValuesPrice,
-        handlePriceBlur
+        handlePriceBlur,
   };
 
   const propsButtonsInFilter = {
