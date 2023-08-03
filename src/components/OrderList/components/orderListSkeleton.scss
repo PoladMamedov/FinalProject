@@ -5,21 +5,30 @@
 		&__skeleton {
               @include flex(column,center, center);
   gap: 30px;
+
 		}
 
 		// .{"orderlist__skeleton-text"}
 
 		&__skeleton-text {
-              font-weight: 400;
-  font-size: 20px;
-  @include breakpoint-mf('md'){
-    font-size: 30px;
-  }
+
+  display: flex;
+    flex-direction: column;
+    gap: 25px;
+    @include fonts(500, 16px, 35px);
+    color: #5e5e5e;
+    font-family: "Roboto";
+    @include breakpoint-mf("md") {
+      @include fonts(400, 30px, 35px);
+    }
+
 		}
 
 		// .{"orderlist__skeleton-img"}
 
 		&__skeleton-img {
+			    width: 500px;
+    height: 300px;
 		}
 
 		// .{"orderlist__skeleton-link"}

@@ -1,4 +1,6 @@
+import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
+import cloudinaryConfig from "../../../config/cloudinaryConfig";
 
 const UserAccountSkeleton = () => {
   return (
@@ -6,13 +8,14 @@ const UserAccountSkeleton = () => {
       <p className={"orderlist__skeleton-text"}>
         There are no recent orders to show!
       </p>
-      <img
+      <Image
         className={"orderlist__skeleton-img"}
-        src=""
+        cloudName={cloudinaryConfig.cloudName}
+        publicId="https://res.cloudinary.com/dfinki0p4/image/upload/v1691062276/noOrders_ueglh7.jpg"
         alt="orderlist is empty"
       />
       <p className={"orderlist__skeleton-text"}>
-       Run to the e-store for great offers.
+        Run to the e-store for great offers.
       </p>
       <Link className={"cart__skeleton-link"} to={"/products"}>
         Continue Shopping

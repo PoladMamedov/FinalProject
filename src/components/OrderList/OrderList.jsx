@@ -6,7 +6,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OrderItem from "../OrderItem/OrderItem";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
-import UserAccountSkeleton from "./OrderListSkeleton";
+import UserAccountSkeleton from "./components/OrderListSkeleton";
 
 function OrdersList() {
   const { orders } = useSelector((state) => state.orders);
@@ -43,8 +43,7 @@ function OrdersList() {
   const toggleOrderItem = (orderId) => {
     setActiveItemIds(
       // eslint-disable-next-line no-confusing-arrow
-      (prevActiveItemIds) =>
-        prevActiveItemIds.includes(orderId)
+      (prevActiveItemIds) => prevActiveItemIds.includes(orderId)
           ? prevActiveItemIds.filter((id) => id !== orderId)
           : [...prevActiveItemIds, orderId]
     );
@@ -59,7 +58,7 @@ function OrdersList() {
             </div>
           ) : ( */}
         {orders.length === 0 ? (
-          <div className="skeleton__loader">
+          <div className="skeleton__loader-ordelist">
             <UserAccountSkeleton />
           </div>
         ) : (

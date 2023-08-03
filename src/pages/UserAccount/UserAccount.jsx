@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
 import UsersCabinet from "../UsersCabinet/UsersCabinet";
 import OrdersList from "../../components/OrderList/OrderList";
