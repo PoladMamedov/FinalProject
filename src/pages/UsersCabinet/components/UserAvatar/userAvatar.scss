@@ -9,7 +9,7 @@
 .user-avatar__btns-wrap {
   margin-top: 10px;
   @include flex(row, center, center);
-  gap: 20px;
+  gap: 40px;
 }
 .input-file {
   position: relative;
@@ -27,19 +27,29 @@
   color: rgb(255 255 255);
   text-align: center;
   border-radius: 4px;
-  background-color: #419152;
   line-height: 22px;
-  height: 40px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   box-sizing: border-box;
   border: none;
   margin: 0;
   transition: background-color 0.1s;
+}
+.input-file span {
+  background-color: #419152;
   &:hover {
-    background-color: #59be6e;
+    background-color: lighten($color: #419152, $amount: 20%);
   }
   &:active {
-    background-color: #2e703a;
+    background-color: darken($color: #419152, $amount: 20%);
+  }
+}
+.user-avatar__del-btn {
+  background-color: red;
+  &:hover {
+    background-color: lighten($color: red, $amount: 20%);
+  }
+  &:active {
+    background-color: darken($color: red, $amount: 20%);
   }
 }
 .input-file input[type="file"] {
