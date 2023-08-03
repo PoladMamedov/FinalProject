@@ -21,7 +21,7 @@
 
   @include breakpoint-mf("sm") {
     width: 100%;
-    @include flex(row, space-between, center);
+    @include flex(row, space-between,center);
     font-size: 18px;
     font-weight: 500;
     padding-left: 60px;
@@ -60,7 +60,6 @@
   @include flex(row, flex-start, center);
   gap: 10px;
   height: fit-content;
-  align-self: flex-start;
 
   @include breakpoint-mf("xs") {
     grid-area: 2 / 2 / 3 / 3;
@@ -234,7 +233,7 @@
     font-size: 20px;
     background-color: $white;
     cursor: pointer;
-  }
+  } 
 }
 
 .checkout-cart-list__item-icon {
