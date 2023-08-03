@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCart } from "../../../redux/actions/cart";
+import { removeEntireCart, removeEntireCartAsync, setCart } from "../../../redux/actions/cart";
 
 const TotalBlock = () => {
   const dispatch = useDispatch();
@@ -31,6 +31,13 @@ const TotalBlock = () => {
       dispatch(setCart(updatedCart, userToken));
     }
   };
+  const onDeleteCart = (token) => {
+    if (token) {
+      dispatch(removeEntireCartAsync(token));
+    } else {
+      dispatch(removeEntireCart());
+    }
+  };
   return (
     <div className="total-block">
       <div className="total-block-wrapper">
@@ -53,8 +60,8 @@ const TotalBlock = () => {
         </div>
       </div>
       <div className="cart-buttons">
-        <Link to={"/"} className={"cart-button cart-button-close"}>
-          Close
+        <Link to={"/"} className={"cart-button cart-button-close"} onClick={() => onDeleteCart(userToken)}>
+          Clear and Close
         </Link>
         <Link
           to={"/checkout"}
