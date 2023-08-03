@@ -74,7 +74,7 @@ const Header = () => {
         <div className="container">
           <div className="header__container-top">
             <h2 className="header__container-top-title">
-              Free shipping across Ukraine
+              Shipping only in Ukraine
             </h2>
             <NavLink
               className="header__company-logo"
