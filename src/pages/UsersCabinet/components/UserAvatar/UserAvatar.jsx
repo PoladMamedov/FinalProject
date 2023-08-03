@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable object-curly-newline */
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +21,6 @@ function UserAvatar() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         dispatch(updateUser({ avatarUrl: res.url }, token));
       })
       .catch((err) => console.log(err));
