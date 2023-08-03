@@ -8,7 +8,6 @@ import OrderItem from "../OrderItem/OrderItem";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import UserAccountSkeleton from "./OrderListSkeleton";
 
-
 function OrdersList() {
   const { orders } = useSelector((state) => state.orders);
   const { currency, currencyName } = useSelector(
@@ -44,42 +43,89 @@ function OrdersList() {
   const toggleOrderItem = (orderId) => {
     setActiveItemIds(
       // eslint-disable-next-line no-confusing-arrow
-      (prevActiveItemIds) => prevActiveItemIds.includes(orderId)
+      (prevActiveItemIds) =>
+        prevActiveItemIds.includes(orderId)
           ? prevActiveItemIds.filter((id) => id !== orderId)
           : [...prevActiveItemIds, orderId]
     );
   };
 
-    return (
-      <section className="orders-section">
-        <div className="container">
-          {/* {loading ? (
+  return (
+    <section className="orders-section">
+      <div className="container">
+        {/* {loading ? (
             <div className="skeleton__loader">
               <Skeleton />
             </div>
           ) : ( */}
-          {orders.length === 0 ? (
-            <div className="skeleton__loader">
-              <UserAccountSkeleton />
-            </div>
-          ) : (
-            <ul className="orders-section-main-list">
-              {paginatedProducts.map((order) => (
-                // eslint-disable-next-line no-underscore-dangle
-                <li className="orders-section-main-list-item" key={order._id}>
-                  <div className="orders-section-main-list-item-content">
-                    <div className="orders-section-main-list-item-content-order-number">
-                      <p>Order#: {order.orderNo}</p>
-                      <p>Date: {formatDate(order.date)}</p>
-                    </div>
+        {orders.length === 0 ? (
+          <div className="skeleton__loader">
+            <UserAccountSkeleton />
+          </div>
+        ) : (
+          <ul className="orders-section-main-list">
+            {paginatedProducts.map((order) => (
+              // eslint-disable-next-line no-underscore-dangle
+              <li className="orders-section-main-list-item" key={order._id}>
+                <div className="orders-section-main-list-item-content">
+                  <div className="orders-section-main-list-item-content-order-number">
+                    <p>Order#: {order.orderNo}</p>
+                    <p>Date: {formatDate(order.date)}</p>
+                  </div>
 
-                    <div
-                      className={`orders-section-main-list-item-content-total ${
-                        // eslint-disable-next-line no-underscore-dangle
-                        activeItemIds.includes(order._id) ? "active" : ""
-                      }`}
-                    >
-                      <p>Total</p>
+                  <div
+                    className={`orders-section-main-list-item-content-total ${
+                      // eslint-disable-next-line no-underscore-dangle
+                      activeItemIds.includes(order._id) ? "active" : ""
+                    }`}
+                  >
+                    <p>Total</p>
+                    <div className="checkout-section__product-summary-computer-total-price">
+                      <img
+                        src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                        alt="cureency-icon"
+                      />
+                      <span>
+                        {Math.floor(`${order.totalSum * currencyValue}`)}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    className={`orders-section-main-list-btn ${
+                      // eslint-disable-next-line no-underscore-dangle
+                      activeItemIds.includes(order._id) ? "active" : ""
+                    }`}
+                    type="button"
+                    // eslint-disable-next-line no-underscore-dangle
+                    onClick={() => toggleOrderItem(order._id)}
+                  >
+                    <FontAwesomeIcon
+                      icon={faAngleDown}
+                      className="icon-arrow"
+                    />
+                  </button>
+                  <button
+                    className={`orders-section-main-list-btn ${
+                      // eslint-disable-next-line no-underscore-dangle
+                      !activeItemIds.includes(order._id) ? "active" : ""
+                    }`}
+                    type="button"
+                    // eslint-disable-next-line no-underscore-dangle
+                    onClick={() => toggleOrderItem(order._id)}
+                  >
+                    <FontAwesomeIcon icon={faAngleUp} className="icon-arrow" />
+                  </button>
+                </div>
+
+                <ul
+                  className={`orders-section-sub-list ${
+                    // eslint-disable-next-line no-underscore-dangle
+                    activeItemIds.includes(order._id) ? "active" : ""
+                  }`}
+                >
+                  <div className="orders-section-sub-list-total-wrap">
+                    <div className="orders-section-sub-list-total-wrap-p total">
+                      <span className="">Total</span>
                       <div className="checkout-section__product-summary-computer-total-price">
                         <img
                           src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
@@ -90,91 +136,42 @@ function OrdersList() {
                         </span>
                       </div>
                     </div>
-                    <button
-                      className={`orders-section-main-list-btn ${
-                        // eslint-disable-next-line no-underscore-dangle
-                        activeItemIds.includes(order._id) ? "active" : ""
-                      }`}
-                      type="button"
-                      // eslint-disable-next-line no-underscore-dangle
-                      onClick={() => toggleOrderItem(order._id)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faAngleDown}
-                        className="icon-arrow"
-                      />
-                    </button>
-                    <button
-                      className={`orders-section-main-list-btn ${
-                        // eslint-disable-next-line no-underscore-dangle
-                        !activeItemIds.includes(order._id) ? "active" : ""
-                      }`}
-                      type="button"
-                      // eslint-disable-next-line no-underscore-dangle
-                      onClick={() => toggleOrderItem(order._id)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faAngleUp}
-                        className="icon-arrow"
-                      />
-                    </button>
+                    <p className="orders-section-sub-list-total-wrap-p">
+                      <span>Phone</span>
+                      <span>{order.mobile}</span>
+                    </p>
+                    <p className="orders-section-sub-list-total-wrap-p">
+                      <span>Shipping address </span>
+                      <span>{`${order.deliveryAddress.address}, ${order.deliveryAddress.city} `}</span>
+                    </p>
                   </div>
 
-                  <ul
-                    className={`orders-section-sub-list ${
+                  {order.products.map((product) => (
+                    <OrderItem
                       // eslint-disable-next-line no-underscore-dangle
-                      activeItemIds.includes(order._id) ? "active" : ""
-                    }`}
-                  >
-                    <div className="orders-section-sub-list-total-wrap">
-                      <div className="orders-section-sub-list-total-wrap-p total">
-                        <span className="">Total</span>
-                        <div className="checkout-section__product-summary-computer-total-price">
-                          <img
-                            src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
-                            alt="cureency-icon"
-                          />
-                          <span>
-                            {Math.floor(`${order.totalSum * currencyValue}`)}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="orders-section-sub-list-total-wrap-p">
-                        <span>Phone</span>
-                        <span>{order.mobile}</span>
-                      </p>
-                      <p className="orders-section-sub-list-total-wrap-p">
-                        <span>Shipping address </span>
-                        <span>{`${order.deliveryAddress.address}, ${order.deliveryAddress.city} `}</span>
-                      </p>
-                    </div>
-
-                    {order.products.map((product) => (
-                      <OrderItem
-                        // eslint-disable-next-line no-underscore-dangle
-                        key={product._id}
-                        product={product.product}
-                        cartQuantity={product.cartQuantity}
-                      />
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        {orders.length > 4 && (
-          <PaginationAllProducts
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+                      key={product._id}
+                      product={product.product}
+                      cartQuantity={product.cartQuantity}
+                    />
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
         )}
-      </section>
-    );
-  }
+      </div>
+      {orders.length > 4 && (
+        <PaginationAllProducts
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
+    </section>
+  );
+}
 
-  export default OrdersList;
+export default OrdersList;
 
 //   return (
 //     <section className="orders-section">
