@@ -1,0 +1,29 @@
+.orderlist {
+
+		// .{"orderlist__skeleton"}
+
+		&__skeleton {
+              @include flex(column,center, center);
+  gap: 30px;
+		}
+
+		// .{"orderlist__skeleton-text"}
+
+		&__skeleton-text {
+              font-weight: 400;
+  font-size: 20px;
+  @include breakpoint-mf('md'){
+    font-size: 30px;
+  }
+		}
+
+		// .{"orderlist__skeleton-img"}
+
+		&__skeleton-img {
+		}
+
+		// .{"orderlist__skeleton-link"}
+
+		&__skeleton-link {
+		}
+}

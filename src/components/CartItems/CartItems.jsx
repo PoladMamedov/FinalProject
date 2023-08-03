@@ -179,7 +179,6 @@ const currencyValue = parseFloat(currency);
   return (
     <>
       <li className={`cart-list__item ${isCheckout ? "none" : ""}`}>
-        {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}
         <Link className="cart-list__item-image-wrap" to={`/products/${itemNo}`}>
           {" "}
           <img
@@ -192,7 +191,6 @@ const currencyValue = parseFloat(currency);
           <Link to={`/products/${itemNo}`} className="cart-list__item-title">
             {name}
           </Link>
-          {/* <p className="cart-list__item-price">${currentPrice}</p> */}
 
           <div className="cart-list__item-price">
             <img
@@ -243,7 +241,7 @@ const currencyValue = parseFloat(currency);
       </li>
 
       <li className={`checkout-cart-list__item ${isCheckout ? "" : "none"}`}>
-        {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}
+
         <Link
           className="checkout-cart-list__item-image-wrap"
           to={`/products/${itemNo}`}
