@@ -88,10 +88,6 @@ function AllProductItems(props) {
       dispatch(fillProducts(filteredSmartWatch));
     }
   }, [allProducts, filteredMouses, filteredHeadphones, filteredSmartWatch, filteredKeyboards]);
-  //
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  // }, [allProducts]);
 
   const handleResize = () => {
     if (window.innerWidth >= 1200) {
