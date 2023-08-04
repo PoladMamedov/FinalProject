@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useServer from "../../hooks/useServer";
 import ProductCard from "../ProductCard/ProductCard";
@@ -6,8 +6,6 @@ import ProductCard from "../ProductCard/ProductCard";
 function TopProductItem() {
   const { getAllProducts } = useServer();
   const [storedProducts, setStoredProducts] = useState([]);
-  const [storedProductsPage, setStoredProductsPage] = useState([]);
-  const [numberProducts, setNumberProducts] = useState(4);
 
 
   useEffect(() => {
@@ -24,38 +22,14 @@ function TopProductItem() {
         }
         setStoredProducts(selectedProducts);
       });
-    }, [] );
-
-  const handleResize = () => {
-    if (window.innerWidth >= 1169) {
-      setNumberProducts(8);
-    } else if (window.innerWidth <= 429) {
-      setNumberProducts(4);
-    } else {
-      setNumberProducts(6);
-    }
-  };
-
-  useLayoutEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    setStoredProductsPage(storedProducts)
-    setStoredProductsPage((prevStoredProductsPage) => prevStoredProductsPage.slice(0, numberProducts));
-  }, [storedProducts, numberProducts]);
-
+  }, [] );
 
   return (
     <section className={"top-product__wrapper"}>
       <div className="container flex_container">
         <h2 className={"top-product"}>Top Products</h2>
         <div className="top-product__card">
-          {storedProductsPage.map((e) => (
+          {storedProducts.map((e) => (
             // eslint-disable-next-line no-underscore-dangle
             <ProductCard item={e} key={e._id} />
           ))}
