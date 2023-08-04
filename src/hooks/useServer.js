@@ -218,6 +218,7 @@ export default function useServer() {
   }
 
   async function addToWishlist(productId, token) {
+    console.log('final req', productId, token);
     const addToFav = await fetch(`${url}/wishlist/${productId}`, {
       method: "PUT",
       headers: {

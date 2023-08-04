@@ -5,10 +5,10 @@ import { clearErrorAndMessages, setUserInfo } from "../../redux/actions/user";
 import { removeEntireCart } from "../../redux/actions/cart";
 import PersonalDataEditForm from "./components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "./components/PasswordChangeForm/PasswordChangeForm";
+import { removeEntireFav } from "../../redux/actions/favorites";
  
 function UsersCabinet() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line object-curly-newline
   const { firstName, lastName, email } = useSelector((state) => state.user.userInfo);
   useEffect(() => {
     return () => {
@@ -29,6 +29,7 @@ function UsersCabinet() {
               onClick={() => {
                 dispatch(setUserInfo({}));
                 dispatch(removeEntireCart());
+                dispatch(removeEntireFav());
               }}
             >
               LOG OUT

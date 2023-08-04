@@ -23,7 +23,7 @@ const favoritesReducer = (state = initialState, action = {}) => {
         favorites: updatedItems
       };
     }
-    case favTypes.INCREASE_FAVORITES: {
+    case favTypes.INCREASE_FAV: {
       const findItem = state.favorites.find((item) => item.product._id === action.payload.id);
       if (findItem) {
         const updatedItem = {
@@ -46,7 +46,7 @@ const favoritesReducer = (state = initialState, action = {}) => {
         };
     }
 
-    case favTypes.DECREASE_FAVORITES: {
+    case favTypes.DECREASE_FAV: {
       const findItem = state.favorites.find((item) => item.product._id === action.payload.id);
         const updatedItem = {
           ...findItem,

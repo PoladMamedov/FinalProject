@@ -73,8 +73,11 @@
     "react/no-unescaped-entities": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
+    "eslint-disable-next-line": "off",
+    "no-lonely-if": "warn",
     "no-underscore-dangle": "off",
-    "eslint-disable-next-line": "off"
+    "no-alert": "off",
+    "default-param-last": "off"
   },
   "settings": {
     "react": {

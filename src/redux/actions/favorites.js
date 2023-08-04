@@ -76,7 +76,6 @@ export const increaseFav = (itemId, productInfo) => {
 };
 
 export const increaseFavAsync = (itemId, token, productInfo) => {
-  console.log('Before req 1>', itemId, productInfo);
   return async (dispatch) => {
     const { addToWishlist } = useServer();
     try {
@@ -124,17 +123,3 @@ export const removeEntireFav = () => {
     type: favoritesTypes.REMOVE_ENTIRE_FAV,
   };
 };
-
-// export const addToFavorites = (product) => {
-//   return {
-//     type: "ADD_TO_FAVORITES",
-//     payload: product,
-//   };
-// };
-
-// export const removeFromFavorites = (itemId) => {
-//   return {
-//     type: "REMOVE_FROM_FAVORITES",
-//     payload: itemId,
-//   };
-// };
