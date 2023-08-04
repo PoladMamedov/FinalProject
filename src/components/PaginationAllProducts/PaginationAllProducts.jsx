@@ -24,7 +24,7 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
       startPage = totalPages - MAX_VISIBLE_PAGES + 1;
       endPage = totalPages;
     }
-
+ 
     const visiblePages = pageNumbers.slice(startPage - 1, endPage);
     const firstPage = pageNumbers.slice(0, 1);
     const lastPage = pageNumbers.slice(totalPages - 1);

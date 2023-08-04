@@ -48,25 +48,6 @@ export const logInUser = (userData) => {
   };
 };
 
-// export const logInUser = (userData) => {
-//   return async (dispatch) => {
-//     const { loginUser, getUser } = useServer();
-//     try {
-//       dispatch(userRequest());
-//       const loginResult = await loginUser(userData);
-//       const user = await getUser(loginResult.token);
-// const res = {
-//   ...loginResult,
-//   ...user,
-//   customerNo: user.customerNo,
-// };
-//       dispatch(setUserInfo(res));
-//     } catch (error) {
-//       dispatch(userRequestFailure(error));
-//     }
-//   };
-// };
-
 export const updateUser = (updatedData, token) => {
   return async (dispatch) => {
     const { updateUserData } = useServer();
