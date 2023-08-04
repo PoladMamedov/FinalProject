@@ -58,6 +58,9 @@
   &:hover {
     background-color: darken(red, $amount: 10%);
   }
+  &:active {
+    background-color: darken($color: red, $amount: 20%);
+  }
 }
 .users-cabinet__form-error {
   margin-top: 5px;
