@@ -26,9 +26,10 @@ import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
 import ProductsPricesForm from "./components/ProductsPricesForm";
 import ButtonsInFilter from "./components/ButtonsInFilter";
 import updateUrl from "../../handlers/updateUrl";
+// import fillProducts from "../../redux/actions/products";
 
 const Filter = forwardRef(({
-  categories, toggle, addCounter, apply, subcategorieParent
+  categories, toggle, addCounter, apply, subcategorieParent, isAllProductItemsEffectComplete
 }, ref) => {
   const { sortValue } = useSelector((state) => state.sortFilter);
   const { subcategory } = useSelector((state) => state.subcategory);
@@ -75,15 +76,15 @@ const Filter = forwardRef(({
   }, []);
 
   useEffect(() => {
-    if (!isFirstEffectComplete || subcategorieParent || hasFetched) {
+    if (!isFirstEffectComplete || subcategorieParent || hasFetched || !isAllProductItemsEffectComplete) {
       return;
     }
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
     setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
-    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
     setHasFetched(true);
-  }, [isFirstEffectComplete, selectedCategories, valuesPrice]);
+    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+  }, [isFirstEffectComplete, selectedCategories, valuesPrice, isAllProductItemsEffectComplete]);
 
   const [isFirstEffectSubcategoryComplete, setIsFirstEffectSubcategoryComplete] = useState(false);
  const [isReadyToFetch, setIsReadyToFetch] = useState(false);

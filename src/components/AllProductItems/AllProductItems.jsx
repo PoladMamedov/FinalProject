@@ -60,6 +60,7 @@ function AllProductItems(props) {
           setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
           setIsLoading(false);
         }
+        props.setIsAllProductItemsEffectComplete(true);
       });
   }, []);
 
