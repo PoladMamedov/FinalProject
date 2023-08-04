@@ -20,6 +20,7 @@ import favoritesReducer from "./reducers/favorites";
 import commentsReducer from "./reducers/comments";
 import ordersReducer from "./reducers/orders";
 
+
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,
   categories,
@@ -44,13 +45,11 @@ const persistConfig = {
   storage,
   blacklist: [
     "countFilter",
-    "filteredProducts",
-    "sortFilter",
+   "filteredProducts",
     "search",
     "toggleCard",
-    "subcategory",
+    // "subcategory",
     "currentCurrency",
-    "compareProducts",
     "currentPath",
     "comments",
   ],

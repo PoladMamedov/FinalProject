@@ -2,7 +2,7 @@
 import subCategoryType from "../type/subcategories";
 
 const initialState = {
-    subcategory: ""
+    subcategory: "",
 };
 
 export default function subcategoryReducer(state = initialState, action) {
@@ -17,7 +17,7 @@ export default function subcategoryReducer(state = initialState, action) {
                 ...state,
                 subcategory: ""
             };
-
         default: return state;
         }
+        
     }

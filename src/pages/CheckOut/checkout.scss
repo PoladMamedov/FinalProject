@@ -154,6 +154,7 @@
   color: $primaryDark;
   font-family: "Roboto";
   @include fonts(400, 16px, 35px);
+  cursor: pointer;
 }
 
 .checkout-section__product-subtotal {

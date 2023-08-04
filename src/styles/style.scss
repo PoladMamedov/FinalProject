@@ -17,8 +17,10 @@
 @import "../pages/CheckOut/checkout";
 @import "../pages/ThankYou/thankYou";
 
+@import "../pages/UserAccount/useraccount"; 
+
 // !Components
-@import "../pages/Products/products";
+@import "../pages/Products/products"; 
 
 //!Components
 @import "../components/ProductCard/productCard";
@@ -63,3 +65,5 @@
 @import "../components/Comments/comments";
 @import "../components/CommentsItem/commentsItem";
 @import "../components/CommentsCreateItem/commentsCreateItem";
+@import "../components/OrderItem/orderItem";
+@import "../components/OrderList/orderList";

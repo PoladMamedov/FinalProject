@@ -1,6 +1,6 @@
 /* eslint-disable no-else-return */
 /* eslint-disable object-curly-newline */
-export default function createOrder({ customerId, products, deliveryAddress, email, mobile, delivery }) {
+export default function createOrder({ customerId, products, deliveryAddress, email, mobile, delivery}) {
   if (customerId) {
     const order = {
       customerId,
