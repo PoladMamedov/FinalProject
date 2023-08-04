@@ -117,3 +117,16 @@ export const removeEntireCart = () => {
     type: cartTypes.REMOVE_ENTIRE_CART,
   };
 };
+
+export const removeEntireCartAsync = (token) => {
+  return async (dispatch) => {
+    const { deleteCart } = useServer();
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const deletedCart = await deleteCart(token);
+      dispatch(removeEntireCart());
+    } catch (error) {
+      Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
+    }
+  };
+};

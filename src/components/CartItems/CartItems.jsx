@@ -89,17 +89,9 @@ const currencyValue = parseFloat(currency);
       if (token) {
         dispatch(increaseCartAsync(item, token));
         setInputValue((prevState) => +prevState + 1);
-        Store.addNotification({
-          ...notificationsSettings.basic,
-          ...notificationsSettings.cartIncreased,
-        });
       } else {
         dispatch(increaseCart(item));
         setInputValue((prevState) => +prevState + 1);
-        Store.addNotification({
-          ...notificationsSettings.basic,
-          ...notificationsSettings.cartIncreased,
-        });
       }
     } catch (error) {
       Store.addNotification({
@@ -118,17 +110,9 @@ const currencyValue = parseFloat(currency);
       if (token) {
         dispatch(decreaseCartAsync(item, token));
         setInputValue((prevState) => prevState - 1);
-        Store.addNotification({
-          ...notificationsSettings.basic,
-          ...notificationsSettings.cartDecreased,
-        });
       } else {
         dispatch(decreaseCart(item));
         setInputValue((prevState) => prevState - 1);
-        Store.addNotification({
-          ...notificationsSettings.basic,
-          ...notificationsSettings.cartDecreased,
-        });
       }
     } catch (error) {
       Store.addNotification({

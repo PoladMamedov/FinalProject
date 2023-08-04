@@ -1,6 +1,6 @@
 .users-cabinet {
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 50px;
   .section-title {
     margin-bottom: 10px;
   }
@@ -57,6 +57,9 @@
   background-color: red;
   &:hover {
     background-color: darken(red, $amount: 10%);
+  }
+  &:active {
+    background-color: darken($color: red, $amount: 20%);
   }
 }
 .users-cabinet__form-error {

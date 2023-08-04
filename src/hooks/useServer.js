@@ -333,6 +333,19 @@ export default function useServer() {
     return savedOrder;
   }
 
+    async function getOrders(token) {
+      const orders = await fetch(`${url}/orders`, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => err);
+      return orders;
+    }
+
   // eslint-disable-next-line default-param-last
   async function getComments(target = "", id) {
     const comments = await fetch(
@@ -418,6 +431,7 @@ export default function useServer() {
     addItemCart,
     decreaseProductQuantity,
     placeOrder,
+    getOrders,
     getComments,
     addComment,
     deleteComment,

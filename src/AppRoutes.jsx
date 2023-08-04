@@ -4,7 +4,7 @@ import Registration from "./pages/Registration/Registration";
 import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
-import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
+// import UsersCabinet from "./pages/UsersCabinet/UsersCabinet";
 import NotFound from "./pages/NotFound/NotFound";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
@@ -20,6 +20,7 @@ import CheckOut from "./pages/CheckOut/CheckOut";
 import ThankYou from "./pages/ThankYou/ThankYou";
 import Favorites from "./pages/Favorites/Favorites";
 import Compare from "./pages/Compare/Compare";
+import UserAccount from "./pages/UserAccount/UserAccount";
 
 const AppRoutes = () => {
   return (
@@ -37,16 +38,20 @@ const AppRoutes = () => {
           <Route path="/wishlist" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/thankyou" element={<ThankYou/>} />
-          <Route element={<RequireAuth />}>
+          <Route path="/thankyou" element={<ThankYou />} />
+          {/* <Route element={<RequireAuth />}>
             <Route path="/cabinet" element={<UsersCabinet />} />
-          </Route>
+          </Route> */}
           <Route path="/search" element={<Search />} />
           <Route path="/watches" element={<SmartWatches />} />
           <Route path="/headphones" element={<Headphones />} />
           <Route path="/keyboards" element={<Keyboards />} />
           <Route path="/mouses" element={<Mouses />} />
           <Route path="/compare" element={<Compare />} />
+
+          <Route element={<RequireAuth />}>
+            <Route path="/account" element={<UserAccount />} />
+          </Route>
         </Routes>
       </main>
       <Footer />
