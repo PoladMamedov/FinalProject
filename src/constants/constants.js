@@ -90,7 +90,12 @@ const notificationsSettings = {
     title: "Success!",
     message: "Your comment edited",
     type: "success",
-  }
+  },
+  productNotFound: {
+    title: "Attn!",
+    message: "Products with this price not found. Please, repeat with another price!",
+    type: "danger"
+  },
 };
 
 export default notificationsSettings;
