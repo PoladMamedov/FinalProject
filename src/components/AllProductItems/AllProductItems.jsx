@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
 import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
-import { useLocation, useNavigate } from 'react-router-dom'
+
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ function AllProductItems(props) {
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
-  const location = useLocation(); // Получаем текущий путь и параметры URL
+  const location = useLocation();
   const navigate = useNavigate();
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
 

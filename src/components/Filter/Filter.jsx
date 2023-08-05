@@ -26,8 +26,6 @@ import ProductsCategoriesForm from "./components/ProductsCategoriesForm";
 import ProductsPricesForm from "./components/ProductsPricesForm";
 import ButtonsInFilter from "./components/ButtonsInFilter";
 import updateUrl from "../../handlers/updateUrl";
-// import fillProducts from "../../redux/actions/products";
-
 
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent, isAllProductItemsEffectComplete
@@ -136,7 +134,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     let filteredProductsResponse;
     try {
       if (maxPrice !== "" && minPrice !== "") {
-        // Отправка запроса на сервер для фильтрации только по цене
         if (checkedCategories.length === 0) {
           if (subcategorie) {
             filteredProductsResponse = await server.getFiltersPricesBySubcategory(
@@ -165,7 +162,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
             }, navigate);
           }
         } else {
-          // Отправка запроса на сервер для фильтрации по категориям и цене
           if (subcategorie) {
             filteredProductsResponse = await server.getFiltersCategoriesPricesBySubcategory(
               subcategorieParent,
@@ -197,7 +193,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
           }
         }
       } else {
-        // Отправка запроса на сервер для фильтрации только по категориям
         if (subcategorie) {
           filteredProductsResponse = await server.getFiltersCategoriesBySubcategory(
             subcategorieParent,
@@ -225,7 +220,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       if (firstArray.length === 0 && !!minPrice && !!maxPrice) {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.productNotFound });
       }
-      dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
+      dispatch(addFilteredProducts(firstArray));
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
