@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
@@ -72,7 +73,7 @@ function AllProductItems(props) {
           setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
           setIsLoading(false);
         }
-        props.setIsAllProductItemsEffectComplete(true);
+        props.setIsAllProductItemsEffectComplete ? props.setIsAllProductItemsEffectComplete(true) : null;
       });
   }, []);
 
