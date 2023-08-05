@@ -6,6 +6,7 @@ import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProduct
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
 import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
+import { useLocation, useNavigate } from 'react-router-dom'
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +20,18 @@ function AllProductItems(props) {
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
+  const location = useLocation(); // Получаем текущий путь и параметры URL
+  const navigate = useNavigate();
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const pageFromQuery = parseInt(queryParams.get("page"), 10) || 1;
+
+    if (!currentPage || currentPage !== pageFromQuery) {
+      setCurrentPage(pageFromQuery);
+    }
+  }, []);
 
   const { getAllProducts } = useServer();
 
@@ -27,7 +39,7 @@ function AllProductItems(props) {
 
   const dispatch = useDispatch();
   const { sortValue } = useSelector((state) => state.sortFilter);
-  
+
   useEffect(() => {
     setIsLoading(true);
     getAllProducts()
@@ -77,10 +89,6 @@ function AllProductItems(props) {
     }
   }, [allProducts, filteredMouses, filteredHeadphones, filteredSmartWatch, filteredKeyboards]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [allProducts]);
-
   const handleResize = () => {
     if (window.innerWidth >= 1200) {
       setProductsPerPage(8);
@@ -106,7 +114,11 @@ function AllProductItems(props) {
     setPaginatedProducts(newPaginatedProducts);
   }, [currentPage, allProducts, productsPerPage]);
 
+
   const handlePageChange = (pageNumber) => {
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.set("page", pageNumber);
+    navigate(`${location.pathname}?${queryParams.toString()}`);
     setCurrentPage(pageNumber);
   };
 
