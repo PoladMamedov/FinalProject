@@ -28,6 +28,7 @@ import ButtonsInFilter from "./components/ButtonsInFilter";
 import updateUrl from "../../handlers/updateUrl";
 // import fillProducts from "../../redux/actions/products";
 
+
 const Filter = forwardRef(({
   categories, toggle, addCounter, apply, subcategorieParent, isAllProductItemsEffectComplete
 }, ref) => {
@@ -130,7 +131,7 @@ useEffect(() => {
   fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
   setIsReadyToFetch(true);
 }, [isFirstEffectSubcategoryComplete, valuesPrice, selectedCategories, checkedItems]);
-  
+
 async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, maxPrice, sort ) {
     let filteredProductsResponse;
     try {
@@ -221,7 +222,10 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       }
       const products = Object.values(filteredProductsResponse);
       const firstArray = products[0];
-      dispatch(addFilteredProducts(firstArray));
+      if (firstArray.length === 0 && !!minPrice && !!maxPrice) {
+        Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.productNotFound });
+      }
+      dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
@@ -308,7 +312,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       resetBtn.current.disabled = false;
     }
   }, [checkedItems, valuesPrice]);
-  
+
 
   useEffect(() => {
     if (sortValue !== undefined) {
