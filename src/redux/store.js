@@ -6,7 +6,6 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import pagePathReducer from "./reducers/pagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
-// import productsReduser from "./reducers/products";
 import counterFilterReducer from "./reducers/counterFilter";
 import filteredProductsReducer from "./reducers/filteredProducts";
 import sortFilterReducer from "./reducers/sortFilter";
@@ -20,6 +19,7 @@ import compareProductsReducer from "./reducers/compareProducts";
 import favoritesReducer from "./reducers/favorites";
 import commentsReducer from "./reducers/comments";
 import ordersReducer from "./reducers/orders";
+
 
 const rootReducer = combineReducers({
   currentPath: pagePathReducer,

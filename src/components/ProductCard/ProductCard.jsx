@@ -14,12 +14,13 @@ import {
 } from "../../redux/actions/favorites";
 import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
+import CurrencyIcon from '../CurrencyIcon/CurrencyIcon'
 
 export default function ProductCard(props) {
   const compareBtn = useRef();
   const cartBtn = useRef();
-  const [urlImg] = useState(props.item.imageUrls[0]);
-  const [urlItemNumber] = useState(props.item.itemNo);
+  const urlImg = props.item.imageUrls[0];
+  const urlItemNumber = props.item.itemNo;
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
@@ -150,13 +151,13 @@ export default function ProductCard(props) {
             <div className={"all-card__product-name"}>{props.item.name}</div>
             {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap">
               <p className="all-card__price--prev">
-                <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" color={"#f84147"} />
                 {Math.floor(props.item.previousPrice * currencyValue)}</p>
               <p className="all-card__price--curr">
-                <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+                <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
                 {Math.floor(props.item.currentPrice * currencyValue)}</p>
             </div> : <div className={"all-card__price--curr"}>
-              <img className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
+              <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>
@@ -209,14 +210,14 @@ export default function ProductCard(props) {
             <div className={"all-card__product-name--rows"}>{props.item.name}</div>
             {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
               <p className="all-card__price--prev">
-                <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+                <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" color={"#f84147"} />
                 {Math.floor(props.item.previousPrice * currencyValue)}</p>
               <p className="all-card__price--curr-rows">
-                <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+                <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
                 {Math.floor(props.item.currentPrice * currencyValue)}</p>
 
             </div> : <div className={"all-card__price--curr-rows"}>
-              <img className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
+              <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
               {Math.floor(props.item.currentPrice * currencyValue)}</div>}
           </div>
         </div>

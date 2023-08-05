@@ -17,10 +17,10 @@
 @import "../pages/CheckOut/checkout";
 @import "../pages/ThankYou/thankYou";
 
-@import "../pages/UserAccount/useraccount"; 
+@import "../pages/UserAccount/useraccount";
 
 // !Components
-@import "../pages/Products/products"; 
+@import "../pages/Products/products";
 
 //!Components
 @import "../components/ProductCard/productCard";
@@ -43,6 +43,7 @@
 @import "../components/SortFilter/sortFilter";
 @import "../pages/UsersCabinet/components/PasswordChangeForm/passwordChangeForm";
 @import "../pages/UsersCabinet/components/PersonalDataEditForm/pesonalDataEditForm";
+@import "../pages/UsersCabinet/components/UserAvatar/userAvatar.scss";
 @import "../components/SearchBar/searchBar";
 @import "../components/FoundProduct/foundProduct";
 @import "../components/CartList/cartList";
