@@ -27,9 +27,8 @@ import ProductsPricesForm from "./components/ProductsPricesForm";
 import ButtonsInFilter from "./components/ButtonsInFilter";
 import updateUrl from "../../handlers/updateUrl";
 
-
 const Filter = forwardRef(({
-  categories, toggle, addCounter, apply, subcategorieParent
+  categories, toggle, addCounter, apply, subcategorieParent, isAllProductItemsEffectComplete
 }, ref) => {
   const { sortValue } = useSelector((state) => state.sortFilter);
   const { subcategory } = useSelector((state) => state.subcategory);
@@ -76,15 +75,15 @@ const Filter = forwardRef(({
   }, []);
 
   useEffect(() => {
-    if (!isFirstEffectComplete || subcategorieParent || hasFetched) {
+    if (!isFirstEffectComplete || subcategorieParent || hasFetched || !isAllProductItemsEffectComplete) {
       return;
     }
     let arr = categories.map(({name}) => name.toLowerCase().replace(/ /g, "_"));
     arr = arr.map((item) => item === "smart_watches" ? "smart_watch" : item);
     setCheckedItems(arr.map((category) => selectedCategories.includes(category)));
-    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
     setHasFetched(true);
-  }, [isFirstEffectComplete, selectedCategories, valuesPrice]);
+    fetchFilteredProducts(selectedCategories, subcategorieParent, valuesPrice.Min, valuesPrice.Max, sortValue);
+  }, [isFirstEffectComplete, selectedCategories, valuesPrice, isAllProductItemsEffectComplete]);
 
   const [isFirstEffectSubcategoryComplete, setIsFirstEffectSubcategoryComplete] = useState(false);
  const [isReadyToFetch, setIsReadyToFetch] = useState(false);
@@ -135,7 +134,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
     let filteredProductsResponse;
     try {
       if (maxPrice !== "" && minPrice !== "") {
-        // Отправка запроса на сервер для фильтрации только по цене
         if (checkedCategories.length === 0) {
           if (subcategorie) {
             filteredProductsResponse = await server.getFiltersPricesBySubcategory(
@@ -164,7 +162,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
             }, navigate);
           }
         } else {
-          // Отправка запроса на сервер для фильтрации по категориям и цене
           if (subcategorie) {
             filteredProductsResponse = await server.getFiltersCategoriesPricesBySubcategory(
               subcategorieParent,
@@ -196,7 +193,6 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
           }
         }
       } else {
-        // Отправка запроса на сервер для фильтрации только по категориям
         if (subcategorie) {
           filteredProductsResponse = await server.getFiltersCategoriesBySubcategory(
             subcategorieParent,
@@ -224,7 +220,7 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       if (firstArray.length === 0 && !!minPrice && !!maxPrice) {
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.productNotFound });
       }
-      dispatch(addFilteredProducts(firstArray)); // добавляю фильтрованные продукты в редакс
+      dispatch(addFilteredProducts(firstArray));
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }
