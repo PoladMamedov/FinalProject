@@ -108,16 +108,11 @@ export default function ProductCard(props) {
 
   const onAddItemToCart = async (item, token, productInfo) => {
     try {
-      if (cart.some((cartItem) => cartItem.product._id === productInfo._id)) {
-        Store.addNotification({
-          ...notificationsSettings.basic,
-          ...notificationsSettings.errorReAddToCart,
-        });
-      } else if (token) {
-        dispatch(increaseCartAsync(item, token, productInfo));
-      } else {
-        dispatch(increaseCart(item, productInfo));
-      }
+        if (token) {
+          dispatch(increaseCartAsync(item, token, productInfo));
+        } else {
+          dispatch(increaseCart(item, productInfo));
+        }
     } catch (error) {
       Store.addNotification({
         ...notificationsSettings.basic,
