@@ -81,7 +81,6 @@ function NovaPoshtaForm() {
     };
     const orderData = createOrder(newOrderInfo);
     const response = await placeOrder(orderData, token);
-    console.log(response);
     const orderNumber = response.order.orderNo;
     await deleteCart(token);
     dispatch(removeEntireCart());

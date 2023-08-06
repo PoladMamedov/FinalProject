@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import UsersCabinet from "../UsersCabinet/UsersCabinet";
 import OrdersList from "../../components/OrderList/OrderList";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "../../redux/actions/orders";
 
 function UserAccount() {
   const [activeComponent, setActiveComponent] = useState(() => {
     return localStorage.getItem("activeComponent") || "account";
   });
+  const dispatch = useDispatch();
+  const userToken = useSelector((state) => state.user.userInfo.token);
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch(fetchOrders(userToken));
+    }
+  }, [userToken]);
 
   useEffect(() => {
     localStorage.setItem("activeComponent", activeComponent);
@@ -19,7 +29,6 @@ function UserAccount() {
   const handleMyOrdersButtonClick = () => {
     setActiveComponent("ordersList");
   };
-
 
   return (
     <div className="userdetails-section">
@@ -45,7 +54,6 @@ function UserAccount() {
             My orders
           </button>
         </div>
-
         {activeComponent === "account" ? <UsersCabinet /> : <OrdersList />}
       </div>
     </div>
@@ -53,5 +61,3 @@ function UserAccount() {
 }
 
 export default UserAccount;
-
-

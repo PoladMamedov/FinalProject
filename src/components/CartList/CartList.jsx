@@ -3,7 +3,7 @@ import CartItems from "../CartItems/CartItems";
 
 const CartList = () => {
   const cartProducts = useSelector((state) => state.cart.cart);
-  console.log(cartProducts);
+  
   return (
       <ul className={"cart-list__items"}>
         {cartProducts.length !== 0 ? cartProducts.map((dataProducts) => (
