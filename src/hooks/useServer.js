@@ -231,19 +231,19 @@ export default function useServer() {
     return addToFav;
   }
 
-  async function updateWishlist(products, token) {
-    const updatedFav = await fetch(`${url}/wishlist`, {
-      method: "PUT",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(products),
-    })
-      .then((res) => res.json())
-      .catch((err) => err);
-    return updatedFav;
-  }
+  // async function updateWishlist(products, token) {
+  //   const updatedFav = await fetch(`${url}/wishlist`, {
+  //     method: "PUT",
+  //     headers: {
+  //       Authorization: token,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(products),
+  //   })
+  //     .then((res) => res.json())
+  //     .catch((err) => err);
+  //   return updatedFav;
+  // }
 
   async function removeFromWishlist(productId, token) {
     const wishlist = await fetch(`${url}/wishlist/${productId}`, {
@@ -450,7 +450,7 @@ export default function useServer() {
     getFiltersCategoriesBySubcategory,
     getWishlist,
     addToWishlist,
-    updateWishlist,
+    // updateWishlist,
     removeFromWishlist,
     decreaseItemQuantity,
     getCart,

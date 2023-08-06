@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Store } from "react-notifications-component";
 import {
-  // decreaseFav, decreaseFavAsync,
  setFav, fetchFav,
  removeFromFavorites, removeFromFavAsync,
-//  increaseFav, increaseFavAsync, updateFavQuantity, setFav,
 } from "../../../redux/actions/favorites";
-import { increaseCart, increaseCartAsync, setCart } from "../../../redux/actions/cart";
+import {
+ increaseCart, increaseCartAsync, setCart, fillCart
+} from "../../../redux/actions/cart";
 import notificationsSettings from "../../../constants/constants";
 
 const FavoritesFull = (props) => {
-  // const favoritedProducts =  props.favorites;
   const [favoritedProducts, setFavoritedProducts] = useState(props.favorites);
+
   favoritedProducts.map((item) => {
     const {
       favQuantity,
@@ -32,7 +32,6 @@ const FavoritesFull = (props) => {
       itemNo,
     };
   });
-
  // Получаем диспетчер и данные о токене и элементах корзины из стейта с помощью хуков useDispatch() и useSelector()
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
@@ -48,7 +47,7 @@ const FavoritesFull = (props) => {
     }
   }, [userToken]);
 
-  // Используем useEffect() для обновления корзины на сервере при изменении количества товаров
+  // Используем useEffect() для обновления wishlist на сервере при изменении количества товаров
   useEffect(() => {
     if (userToken) {
       const updatedFav = {
@@ -60,10 +59,10 @@ const FavoritesFull = (props) => {
       dispatch(setFav(updatedFav, userToken));
     }
   }, []);
-  console.error("ttttt-tt", favoritedProducts);
+  // console.error("ttttt-tt", favoritedProducts);
 
   const handleRemoveFromFavorites = async (item, token) => {
-    console.error("ttttt-tt", item);
+    // console.error("ttttt-tt", item);
     try {
       if (token) {
         dispatch(removeFromFavAsync(item, token));
@@ -73,8 +72,6 @@ const FavoritesFull = (props) => {
         dispatch(removeFromFavorites(item));
       }
     } catch (error) {
-      
-
       Store.addNotification({
         ...notificationsSettings.basic,
         ...notificationsSettings.error,
@@ -83,57 +80,39 @@ const FavoritesFull = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (userToken) {
-  //     const updatedCart = {
-  //       products: cartProducts.map((item) => ({
-  //         product: item.product._id,
-  //         cartQuantity: item.cartQuantity,
-  //       })),
-  //     };
-  //     dispatch(setCart(updatedCart, userToken));
-  //   }
-  // }, [cartQuantity]);
-
-  // const { cart } = useSelector((state) => state.cart);
-  // const onAddItemToCart = async (item, token, productInfo) => {
-  //   // console.log("onAddItemToCart", onAddItemToCart);
-  //   try {
-  //     // Check if the product is already in the cart
-  //     const isProductInCart = cart.some((cartItem) => cartItem.product._id === productInfo._id);
-  //     // console.log("isProductInCart", isProductInCart);
-  //     if (!isProductInCart) {
-  //       if (token) {
-  //         dispatch(increaseCartAsync(item, token, productInfo));
-  //       } else {
-  //         dispatch(increaseCart(item, productInfo));
-  //       }
-  //     } else {
-  //       // If the product is already in the cart, you can show a notification or handle it as needed.
-  //       Store.addNotification({
-  //         ...notificationsSettings.basic,
-  //         message: "This product is already in the cart.",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     Store.addNotification({
-  //       ...notificationsSettings.basic,
-  //       ...notificationsSettings.error,
-  //     });
-  //   }
-  // };
-  
+  const { cart } = useSelector((state) => state.cart);
   const [showCartList, setShowCartList] = useState(false);
 
   const onAddItemToCart = async (item, token, productInfo) => {
-    console.warn("cartcart", item, productInfo);
+    // console.warn("cartcart", item, productInfo);
     try {
-      if (token) {
-        dispatch(increaseCartAsync(item, token, productInfo));
-        setShowCartList(true);
+      // Проверяем, есть ли уже такой товар в корзине
+      const productInCart = cart.find(({ product: { _id: id } }) => id === productInfo._id);
+      if (productInCart) {
+        // Если товар уже есть в корзине, то обновляем его количество
+        const updatedCart = {
+          products: cart.map((el) => {
+            if (el.product._id === productInfo._id) {
+              return { ...el, cartQuantity: el.cartQuantity + 1 };
+            }
+            return { ...el };
+          }),
+        };
+        if (token) {
+          dispatch(setCart(updatedCart, token));
+        } else {
+          dispatch(fillCart(updatedCart.products));
+        }
       } else {
-        dispatch(increaseCart(item, productInfo));
-        setShowCartList(true);
+        // Если товара нет в корзине, то добавляем его
+        // eslint-disable-next-line no-lonely-if
+        if (token) {
+          dispatch(increaseCartAsync(item, token, productInfo));
+          setShowCartList(true);
+        } else {
+          dispatch(increaseCart(item, productInfo));
+          setShowCartList(true);
+        }
       }
     } catch (error) {
       Store.addNotification({
@@ -142,10 +121,9 @@ const FavoritesFull = (props) => {
       });
     }
   };
-
+  
   return (
     <section className="favorites">
-      <div className={"container"}>
         <div className="favorites__header">
           <p className="favorites__header-list">Product</p>
           <p className="favorites__header-list">Price</p>
@@ -193,7 +171,7 @@ const FavoritesFull = (props) => {
                       <img
                         className={"favorites__item-add-cart-icon"}
                         src="https://res.cloudinary.com/dfinki0p4/image/upload/v1689177285/cart-logo_tz7wza.png"
-                        alt="delete item from favorites"
+                        alt="add item to cart"
                       />
                     </button>
                   </div>
@@ -219,7 +197,6 @@ const FavoritesFull = (props) => {
             </Link>
           </div>
         </div>
-      </div>
     </section>
   );
 };

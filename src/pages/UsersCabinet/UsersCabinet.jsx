@@ -5,7 +5,6 @@ import { removeEntireCart } from "../../redux/actions/cart";
 import PersonalDataEditForm from "./components/PersonalDataEditForm/PersonalDataEditForm";
 import PasswordChangeForm from "./components/PasswordChangeForm/PasswordChangeForm";
 import { removeEntireFav } from "../../redux/actions/favorites";
- 
 import UserAvatar from "./components/UserAvatar/UserAvatar";
 
 function UsersCabinet() {
@@ -29,6 +28,7 @@ function UsersCabinet() {
             onClick={() => {
               dispatch(setUserInfo({}));
               dispatch(removeEntireCart());
+              dispatch(removeEntireFav());
             }}
           >
             LOG OUT

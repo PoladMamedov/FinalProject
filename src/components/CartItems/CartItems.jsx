@@ -30,7 +30,6 @@ const CartItems = (props) => {
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartProducts = useSelector((state) => state.cart.cart);
-  // eslint-disable-next-line no-underscore-dangle
   const itemId = props.dataProducts.product._id;
   // const cartProducts = useSelector((state) => state.cart.cart);
   const { currency, currencyName } = useSelector(

@@ -13,11 +13,10 @@ import {
   increaseFavAsync,
   removeFromFavorites,
   removeFromFavAsync,
-  // decreaseFavAsync, decreaseFav
 } from "../../redux/actions/favorites";
 import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
-import CurrencyIcon from '../CurrencyIcon/CurrencyIcon'
+import CurrencyIcon from "../CurrencyIcon/CurrencyIcon";
 
 export default function ProductCard(props) {
   const compareBtn = useRef();
@@ -36,7 +35,6 @@ export default function ProductCard(props) {
   const { compareProducts } = useSelector((state) => state.compareProducts);
 
   function addProducttoCompare() {
-    console.log(addProducttoCompare);
     if (!compareProducts.includes(urlItemNumber)) {
       dispatch(addCompareProducts(urlItemNumber));
     } else {
@@ -47,75 +45,11 @@ export default function ProductCard(props) {
 
   const { favorites } = useSelector((state) => state.favorites);
   // console.log("favs", favorites);
-  const [isFavorited, setIsFav] = useState(false);
+  // const [isFavorited, setIsFav] = useState(false);
 
   // useEffect(() => {
   //   setIsFav(favorites.find((item) => item.itemNo === urlItemNumber));
   // }, [favorites]);
-
-  // const handleAddToFavorites = async (item, token, productInfo) => {
-  //   console.warn("itemid", item, "Token", token, "productinfo", productInfo);
-  //   try {
-  //     if (favorites.some((fav) => fav.product._id === productInfo._id)) {
-  //       Store.addNotification({
-  //         ...notificationsSettings.basic,
-  //         ...notificationsSettings.error,
-  //       });
-  //     } else if (token) {
-  //       console.error("1", item, token, productInfo);
-  //       dispatch(increaseFavAsync(item, token, productInfo));
-  //       // console.log(increaseFavAsync(item, token, productInfo));
-  //     } else {
-  //       console.log("2");
-  //       dispatch(increaseFav(item, productInfo));
-  //       // console.log(increaseFav(item, productInfo));
-  //     }
-  //     setIsFav(true);
-  //   } catch (error) {
-  //     Store.addNotification({
-  //       ...notificationsSettings.basic,
-  //       ...notificationsSettings.error,
-  //       message: error.message,
-  //     });
-  //   }
-  // };
-
-  // const handleRemoveFromFavorites = async (item, token, productInfo) => {
-  //   console.warn("itemid", item, "Token", token, "productinfo", productInfo);
-  //   try {
-  //     if (favorites.some((fav) => fav.product._id === productInfo._id)) {
-  //       Store.addNotification({
-  //         ...notificationsSettings.basic,
-  //         ...notificationsSettings.error,
-  //       });
-  //     } else if (token) {
-  //       console.error("1", item, token, productInfo);
-  //       dispatch(removeFromFavAsync(item, token, productInfo));
-  //       // console.log(increaseFavAsync(item, token, productInfo));
-  //     } else {
-  //       console.log("2");
-  //       dispatch(removeFromFavorites(item, productInfo));
-  //       // console.log(increaseFav(item, productInfo));
-  //     }
-  //     setIsFav(false);
-  //   } catch (error) {
-  //     Store.addNotification({
-  //       ...notificationsSettings.basic,
-  //       ...notificationsSettings.error,
-  //       message: error.message,
-  //     });
-  //   }
-  // };
-
-  // const handleClick = () => {
-  //   if (isFavorited) {
-  //     handleRemoveFromFavorites(itemId, userToken, props.item);
-  //     console.log(handleRemoveFromFavorites(itemId, userToken, props.item));
-  //   } else {
-  //     handleAddToFavorites(itemId, userToken, props.item);
-  //     console.log(handleAddToFavorites(itemId, userToken, props.item));
-  //   }
-  // };
 
   const isItemFavorited = () => {
     return favorites.some((fav) => fav.product._id === itemId);
@@ -123,8 +57,11 @@ export default function ProductCard(props) {
   // Обновленная функция для добавления в избранное
   const handleAddToFavorites = async (item, token, productInfo) => {
     try {
+      console.log("ITEM", item);
+      console.log("PRODUCT INFO >>>>>>", productInfo);
       if (token) {
         dispatch(increaseFavAsync(item, token, productInfo));
+        console.log("PRODUCT INFO >>>>>>", productInfo);
       } else {
         dispatch(increaseFav(item, productInfo));
       }
@@ -161,10 +98,8 @@ export default function ProductCard(props) {
       } else {
         await handleAddToFavorites(item, token, productInfo);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
-
   const handleClick = () => {
     handleToggleFavorites(itemId, userToken, props.item);
   };
@@ -172,7 +107,6 @@ export default function ProductCard(props) {
   const { cart } = useSelector((state) => state.cart);
 
   const onAddItemToCart = async (item, token, productInfo) => {
-    console.log("TTTT", item, productInfo);
     try {
       if (cart.some((cartItem) => cartItem.product._id === productInfo._id)) {
         Store.addNotification({
@@ -197,7 +131,8 @@ export default function ProductCard(props) {
   const handleCardClick = (event) => {
     // Проверяем, было ли нажатие на кнопку сравнения или избранного
     if (
-      !event.target.closest(".compare-btn") && !event.target.closest(".all-card__like-button")
+      !event.target.closest(".compare-btn")
+      && !event.target.closest(".all-card__like-button")
       && !event.target.closest(".all-card__likes-top-button")
     ) {
       navigate(`/products/${urlItemNumber}`);
@@ -218,36 +153,21 @@ export default function ProductCard(props) {
           >
             <div className={props.active ? "all-card__btn" : "card__btn"}>
               <div className="all-card__like">
-                {/* <button
+                <button
                   type="button"
                   onClick={handleClick}
                   className="all-card__like-button"
                 >
                   <FavoritesIcon
                     className={
-                      isFavorited
+                      isItemFavorited(props.item._id)
                         ? "all-card__like-btn active"
                         : "all-card__like-img"
                     }
                     color="#535353"
-                    isFill={isFavorited}
+                    isFill={isItemFavorited(props.item._id)}
                   />
-                </button> */}
-                 <button
-        type="button"
-        onClick={handleClick}
-        className="all-card__like-button"
-      >
-        <FavoritesIcon
-          className={
-            isItemFavorited(props.item._id)
-              ? "all-card__like-btn active"
-              : "all-card__like-img"
-          }
-          color="#535353"
-          isFill={isItemFavorited(props.item._id)}
-        />
-      </button>
+                </button>
                 {/* <button
                 type="button"
                 onClick={() => handleAddToFavorites(itemId, userToken, props.item)}
@@ -317,16 +237,39 @@ export default function ProductCard(props) {
           </div>
           <div className={props.active ? "all-card__block" : "unactive"}>
             <div className={"all-card__product-name"}>{props.item.name}</div>
-            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap">
-              <p className="all-card__price--prev">
-                <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" color={"#f84147"} />
-                {Math.floor(props.item.previousPrice * currencyValue)}</p>
-              <p className="all-card__price--curr">
-                <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
-                {Math.floor(props.item.currentPrice * currencyValue)}</p>
-            </div> : <div className={"all-card__price--curr"}>
-              <CurrencyIcon currency={currencyName} className="currency-icon" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="cureency-icon" />
-              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
+            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
+              <div className="all-card__prices-wrap">
+                <p className="all-card__price--prev">
+                  <CurrencyIcon
+                    currency={currencyName}
+                    className="currency-icon"
+                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                    alt="cureency-icon"
+                    color={"#f84147"}
+                  />
+                  {Math.floor(props.item.previousPrice * currencyValue)}
+                </p>
+                <p className="all-card__price--curr">
+                  <CurrencyIcon
+                    currency={currencyName}
+                    className="currency-icon"
+                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                    alt="cureency-icon"
+                  />
+                  {Math.floor(props.item.currentPrice * currencyValue)}
+                </p>
+              </div>
+            ) : (
+              <div className={"all-card__price--curr"}>
+                <CurrencyIcon
+                  currency={currencyName}
+                  className="currency-icon"
+                  src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                  alt="cureency-icon"
+                />
+                {Math.floor(props.item.currentPrice * currencyValue)}
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -342,20 +285,19 @@ export default function ProductCard(props) {
           >
             <div className={props.active ? "all-card__btn--rows" : "card__btn"}>
               <div className="all-card__likes-top">
-                <button type="button" className="all-card__likes-top-button">
+              <button
+                  type="button"
+                  onClick={handleClick}
+                  className="all-card__like-button"
+                >
                   <FavoritesIcon
                     className={
-                      isFavorited
-                        ? "all-card__likes-top-btn active"
-                        : "all-card__likes-top-img"
+                      isItemFavorited(props.item._id)
+                        ? "all-card__like-btn active"
+                        : "all-card__like-img"
                     }
                     color="#535353"
-                    isFill={isFavorited}
-                    clickHandler={
-                      isFavorited
-                        ? handleRemoveFromFavorites
-                        : handleAddToFavorites
-                    }
+                    isFill={isItemFavorited(props.item._id)}
                   />
                 </button>
               </div>
@@ -387,18 +329,42 @@ export default function ProductCard(props) {
             </div>
           </div>
           <div className={props.active ? "all-card__block--rows" : "unactive"}>
-            <div className={"all-card__product-name--rows"}>{props.item.name}</div>
-            {(props.item.previousPrice - props.item.currentPrice !== 0) ? <div className="all-card__prices-wrap--rows">
-              <p className="all-card__price--prev">
-                <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" color={"#f84147"} />
-                {Math.floor(props.item.previousPrice * currencyValue)}</p>
-              <p className="all-card__price--curr-rows">
-                <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
-                {Math.floor(props.item.currentPrice * currencyValue)}</p>
-
-            </div> : <div className={"all-card__price--curr-rows"}>
-              <CurrencyIcon currency={currencyName} className="currency-icon--rows" src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`} alt="currency-icon" />
-              {Math.floor(props.item.currentPrice * currencyValue)}</div>}
+            <div className={"all-card__product-name--rows"}>
+              {props.item.name}
+            </div>
+            {props.item.previousPrice - props.item.currentPrice !== 0 ? (
+              <div className="all-card__prices-wrap--rows">
+                <p className="all-card__price--prev">
+                  <CurrencyIcon
+                    currency={currencyName}
+                    className="currency-icon--rows"
+                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                    alt="currency-icon"
+                    color={"#f84147"}
+                  />
+                  {Math.floor(props.item.previousPrice * currencyValue)}
+                </p>
+                <p className="all-card__price--curr-rows">
+                  <CurrencyIcon
+                    currency={currencyName}
+                    className="currency-icon--rows"
+                    src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                    alt="currency-icon"
+                  />
+                  {Math.floor(props.item.currentPrice * currencyValue)}
+                </p>
+              </div>
+            ) : (
+              <div className={"all-card__price--curr-rows"}>
+                <CurrencyIcon
+                  currency={currencyName}
+                  className="currency-icon--rows"
+                  src={`https://res.cloudinary.com/dfinki0p4/image/upload/v1689412937/currency/${currencyName}-icon.png`}
+                  alt="currency-icon"
+                />
+                {Math.floor(props.item.currentPrice * currencyValue)}
+              </div>
+            )}
           </div>
         </div>
       )}
