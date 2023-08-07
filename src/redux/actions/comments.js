@@ -36,7 +36,6 @@ export const fetchComments = (targetPoint, id) => {
     const { getComments } = useServer();
     try {
       const comments = await getComments(targetPoint, id);
-
       dispatch(fillComments(comments));
     } catch (error) {
       Store.addNotification({...notificationsSettings.basic, ...notificationsSettings.error, message: error.message});
