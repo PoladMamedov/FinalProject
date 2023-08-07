@@ -10,7 +10,6 @@ export const addToFavorites = (products) => {
   };
 };
 
-// Создает действие для заполнения (fav) продуктами.
 export function fillFav(products) {
   return {
     type: favoritesTypes.FILL_FAV,
@@ -85,27 +84,6 @@ export const increaseFavAsync = (itemId, token, productInfo) => {
     }
   };
 };
-
-// export const decreaseFav = (itemId) => {
-//   return {
-//     type: favoritesTypes.DECREASE_FAV,
-//     payload: {
-//       id: itemId,
-//     },
-//   };
-// };
-
-// export const decreaseFavAsync = (itemId, token) => {
-//   return async (dispatch) => {
-//     const { decreaseItemQuantity } = useServer();
-//     try {
-//       const decreasedFav = await decreaseItemQuantity(itemId, token);
-//       dispatch(decreaseFav(itemId));
-//     } catch (error) {
-//       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: error.message });
-//     }
-//   };
-// };
 
 export const updateFavQuantity = (itemId, favQuantity) => {
   return {

@@ -4,6 +4,7 @@
 }
 
 .comments__item-name {
+  text-align: left;
   margin-left: 16px;
   margin-right: 16px;
   font-weight: 500;
@@ -26,29 +27,22 @@
   }
 }
 
-.comments__item-content {
-  text-align: left;
-  margin-bottom: 16px;
-}
-
-.comments__edited-comment {
-  font-family: "Roboto", sans-serif;
-  width: 100%;
-  height: 100px;
-  resize: vertical;
-  border-radius: 4px;
-  padding: 12px 24px;
-  border: 2px solid $secondary;
-
-  &:focus,
-  &:focus-visible {
-    border: 2px solid $primaryLight;
-    outline: unset;
+.comments__stars-wrap--readonly {
+  display: none;
+  @include breakpoint-mf("xs") {
+    @include flex(row, flex-start, center);
+    column-gap: 15px;
   }
 }
 
-.comments__editing-length-counter{
+.comments__review {
+  margin-bottom: 30px;
+}
 
+.comments__item-content {
+  font-size: 14px;
+  line-height: 21px;
+  text-align: left;
 }
 
 .comments__actions {
@@ -59,7 +53,8 @@
 .comments__action-btn {
   border-radius: 4px;
 
-  &--confirm {
+  &--confirm,
+  &--reply{
     display: block;
     margin-left: auto;
   }
