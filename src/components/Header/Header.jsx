@@ -74,7 +74,7 @@ const Header = () => {
         <div className="container">
           <div className="header__container-top">
             <h2 className="header__container-top-title">
-              Free shipping across Ukraine
+              Shipping only across Ukraine
             </h2>
             <NavLink
               className="header__company-logo"
@@ -260,8 +260,13 @@ const Header = () => {
 
 
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to={token ? "/cabinet" : "/login"}
+                key={6}
+                className="header__nav-link--loginBtn"
+              > */}
+                <NavLink
+                to={token ? "/account" : "/login"}
                 key={6}
                 className="header__nav-link--loginBtn"
               >

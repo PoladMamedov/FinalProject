@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
 import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
+
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,18 +22,35 @@ function AllProductItems(props) {
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
+  const location = useLocation();
+  const navigate = useNavigate();
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const pageFromQuery = parseInt(queryParams.get("page"), 10) || 1;
+
+    if (!currentPage || currentPage !== pageFromQuery) {
+      setCurrentPage(pageFromQuery);
+    }
+  }, []);
 
   const { getAllProducts } = useServer();
 
   const isCardView = useSelector((state) => state.toggleCard.cardView);
 
   const dispatch = useDispatch();
+  const { sortValue } = useSelector((state) => state.sortFilter);
 
   useEffect(() => {
     setIsLoading(true);
     getAllProducts()
       .then((result) => {
+        if (sortValue === "+") {
+          result.sort((a, b) => a.currentPrice - b.currentPrice);
+        } else if (sortValue === "-") {
+          result.sort((a, b) => b.currentPrice - a.currentPrice);
+        }
         setIsLoading(false);
         if (props.products) {
           setIsLoading(true);
@@ -54,6 +74,7 @@ function AllProductItems(props) {
           setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
           setIsLoading(false);
         }
+        props.setIsAllProductItemsEffectComplete ? props.setIsAllProductItemsEffectComplete(true) : null;
       });
   }, []);
 
@@ -70,10 +91,6 @@ function AllProductItems(props) {
       dispatch(fillProducts(filteredSmartWatch));
     }
   }, [allProducts, filteredMouses, filteredHeadphones, filteredSmartWatch, filteredKeyboards]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [allProducts]);
 
   const handleResize = () => {
     if (window.innerWidth >= 1200) {
@@ -100,7 +117,11 @@ function AllProductItems(props) {
     setPaginatedProducts(newPaginatedProducts);
   }, [currentPage, allProducts, productsPerPage]);
 
+
   const handlePageChange = (pageNumber) => {
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.set("page", pageNumber);
+    navigate(`${location.pathname}?${queryParams.toString()}`);
     setCurrentPage(pageNumber);
   };
 
@@ -126,7 +147,7 @@ function AllProductItems(props) {
 
         )}
       </div>
-      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
+    <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }

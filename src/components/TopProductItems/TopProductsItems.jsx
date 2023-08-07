@@ -22,7 +22,7 @@ function TopProductItem() {
         }
         setStoredProducts(selectedProducts);
       });
-    }, [] );
+  }, [] );
 
   return (
     <section className={"top-product__wrapper"}>

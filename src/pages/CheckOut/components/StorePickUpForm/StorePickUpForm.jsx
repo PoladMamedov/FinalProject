@@ -7,6 +7,7 @@ import { removeEntireCart } from "../../../../redux/actions/cart";
 import useServer from "../../../../hooks/useServer";
 import createOrder from "../../functions/createOrder";
 import PreLoader from "../../../../components/PreLoader/PreLoader";
+import setOrderNumber from "../../../../redux/actions/orders";
 
 function StorePickUpForm() {
   const { placeOrder, deleteCart } = useServer();
@@ -23,14 +24,10 @@ function StorePickUpForm() {
     initialValues: {
       emailAddress: "",
       phoneNumber: "+380",
-      city: "",
-      address: "",
     },
     validationSchema: Yup.object({
       emailAddress: Yup.string().required("Email Address required").email(),
-      phoneNumber: Yup.number().required("Phone Number required"),
-      address: Yup.string().required("Address required").min(5, "Minimum length is 5 characters"),
-      city: Yup.string().required("City required").min(2, "Minimum length is 2 characters"),
+      phoneNumber: Yup.number().required("Phone Number required").min(10, "Minimum length is 10 characters"),
     }),
 
     onSubmit: async (values) => {
@@ -38,16 +35,17 @@ function StorePickUpForm() {
       const newOrderInfo = {
         customerId: _id,
         products: cartProducts,
-        deliveryAddress: { city: values.city, address: values.address },
         email: values.emailAddress,
         mobile: values.phoneNumber,
         delivery: false,
       };
       const orderData = createOrder(newOrderInfo);
-      await placeOrder(orderData, token);
+      const response = await placeOrder(orderData, token);
+      const orderNumber = response.order.orderNo;
       await deleteCart(token);
       dispatch(removeEntireCart());
       setLoading(false);
+      dispatch(setOrderNumber(orderNumber));
       navigate("/thankyou");
     },
   });
@@ -81,35 +79,6 @@ function StorePickUpForm() {
 
         {formik.errors.phoneNumber && formik.touched.phoneNumber ? (
           <label className="checkout-section__form-input-error">{formik.errors.phoneNumber}</label>
-        ) : null}
-      </div>
-      <div className="checkout-section__form-input-wrapper">
-        <input
-          className="checkout-section__form-input-field"
-          type="text"
-          name="city"
-          value={formik.values.city}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          placeholder="City"
-        />
-        {formik.errors.city && formik.touched.city ? (
-          <label className="login-section__form-input-error">{formik.errors.city}</label>
-        ) : null}
-      </div>
-      <div className="checkout-section__form-input-wrapper">
-        <input
-          className="checkout-section__form-input-field"
-          type="text"
-          name="address"
-          value={formik.values.address}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          placeholder="Address"
-        />
-
-        {formik.errors.address && formik.touched.address ? (
-          <label className="checkout-section__form-input-error">{formik.errors.address}</label>
         ) : null}
       </div>
       <button className="checkout-section__form-submit-btn" type="submit">

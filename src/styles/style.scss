@@ -17,6 +17,8 @@
 @import "../pages/CheckOut/checkout";
 @import "../pages/ThankYou/thankYou";
 
+@import "../pages/UserAccount/useraccount";
+
 // !Components
 @import "../pages/Products/products";
 
@@ -41,6 +43,7 @@
 @import "../components/SortFilter/sortFilter";
 @import "../pages/UsersCabinet/components/PasswordChangeForm/passwordChangeForm";
 @import "../pages/UsersCabinet/components/PersonalDataEditForm/pesonalDataEditForm";
+@import "../pages/UsersCabinet/components/UserAvatar/userAvatar.scss";
 @import "../components/SearchBar/searchBar";
 @import "../components/FoundProduct/foundProduct";
 @import "../components/CartList/cartList";
@@ -63,6 +66,9 @@
 @import "../components/Comments/comments";
 @import "../components/CommentsItem/commentsItem";
 @import "../components/CommentsCreateItem/commentsCreateItem";
+@import "../components/OrderItem/orderItem";
+@import "../components/OrderList/orderList";
+@import "../components/OrderList/components/orderListSkeleton";
 @import "../components/CommentsCreateItem/Components/starRatingList";
 @import "../components/CommentsCreateItem/Components/textarea";
 @import "../components/CommentsCreateItem/Components/RadioButton";

@@ -1,35 +1,33 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sortLowToHighPrice, sortHighToLowPrice } from "../../redux/actions/sortFilter";
 import { sortProducts } from "../../redux/actions/products";
 
-const SortFilter = (props) => {
+const SortFilter = ({ products, isFilterCollapsed }) => {
+    const dispatch = useDispatch();
 
-const dispatch = useDispatch();
-    
-useEffect(() => {
-        dispatch(sortLowToHighPrice());
-    }, []);
+    const { sortValue } = useSelector((state) => state.sortFilter);
 
     function handleSelectChange(e) {
-        if (props.products.length !== 0) {
+        if (products.length !== 0) {
             if (e.target.value === "1") {
                 dispatch(sortLowToHighPrice());
-                const sortHigh = props.products.sort((a, b) => a.currentPrice - b.currentPrice);
+                const sortHigh = products.sort((a, b) => a.currentPrice - b.currentPrice);
                 dispatch(sortProducts(sortHigh));
             } else if (e.target.value === "2") {
                 dispatch(sortHighToLowPrice());
-                const sortLow = props.products.sort((a, b) => b.currentPrice - a.currentPrice);
+                const sortLow = products.sort((a, b) => b.currentPrice - a.currentPrice);
                 dispatch(sortProducts(sortLow));
             }
         }
     }
     return (
-        <div className={`filter-section-sort ${props.isCollapsed ? "filter-section-sort--position" : ""}`}>
+        <div className={`filter-section-sort ${isFilterCollapsed ? "filter-section-sort--position" : ""}`}>
             <p className="filter-section-sort-text">Sort by</p>
             <select
                 className="filter-section-sort-select"
-                onChange={handleSelectChange}>
+                onChange={handleSelectChange}
+                value={sortValue === "+" ? "1" : "2"}
+            >
                 <option value="1">Price(Low to High)</option>
                 <option value="2">Price(High to Low)</option>
             </select>

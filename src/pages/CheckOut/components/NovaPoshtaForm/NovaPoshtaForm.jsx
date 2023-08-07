@@ -54,9 +54,7 @@ function NovaPoshtaForm() {
     setWarehouseSearchResult(searchResult);
     setLoading(false);
   }
-  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [
-    searchedWarehouse,
-  ]);
+  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [searchedWarehouse]);
 
   function handleWarehouseSelect(warehouse) {
     setSearchedWarehouse(warehouse);
@@ -71,13 +69,8 @@ function NovaPoshtaForm() {
   const cartProducts = useSelector((state) => state.cart.cart);
 
   async function handleSubmit() {
+    if (email === "" || phoneNumber === "" || selectedCity === "" || selectedWarehouse === "") return;
     setLoading(true);
-    if (
-      email === ""
-      || phoneNumber === ""
-      || selectedCity === ""
-      || selectedWarehouse === ""
-    ) return;
     const newOrderInfo = {
       customerId: _id,
       products: cartProducts,
@@ -99,7 +92,12 @@ function NovaPoshtaForm() {
   return (
     <div className="np-delivery">
       <h3 className="np-delivery__title">
-        <img width={50} height={50} src="./img/nova-poshta/np.png" alt="" />
+        <img
+          width={50}
+          height={50}
+          src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690295247/np_sykefc.png"
+          alt=""
+        />
         Nova Poshta delivery information:
       </h3>
       <form
@@ -184,9 +182,7 @@ function NovaPoshtaForm() {
           Submit
         </button>
       </form>
-      {!showWarehouseSuggestions && !showCitySuggestions && loading ? (
-        <PreLoader fillScreen />
-      ) : null}
+      {!showWarehouseSuggestions && !showCitySuggestions && loading ? <PreLoader fillScreen /> : null}
     </div>
   );
 }

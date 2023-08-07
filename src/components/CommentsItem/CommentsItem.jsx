@@ -7,8 +7,17 @@ import { deleteCommentAsync } from "../../redux/actions/comments";
 import CommentsCreateItem from "../CommentsCreateItem/CommentsCreateItem";
 
 export default function CommentsItem({
+<<<<<<< HEAD
   comment,
   disableActionBtns, setDisableActionBtns,
+=======
+  _id: commentID,
+  customer: {
+    firstName, lastName, _id: customerID
+  },
+  date,
+  content, disableActionBtns, setDisableActionBtns, maxContentLen = 500
+>>>>>>> main
 }) {
   const {
     _id: commentID,  product: productID,
@@ -21,7 +30,12 @@ export default function CommentsItem({
   const [editMode, setEditMode] = useState(false);
 
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const  {userInfo: {token, _id: userID}} = useSelector((state) => state.user);
+=======
+  const { userInfo: { token, _id: userID } } = useSelector((state) => state.user);
+  const editTextareaRef = useRef(null);
+>>>>>>> main
 
   const starsSettings = {
     itemStyles: {
@@ -53,7 +67,7 @@ export default function CommentsItem({
 
   return <>
     <div className="comments__item-header">
-      <Avatar className="comments__item-avatar" name={`${firstName} ${lastName}`} size="50" round/>
+      <Avatar className="comments__item-avatar" name={`${firstName} ${lastName}`} size="50" round />
       <p className="comments__item-name">{firstName} {lastName}</p>
       {userID === customerID ? <span className="comments__active-user">you</span> : null}
       <span className="comments__item-date">
@@ -61,11 +75,12 @@ export default function CommentsItem({
           day: "numeric",
           month: "short",
           year: "numeric",
-       })}
+        })}
       </span>
     </div>
     {
       editMode
+<<<<<<< HEAD
       ? <CommentsCreateItem
           editMode
           setEditMode={setEditMode}
@@ -121,10 +136,30 @@ export default function CommentsItem({
           <p className="comments__item-content">{content}</p>
         </div>
       </div>
+=======
+        ? <div className="comments__create-content-wrap">
+          <textarea
+            className="comments__edited-comment"
+            name="comment-content--edited"
+            id="comment-content--edited"
+            ref={editTextareaRef}
+            onChange={onTextareaChange}
+            onBlur={onTextareaBlur}
+            value={editedComment}
+          >
+          </textarea>
+          <span
+            className={`comments__length-counter ${commentOverLength ? "comments__length-counter--overlength" : ""}`}
+          >
+            {editTextareaRef.current ? editTextareaRef.current.value.length : content.length}/{maxContentLen}
+          </span>
+        </div>
+        : <p className="comments__item-content">{content}</p>
+>>>>>>> main
     }
     {
       userID === customerID && !editMode
-      ? <div className="comments__actions">
+        ? <div className="comments__actions">
           <button
             type="button"
             className="button comments__action-btn"
@@ -142,7 +177,7 @@ export default function CommentsItem({
             Edit
           </button>
         </div>
-      : null
+        : null
     }
   </>;
 }

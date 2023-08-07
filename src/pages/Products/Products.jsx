@@ -8,16 +8,15 @@ import FilterMini from "../../components/Filter/FilterMini";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import SortFilter from "../../components/SortFilter/SortFilter";
 import AllProductItems from "../../components/AllProductItems/AllProductItems";
-import { toggleFilter, addCountFilter} from "../../handlers/handlersFunctions";
-
+import { toggleFilter, addCountFilter } from "../../handlers/handlersFunctions";
 
 const Products = () => {
- const dispatch = useDispatch();
-
-  const {categories} = useSelector(
-        (state) => state.categories
-        );
+  const dispatch = useDispatch();
+  const { categories } = useSelector(
+    (state) => state.categories
+  );
   const filterCategories = categories.filter((item) => item.level === 0);
+  const [isAllProductItemsEffectComplete, setIsAllProductItemsEffectComplete] = useState(false);
 
 
   const filterFull = React.createRef();
@@ -32,23 +31,23 @@ const Products = () => {
     toggleFilter(filterFull, filterMini, setIsFilterCollapsed);
   };
 
-  const { filteredProducts } =  useSelector((state) => state.filteredProducts);
+  const { filteredProducts } = useSelector((state) => state.filteredProducts);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     setProducts(filteredProducts);
   }, [filteredProducts]);
 
-    return (
-      <>
+  return (
+    <>
       <Breadcrumb />
       <section>
         <div className="container">
           <div className="products-section">
-            <SortFilter products={products} isCollapsed={isFilterCollapsed}/>
-            <Filter categories={filterCategories} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter}/>
+            <SortFilter products={products} isCollapsed={isFilterCollapsed} />
+            <Filter categories={filterCategories} toggle={handleToggleFilter} addCounter={handleAddCountFilter} ref={filterFull} apply={handleToggleFilter} isAllProductItemsEffectComplete={isAllProductItemsEffectComplete}/>
             <FilterMini toggle={handleToggleFilter} ref={filterMini} />
-            <AllProductItems products={"pageProducts"} />
+            <AllProductItems products={"pageProducts"} setIsAllProductItemsEffectComplete={setIsAllProductItemsEffectComplete}/>
           </div>
         </div>
       </section>
