@@ -8,7 +8,6 @@ import UserAvatar from "./components/UserAvatar/UserAvatar";
 
 function UsersCabinet() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line object-curly-newline
   const { firstName, lastName, email } = useSelector((state) => state.user.userInfo);
   useEffect(() => {
     return () => {

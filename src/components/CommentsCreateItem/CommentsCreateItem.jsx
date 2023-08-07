@@ -122,7 +122,7 @@ export default function CommentsCreateItem({
       <RadioButton id={editMode ? "notRecommendEditing" : "notRecommend"} name={editMode ? "notRecommendEditing" : "notRecommend"} value={"no"} checked={!recommend} changeHandler={setRecommend}/>
     </div>
     <button
-      disabled={review === "" || Object.values(starsRating).some((value) => value === 0) || disableActionBtns || (editingData.advantages !== "" && advantagesRef.current && advantagesRef.current.value === "") || (editingData.disadvantages !== "" && disadvantagesRef.current && disadvantagesRef.current.value === "")}
+      disabled={review === "" || Object.values(starsRating).some((value) => value === 0) || disableActionBtns || (editingData.advantages && advantagesRef.current && advantagesRef.current.value === "") || (editingData.disadvantages && disadvantagesRef.current && disadvantagesRef.current.value === "")}
       type="button"
       className="button comments__submit-btn"
       onClick={onSubmitBtnClick}
