@@ -6,9 +6,6 @@
         @include flex(column, center, center);
         &__item{
             @include flex(column, center, center);
-            // &-link{
-            //     @include flex(column, center, center);
-            // }
             &-title {
                 @include fonts(400, 20px, 23px);
                color:#082032;
