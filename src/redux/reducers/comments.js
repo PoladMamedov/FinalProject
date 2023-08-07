@@ -4,7 +4,6 @@ const initialState = {
   comments: [],
 };
 
-// eslint-disable-next-line default-param-last
 function commentsReducer(state = initialState, action) {
   switch (action.type) {
     case commentsTypes.FILL_COMMENTS:
@@ -26,7 +25,6 @@ function commentsReducer(state = initialState, action) {
       return {
         ...state,
         comments: [...state.comments.map((comment) => {
-          // eslint-disable-next-line no-underscore-dangle
           if (comment._id === action.payload.commentID) return action.payload.updatedComment;
           return comment;
         })]

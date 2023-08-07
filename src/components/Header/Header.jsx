@@ -22,7 +22,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const { categories } = useSelector((state) => state.categories);
   const allCategories = categories.filter((item) => item.parentId === "null");
-  const favorites = useSelector((state) => state.favorites.favorites);
+  const { favorites } = useSelector((state) => state.favorites);
 
   const handleResize = () => {
     setIsMenuOpen(window.innerWidth < 768 ? isMenuOpen : false);

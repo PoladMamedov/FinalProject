@@ -13,7 +13,6 @@ export default function RecentlyViewedProducts(props) {
             <div
                 className={props.isCardView ? "all-product__card recently-card" : "all-product__card-rows recently-card"}>
                 {recentlyViewed.map((product) => (
-                    // eslint-disable-next-line no-underscore-dangle
                     <ProductCard isCardView={props.isCardView} active={props.active} item={product} key={product._id}/>
                 ))}
             </div>

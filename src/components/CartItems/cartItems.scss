@@ -121,6 +121,11 @@
   border-radius: 50%;
   background-color: $white;
   padding: 5px 5px 5px 5px;
+  &:hover {
+    color: #fff;
+    border-color: $primary;
+    box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2509803922);
+  }
 
   @include breakpoint-mf("sm") {
     position: static;
