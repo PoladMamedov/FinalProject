@@ -16,7 +16,6 @@ function OrdersList() {
   const currencyValue = parseFloat(currency);
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [productsPerPage, setProductsPerPage] = useState(4);
   const totalPages = Math.ceil(orders.length / productsPerPage);
 
@@ -42,7 +41,6 @@ function OrdersList() {
   const [activeItemIds, setActiveItemIds] = useState([]);
   const toggleOrderItem = (orderId) => {
     setActiveItemIds(
-      // eslint-disable-next-line no-confusing-arrow
       (prevActiveItemIds) => prevActiveItemIds.includes(orderId)
           ? prevActiveItemIds.filter((id) => id !== orderId)
           : [...prevActiveItemIds, orderId]
@@ -59,7 +57,6 @@ function OrdersList() {
         ) : (
           <ul className="orders-section-main-list">
             {paginatedProducts.map((order) => (
-              // eslint-disable-next-line no-underscore-dangle
               <li className="orders-section-main-list-item" key={order._id}>
                 <div className="orders-section-main-list-item-content">
                   <div className="orders-section-main-list-item-content-order-number">
@@ -69,7 +66,6 @@ function OrdersList() {
 
                   <div
                     className={`orders-section-main-list-item-content-total ${
-                      // eslint-disable-next-line no-underscore-dangle
                       activeItemIds.includes(order._id) ? "active" : ""
                     }`}
                   >
@@ -86,11 +82,9 @@ function OrdersList() {
                   </div>
                   <button
                     className={`orders-section-main-list-btn ${
-                      // eslint-disable-next-line no-underscore-dangle
                       activeItemIds.includes(order._id) ? "active" : ""
                     }`}
                     type="button"
-                    // eslint-disable-next-line no-underscore-dangle
                     onClick={() => toggleOrderItem(order._id)}
                   >
                     <FontAwesomeIcon
@@ -100,11 +94,9 @@ function OrdersList() {
                   </button>
                   <button
                     className={`orders-section-main-list-btn ${
-                      // eslint-disable-next-line no-underscore-dangle
                       !activeItemIds.includes(order._id) ? "active" : ""
                     }`}
                     type="button"
-                    // eslint-disable-next-line no-underscore-dangle
                     onClick={() => toggleOrderItem(order._id)}
                   >
                     <FontAwesomeIcon icon={faAngleUp} className="icon-arrow" />
@@ -113,7 +105,6 @@ function OrdersList() {
 
                 <ul
                   className={`orders-section-sub-list ${
-                    // eslint-disable-next-line no-underscore-dangle
                     activeItemIds.includes(order._id) ? "active" : ""
                   }`}
                 >
@@ -149,7 +140,6 @@ function OrdersList() {
 
                   {order.products.map((product) => (
                     <OrderItem
-                      // eslint-disable-next-line no-underscore-dangle
                       key={product._id}
                       product={product.product}
                       cartQuantity={product.cartQuantity}

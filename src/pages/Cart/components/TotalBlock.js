@@ -23,7 +23,6 @@ const TotalBlock = () => {
     if (userToken) {
       const updatedCart = {
         products: cartProducts.map((item) => ({
-          // eslint-disable-next-line no-underscore-dangle
           product: item.product._id,
           cartQuantity: item.cartQuantity
         }))

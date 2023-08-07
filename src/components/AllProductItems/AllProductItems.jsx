@@ -138,7 +138,6 @@ function AllProductItems(props) {
           <>
             <div className={isCardView ? "all-product__card" : "all-product__card-rows"}>
               {paginatedProducts.map((e) => (
-                // eslint-disable-next-line no-underscore-dangle
                 <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
               ))}
             </div>

@@ -7,7 +7,6 @@ import CartSkeleton from "./components/CartSkeleton";
 import { fetchCart } from "../../redux/actions/cart";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
-
 const Cart = () => {
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
