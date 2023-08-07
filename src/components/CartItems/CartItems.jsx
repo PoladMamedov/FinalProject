@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { Store } from "react-notifications-component";
 import React, { useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
+import { Store } from "react-notifications-component";
 import notificationsSettings from "../../constants/constants";
 import cloudinaryConfig from "../../config/cloudinaryConfig";
 import {
@@ -25,15 +25,12 @@ const CartItems = (props) => {
   } = props.dataProducts;
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
-  // eslint-disable-next-line no-unused-vars
   const [isCheckout, setIsCheckout] = useState(isCheckoutPage);
   const [inputValue, setInputValue] = useState(cartQuantity);
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartProducts = useSelector((state) => state.cart.cart);
-  // eslint-disable-next-line no-underscore-dangle
   const itemId = props.dataProducts.product._id;
-  // const cartProducts = useSelector((state) => state.cart.cart);
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
@@ -47,7 +44,6 @@ const currencyValue = parseFloat(currency);
     if (userToken) {
       const updatedCart = {
         products: cartProducts.map((item) => ({
-          // eslint-disable-next-line no-underscore-dangle
           product: item.product._id,
           cartQuantity: item.cartQuantity,
         })),
@@ -163,7 +159,6 @@ const currencyValue = parseFloat(currency);
   return (
     <>
       <li className={`cart-list__item ${isCheckout ? "none" : ""}`}>
-        {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}
         <Link className="cart-list__item-image-wrap" to={`/products/${itemNo}`}>
           {" "}
           <img
@@ -176,7 +171,6 @@ const currencyValue = parseFloat(currency);
           <Link to={`/products/${itemNo}`} className="cart-list__item-title">
             {name}
           </Link>
-          {/* <p className="cart-list__item-price">${currentPrice}</p> */}
 
           <div className="cart-list__item-price">
             <img
@@ -227,7 +221,7 @@ const currencyValue = parseFloat(currency);
       </li>
 
       <li className={`checkout-cart-list__item ${isCheckout ? "" : "none"}`}>
-        {/* <img className={"cart-list__item-image"} src={imageUrls[0]} alt="item-img" /> */}
+
         <Link
           className="checkout-cart-list__item-image-wrap"
           to={`/products/${itemNo}`}

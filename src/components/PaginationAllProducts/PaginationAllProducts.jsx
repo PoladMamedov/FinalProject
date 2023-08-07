@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
   const MAX_VISIBLE_PAGES = 3; // Максимальное количество видимых номеров страниц
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+const location = useLocation()
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.set("page", onPageChange(currentPage));
+  }, []);
 
   const getPageNumbers = () => {
     const ellipsis = <span key="ellipsis" className="ellipsis">...</span>;
@@ -11,10 +18,10 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
       return pageNumbers;
     }
 
-
     const current = currentPage;
+
     const neighbors = Math.floor((MAX_VISIBLE_PAGES - 1) / 2); // Количество соседних страниц
-    let startPage = current - neighbors;
+    let startPage = currentPage - neighbors;
     let endPage = current + neighbors;
 
     if (startPage <= 0) {
@@ -24,7 +31,7 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
       startPage = totalPages - MAX_VISIBLE_PAGES + 1;
       endPage = totalPages;
     }
- 
+
     const visiblePages = pageNumbers.slice(startPage - 1, endPage);
     const firstPage = pageNumbers.slice(0, 1);
     const lastPage = pageNumbers.slice(totalPages - 1);

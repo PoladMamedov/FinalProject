@@ -12,7 +12,6 @@
 
 .orders-section-sub-list-item {
 
-    // gap: 28px;
         gap: 2em;
 width: 100%;
   @include flex(row);
@@ -39,7 +38,6 @@ width: 115px;
 
   @include breakpoint-mf("md") {
         width: 178px;
-    height: 150px;
   }
 }
 
@@ -82,8 +80,7 @@ width: 115px;
     @include flex(column, flex-start);
     width: 100%;
     @include fonts(400, 16px, 35px);
-    //     @include flex(row, space-between);
-        @include breakpoint-mf("md") {
+        @include breakpoint-mf("ma") {
         @include flex(row, space-between);
     }
 }
@@ -96,12 +93,6 @@ width: 115px;
     color: #666;
 }
 
-// .orders-section-sub-list-total-wrap-p:nth-child(1) {
-//     @include flex(row, space-between);
-//         @include fonts(700, 20px, 35px);
-//     border-bottom: 0.015rem solid #979797;
-//     padding-bottom: 12px;
-// }
 .total {
       @include flex(row, space-between);
         @include fonts(700, 20px, 35px);
