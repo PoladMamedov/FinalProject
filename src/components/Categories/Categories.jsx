@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "react-notifications-component";
@@ -31,7 +28,6 @@ function Categories() {
     };
 
     return filteredCategories.map((category) => (
-      // eslint-disable-next-line no-underscore-dangle
       <li key={category._id} className="subcategory__list-item" onClick={() => handleCategoryClick(category.name)}>
         <NavLink to={`${category.parentId}`} className="subcategory__list-link" name={category.name}>{category.name}</NavLink>
         {groupCategories(category.id)}

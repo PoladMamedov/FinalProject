@@ -46,19 +46,6 @@ const favoritesReducer = (state = initialState, action = {}) => {
         };
     }
 
-    case favTypes.DECREASE_FAV: {
-      const findItem = state.favorites.find((item) => item.product._id === action.payload.id);
-        const updatedItem = {
-          ...findItem,
-          favQuantity: findItem.favQuantity - 1
-        };
-        const updatedItems = state.favorites.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
-        return {
-          ...state,
-          favorites: updatedItems
-        };
-    }
-
     case favTypes.REMOVE_ENTIRE_FAV: {
       return {
         ...state,

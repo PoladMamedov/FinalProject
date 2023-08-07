@@ -31,7 +31,6 @@ const CartItems = (props) => {
   const userToken = useSelector((state) => state.user.userInfo.token);
   const cartProducts = useSelector((state) => state.cart.cart);
   const itemId = props.dataProducts.product._id;
-  // const cartProducts = useSelector((state) => state.cart.cart);
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );

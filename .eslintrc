@@ -78,6 +78,8 @@
     "no-underscore-dangle": "off",
     "no-alert": "off",
     "default-param-last": "off",
+    "no-confusing-arrow": "off",
+    "no-nested-ternary": "warn",
     "no-shadow": "off"
   },
   "settings": {

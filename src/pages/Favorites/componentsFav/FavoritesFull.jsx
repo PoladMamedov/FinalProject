@@ -21,8 +21,6 @@ const FavoritesFull = (props) => {
         imageUrls, name, currentPrice, itemNo
       },
     } = item;
-
-    console.log("+++++++", favQuantity, imageUrls[0], name, currentPrice, itemNo);
     return {
       ...item,
       favQuantity,
@@ -32,7 +30,7 @@ const FavoritesFull = (props) => {
       itemNo,
     };
   });
- // Получаем диспетчер и данные о токене и элементах корзины из стейта с помощью хуков useDispatch() и useSelector()
+
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.userInfo.token);
   const favorites = useSelector((state) => state.favorites.favorites);
@@ -47,7 +45,6 @@ const FavoritesFull = (props) => {
     }
   }, [userToken]);
 
-  // Используем useEffect() для обновления wishlist на сервере при изменении количества товаров
   useEffect(() => {
     if (userToken) {
       const updatedFav = {
@@ -59,10 +56,8 @@ const FavoritesFull = (props) => {
       dispatch(setFav(updatedFav, userToken));
     }
   }, []);
-  // console.error("ttttt-tt", favoritedProducts);
 
   const handleRemoveFromFavorites = async (item, token) => {
-    // console.error("ttttt-tt", item);
     try {
       if (token) {
         dispatch(removeFromFavAsync(item, token));
@@ -79,17 +74,12 @@ const FavoritesFull = (props) => {
       });
     }
   };
-
   const { cart } = useSelector((state) => state.cart);
   const [showCartList, setShowCartList] = useState(false);
-
-  const onAddItemToCart = async (item, token, productInfo) => {
-    // console.warn("cartcart", item, productInfo);
+  const onAddItemToCart = async (products, token, productInfo) => {
     try {
-      // Проверяем, есть ли уже такой товар в корзине
       const productInCart = cart.find(({ product: { _id: id } }) => id === productInfo._id);
       if (productInCart) {
-        // Если товар уже есть в корзине, то обновляем его количество
         const updatedCart = {
           products: cart.map((el) => {
             if (el.product._id === productInfo._id) {
@@ -103,17 +93,13 @@ const FavoritesFull = (props) => {
         } else {
           dispatch(fillCart(updatedCart.products));
         }
-      } else {
-        // Если товара нет в корзине, то добавляем его
-        // eslint-disable-next-line no-lonely-if
-        if (token) {
-          dispatch(increaseCartAsync(item, token, productInfo));
+      } else if (token) {
+          dispatch(increaseCartAsync(products, token, productInfo));
           setShowCartList(true);
         } else {
-          dispatch(increaseCart(item, productInfo));
+          dispatch(increaseCart(products, productInfo));
           setShowCartList(true);
         }
-      }
     } catch (error) {
       Store.addNotification({
         ...notificationsSettings.basic,
