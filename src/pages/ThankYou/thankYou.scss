@@ -34,7 +34,7 @@
     @include breakpoint-mf("md") {
       @include fonts(400, 18px, 35px);
     }
-    @include breakpoint-mf("xl") {
+    @include breakpoint-mf("my") {
       @include fonts(400, 22px, 35px);
       margin: 0 40px;
     }

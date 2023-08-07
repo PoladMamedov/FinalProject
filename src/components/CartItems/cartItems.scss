@@ -187,8 +187,11 @@
   height: 25px;
   max-width: 90px;
   gap: 10px;
+    -webkit-appearance: none;
+  -webkit-border-radius: unset;
 
-  &-minus {
+  &-minus,
+  &-plus {
     width: 100%;
     height: 100%;
     font-size: 20px;
@@ -212,14 +215,7 @@
       font-size: 18px;
     }
   }
-
-  &-plus {
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-    background-color: $white;
-    cursor: pointer;
-  }
+ 
 }
 
 .checkout-cart-list__item-icon {
@@ -258,4 +254,8 @@
       height: 16px;
     }
   }
+}
+
+.checkout-cart-list__item-button {
+  background-color: inherit;
 }
