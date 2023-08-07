@@ -77,7 +77,8 @@
     "no-lonely-if": "warn",
     "no-underscore-dangle": "off",
     "no-alert": "off",
-    "default-param-last": "off"
+    "default-param-last": "off",
+    "no-shadow": "off"
   },
   "settings": {
     "react": {

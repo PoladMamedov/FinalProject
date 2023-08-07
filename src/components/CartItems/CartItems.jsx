@@ -54,11 +54,9 @@ const currencyValue = parseFloat(currency);
   }, [cartQuantity]);
 
   const OnDeleteItem = async (item, token) => {
-    console.log(OnDeleteItem);
     try {
       if (token) {
         dispatch(removeCartAsync(item, token));
-        console.log(removeCartAsync(item, token));
         Store.addNotification({
           ...notificationsSettings.basic,
           ...notificationsSettings.cartDeleted,

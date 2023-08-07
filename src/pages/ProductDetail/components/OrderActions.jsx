@@ -28,47 +28,37 @@ export default function OrderActions(props) {
     _id: productID,
   } = props;
 
-  console.log("+++++++", quantity, itemNo, currentPrice, productID);
   const dispatch = useDispatch();
-  console.log("PROPS INSIDE = PRODUCT INFO", props);
-  console.log("productID = ITEM", productID);
-  console.log("props.productID = ITEM", props.itemNo);
-  // console.log("PRODUCT INFO +++++++", productInfo);
-
   const {
     userInfo: { token },
   } = useSelector((state) => state.user);
-  console.log("TOKEN", token);
-  console.log("USER INFO", props.userInfo);
   const { cart } = useSelector((state) => state.cart);
   const { currency, currencyName } = useSelector(
     (state) => state.currentCurrency
   );
-  // const favorites = useSelector((state) => state.favorites.favorites);
-  const { favorites } = useSelector((state) => state.favorites);
-    console.log("favs", favorites);
   const currencyValue = parseFloat(currency);
-
   const [productColor, setProductColor] = useState("");
   const [orderQuantity, setOrderQuantity] = useState(1);
-  const [isFav, setIsFav] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
-
   const colors = { ...similarProducts, [itemNo]: color };
   const price = { currentPrice, previousPrice };
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const [isFav, setIsFav] = useState(false);
+  const [isInitiallyFav, setIsInitiallyFav] = useState(false);
 
+  const [clickCount, setClickCount] = useState(0);
   const isItemFavorited = () => {
-    return favorites.some((fav) => fav.product._id === productID);
+    return favorites.some(
+      (fav) => fav.product && fav.product._id === productID
+    );
   };
 
-  // eslint-disable-next-line no-shadow
-  const handleAddToFavorites = async (productID, token) => {
+  const handleAddToFavorites = async (productID, token, props) => {
     try {
       if (token) {
-        dispatch(increaseFavAsync(productID, token));
-        // console.log("PRODUCT INFO >>>>>>", productInfo);
+        dispatch(increaseFavAsync(productID, token, props));
       } else {
-        dispatch(increaseFav(productID));
+        dispatch(increaseFav(productID, props));
       }
     } catch (error) {
       Store.addNotification({
@@ -78,14 +68,13 @@ export default function OrderActions(props) {
       });
     }
   };
-  console.log(itemNo);
-  // eslint-disable-next-line no-shadow
-  const handleRemoveFromFavorites = async (productID, token) => {
+
+  const handleRemoveFromFavorites = async (productID, token, props) => {
     try {
       if (token) {
-        dispatch(removeFromFavAsync(productID, token));
+        dispatch(removeFromFavAsync(productID, token, props));
       } else {
-        dispatch(removeFromFavorites(productID));
+        dispatch(removeFromFavorites(productID, props));
       }
     } catch (error) {
       Store.addNotification({
@@ -95,25 +84,22 @@ export default function OrderActions(props) {
       });
     }
   };
-  // eslint-disable-next-line no-shadow
-  const handleToggleFavorites = async (productID, token) => {
-    try {
-      if (isItemFavorited(productID)) {
-        await handleRemoveFromFavorites(productID, token);
-      } else {
-        await handleAddToFavorites(productID, token);
-      }
-    } catch (error) {}
-  };
+
   const handleClick = () => {
-    handleToggleFavorites(productID, token);
-    console.log(handleToggleFavorites(productID, token));
+    if (isInitiallyFav) {
+      handleRemoveFromFavorites(productID, token, props);
+      setClickCount((prevClickCount) => prevClickCount - 1);
+    } else {
+      handleAddToFavorites(productID, token, props);
+      setClickCount((prevClickCount) => prevClickCount + 1);
+    }
   };
 
   useEffect(() => {
     setProductColor(color);
-    setIsFav(favorites.find((item) => item.itemNo === itemNo));
-  }, []);
+    setIsFav(isItemFavorited(productID));
+    setIsInitiallyFav(isItemFavorited(productID));
+  }, [color, productID, clickCount]);
 
   useEffect(() => {
     const productInCart = cart.find(
@@ -200,13 +186,6 @@ export default function OrderActions(props) {
         </p>
       )}
       <div className="order-actions__btns-wrap">
-        {/* <button type="button" className="order-actions__favs-btn">
-        <FavoritesIcon
-          color={"red"}
-          className={isFav ? "order-actions__favs-icon order-actions__favs-icon--fill" : "order-actions__favs-icon"}
-          isFill={isFav}
-          clickHandler={isFav ? handleRemoveFromFavorites : handleAddToFavorites}/>
-      </button> */}
         <button
           type="button"
           onClick={handleClick}
@@ -214,12 +193,8 @@ export default function OrderActions(props) {
         >
           <FavoritesIcon
             color={"red"}
-            className={
-              isItemFavorited(productID)
-                ? "order-actions__favs-icon order-actions__favs-icon--fill"
-                : "order-actions__favs-icon"
-            }
-            isFill={isItemFavorited(productID)}
+            className={`order-actions__favs-icon ${isItemFavorited(props) ? "order-actions__favs-icon--fill" : ""}`}
+            isFill={isItemFavorited(props)}
           />
         </button>
         <button

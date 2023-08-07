@@ -5,7 +5,7 @@ import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
-  console.log('....list fav', favorites);
+  
   return (
     <>
       <BreadCrumb />

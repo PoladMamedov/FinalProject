@@ -44,24 +44,15 @@ export default function ProductCard(props) {
   }
 
   const { favorites } = useSelector((state) => state.favorites);
-  // console.log("favs", favorites);
-  // const [isFavorited, setIsFav] = useState(false);
-
-  // useEffect(() => {
-  //   setIsFav(favorites.find((item) => item.itemNo === urlItemNumber));
-  // }, [favorites]);
 
   const isItemFavorited = () => {
     return favorites.some((fav) => fav.product._id === itemId);
   };
-  // Обновленная функция для добавления в избранное
+
   const handleAddToFavorites = async (item, token, productInfo) => {
     try {
-      console.log("ITEM", item);
-      console.log("PRODUCT INFO >>>>>>", productInfo);
       if (token) {
         dispatch(increaseFavAsync(item, token, productInfo));
-        console.log("PRODUCT INFO >>>>>>", productInfo);
       } else {
         dispatch(increaseFav(item, productInfo));
       }
@@ -74,7 +65,6 @@ export default function ProductCard(props) {
     }
   };
 
-  // Обновленная функция для удаления из избранного
   const handleRemoveFromFavorites = async (item, token, productInfo) => {
     try {
       if (token) {
@@ -90,7 +80,7 @@ export default function ProductCard(props) {
       });
     }
   };
-  // Обновленная функция для добавления или удаления из избранного
+
   const handleToggleFavorites = async (item, token, productInfo) => {
     try {
       if (isItemFavorited(productInfo._id)) {
@@ -100,6 +90,7 @@ export default function ProductCard(props) {
       }
     } catch (error) {}
   };
+
   const handleClick = () => {
     handleToggleFavorites(itemId, userToken, props.item);
   };
@@ -163,25 +154,6 @@ export default function ProductCard(props) {
                     isFill={isItemFavorited(props.item._id)}
                   />
                 </button>
-                {/* <button
-                type="button"
-                onClick={() => handleAddToFavorites(itemId, userToken, props.item)}
-                className="all-card__like-button">
-                  <FavoritesIcon
-                    className={
-                      isFavorited
-                        ? "all-card__like-btn active"
-                        : "all-card__like-img"
-                    }
-                    color="#535353"
-                    isFill={isFavorited}
-                    // clickHandler={
-                    //   isFavorited
-                    //     ? handleRemoveFromFavorites
-                    //     : handleAddToFavorites
-                    // }
-                  />
-                </button> */}
               </div>
               <button
                 ref={compareBtn}

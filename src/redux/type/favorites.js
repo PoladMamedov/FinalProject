@@ -9,7 +9,7 @@ const favoritesTypes = {
          INCREASE_FAV: "INCREASE_FAV",
          DECREASE_FAV: "DECREASE_FAV",
          REMOVE_ENTIRE_FAV: "REMOVE_ENTIRE_FAV",
-         UPDATE_FAV_QUANTITY: "UPDATE_FAV_QUANTITY"
+         UPDATE_FAV_QUANTITY: "UPDATE_FAV_QUANTITY",
 };
 
 export default favoritesTypes;
