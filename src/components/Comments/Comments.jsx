@@ -6,7 +6,7 @@ import CommentsCreateItem from "../CommentsCreateItem/CommentsCreateItem";
 import { fetchComments } from "../../redux/actions/comments";
 
 
-export default function Comments({targetID, target = "", productID = ""}) {
+export default function Comments({productID}) {
 
   const [showLoginLink, setShowLoginLink] = useState(false);
   const [disableActionBtns, setDisableActionBtns] = useState(false);
@@ -16,8 +16,8 @@ export default function Comments({targetID, target = "", productID = ""}) {
   const { userInfo: {token} } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchComments(target, targetID));
-  }, [targetID]);
+    dispatch(fetchComments(productID));
+  }, [productID]);
 
   function onAddReviewClick() {
     setShowLoginLink(true);
@@ -45,7 +45,7 @@ export default function Comments({targetID, target = "", productID = ""}) {
         {
           token
           ? <CommentsCreateItem
-              productID={target === "product" ? targetID : productID}
+              productID={productID}
               disableActionBtns={disableActionBtns}
               setDisableActionBtns={setDisableActionBtns}
             />
