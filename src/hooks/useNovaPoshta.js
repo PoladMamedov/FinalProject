@@ -33,7 +33,6 @@ export default function useNovaPoshta() {
         modelName: "Address",
         calledMethod: "getWarehouses",
         methodProperties: {
-          // TypeOfWarehouseRef: "841339c7-591a-42e2-8233-7a0a00f0ed6f",
           CityName: cityName,
           WarehouseId: warehouseNo,
         },

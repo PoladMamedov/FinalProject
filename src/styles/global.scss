@@ -75,5 +75,8 @@ main {
   &:disabled {
     cursor: default;
     background-color: darken($primaryDark, 5%);
+    &:hover {
+      color: $primaryLight;
+    }
   }
 }

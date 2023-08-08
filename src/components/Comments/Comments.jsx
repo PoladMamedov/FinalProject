@@ -6,7 +6,7 @@ import CommentsCreateItem from "../CommentsCreateItem/CommentsCreateItem";
 import { fetchComments } from "../../redux/actions/comments";
 
 
-export default function Comments({targetID, target = "", productID = ""}) {
+export default function Comments({productID}) {
 
   const [showLoginLink, setShowLoginLink] = useState(false);
   const [disableActionBtns, setDisableActionBtns] = useState(false);
@@ -16,8 +16,8 @@ export default function Comments({targetID, target = "", productID = ""}) {
   const { userInfo: {token} } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchComments(target, targetID));
-  }, [targetID]);
+    dispatch(fetchComments(productID));
+  }, [productID]);
 
   function onAddReviewClick() {
     setShowLoginLink(true);
@@ -26,7 +26,7 @@ export default function Comments({targetID, target = "", productID = ""}) {
   return <>
     <section className="comments">
       <div className="container">
-        <h1 className="comments__title">Reviews</h1>
+        <h1 className="comments__title">Reviews <span className="comments__quantity">{comments.length}</span></h1>
         {
           comments.length
             ? <ul className="comments__list">
@@ -34,18 +34,18 @@ export default function Comments({targetID, target = "", productID = ""}) {
                   key={index}
                   className="comments__item">
                   <CommentsItem
-                    {...comment}
+                    comment={comment}
                     disableActionBtns={disableActionBtns}
                     setDisableActionBtns={setDisableActionBtns}
                   />
                 </li>)}
               </ul>
-            : <p className="comments__item">Write the first review...</p>
+            : <p className="comments__item comments__no-reviews">Write the first review...</p>
         }
         {
           token
           ? <CommentsCreateItem
-              productID={target === "product" ? targetID : productID}
+              productID={productID}
               disableActionBtns={disableActionBtns}
               setDisableActionBtns={setDisableActionBtns}
             />

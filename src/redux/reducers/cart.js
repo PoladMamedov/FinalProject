@@ -18,7 +18,6 @@ function cartReducer(state = initialState, action) {
         cart: action.payload ? [] : state.cart
       };
     case cartTypes.REMOVE_CART: {
-      // eslint-disable-next-line no-underscore-dangle
       const updatedItems = state.cart.filter((item) => item.product._id !== action.payload.id);
       return {
         ...state,
@@ -26,14 +25,12 @@ function cartReducer(state = initialState, action) {
       };
     }
     case cartTypes.INCREASE_CART: {
-      // eslint-disable-next-line no-underscore-dangle
       const findItem = state.cart.find((item) => item.product._id === action.payload.id);
       if (findItem) {
         const updatedItem = {
           ...findItem,
           cartQuantity: findItem.cartQuantity + 1
         };
-        // eslint-disable-next-line no-underscore-dangle
         const updatedItems = state.cart.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
         return {
           ...state,
@@ -50,13 +47,11 @@ function cartReducer(state = initialState, action) {
         };
     }
     case cartTypes.DECREASE_CART: {
-      // eslint-disable-next-line no-underscore-dangle
       const findItem = state.cart.find((item) => item.product._id === action.payload.id);
         const updatedItem = {
           ...findItem,
           cartQuantity: findItem.cartQuantity - 1
         };
-        // eslint-disable-next-line no-underscore-dangle
         const updatedItems = state.cart.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
         return {
           ...state,
@@ -70,13 +65,11 @@ function cartReducer(state = initialState, action) {
       };
     }
     case cartTypes.UPDATE_CART_QUANTITY: {
-      // eslint-disable-next-line no-underscore-dangle
       const findItem = state.cart.find((item) => item.product._id === action.payload.id);
       const updatedItem = {
         ...findItem,
         cartQuantity: action.payload.cartQuantity
       };
-      // eslint-disable-next-line no-underscore-dangle
       const updatedItems = state.cart.map((item) => (item.product._id === action.payload.id ? updatedItem : item));
       return {
         ...state,

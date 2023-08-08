@@ -205,7 +205,7 @@ export default function useServer() {
   }
 
   async function getWishlist(token) {
-    const wishlist = await fetch(`${url}/wishlist`, {
+    const getFav = await fetch(`${url}/wishlist`, {
       method: "GET",
       headers: {
         Authorization: token,
@@ -214,11 +214,11 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return wishlist;
+    return getFav;
   }
 
-  async function addToWishlist(id, token) {
-    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+  async function addToWishlist(productId, token) {
+    const addToFav = await fetch(`${url}/wishlist/${productId}`, {
       method: "PUT",
       headers: {
         Authorization: token,
@@ -227,11 +227,11 @@ export default function useServer() {
     })
       .then((res) => res.json())
       .catch((err) => err);
-    return wishlist;
+    return addToFav;
   }
 
-  async function deleteFromWishlist(id, token) {
-    const wishlist = await fetch(`${url}/wishlist/${id}`, {
+  async function removeFromWishlist(productId, token) {
+    const wishlist = await fetch(`${url}/wishlist/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization: token,
@@ -347,13 +347,10 @@ export default function useServer() {
     }
 
   // eslint-disable-next-line default-param-last
-  async function getComments(target = "", id) {
-    const comments = await fetch(
-      `${url}/comments/${target !== "" ? `${target}/${id}` : ""}`,
-      {
+  async function getComments(id) {
+    const comments = await fetch(`${url}/comments/product/${id}`, {
         method: "GET",
-      }
-    )
+      })
       .then((res) => res.json())
       .catch((err) => err);
     return comments;
@@ -423,7 +420,7 @@ export default function useServer() {
     getFiltersCategoriesBySubcategory,
     getWishlist,
     addToWishlist,
-    deleteFromWishlist,
+    removeFromWishlist,
     getCart,
     updateCart,
     deleteCart,
