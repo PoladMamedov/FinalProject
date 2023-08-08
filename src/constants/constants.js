@@ -76,6 +76,11 @@ const notificationsSettings = {
     message: "Product didn't deleted",
     type: "danger"
   },
+  productNotFound: {
+    title: "Attn!",
+    message: "Products with this price not found. Please, repeat with another price!",
+    type: "danger"
+  },
 };
 
 export default notificationsSettings;
