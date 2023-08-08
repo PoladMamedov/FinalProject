@@ -1,4 +1,3 @@
-
 import recentlyProducts from "../type/recentlyProducts";
 import useServer from "../../hooks/useServer";
 

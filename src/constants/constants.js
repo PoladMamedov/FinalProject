@@ -76,21 +76,6 @@ const notificationsSettings = {
     message: "Product didn't deleted",
     type: "danger"
   },
-  commentAdded: {
-    title: "Success!",
-    message: "Your comment added",
-    type: "success",
-  },
-  commentDeleted: {
-    title: "Success!",
-    message: "Your comment deleted",
-    type: "success",
-  },
-  commentEdited: {
-    title: "Success!",
-    message: "Your comment edited",
-    type: "success",
-  },
   productNotFound: {
     title: "Attn!",
     message: "Products with this price not found. Please, repeat with another price!",

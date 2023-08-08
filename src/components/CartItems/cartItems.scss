@@ -179,15 +179,8 @@
     height: 130px;
   }
 }
-
-.checkout-cart-list__item-quantity {
-  @include flex(row, center, center);
-  font-size: 12px;
-  font-weight: 500;
-  height: 25px;
-  max-width: 90px;
-  gap: 10px;
-    -webkit-appearance: none;
+.checkout-cart-list__item-quantity-item {
+  -webkit-appearance: none;
   -webkit-border-radius: unset;
 
   &-minus,
@@ -215,7 +208,16 @@
       font-size: 18px;
     }
   }
- 
+}
+
+.checkout-cart-list__item-quantity {
+  @include flex(row, center, center);
+  font-size: 12px;
+  font-weight: 500;
+  height: 25px;
+  max-width: 90px;
+  gap: 10px;
+  
 }
 
 .checkout-cart-list__item-icon {

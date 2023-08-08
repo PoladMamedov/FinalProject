@@ -132,10 +132,10 @@ const FavoritesFull = (props) => {
                   </Link>
                 )}
                 <div className="favorites__item-details">
-                  <p className="favorites__item-title">
+                  <p className="cart-list__item-title">
                     <Link
                       to={`/products/${product.itemNo}`}
-                      className="cart-list__item-title"
+                      className="cart-list__item-title favorites__item-title"
                     >
                       {product.name}
                     </Link>
