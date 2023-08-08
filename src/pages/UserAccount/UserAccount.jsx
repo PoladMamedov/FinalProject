@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import UsersCabinet from "../UsersCabinet/UsersCabinet";
 import OrdersList from "../../components/OrderList/OrderList";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../../redux/actions/orders";
 
 function UserAccount() {
@@ -36,18 +36,16 @@ function UserAccount() {
       <div className="container">
         <div className="useraccount-section-btn">
           <button
-            className={`useraccount-section-btn-toggle ${
-              activeComponent === "account" ? "active" : ""
-            }`}
+            className={`useraccount-section-btn-toggle ${activeComponent === "account" ? "active" : ""
+              }`}
             type="button"
             onClick={handleProfileButtonClick}
           >
             My Account
           </button>
           <button
-            className={`useraccount-section-btn-toggle ${
-              activeComponent === "ordersList" ? "active" : ""
-            }`}
+            className={`useraccount-section-btn-toggle ${activeComponent === "ordersList" ? "active" : ""
+              }`}
             type="button"
             onClick={handleMyOrdersButtonClick}
           >

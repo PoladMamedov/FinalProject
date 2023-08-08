@@ -42,8 +42,8 @@ function OrdersList() {
   const toggleOrderItem = (orderId) => {
     setActiveItemIds(
       (prevActiveItemIds) => prevActiveItemIds.includes(orderId)
-          ? prevActiveItemIds.filter((id) => id !== orderId)
-          : [...prevActiveItemIds, orderId]
+        ? prevActiveItemIds.filter((id) => id !== orderId)
+        : [...prevActiveItemIds, orderId]
     );
   };
 
@@ -65,9 +65,8 @@ function OrdersList() {
                   </div>
 
                   <div
-                    className={`orders-section-main-list-item-content-total ${
-                      activeItemIds.includes(order._id) ? "active" : ""
-                    }`}
+                    className={`orders-section-main-list-item-content-total ${activeItemIds.includes(order._id) ? "active" : ""
+                      }`}
                   >
                     <p>Total</p>
                     <div className="checkout-section__product-summary-computer-total-price">
@@ -81,9 +80,8 @@ function OrdersList() {
                     </div>
                   </div>
                   <button
-                    className={`orders-section-main-list-btn ${
-                      activeItemIds.includes(order._id) ? "active" : ""
-                    }`}
+                    className={`orders-section-main-list-btn ${activeItemIds.includes(order._id) ? "active" : ""
+                      }`}
                     type="button"
                     onClick={() => toggleOrderItem(order._id)}
                   >
@@ -93,9 +91,8 @@ function OrdersList() {
                     />
                   </button>
                   <button
-                    className={`orders-section-main-list-btn ${
-                      !activeItemIds.includes(order._id) ? "active" : ""
-                    }`}
+                    className={`orders-section-main-list-btn ${!activeItemIds.includes(order._id) ? "active" : ""
+                      }`}
                     type="button"
                     onClick={() => toggleOrderItem(order._id)}
                   >
@@ -104,9 +101,8 @@ function OrdersList() {
                 </div>
 
                 <ul
-                  className={`orders-section-sub-list ${
-                    activeItemIds.includes(order._id) ? "active" : ""
-                  }`}
+                  className={`orders-section-sub-list ${activeItemIds.includes(order._id) ? "active" : ""
+                    }`}
                 >
                   <div className="orders-section-sub-list-total-wrap">
                     <div className="orders-section-sub-list-total-wrap-p total">

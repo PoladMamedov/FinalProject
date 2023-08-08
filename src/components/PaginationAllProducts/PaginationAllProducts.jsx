@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
   const MAX_VISIBLE_PAGES = 3; // Максимальное количество видимых номеров страниц
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
