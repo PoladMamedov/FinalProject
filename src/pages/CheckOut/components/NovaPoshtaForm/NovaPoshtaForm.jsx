@@ -14,7 +14,7 @@ import setOrderNumber from "../../../../redux/actions/orders";
 
 function NovaPoshtaForm() {
   const { findCity, findWarehouse } = useNovaPoshta();
-const { placeOrder, deleteCart } = useServer();
+  const { placeOrder, deleteCart } = useServer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -54,9 +54,7 @@ const { placeOrder, deleteCart } = useServer();
     setWarehouseSearchResult(searchResult);
     setLoading(false);
   }
-  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [
-    searchedWarehouse,
-  ]);
+  useDebounce(() => handleWarehouseSearch(searchedWarehouse), 500, [searchedWarehouse]);
 
   function handleWarehouseSelect(warehouse) {
     setSearchedWarehouse(warehouse);
@@ -71,13 +69,8 @@ const { placeOrder, deleteCart } = useServer();
   const cartProducts = useSelector((state) => state.cart.cart);
 
   async function handleSubmit() {
+    if (email === "" || phoneNumber === "" || selectedCity === "" || selectedWarehouse === "") return;
     setLoading(true);
-    if (
-      email === ""
-      || phoneNumber === ""
-      || selectedCity === ""
-      || selectedWarehouse === ""
-    ) return;
     const newOrderInfo = {
       customerId: _id,
       products: cartProducts,
@@ -88,7 +81,6 @@ const { placeOrder, deleteCart } = useServer();
     };
     const orderData = createOrder(newOrderInfo);
     const response = await placeOrder(orderData, token);
-    console.log(response);
     const orderNumber = response.order.orderNo;
     await deleteCart(token);
     dispatch(removeEntireCart());
@@ -100,7 +92,12 @@ const { placeOrder, deleteCart } = useServer();
   return (
     <div className="np-delivery">
       <h3 className="np-delivery__title">
-        <img width={50} height={50} src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690295247/np_sykefc.png" alt="" />
+        <img
+          width={50}
+          height={50}
+          src="https://res.cloudinary.com/dfinki0p4/image/upload/v1690295247/np_sykefc.png"
+          alt=""
+        />
         Nova Poshta delivery information:
       </h3>
       <form
@@ -185,9 +182,7 @@ const { placeOrder, deleteCart } = useServer();
           Submit
         </button>
       </form>
-      {!showWarehouseSuggestions && !showCitySuggestions && loading ? (
-        <PreLoader fillScreen />
-      ) : null}
+      {!showWarehouseSuggestions && !showCitySuggestions && loading ? <PreLoader fillScreen /> : null}
     </div>
   );
 }

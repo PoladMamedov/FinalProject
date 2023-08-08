@@ -30,7 +30,6 @@ function TopProductItem() {
         <h2 className={"top-product"}>Top Products</h2>
         <div className="top-product__card">
           {storedProducts.map((e) => (
-            // eslint-disable-next-line no-underscore-dangle
             <ProductCard item={e} key={e._id} />
           ))}
         </div>

@@ -55,7 +55,7 @@ export default function ProductDetail() {
           <Specifications {...productData} />
         </div>
       </section>
-      <Comments target={"product"} targetID={productID} />
+      <Comments productID={productID} />
     </>
   );
 }
