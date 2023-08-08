@@ -16,6 +16,7 @@ function OrdersList() {
   const currencyValue = parseFloat(currency);
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedProducts, setPaginatedProducts] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [productsPerPage, setProductsPerPage] = useState(4);
   const totalPages = Math.ceil(orders.length / productsPerPage);
 

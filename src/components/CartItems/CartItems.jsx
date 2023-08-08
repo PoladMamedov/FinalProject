@@ -250,7 +250,7 @@ const currencyValue = parseFloat(currency);
           <div className="checkout-cart-list__item-quantity">
             <button
               type={"button"}
-              className="checkout-cart-list__item-quantity-minus"
+              className="checkout-cart-list__item-quantity-item checkout-cart-list__item-quantity-item-minus"
               onClick={() => onDecreaseItem(itemId, userToken)}
               disabled={cartQuantity <= 1}
             >
@@ -258,14 +258,14 @@ const currencyValue = parseFloat(currency);
             </button>
             <input
               type={"text"}
-              className="checkout-cart-list__item-quantity-number"
+              className="checkout-cart-list__item-quantity-item checkout-cart-list__item-quantity-item-number"
               value={inputValue}
               onChange={(event) => handleInputChange(event.target.value)}
               onBlur={() => handleInputBlur(itemId, inputValue)}
             />
             <button
               type={"button"}
-              className="checkout-cart-list__item-quantity-plus"
+              className="checkout-cart-list__item-quantity-item checkout-cart-list__item-quantity-item-plus"
               onClick={() => onIncreaseItem(itemId, userToken)}
               disabled={cartQuantity === props.dataProducts.product.quantity}
             >
