@@ -243,6 +243,18 @@ export default function useServer() {
     return wishlist;
   }
 
+  async function decreaseItemQuantity(productId, token) {
+    const decreaseItem = await fetch(`${url}/wishlist/product/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => err);
+    return decreaseItem;
+  }
+
   async function getCart(token) {
     const cart = await fetch(`${url}/cart`, {
       method: "GET",
