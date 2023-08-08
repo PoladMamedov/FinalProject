@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
@@ -6,7 +7,7 @@ import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProduct
 import useServer from "../../hooks/useServer";
 import Skeleton from "./Skeleton";
 import RecentlyViewedProducts from "../RecentlyProducts/RecentlyProducts";
-import { useLocation, useNavigate } from 'react-router-dom'
+
 
 function AllProductItems(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,18 +21,8 @@ function AllProductItems(props) {
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
-  const location = useLocation(); // Получаем текущий путь и параметры URL
-  const navigate = useNavigate();
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const pageFromQuery = parseInt(queryParams.get("page"), 10) || 1;
-
-    if (!currentPage || currentPage !== pageFromQuery) {
-      setCurrentPage(pageFromQuery);
-    }
-  }, []);
 
   const { getAllProducts } = useServer();
 
@@ -72,8 +63,13 @@ function AllProductItems(props) {
           setFilteredSmartWatch(result.filter((obj) => obj.categories === "smart_watch"));
           setIsLoading(false);
         }
+        props.setIsAllProductItemsEffectComplete ? props.setIsAllProductItemsEffectComplete(true) : null;
       });
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [allProducts]);
 
   useEffect(() => {
     if (allProducts.length === 0 && props.products) {
@@ -116,9 +112,6 @@ function AllProductItems(props) {
 
 
   const handlePageChange = (pageNumber) => {
-    const queryParams = new URLSearchParams(location.search);
-    queryParams.set("page", pageNumber);
-    navigate(`${location.pathname}?${queryParams.toString()}`);
     setCurrentPage(pageNumber);
   };
 
@@ -139,12 +132,12 @@ function AllProductItems(props) {
                 <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
               ))}
             </div>
-              <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
-              </>
+            <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+          </>
 
         )}
       </div>
-    <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
+      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }

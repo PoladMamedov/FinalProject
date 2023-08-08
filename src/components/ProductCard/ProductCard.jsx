@@ -14,7 +14,7 @@ import {
 } from "../../redux/actions/favorites";
 import { increaseCart, increaseCartAsync } from "../../redux/actions/cart";
 import FavoritesIcon from "../FavoritesIcon/FavoritesIcon";
-import CurrencyIcon from '../CurrencyIcon/CurrencyIcon'
+import CurrencyIcon from "../CurrencyIcon/CurrencyIcon";
 
 export default function ProductCard(props) {
   const compareBtn = useRef();
