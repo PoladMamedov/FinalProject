@@ -218,9 +218,11 @@ async function fetchFilteredProducts(checkedCategories, subcategorie, minPrice, 
       const products = Object.values(filteredProductsResponse);
       const firstArray = products[0];
       if (firstArray.length === 0 && !!minPrice && !!maxPrice) {
+        setValuesPrice((prevState) => ({ ...prevState, Max: "", Min: "" }));
         Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.productNotFound });
+      } else {
+        dispatch(addFilteredProducts(firstArray));
       }
-      dispatch(addFilteredProducts(firstArray));
     } catch (err) {
       Store.addNotification({ ...notificationsSettings.basic, ...notificationsSettings.error, message: err.message });
     }

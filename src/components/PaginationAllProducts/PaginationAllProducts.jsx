@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
-  const MAX_VISIBLE_PAGES = 3; // Максимальное количество видимых номеров страниц
+  const MAX_VISIBLE_PAGES = 3;
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
   const location = useLocation();
 
@@ -11,6 +11,7 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
     queryParams.set("page", onPageChange(currentPage));
   }, []);
 
+
   const getPageNumbers = () => {
     const ellipsis = <span key="ellipsis" className="ellipsis">...</span>;
 
@@ -18,11 +19,9 @@ function PaginationAllProducts({ currentPage, totalPages, onPageChange }) {
       return pageNumbers;
     }
 
-    const current = currentPage;
-
-    const neighbors = Math.floor((MAX_VISIBLE_PAGES - 1) / 2); // Количество соседних страниц
+    const neighbors = Math.floor((MAX_VISIBLE_PAGES - 1) / 2);
     let startPage = currentPage - neighbors;
-    let endPage = current + neighbors;
+    let endPage = currentPage + neighbors;
 
     if (startPage <= 0) {
       startPage = 1;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UsersCabinet from "../UsersCabinet/UsersCabinet";
-import OrdersList from "../../components/OrderList/OrderList";
 import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import { fetchOrders } from "../../redux/actions/orders";
+import OrdersList from "../../components/OrderList/OrderList";
 
 function UserAccount() {
   const [activeComponent, setActiveComponent] = useState(() => {
@@ -52,7 +52,7 @@ function UserAccount() {
             My orders
           </button>
         </div>
-        {activeComponent === "account" ? <UsersCabinet /> : <OrdersList />}
+        {activeComponent === "account" ? <UsersCabinet /> : <OrdersList/>}
       </div>
     </div>
   );

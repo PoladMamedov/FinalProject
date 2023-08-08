@@ -10,8 +10,8 @@ export function recentlyProductsReducer(state = initialState, action) {
       const existingProductIndex = state.findIndex((product) => product._id === action.payload._id);
 
       if (existingProductIndex !== -1) {
-        state.splice(existingProductIndex, 1); // Удаляем существующий номер из текущей позиции
-        return [action.payload, ...state]; // Добавляем номер на первое место
+        state.splice(existingProductIndex, 1);
+        return [action.payload, ...state];
       }
 
       // eslint-disable-next-line no-case-declarations

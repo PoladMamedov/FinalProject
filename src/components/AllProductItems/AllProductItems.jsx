@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import fillProducts from "../../redux/actions/products";
 import PaginationAllProducts from "../PaginationAllProducts/PaginationAllProducts";
@@ -22,18 +21,8 @@ function AllProductItems(props) {
 
   const allProducts = useSelector((state) => state.filteredProducts.filteredProducts);
   const [productsPerPage, setProductsPerPage] = useState(6);
-  const location = useLocation();
-  const navigate = useNavigate();
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const pageFromQuery = parseInt(queryParams.get("page"), 10) || 1;
-
-    if (!currentPage || currentPage !== pageFromQuery) {
-      setCurrentPage(pageFromQuery);
-    }
-  }, []);
 
   const { getAllProducts } = useServer();
 
@@ -79,6 +68,10 @@ function AllProductItems(props) {
   }, []);
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [allProducts]);
+
+  useEffect(() => {
     if (allProducts.length === 0 && props.products) {
       dispatch(fillProducts(allProductState));
     } else if (allProducts.length === 0 && props.prodmouse) {
@@ -119,9 +112,6 @@ function AllProductItems(props) {
 
 
   const handlePageChange = (pageNumber) => {
-    const queryParams = new URLSearchParams(location.search);
-    queryParams.set("page", pageNumber);
-    navigate(`${location.pathname}?${queryParams.toString()}`);
     setCurrentPage(pageNumber);
   };
 
@@ -141,12 +131,12 @@ function AllProductItems(props) {
                 <ProductCard isCardView={isCardView} active={currentPage} item={e} key={e._id} />
               ))}
             </div>
-              <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
-              </>
+            <PaginationAllProducts currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+          </>
 
         )}
       </div>
-    <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
+      <RecentlyViewedProducts active={currentPage} isCardView={isCardView} />
     </div>
   );
 }
