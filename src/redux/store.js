@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 import pagePathReducer from "./reducers/pagePath";
 import categories from "./reducers/categories";
 import userReducer from "./reducers/user";
@@ -48,7 +48,6 @@ const persistConfig = {
    "filteredProducts",
     "search",
     "toggleCard",
-    // "subcategory",
     "currentCurrency",
     "currentPath",
     "comments",
